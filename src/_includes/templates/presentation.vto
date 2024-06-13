@@ -1,0 +1,16 @@
+---
+layout: templates/base.vto
+stylesheets:
+  - /assets/vendor/reveal/dist/reveal.css
+  - /assets/vendor/reveal/dist/theme/simple.css
+---
+
+<div class="reveal">
+  <div class="slides">
+    {{ content }}
+  </div>
+</div>
+<script src="/assets/vendor/reveal/dist/reveal.js"></script>
+<script>
+  Reveal.initialize();
+</script>

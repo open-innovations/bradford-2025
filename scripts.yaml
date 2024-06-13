@@ -1,0 +1,5 @@
+scripts:
+  get_reveal:
+    - curl --location --output temp/reveal.zip https://github.com/hakimel/reveal.js/archive/master.zip
+    - mkdir --parents vendor
+    - unzip -o temp/reveal.zip -d vendor

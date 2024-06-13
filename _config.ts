@@ -28,4 +28,13 @@ site.use(feed({
   },
 }));
 
+// Copy Reveal code
+[
+  'dist/reveal.js',
+  'dist/reveal.css',
+  'dist/theme/simple.css',
+].forEach(f => site.remoteFile(`assets/vendor/reveal/${f}`, `vendor/reveal.js-master/${f}`));
+
+site.copy('assets/vendor', 'assets/vendor');
+
 export default site;
