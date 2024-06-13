@@ -28,6 +28,19 @@ site.use(feed({
   },
 }));
 
+// Copy typefaces
+[
+  'DenimINK-Bold-WY4SU2TF.woff2',
+  'DenimINK-Light-J3BAZLHK.woff2',
+  'DenimINK-Regular-YY7M2VJL.woff2',
+  'DenimINK-SemiBold-6EI7BXBD.woff2',
+].forEach(f => {
+  console.log(f)
+  site.remoteFile(`assets/fonts/${f}`, `vendor/bd25/${f}`)
+});
+
+site.copy('assets/fonts/');
+
 // Copy Reveal code
 [
   'dist/reveal.js',
@@ -35,6 +48,6 @@ site.use(feed({
   'dist/theme/simple.css',
 ].forEach(f => site.remoteFile(`assets/vendor/reveal/${f}`, `vendor/reveal.js-master/${f}`));
 
-site.copy('assets/vendor', 'assets/vendor');
+site.copy('assets/vendor/');
 
 export default site;
