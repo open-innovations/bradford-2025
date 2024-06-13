@@ -48,10 +48,9 @@ site.copy("assets/fonts/");
 
 // Copy Reveal code
 [
-  "dist/reveal.js",
   "dist/reveal.css",
 ].forEach((f) =>
-  site.remoteFile(`assets/vendor/reveal/${f}`, `vendor/reveal.js-master/${f}`)
+  site.remoteFile(`assets/vendor/reveal/${f}`, `node_modules/reveal.js/${f}`)
 );
 
 site.copy("assets/vendor/");
@@ -64,7 +63,7 @@ site.copy("assets/vendor/");
 ].forEach((c) =>
   site.remoteFile(
     `_includes/scss/${c}`,
-    `vendor/reveal.js-master/css/theme/template/${c}`,
+    `node_modules/reveal.js/css/theme/template/${c}`,
   )
 );
 
