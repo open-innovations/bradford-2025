@@ -41,10 +41,7 @@ site.use(feed({
   'DenimINK-Light-J3BAZLHK.woff2',
   'DenimINK-Regular-YY7M2VJL.woff2',
   'DenimINK-SemiBold-6EI7BXBD.woff2',
-].forEach(f => {
-  console.log(f)
-  site.remoteFile(`assets/fonts/${f}`, `vendor/bd25/${f}`)
-});
+].forEach(f => site.remoteFile(`assets/fonts/${f}`, `vendor/bd25/${f}`));
 
 site.copy('assets/fonts/');
 
