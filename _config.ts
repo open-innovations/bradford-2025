@@ -4,6 +4,7 @@ import date from "lume/plugins/date.ts";
 import esbuild from "lume/plugins/esbuild.ts";
 import feed from "lume/plugins/feed.ts";
 import postcss from "lume/plugins/postcss.ts";
+import sass from "lume/plugins/sass.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 
 const site = lume({
@@ -13,6 +14,7 @@ const site = lume({
 site.use(base_path());
 site.use(date());
 site.use(esbuild());
+site.use(sass()); // Requried for Reveal themes
 site.use(postcss());
 site.use(sitemap());
 site.use(feed({
@@ -49,5 +51,12 @@ site.copy('assets/fonts/');
 ].forEach(f => site.remoteFile(`assets/vendor/reveal/${f}`, `vendor/reveal.js-master/${f}`));
 
 site.copy('assets/vendor/');
+
+[
+  "mixins.scss",
+  "exposer.scss",
+  "settings.scss",
+  "theme.scss",
+].forEach(c => site.remoteFile(`_includes/scss/${c}`, `vendor/reveal.js-master/css/theme/template/${c}`))
 
 export default site;

@@ -1,0 +1,44 @@
+/**
+ * A BD25 theme for reveal.js presentations, based on the simple theme.
+ *
+ * This theme is Copyright (C) 2024 Giles Dring. It is MIT licensed.
+ * reveal.js is Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "scss/mixins.scss";
+@import "scss/settings.scss";
+// ---------------------------------------------
+
+
+
+// Include theme-specific fonts
+/*
+@import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+*/
+
+
+// Override theme settings (see ../template/settings.scss)
+$mainFont: var(--fontstack-main);
+$mainColor: var(--color-black);
+$headingFont: var(--fontstack-main);
+$headingColor: #000;
+$headingTextShadow: none;
+$headingTextTransform: none;
+$backgroundColor: var(--color-lightgrey);
+$linkColorHover: #45d10a;
+$linkColor: darken($linkColorHover, 20%);
+$selectionBackgroundColor: rgba(228, 174, 0, 0.99);
+
+$overlayElementBgColor: 0, 0, 0;
+$overlayElementFgColor: 240, 240, 240;
+
+// Change text colors against dark slide backgrounds
+@include dark-bg-text-color(#fff);
+
+
+// Theme template ------------------------------
+@import "scss/theme.scss";
+// ---------------------------------------------
