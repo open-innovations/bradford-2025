@@ -1,9 +1,9 @@
-import { SiteWatcher } from "lume/core/watcher.ts";
 import lume from "lume/mod.ts";
 import base_path from "lume/plugins/base_path.ts";
 import date from "lume/plugins/date.ts";
 import esbuild from "lume/plugins/esbuild.ts";
 import feed from "lume/plugins/feed.ts";
+import metas from "lume/plugins/metas.ts";
 import postcss from "lume/plugins/postcss.ts";
 import sass from "lume/plugins/sass.ts";
 import sitemap from "lume/plugins/sitemap.ts";
@@ -21,6 +21,7 @@ site.use(postcss());
 
 site.use(svgo());
 
+site.use(metas());
 site.use(sitemap());
 site.use(feed({
   output: ["/site.rss", "/site.json"],
