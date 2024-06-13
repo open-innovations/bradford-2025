@@ -5,6 +5,7 @@ import esbuild from "lume/plugins/esbuild.ts";
 import feed from "lume/plugins/feed.ts";
 import metas from "lume/plugins/metas.ts";
 import postcss from "lume/plugins/postcss.ts";
+import redirects from "lume/plugins/redirects.ts";
 import sass from "lume/plugins/sass.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 import svgo from "lume/plugins/svgo.ts";
@@ -18,6 +19,7 @@ site.use(date());
 site.use(esbuild());
 site.use(sass()); // Requried for Reveal themes
 site.use(postcss());
+site.use(redirects());
 
 site.use(svgo());
 
