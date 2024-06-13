@@ -3,3 +3,9 @@ scripts:
     - curl --location --output temp/reveal.zip https://github.com/hakimel/reveal.js/archive/master.zip
     - mkdir --parents vendor
     - unzip -o temp/reveal.zip -d vendor
+  get_typefaces:
+    - mkdir --parents vendor/bd25
+    - curl --location -o vendor/bd25/DenimINK-Bold-WY4SU2TF.woff2 https://bradford2025.co.uk/wp-content/themes/bd25/dist/DenimINK-Bold-WY4SU2TF.woff2
+    - curl --location -o vendor/bd25/DenimINK-Light-J3BAZLHK.woff2 https://bradford2025.co.uk/wp-content/themes/bd25/dist/DenimINK-Light-J3BAZLHK.woff2
+    - curl --location -o vendor/bd25/DenimINK-Regular-YY7M2VJL.woff2 https://bradford2025.co.uk/wp-content/themes/bd25/dist/DenimINK-Regular-YY7M2VJL.woff2
+    - curl --location -o vendor/bd25/DenimINK-SemiBold-6EI7BXBD.woff2 https://bradford2025.co.uk/wp-content/themes/bd25/dist/DenimINK-SemiBold-6EI7BXBD.woff2
