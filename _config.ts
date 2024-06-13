@@ -1,3 +1,4 @@
+import { SiteWatcher } from "lume/core/watcher.ts";
 import lume from "lume/mod.ts";
 import base_path from "lume/plugins/base_path.ts";
 import date from "lume/plugins/date.ts";
@@ -6,6 +7,7 @@ import feed from "lume/plugins/feed.ts";
 import postcss from "lume/plugins/postcss.ts";
 import sass from "lume/plugins/sass.ts";
 import sitemap from "lume/plugins/sitemap.ts";
+import svgo from "lume/plugins/svgo.ts";
 
 const site = lume({
   src: './src',
@@ -16,6 +18,9 @@ site.use(date());
 site.use(esbuild());
 site.use(sass()); // Requried for Reveal themes
 site.use(postcss());
+
+site.use(svgo());
+
 site.use(sitemap());
 site.use(feed({
   output: ["/site.rss", "/site.json"],
