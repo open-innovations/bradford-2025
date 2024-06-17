@@ -40,10 +40,16 @@ site.use(feed({
 
 // Copy typefaces
 [
+  "DenimINK-Bold-5SFPWNGF.woff",
   "DenimINK-Bold-WY4SU2TF.woff2",
+  "DenimINK-Light-HFY2BIIM.woff",
   "DenimINK-Light-J3BAZLHK.woff2",
+  "DenimINK-Medium-BLMRAKTV.woff",
+  "DenimINK-Medium-T4JMAUMH.woff2",
+  "DenimINK-Regular-UUJ7XEES.woff",
   "DenimINK-Regular-YY7M2VJL.woff2",
   "DenimINK-SemiBold-6EI7BXBD.woff2",
+  "DenimINK-SemiBold-47CY3AKH.woff",
 ].forEach((f) => site.remoteFile(`assets/fonts/${f}`, `vendor/bd25/${f}`));
 
 site.copy("assets/fonts/");
