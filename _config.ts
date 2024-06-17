@@ -9,6 +9,7 @@ import redirects from "lume/plugins/redirects.ts";
 import sass from "lume/plugins/sass.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 import svgo from "lume/plugins/svgo.ts";
+import favicon from "lume/plugins/favicon.ts";
 
 const site = lume({
   src: "./src",
@@ -20,6 +21,7 @@ site.use(esbuild());
 site.use(sass()); // Requried for Reveal themes
 site.use(postcss());
 site.use(redirects());
+site.use(favicon());
 
 site.use(svgo());
 
