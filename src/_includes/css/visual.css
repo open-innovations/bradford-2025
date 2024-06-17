@@ -1,0 +1,31 @@
+@layer overrides {
+  .post-its {
+    --bg-col: var(--color-lightgrey);
+    ul {
+      list-style: none !important;
+      display: flex !important;
+      padding: 0;
+      gap: 0.5em;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    li {
+      position: relative;
+      flex-basis: 5em;
+      flex-grow: 0;
+      flex-shrink: 0;
+      height: 4em;
+      background: #e4ae00;
+      padding: 0.5em;
+      &:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 0;
+        border-right: 0.5em solid var(--bg-col);
+        border-top: 0.5em solid hsl(46, 100%, 35%);
+    }
+    }
+  }
+}
