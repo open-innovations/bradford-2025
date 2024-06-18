@@ -11,9 +11,13 @@
   justify-content: center;
 }
 
+:root {
+  --post-it-bg: var(--color-lightgrey);
+}
+
 .post-it {
-  --bg-col: var(--color-lightgrey);
   position: relative;
+  outline: none;
   flex-basis: 5em;
   flex-grow: 0;
   flex-shrink: 0;
@@ -25,8 +29,8 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 0;
-    border-right: 0.5em solid var(--bg-col);
+    /* width: 0; */
+    border-right: 0.5em solid var(--post-it-bg);
     border-top: 0.5em solid hsl(46, 100%, 35%);
   }
 }

@@ -1,0 +1,8 @@
+<section data-background-color="#1c1b1f" id="references">
+  <h2>References</h2>
+  {{ comp BlockGrid }}
+    {{ for i, s of references }}
+      <a href="{{ s.url }}">{{ s.title }}</a>
+    {{ /for }}
+  {{ /comp }}
+</section>

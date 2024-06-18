@@ -4,13 +4,7 @@ layout: templates/presentation.vto
 oldUrl: /
 ---
 
-<section data-background-color="#1c1b1f">
-  <h1 style="color:var(--color-pink);">
-    <div style="font-size:0.8em;"><strong>Bradford 2025</strong></div>
-    <div style="font-size:0.57em;">Outline Data Strategy</div>
-  </h1>
-  <img style="max-height:20vh;max-width:30vh;" src="/assets/images/logo.svg">
-</section>
+{{ include "./_partials/0-title.vto" }}
 
 {{ include "./_partials/1-summary.vto" }}
 
@@ -18,21 +12,10 @@ oldUrl: /
 
 {{ include "./_partials/3-stakeholders.vto" }}
 
-<section data-background-color="#1c1b1f" id="data-sources">
-  <h2>Data Sources</h2>
-</section>
+{{ include "./_partials/4-data-sources.vto" }}
 
-<section data-background-color="#1c1b1f" id="technical-platform">
-  <h2>Technical Platform</h2>
-</section>
+{{ include "./_partials/5-technical-platform.vto" }}
 
-<section data-background-color="#1c1b1f" id="related-workstreams">
-  <h2>Related Workstreams</h2>
-</section>
+{{ include "./_partials/6-related-workstreams.vto" }}
 
-<section data-background-color="#1c1b1f" id="references">
-  <h2>References</h2>
-  <ul>
-  <li><a href="https://data.leeds2023.co.uk/">LEEDS 2023 Data Microsite</a></li>
-  </ul>
-</section>
+{{ include "./_partials/7-references.vto" }}

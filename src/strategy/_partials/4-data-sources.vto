@@ -1,0 +1,25 @@
+<section data-background-color="#1c1b1f" id="data-sources">
+  <h2>Data Sources</h2>
+  <p>
+    We need to catalogue where we will be getting data from.
+  </p>
+</section>
+
+<section>
+  <table style="font-size:2.5vh;">
+    <thead>
+      <tr>
+        <th>Topic</th><th>System(s)</th><th>Dataset(s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ for s of sources }}
+        <tr>
+          <td>{{ s.topic }}</td>
+          <td>{{ s.system?.join(", ") || "TBC" }}</td>
+          <td>{{ s.dataset?.join(", ") || "TBC" }}</td>
+        </tr>
+      {{ /for }}
+    </tbody>
+  </table>
+</section>

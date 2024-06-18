@@ -1,3 +1,7 @@
+<style>
+  figure svg { max-height: 50vh; }
+</style>
+
 <section data-background-color="#1c1b1f" id="stakeholders">
   <h2>Stakeholders</h2>
   <p>
@@ -6,8 +10,12 @@
 </section>
 
 <section>
-  <h3>Stakeholder groups</h3>
-  {{ include './stakeholders.svg'}}
+  <figure>
+    <figcaption>
+      <h3>Stakeholder groups</h3>
+    </figcaption> 
+    {{ include './stakeholders.svg'}}
+  </figure>
 </section>
 
 <section>
@@ -16,9 +24,10 @@
   <ul class="no-bullets flex-grid" style="font-size: 1.5rem;">
 
     <li class="post-it">Comms / PR</li>
+    <li class="post-it">Evaluation</li>
+    <li class="post-it">Development</li>
     <li class="post-it">Production</li>
     <li class="post-it">Operations</li>
-    <li class="post-it">Evaluation</li>
     <li class="post-it">Board / Trustees</li>
 
     <li class="post-it">...</li>
@@ -44,14 +53,15 @@
 
 <section>
   <h3>Indirect stakeholders</h3>
-  <p>Other people interested in the data.</p>
+  <p>Other people interested in the data</p>
 
   <ul class="no-bullets flex-grid" style="font-size: 1.5rem;">
 
     <li class="post-it">Communities</li>
-    <li class="post-it">Arts Council</li>
+    <li class="post-it">Arts Council England</li>
     <li class="post-it">Local arts organisations</li>
     <li class="post-it">Media</li>
+    <li class="post-it">WYCA</li>
 
     <li class="post-it">...</li>
 
