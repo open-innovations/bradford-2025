@@ -6,6 +6,7 @@
 </section>
 
 <section>
+  <h2>Evaluation</h2>
   <table style="font-size:2.5vh;">
     <thead>
       <tr>
@@ -13,7 +14,27 @@
       </tr>
     </thead>
     <tbody>
-      {{ for s of sources }}
+      {{ for s of sources.filter(x => x.tag == "evaluation") }}
+        <tr>
+          <td>{{ s.topic }}</td>
+          <td>{{ s.system?.join(", ") || "TBC" }}</td>
+          <td>{{ s.dataset?.join(", ") || "TBC" }}</td>
+        </tr>
+      {{ /for }}
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Other sources</h2>
+  <table style="font-size:2.5vh;">
+    <thead>
+      <tr>
+        <th>Topic</th><th>System(s)</th><th>Dataset(s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ for s of sources.filter(x => x.tag != "evaluation") }}
         <tr>
           <td>{{ s.topic }}</td>
           <td>{{ s.system?.join(", ") || "TBC" }}</td>
