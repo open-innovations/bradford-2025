@@ -13,6 +13,7 @@ import favicon from "lume/plugins/favicon.ts";
 
 const site = lume({
   src: "./src",
+  location: new URL('https://open-innovations.github.io/bradford-2025'),
 });
 
 site.use(base_path());
