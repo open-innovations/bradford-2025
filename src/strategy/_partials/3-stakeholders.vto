@@ -19,18 +19,42 @@
 </section>
 
 <section>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
+  <p>
+    Stakeholders need for data will influence requirements and priorities.
+  </p>
+  <div class="grid-block" style="color: var(--color-midgrey) !important;--bg-col: var(--color-black);text-align:initial;">
+  {{ comp.Stakeholder({
+    name: "Stakeholder name",
+    aim: "Aim in relation to data"
+  })}}
+  </div>
+  </div>
+  <p>
+    The following pages summarise the stakeholders using
+  </p>
+</section>
+
+<section>
   <h3>Internal stakeholders</h3>
-  <p>The Bradford 2025 team</p>
-  <ul class="no-bullets flex-grid" style="font-size: 1.5rem;">
+  <p>Bradford 2025 team</p>
 
-    <li class="post-it">Comms / PR</li>
-    <li class="post-it">Evaluation</li>
-    <li class="post-it">Development</li>
-    <li class="post-it">Production</li>
-    <li class="post-it">Operations</li>
-    <li class="post-it">Board / Trustees</li>
+  <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-pink);">
+    {{ for s of stakeholders |> filter(s => s.type === 'internal') }}
+      <li class="grid-block">
+        {{ comp.Stakeholder({ name: s.name, examples: s.examples, aim: s.aim }) }}
+      </li>
+    {{ /for }}
+  </ul>
 
-    <li class="post-it">...</li>
+</section>
+
+<section>
+  <h3>Overriding internal aims</h3>
+  <ul>
+    <li>Have information easily at hand</li>
+    <li>Enable early feedback and course correction towards broad goals</li>
+    <li>Reduce time spent report writing for funders, etc</li>
   </ul>
 </section>
 
@@ -38,15 +62,12 @@
   <h3>Direct stakeholders</h3>
   <p>People we know about and actively speak to</p>
 
-  <ul class="no-bullets flex-grid" style="font-size: 1.5rem;">
-
-    <li class="post-it">Bradford MDC</li>
-    <li class="post-it">Bradford Producing Hub</li>
-    <li class="post-it">University of Bradford</li>
-    <li class="post-it">University of Leeds</li>
-
-    <li class="post-it">...<li>
-
+  <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-green);">
+    {{ for s of stakeholders |> filter(s => s.type === 'direct') }}
+      <li class="grid-block">
+        {{ comp.Stakeholder({ name: s.name, examples: s.examples, aim: s.aim }) }}
+      </li>
+    {{ /for }}
   </ul>
 
 </section>
@@ -55,16 +76,12 @@
   <h3>Indirect stakeholders</h3>
   <p>Other people interested in the data</p>
 
-  <ul class="no-bullets flex-grid" style="font-size: 1.5rem;">
-
-    <li class="post-it">Communities</li>
-    <li class="post-it">Arts Council England</li>
-    <li class="post-it">Local arts organisations</li>
-    <li class="post-it">Media</li>
-    <li class="post-it">WYCA</li>
-
-    <li class="post-it">...</li>
-
+  <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-yellow);">
+    {{ for s of stakeholders |> filter(s => s.type === 'indirect') }}
+      <li class="grid-block">
+        {{ comp.Stakeholder({ name: s.name, examples: s.examples, aim: s.aim }) }}
+      </li>
+    {{ /for }}
   </ul>
 
 </section>

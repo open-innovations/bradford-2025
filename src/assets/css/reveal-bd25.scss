@@ -44,3 +44,14 @@ $overlayElementFgColor: 240, 240, 240;
 // Theme template ------------------------------
 @import "scss/theme.scss";
 // ---------------------------------------------
+
+.grid-block { 
+  background: var(--bg-col);
+  padding: 1rem;
+  & :is(*, h4, p) {
+    margin: 0;
+    & + * {
+      margin-top: 0.5em;
+    }
+  }
+}
