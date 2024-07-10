@@ -16,7 +16,7 @@ const colour = {
 const series = {
   topic: { colour: colour.pink, label: "Topic" },
   output: { colour: colour.green, label: "Output" },
-  system: { colour: colour.yellow, label: "System" },
+  system: { colour: colour.yellow, label: "Source" },
 }
 
 async function init(selector: string) {
@@ -25,12 +25,16 @@ async function init(selector: string) {
 
   const data = await d3.json("/strategy/data.json");
 
-  const { width, height } = container.getBoundingClientRect();
+  // const { width, height } = container.getBoundingClientRect();
+  const width = 600;
+  const height = 300;
   const nodes = data.nodes.map((n) => ({ ...n }));
   const links = data.links.map((e) => ({ ...e }));
 
   const centre = d3.forceCenter(width / 2, height / 2);
+  recentre(width / 2, height / 2);
   const charge = d3.forceManyBody();
+  charge.distanceMax(Math.min(width, height) / 4);
 
   const simulation = d3.forceSimulation(nodes)
     .force("link", d3.forceLink(links).id((d) => d.id))
@@ -44,23 +48,25 @@ async function init(selector: string) {
     centre.y(y);
   }
 
-  const watcher = new ResizeObserver((entries) => {
-    const { width, height } = entries[0].contentRect;
-    recentre(width / 2, height / 2);
-    charge.distanceMax(Math.min(width, height) / 4);
-    simulation.restart();
-    svg
-      .attr("width", width)
-      .attr("height", height)
-      .attr("viewBox", [0, 0, width, height]);
-  })
-  watcher.observe(container);
+  // const watcher = new ResizeObserver((entries) => {
+  //   const { width, height } = entries[0].contentRect;
+  //   recentre(width / 2, height / 2);
+  //   charge.distanceMax(Math.min(width, height) / 4);
+  //   simulation.restart();
+  //   svg
+  //     .attr("width", width)
+  //     .attr("height", height)
+  //     .attr("viewBox", [0, 0, width, height]);
+  // })
+  // watcher.observe(container);
 
   const svg = d3.create("svg")
-    .attr("width", width)
-    .attr("height", height)
+    // .attr("width", width)
+    // .attr("height", height)
     .attr("viewBox", [0, 0, width, height])
-    .attr("style", "max-width:100%;height:auto;");
+    .attr("font-size", 10)
+    // .attr("style", "max-width:100%;height:auto;");
+    .attr("preserveAspectRatio", "xMidYMid meet");
 
   const link = svg.append("g")
     .attr("stroke", "#d5d3d0")
@@ -81,10 +87,19 @@ async function init(selector: string) {
   const legend = svg.append("g").attr("transform", "translate(20, 20)")
 
   Object.values(series).forEach((s, i) => {
-    const r = 10
+    const r = 5
     const y = (2 * r + 5) * i;
-    legend.append("circle").attr("r", r).attr("cy", y).attr("fill", s.colour )
-    legend.append("text").attr("dx", r + 5).attr("dy", y + 5).text(s.label)
+    legend.append("circle")
+      .attr("r", r)
+      .attr("cy", y)
+      .attr("fill", s.colour )
+      .attr("stroke", "#aaa")
+      .attr("stroke-width", "1.5");
+
+    legend.append("text")
+      .attr("dx", r + 5)
+      .attr("dy", y + 4)
+      .text(s.label);
   })
 
   node.append("title")

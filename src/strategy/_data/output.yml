@@ -1,25 +1,40 @@
 - id: cultural-engagement-and-participation
   indicator:
     - id: grants
+      source:
+        - airtable
     - id: events
       details: Count, type, location of events
+      source:
+        - airtable
     - id: audience-projections
+      source:
+        - airtable
     - id: audience-actuals
+      source:
+        - airtable
+        - ticketing
     - id: tickets
+      source:
+        - ticketing
     - id: event-assessment
     - id: partner-organisations
     - id: community-led-activities
     - id: audience-experience
+      source:
+        - audience-survey
     - id: audience-experience-qual
+      source:
+        - audience-survey
     - id: artist-experience
     - id: artist-experience-qual
 - id: volunteering
   indicator:
     - id: volunteer-details
-      system:
+      source:
         - rosterfy
     - id: volunteer-shifts
-      system:
+      source:
         - rosterfy
     - id: volunteer-experience
     - id: youth-panel-experience
@@ -31,6 +46,8 @@
     - id: cci-apprenticeships-starts
     - id: cci-business-organisation-support
     - id: cci-destination-intentions
+      source:
+        - age-of-wonder
 
 - id: economy-tourism
   indicator:
@@ -39,7 +56,7 @@
     - id: business-experience
     - id: investment-details
     - id: media-coverage
-      system:
+      source:
         - cision
         - sprout
 
