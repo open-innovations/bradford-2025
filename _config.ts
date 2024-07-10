@@ -13,12 +13,23 @@ import favicon from "lume/plugins/favicon.ts";
 
 const site = lume({
   src: "./src",
-  location: new URL('https://open-innovations.github.io/bradford-2025'),
+  location: new URL("https://open-innovations.github.io/bradford-2025"),
 });
 
 site.use(base_path());
 site.use(date());
-site.use(esbuild());
+site.use(esbuild({
+  options: {
+    bundle: true,
+    format: "esm",
+    minify: false,
+    keepNames: true,
+    platform: "browser",
+    target: "esnext",
+    // incremental: true,
+    treeShaking: true,
+  },
+}));
 site.use(sass()); // Requried for Reveal themes
 site.use(postcss());
 site.use(redirects());
