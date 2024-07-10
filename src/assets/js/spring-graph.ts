@@ -21,9 +21,11 @@ const series = {
 
 async function init(selector: string) {
   const container = document.querySelector<HTMLElement>(selector);
+
+  const dataset = container?.dataset.file;
   if (!container) return;
 
-  const data = await d3.json("/strategy/data.json");
+  const data = await d3.json(dataset);
 
   // const { width, height } = container.getBoundingClientRect();
   const width = 600;
