@@ -1,89 +1,123 @@
-- id: cultural-engagement-and-participation
-  indicator:
-    - id: grants
-      source:
-        - airtable
-    - id: events
-      details: Count, type, location of events
-      source:
-        - airtable
-    - id: audience-projections
-      source:
-        - airtable
-    - id: audience-actuals
-      source:
-        - airtable
-        - ticketing
-    - id: tickets
-      source:
-        - ticketing
-    - id: event-assessment
-    - id: partner-organisations
-    - id: community-led-activities
-    - id: audience-experience
-      source:
-        - audience-survey
-    - id: audience-experience-qual
-      source:
-        - audience-survey
-    - id: artist-experience
-    - id: artist-experience-qual
-- id: volunteering
-  indicator:
-    - id: volunteer-details
-      source:
-        - rosterfy
-    - id: volunteer-shifts
-      source:
-        - rosterfy
-    - id: volunteer-experience
-    - id: youth-panel-experience
-- id: cultural-sector-diversity-sustainability
-  indicator:
-    - id: associate-diversity
-    - id: associate-experience
-    - id: cci-leadersip-programme-completions
-    - id: cci-apprenticeships-starts
-    - id: cci-business-organisation-support
-    - id: cci-destination-intentions
-      source:
-        - age-of-wonder
+- id: grants
+  topic: cultural-engagement-and-participation
+  source:
+    - airtable
+- id: events
+  topic: cultural-engagement-and-participation
+  details: Count, type, location of events
+  source:
+    - airtable
+- id: audience-projections
+  topic: cultural-engagement-and-participation
+  source:
+    - airtable
+- id: audience-actuals
+  topic: cultural-engagement-and-participation
+  source:
+    - airtable
+    - ticketing
+- id: tickets
+  topic: cultural-engagement-and-participation
+  source:
+    - ticketing
+- id: event-assessment
+  topic: cultural-engagement-and-participation
+- id: partner-organisations
+  topic: cultural-engagement-and-participation
+- id: community-led-activities
+  topic: cultural-engagement-and-participation
+- id: audience-experience
+  topic: cultural-engagement-and-participation
+  source:
+    - audience-survey
+- id: audience-experience-qual
+  topic: cultural-engagement-and-participation
+  source:
+    - audience-survey
+- id: artist-experience
+  topic: cultural-engagement-and-participation
+- id: artist-experience-qual
+  topic: cultural-engagement-and-participation
 
-- id: economy-tourism
-  indicator:
-    - id: visitor-details
-    - id: visitor-experience
-    - id: business-experience
-    - id: investment-details
-    - id: media-coverage
-      source:
-        - cision
-        - sprout
+- id: volunteer-details
+  topic: volunteering
+  source:
+    - rosterfy
+- id: volunteer-shifts
+  topic: volunteering
+  source:
+    - rosterfy
+- id: volunteer-experience
+  topic: volunteering
+- id: youth-panel-experience
+  topic: volunteering
 
-- id: personal-wellbeing
-  indicator:
-    - id: staff-wellbeing
-      method: employee-surveys
-    - id: audience-experience
-    - id: audience-experience-qual
-    - id: social-prescribing
-- id: community-wellbeing-civic-pride
-  indicator:
-    - id: resident-survey
-    - id: social-media-engagement
-    - id: audience-experience-qual
-- id: environment
-  indicator:
-    - id: staff-training
-    - id: electricity-usage
-    - id: fuel-usage
-    - id: carbon-offset
-    - id: audience-experience
-    - id: procurement-details
-    - id: waste-details
-- id: learning-culture
-  indicator:
-    - id: organisational-learning-qual
-    - id: partnership-experience-qual
-    - id: cultural-sector-experience
-    - id: staff-experience
+- id: associate-diversity
+  topic: cultural-sector-diversity-sustainability
+- id: associate-experience
+  topic: cultural-sector-diversity-sustainability
+- id: cci-leadersip-programme-completions
+  topic: cultural-sector-diversity-sustainability
+- id: cci-apprenticeships-starts
+  topic: cultural-sector-diversity-sustainability
+- id: cci-business-organisation-support
+  topic: cultural-sector-diversity-sustainability
+- id: cci-destination-intentions
+  topic: cultural-sector-diversity-sustainability
+  source:
+    - age-of-wonder
+
+- id: visitor-details
+  topic: economy-tourism
+- id: visitor-experience
+  topic: economy-tourism
+- id: business-experience
+  topic: economy-tourism
+- id: investment-details
+  topic: economy-tourism
+- id: media-coverage
+  topic: economy-tourism
+  source:
+    - cision
+    - sprout
+
+- id: staff-wellbeing
+  topic: personal-wellbeing
+  method: employee-surveys
+- id: audience-experience
+  topic: personal-wellbeing
+- id: audience-experience-qual
+  topic: personal-wellbeing
+- id: social-prescribing
+  topic: personal-wellbeing
+
+- id: resident-survey
+  topic: community-wellbeing-civic-pride
+- id: social-media-engagement
+  topic: community-wellbeing-civic-pride
+- id: audience-experience-qual
+  topic: community-wellbeing-civic-pride
+
+- id: staff-training
+  topic: environment
+- id: electricity-usage
+  topic: environment
+- id: fuel-usage
+  topic: environment
+- id: carbon-offset
+  topic: environment
+- id: audience-experience
+  topic: environment
+- id: procurement-details
+  topic: environment
+- id: waste-details
+  topic: environment
+
+- id: organisational-learning-qual
+  topic: learning-culture
+- id: partnership-experience-qual
+  topic: learning-culture
+- id: cultural-sector-experience
+  topic: learning-culture
+- id: staff-experience
+  topic: learning-culture
