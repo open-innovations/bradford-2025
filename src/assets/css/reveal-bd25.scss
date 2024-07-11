@@ -46,9 +46,57 @@ $overlayElementFgColor: 240, 240, 240;
 
 // Reveal overrides
 .reveal {
+  & .scroll-page-content, & .slide-background-content {
+    overflow: hidden;
+    &::after {
+      content: "Draft";
+      display: block;
+      text-align: center;
+      font-size: 2rem;
+      padding: 0.3rem;
+      background: #e4ae00;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 10em;
+      transform: translate(50%, -50%) rotate(45deg) translate(0, 5rem);
+    }
+  }
+
+  & dl.grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    & dt, & dd { margin: 0; }
+  }
+
+
+  .impact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1em;
+    justify-content: stretch;
+    & li {
+      flex-basis: 10em;
+      flex-grow: 0;
+      flex-shrink: 1;
+      background: var(--impact-bg, var(--color-grey));
+      padding: 0.5em;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1em;
+    }
+    & .tag {
+      font-size: 0.5em;
+    }
+  }
+
   .grid-block {
     background: var(--bg-col);
-    padding: 0.3em;
+    padding: 0.6rem;
     & :is(*, h4, p) {
       margin: 0;
       & + * {
@@ -92,4 +140,5 @@ $overlayElementFgColor: 240, 240, 240;
       border-top: 0.5em solid hsl(46, 100%, 35%);
     }
   }
+  #stakeholders svg { max-height: 60vh; }
 }
