@@ -11,13 +11,13 @@ const colour = {
   midgrey: "#d5d3d0",
   lightgrey: "#e6e4e5",
   darkgrey: "#434343",
-}
+};
 
 const series = {
   topic: { colour: colour.pink, label: "Topic" },
   output: { colour: colour.green, label: "Output" },
   system: { colour: colour.yellow, label: "Source" },
-}
+};
 
 async function init(selector: string) {
   const container = document.querySelector<HTMLElement>(selector);
@@ -85,7 +85,7 @@ async function init(selector: string) {
     .selectAll()
     .data(nodes)
     .join("circle")
-    .attr("r", d => d.r || 10)
+    .attr("r", (d) => d.r || 10)
     .attr("fill", (d) => series[d.type].colour || "#aaa");
 
   const label = graph.append("g")
@@ -96,17 +96,17 @@ async function init(selector: string) {
     .selectAll()
     .data(nodes)
     .join("text")
-    .text(d => d.name || d.id)
+    .text((d) => d.name || d.id);
 
-  const legend = svg.append("g").attr("transform", "translate(20, 20)")
+  const legend = svg.append("g").attr("transform", "translate(20, 20)");
 
   Object.values(series).forEach((s, i) => {
-    const r = 5
+    const r = 5;
     const y = (2 * r + 5) * i;
     legend.append("circle")
       .attr("r", r)
       .attr("cy", y)
-      .attr("fill", s.colour )
+      .attr("fill", s.colour)
       .attr("stroke", colour.midgrey)
       .attr("stroke-width", "1.5");
 
@@ -114,23 +114,27 @@ async function init(selector: string) {
       .attr("dx", r + 5)
       .attr("dy", y + 4)
       .text(s.label);
-  })
+  });
 
   node.append("title")
     .text((d) => d.id);
 
-   // Add a drag behavior.
-   node.call(d3.drag()
-    .on("start", dragstarted)
-    .on("drag", dragged)
-    .on("end", dragended));
+  // Add a drag behavior.
+  node.call(
+    d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended),
+  );
 
-  svg.call(d3.zoom()
-    .extent([[0, 0], [width, height]])
-    .scaleExtent([1, 8])
-    .on("zoom", zoomed));
+  svg.call(
+    d3.zoom()
+      .extent([[0, 0], [width, height]])
+      .scaleExtent([1, 8])
+      .on("zoom", zoomed),
+  );
 
-  function zoomed({transform}) {
+  function zoomed({ transform }) {
     graph.attr("transform", transform);
   }
 
@@ -146,7 +150,7 @@ async function init(selector: string) {
     label
       .attr("x", (d) => d.x)
       .attr("y", (d) => d.y);
-}
+  }
 
   // Reheat the simulation when drag starts, and fix the subject position.
   function dragstarted(event) {

@@ -6,6 +6,4 @@ export {
   forceManyBody,
   forceSimulation,
 } from "npm:d3-force@3.0.0";
-export {
-  zoom
-} from "npm:d3-zoom@3.0.0";
+export { zoom } from "npm:d3-zoom@3.0.0";
