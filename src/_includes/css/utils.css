@@ -1,0 +1,20 @@
+[data-flash] {
+  overflow: hidden;
+  position: relative;
+}
+[data-flash]:before {
+  content: attr(data-flash);
+  font-size: var(--flash-font-size, 1rem);
+  font-weight: initial;
+  display: block;
+  color: black;
+  background: #e4ae00;
+  text-align: center;
+  opacity: 80%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-block: 0.3rem;
+  padding-inline: 6rem;
+  transform: translate(50%, -50%) rotate(45deg) translate(0, var(--flash-offset, 3rem));
+}
