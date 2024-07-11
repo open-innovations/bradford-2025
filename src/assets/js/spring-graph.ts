@@ -70,14 +70,16 @@ async function init(selector: string) {
     // .attr("style", "max-width:100%;height:auto;");
     .attr("preserveAspectRatio", "xMidYMid meet");
 
-  const link = svg.append("g")
+  const graph = svg.append("g");
+
+  const link = graph.append("g")
     .attr("stroke", "#d5d3d0")
     .selectAll()
     .data(links)
     .join("line")
     .attr("stroke-width", (d) => "2");
 
-  const node = svg.append("g")
+  const node = graph.append("g")
     .attr("stroke", "#aaa")
     .attr("stroke-width", "1.5")
     .selectAll()
@@ -112,6 +114,15 @@ async function init(selector: string) {
     .on("start", dragstarted)
     .on("drag", dragged)
     .on("end", dragended));
+
+  svg.call(d3.zoom()
+    .extent([[0, 0], [width, height]])
+    .scaleExtent([1, 8])
+    .on("zoom", zoomed));
+
+  function zoomed({transform}) {
+    graph.attr("transform", transform);
+  }
 
   function ticked() {
     link
