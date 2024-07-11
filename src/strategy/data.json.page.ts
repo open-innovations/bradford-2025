@@ -7,7 +7,7 @@ export default function ({ topic, output, source }) {
 
   const nodes = [
     ...topic.map(({ id }) => ({ id, r: 5, type: "topic" })),
-    ...output.map(({ id }) => ({ id, r: 5, type: "output" })),
+    ...output.filter(firstMatch).map(({ id }) => ({ id, r: 5, type: "output" })),
     ...source.map(({ id }) => ({ id, r: 5, type: "system" })),
   ]
   
