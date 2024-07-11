@@ -6,9 +6,9 @@ const firstMatch = <T>(x: T, i: number, a: T[]) => a.map(x => x.id).indexOf(x.id
 export default function ({ topic, output, source }) {
 
   const nodes = [
-    ...topic.map(({ id }) => ({ id, r: 5, type: "topic" })),
-    ...output.filter(firstMatch).map(({ id }) => ({ id, r: 5, type: "output" })),
-    ...source.map(({ id }) => ({ id, r: 5, type: "system" })),
+    ...topic.map(({ id, name }) => ({ id, name, r: 5, type: "topic" })),
+    ...output.filter(firstMatch).map(({ id, name }) => ({ id, name, r: 5, type: "output" })),
+    ...source.map(({ id, name }) => ({ id, name, r: 5, type: "system" })),
   ]
   
   const links = [

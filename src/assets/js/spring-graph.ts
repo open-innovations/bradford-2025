@@ -73,20 +73,30 @@ async function init(selector: string) {
   const graph = svg.append("g");
 
   const link = graph.append("g")
-    .attr("stroke", "#d5d3d0")
+    .attr("stroke", colour.midgrey)
     .selectAll()
     .data(links)
     .join("line")
     .attr("stroke-width", (d) => "2");
 
   const node = graph.append("g")
-    .attr("stroke", "#aaa")
+    .attr("stroke", colour.grey)
     .attr("stroke-width", "1.5")
     .selectAll()
     .data(nodes)
     .join("circle")
     .attr("r", d => d.r || 10)
     .attr("fill", (d) => series[d.type].colour || "#aaa");
+
+  const label = graph.append("g")
+    .attr("transform", "translate(2 1.5)")
+    .attr("text-anchor", "left")
+    .attr("font-size", "5")
+    .attr("fill", colour.darkgrey)
+    .selectAll()
+    .data(nodes)
+    .join("text")
+    .text(d => d.name || d.id)
 
   const legend = svg.append("g").attr("transform", "translate(20, 20)")
 
@@ -97,7 +107,7 @@ async function init(selector: string) {
       .attr("r", r)
       .attr("cy", y)
       .attr("fill", s.colour )
-      .attr("stroke", "#aaa")
+      .attr("stroke", colour.midgrey)
       .attr("stroke-width", "1.5");
 
     legend.append("text")
@@ -133,7 +143,10 @@ async function init(selector: string) {
     node
       .attr("cx", (d) => d.x)
       .attr("cy", (d) => d.y);
-  }
+    label
+      .attr("x", (d) => d.x)
+      .attr("y", (d) => d.y);
+}
 
   // Reheat the simulation when drag starts, and fix the subject position.
   function dragstarted(event) {
