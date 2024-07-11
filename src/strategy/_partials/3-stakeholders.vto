@@ -31,13 +31,12 @@
   </div>
   </div>
   <p>
-    The following pages summarise the stakeholders using
+    The following pages summarise the stakeholders and their aims.
   </p>
 </section>
 
 <section>
   <h3>Internal stakeholders</h3>
-  <p>Bradford 2025 team</p>
 
   <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-pink);">
     {{ for s of stakeholders |> filter(s => s.type === 'internal') }}
@@ -46,6 +45,8 @@
       </li>
     {{ /for }}
   </ul>
+
+  <p>{{ comp Quote }}The Bradford 2025 team{{ /comp }}</p>
 
 </section>
 
@@ -60,8 +61,6 @@
 
 <section>
   <h3>Direct stakeholders</h3>
-  <p>People we know about and actively speak to</p>
-
   <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-green);">
     {{ for s of stakeholders |> filter(s => s.type === 'direct') }}
       <li class="grid-block">
@@ -70,12 +69,12 @@
     {{ /for }}
   </ul>
 
+  <p>{{ comp Quote }}People we are actively working with or speaking to{{ /comp }}</p>
+
 </section>
 
 <section>
   <h3>Indirect stakeholders</h3>
-  <p>Other people interested in the data</p>
-
   <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-yellow);">
     {{ for s of stakeholders |> filter(s => s.type === 'indirect') }}
       <li class="grid-block">
@@ -83,5 +82,7 @@
       </li>
     {{ /for }}
   </ul>
+
+  <p>{{ comp Quote }}Other people interested in the data{{ /comp }}</p>
 
 </section>
