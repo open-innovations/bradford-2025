@@ -53,27 +53,82 @@
   <h3>Data infrastructure</h3>
 
   <p>
-    The programme will build on or contribute to cultural data infrastructure for Bradford.
+    We will build cultural data infrastructure for Bradford.
   </p>
-  <table style="font-size:0.8em;">
-    <thead>
-      <tr>
-        <th>Component</th><th>Attributes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Venue</td><td>location, capacity, accessibility</td>
-      </tr>
-      <tr>
-        <td>Organisation</td><td>location, contact, mission, sector</td>
-      </tr>
-      <tr>
-        <td>Geospatial mapping</td><td>postcode to geography lookup</td>
-      </tr>
-      <tr>
-        <td>Geospatial visualisation</td><td>geographic maps, hexmaps</td>
-      </tr>
-    </tbody>
-  </table>
+  <dl>    
+    <dt>Venue dataset</dt>
+      <dd>Location, capacity, accessibility</dd>
+    <dt>Cultural organisations</dt>
+      <dd>Location, contact, mission, sector</dd>
+    <dt>Geospatial mapping and visualisation</dt>
+      <dd>Address to geography lookup</dd>
+      <dd>Geographic base maps, hexmaps</dd>
+  </dl>
+</section>
+
+<section>
+<style>
+  .reveal .oi-map {
+    flex-basis: 10em;
+    background: var(--color-midgrey);
+    .skip-link { display: none; }
+    svg {
+      max-height: 40vh !important;
+      .background .area path {
+        stroke: var(--color-darkgrey);
+        stroke-width: 1;
+      }
+    }
+  }
+</style>
+<h2>Geographies are difficult</h2>
+<div style="display:flex;gap:1rem;">
+<dl style="font-size:0.7em;">
+  <dt style="background: var(--color-green);">Bradford MDC</dt>
+    <dd>&ldquo;Official&rdquo; boundary of the UK City of Culture.</dd>
+    <dd>Community affinity to postcode not council ward.</dd>
+  <dt style="background: var(--color-pink);">Bradford Postcode areas</dt>
+    <dd>Some are totally outside council area</dd>
+    <dd>Some Bradford MDC postcodes are from other postal towns (e.g. LS29, HX3)</dd>
+</dl>
+{{ comp.oi.map.svg({ config: {
+  geojson: { key: "LAD24CD", data: geojson.bd_lad },
+  data: [{ LAD24CD: "E08000032", colour: "#45d10aBB" }],
+  key: "LAD24CD",
+  background: {
+    geojson: geojson.bd_pcd,
+    colour: "#ffadd5",
+  },
+  bounds: {
+    lat: { min: 53.7, max: 54.27},
+    lon: { min: -2.45, max: -1.6},
+  }
+} }) }}
+</div>
+</section>
+
+<section>
+<p>Larger, rural areas can visually swamp smaller, urban areas.</p>
+<style>
+  .reveal {
+    .oi-map-map {
+      .hex {
+        path {
+          stroke: var(--color-darkgrey);
+          stroke-width: 5px;
+        }
+        text {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+</style>
+{{ comp.oi.map.hex_cartogram({ config: {
+  hexjson: hexes.bd_2022,
+  label: '{{ n | slice(0,13) }}',
+  colours: { green: "#45d10a" },
+  value: "green"
+} }) }}
+<p>Hexmaps give all areas the same visual weight</p>
 </section>

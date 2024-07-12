@@ -11,3 +11,5 @@ scripts:
     - curl --location -o vendor/bd25/DenimINK-Regular-YY7M2VJL.woff2 https://bradford2025.co.uk/wp-content/themes/bd25/dist/DenimINK-Regular-YY7M2VJL.woff2
     - curl --location -o vendor/bd25/DenimINK-SemiBold-47CY3AKH.woff https://bradford2025.co.uk/wp-content/themes/bd25/dist/DenimINK-SemiBold-47CY3AKH.woff
     - curl --location -o vendor/bd25/DenimINK-SemiBold-6EI7BXBD.woff2 https://bradford2025.co.uk/wp-content/themes/bd25/dist/DenimINK-SemiBold-6EI7BXBD.woff2
+  kml_to_geojson:
+    - npx @mapbox/togeojson data/raw/bd_postcode_areas.kml > data/raw/bd_postcode_areas.geojson
