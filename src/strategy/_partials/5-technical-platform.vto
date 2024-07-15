@@ -115,20 +115,44 @@
       .hex {
         path {
           stroke: var(--color-darkgrey);
-          stroke-width: 5px;
+          stroke-width: 3px;
         }
         text {
           font-size: 10px;
         }
       }
+      .area path {
+        stroke: var(--color-darkgrey);
+        stroke-width: 3px;
+        stroke-opacity: 1;
+      }
     }
   }
 </style>
+
+{{ set labels = geojson.bd_wards.features |> map(x => x.properties) |> map(x => ({ name: x.WD24NM, latitude: x.LAT, longitude: x.LONG, "font-size": 16 })) }}
+
+<div style="display:flex;justify-content:center;gap:1em;">
+{{ comp.oi.map.svg({ config: {
+  geojson: { key: "WD24CD", data: geojson.bd_wards },
+  data: [],
+  colours: { green: "#45d10a" },
+  tooltip: "WD24NM",
+  value: "green",
+  places: labels,
+} }) }}
 {{ comp.oi.map.hex_cartogram({ config: {
   hexjson: hexes.bd_2022,
   label: '{{ n | slice(0,13) }}',
   colours: { green: "#45d10a" },
   value: "green"
 } }) }}
+</div>
 <p>Hexmaps give all areas the same visual weight</p>
+</section>
+
+<section style="font-size: 1rem"">
+  {{
+    labels |> JSON.stringify
+  }}
 </section>
