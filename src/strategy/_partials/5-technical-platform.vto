@@ -69,11 +69,11 @@
 <section>
 <style>
   .reveal .oi-map {
-    flex-basis: 10em;
+    flex-basis: 20vw;
     background: var(--color-midgrey);
     .skip-link { display: none; }
     svg {
-      max-height: 40vh !important;
+      /* max-height: 40vh !important; */
       .background .area path {
         stroke: var(--color-darkgrey);
         stroke-width: 1;
@@ -110,21 +110,21 @@
 <section>
 <p>Larger, rural areas can visually swamp smaller, urban areas.</p>
 <style>
-  .reveal {
+  .reveal #hex-comparison {
     .oi-map-map {
-      .hex {
+      .hex, .area {
         path {
           stroke: var(--color-darkgrey);
-          stroke-width: 3px;
+          stroke-width: 1px;
+          stroke-opacity: 1;
         }
         text {
           font-size: 10px;
+          stroke: white;
+          stroke-width: 0.7%;
+          stroke-linejoin: round;
+          paint-order: stroke;
         }
-      }
-      .area path {
-        stroke: var(--color-darkgrey);
-        stroke-width: 3px;
-        stroke-opacity: 1;
       }
     }
   }
@@ -132,20 +132,24 @@
 
 {{ set labels = geojson.bd_wards.features |> map(x => x.properties) |> map(x => ({ name: x.WD24NM, latitude: x.LAT, longitude: x.LONG, "font-size": 16 })) }}
 
-<div style="display:flex;justify-content:center;gap:1em;">
+<div id="hex-comparison" style="display:flex;justify-content:center;gap:1em;font-size:1rem;">
 {{ comp.oi.map.svg({ config: {
   geojson: { key: "WD24CD", data: geojson.bd_wards },
-  data: [],
-  colours: { green: "#45d10a" },
-  tooltip: "WD24NM",
-  value: "green",
+  bounds: {
+    lat: { min: 53.72, max: 53.97 },
+    lon: { min: -2.07, max: -1.63},
+  },
+  // data: [],
+  colours: { single: "#45d10a" },
+  // tooltip: "WD24NM",
+  value: "single",
   places: labels,
 } }) }}
 {{ comp.oi.map.hex_cartogram({ config: {
-  hexjson: hexes.bd_2022,
+  hexjson: hexes.bd_2024,
   label: '{{ n | slice(0,13) }}',
-  colours: { green: "#45d10a" },
-  value: "green"
+  colours: { single: "#e4ae00" },
+  value: "single"
 } }) }}
 </div>
 <p>Hexmaps give all areas the same visual weight</p>
