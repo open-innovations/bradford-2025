@@ -83,18 +83,23 @@
 </style>
 <h2>Geographies are difficult</h2>
 <div style="display:flex;gap:1rem;">
-<dl style="font-size:0.7em;">
-  <dt style="background: var(--color-green);">Bradford MDC</dt>
-    <dd>&ldquo;Official&rdquo; boundary of the UK City of Culture.</dd>
-    <dd>Community affinity to postcode not council ward.</dd>
-  <dt style="background: var(--color-pink);">Bradford Postcode areas</dt>
-    <dd>Some are totally outside council area</dd>
-    <dd>Some Bradford MDC postcodes are from other postal towns (e.g. LS29, HX3)</dd>
+<dl style="font-size:0.7em;flex-basis:10em;flex-grow:1;">
+  <dt style="background: var(--color-green);padding-inline:0.3em;">Bradford MDC</dt>
+    <dd>&ldquo;Official&rdquo; boundary of the UK City of Culture;</dd>
+    <dd>Some communities identify with postcode not council ward.</dd>
+  <dt style="background: var(--color-pink);padding-inline:0.3em;">Bradford Postcode areas</dt>
+    <dd>Some are totally outside council area;</dd>
+    <dd>Some Bradford MDC postcodes are from other postal towns (e.g. LS29, HX3);</dd>
+    <dd>No clear mapping to council wards.</dd>
 </dl>
 {{ comp.oi.map.svg({ config: {
-  geojson: { key: "LAD24CD", data: geojson.bd_lad },
+  geojson: { key: "LAD24CD", data: geojson.bd_wards },
+  /*
   data: [{ LAD24CD: "E08000032", colour: "#45d10aBB" }],
   key: "LAD24CD",
+  */
+  colours: { transparent_green: "#45d10aBB" },
+  value: 'transparent_green',
   background: {
     geojson: geojson.bd_pcd,
     colour: "#ffadd5",
@@ -140,16 +145,16 @@
     lon: { min: -2.07, max: -1.63},
   },
   // data: [],
-  colours: { single: "#45d10a" },
+  colours: { green: "#45d10a" },
   // tooltip: "WD24NM",
-  value: "single",
+  value: "green",
   places: labels,
 } }) }}
 {{ comp.oi.map.hex_cartogram({ config: {
   hexjson: hexes.bd_2024,
   label: '{{ n | slice(0,13) }}',
-  colours: { single: "#e4ae00" },
-  value: "single"
+  colours: { yellow: "#e4ae00" },
+  value: "yellow"
 } }) }}
 </div>
 <p>Hexmaps give all areas the same visual weight</p>
