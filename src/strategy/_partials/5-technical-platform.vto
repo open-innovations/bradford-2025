@@ -80,14 +80,24 @@
       }
     }
   }
+  .flexy {
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    & > * {
+      flex-shrink: 0;
+      flex-grow: 1;
+      flex-basis: 10vw;
+    }
+  }
 </style>
 <h2>Geographies are difficult</h2>
-<div style="display:flex;gap:1rem;">
-<dl style="font-size:0.7em;flex-basis:10em;flex-grow:1;">
-  <dt style="background: var(--color-green);padding-inline:0.3em;">Bradford MDC</dt>
+<div class="flexy">
+<dl style="font-size:0.7em;flex-grow:2;">
+  <dt style="border-inline-end:1.5em solid var(--color-green);padding-inline:0.3em;">Bradford MDC</dt>
     <dd>&ldquo;Official&rdquo; boundary of the UK City of Culture;</dd>
     <dd>Some communities identify with postcode not council ward.</dd>
-  <dt style="background: var(--color-pink);padding-inline:0.3em;">Bradford Postcode areas</dt>
+  <dt style="border-inline-end:1.5em solid var(--color-pink);padding-inline:0.3em;">Bradford Postcode areas</dt>
     <dd>Some are totally outside council area;</dd>
     <dd>Some Bradford MDC postcodes are from other postal towns (e.g. LS29, HX3);</dd>
     <dd>No clear mapping to council wards.</dd>
@@ -137,7 +147,7 @@
 
 {{ set labels = geojson.bd_wards.features |> map(x => x.properties) |> map(x => ({ name: x.WD24NM, latitude: x.LAT, longitude: x.LONG, "font-size": 16 })) }}
 
-<div id="hex-comparison" style="display:flex;justify-content:center;gap:1em;font-size:1rem;">
+<div id="hex-comparison" class="flexy" style="font-size:1rem;">
 {{ comp.oi.map.svg({ config: {
   geojson: { key: "WD24CD", data: geojson.bd_wards },
   bounds: {
@@ -151,7 +161,7 @@
   places: labels,
 } }) }}
 {{ comp.oi.map.hex_cartogram({ config: {
-  hexjson: hexes.bd_2024,
+  hexjson: hexes.bd_2024_opt4,
   label: '{{ n | slice(0,13) }}',
   colours: { yellow: "#e4ae00" },
   value: "yellow"
