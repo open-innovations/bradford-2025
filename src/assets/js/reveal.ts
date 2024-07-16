@@ -1,4 +1,4 @@
-import Reveal from "npm:reveal.js";
+import Reveal from "npm:reveal.js@5.1.0";
 
 const deck = new Reveal({
   // Activate the scroll view
