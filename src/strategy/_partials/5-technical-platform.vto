@@ -149,7 +149,7 @@
 
 {{ set labels = geojson.bd_wards.features |> map(x => x.properties) |> map(x => ({ name: x.WD24NM, latitude: x.LAT, longitude: x.LONG, "font-size": 16 })) }}
 
-<div id="hex-comparison" class="flexy" style="font-size:1rem;">
+<div id="hex-comparison" class="flexy" style="font-size:10px;">
 {{ comp.oi.map.svg({ config: {
   geojson: { key: "WD24CD", data: geojson.bd_wards },
   bounds: {
