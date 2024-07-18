@@ -4,9 +4,9 @@
 
 <section>
   <h3>Links</h3>
-  <ul class="no-bullets flex-grid" style="--bg-col:var(--color-darkgrey);">
+  <ul class="impact-list" style="flex-wrap: wrap;align-items:center;">
     {{ for i, s of references }}
-      <li class="grid-block"><a href="{{ s.url }}">{{ s.title }}</a></li>
+      <li><a href="{{ s.url }}">{{ s.title }}</a></li>
     {{ /for }}
   </ul>
 </section>
