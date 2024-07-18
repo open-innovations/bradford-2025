@@ -70,13 +70,21 @@ $overlayElementFgColor: 240, 240, 240;
     & dt, & dd { margin: 0; }
   }
 
+  & *[data-background-color="#1c1b1f"] {
+    & a {
+      color: var(--color-yellow);
+      &:hover {
+        color: var(--color-green);
+        text-decoration: underline;
+      }
+    }
+  }
 
   .impact-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 1em;
     justify-content: stretch;
     & li {
       flex-basis: 10em;
@@ -88,9 +96,18 @@ $overlayElementFgColor: 240, 240, 240;
       flex-direction: column;
       justify-content: space-between;
       gap: 1em;
+      &:nth-child(3n+1) {
+        --impact-bg: var(--color-yellow);
+      }
+      &:nth-child(3n+2) {
+        --impact-bg: var(--color-green);
+      }
+      &:nth-child(3n) {
+        --impact-bg: var(--color-pink);
+      }
     }
     & .tag {
-      font-size: 0.5em;
+      font-size: 0.7em;
     }
   }
 
