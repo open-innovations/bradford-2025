@@ -11,6 +11,8 @@ import sitemap from "lume/plugins/sitemap.ts";
 import svgo from "lume/plugins/svgo.ts";
 import favicon from "lume/plugins/favicon.ts";
 import jsonLoader from "lume/core/loaders/json.ts";
+import transformImages from "lume/plugins/transform_images.ts";
+
 
 import oiLumeViz from "https://deno.land/x/oi_lume_viz/mod.ts";
 import autoDependency from "https://deno.land/x/oi_lume_utils/processors/auto-dependency.ts";
@@ -26,7 +28,11 @@ site.process(['.html'], (pages) => pages.forEach(autoDependency));
 site.use(oiLumeViz());
 
 site.use(base_path());
-site.use(date());
+site.use(date({
+  formats: {
+    BD25_LONG_DATE: "d MMMM yyyy",
+  }
+}));
 site.use(esbuild({
   options: {
     bundle: true,
@@ -45,6 +51,7 @@ site.use(redirects());
 site.use(favicon());
 
 site.use(svgo());
+site.use(transformImages());
 
 site.use(metas());
 site.use(sitemap());

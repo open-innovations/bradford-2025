@@ -140,5 +140,28 @@ $overlayElementFgColor: 240, 240, 240;
       border-top: 0.5em solid hsl(46, 100%, 35%);
     }
   }
-  #stakeholders svg { max-height: 60vh; }
+
+  .oi-map {
+    flex-basis: 20vw;
+    background: var(--color-midgrey);
+    .skip-link { display: none; }
+    svg {
+      /* max-height: 40vh !important; */
+      .background .area path {
+        stroke: var(--color-darkgrey);
+        stroke-width: 1;
+      }
+    }
+  }
+  .flexy {
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    & > * {
+      flex-shrink: 0;
+      flex-grow: 1;
+      flex-basis: 10vw;
+    }
+  }
+
 }

@@ -15,7 +15,7 @@ const colour = {
 
 const series = {
   topic: { colour: colour.pink, label: "Topic" },
-  output: { colour: colour.green, label: "Output" },
+  output: { colour: colour.green, label: "Input / Output" },
   system: { colour: colour.yellow, label: "Source" },
 };
 

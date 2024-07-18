@@ -6,9 +6,9 @@
 </section>
 
 <section>
-  <figure id="stakeholders">
+  <figure id="stakeholders-image">
     <figcaption>
-      <h2>Stakeholder groups</h2>
+      <h3>Stakeholder groups</h3>
     </figcaption> 
     {{ include './stakeholders.svg'}}
   </figure>
@@ -34,7 +34,7 @@
 </section>
 
 <section>
-  <h2>Internal stakeholders</h2>
+  <h3>Internal stakeholders</h3>
 
   <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-pink);">
     {{ for s of stakeholders |> filter(s => s.type === 'internal') }}
@@ -49,7 +49,7 @@
 </section>
 
 <section>
-  <h2>There are some overriding internal aims</h2>
+  <h4>There are some overriding internal aims</h4>
   <ul class="impact-list">
     <li style="--impact-bg:var(--color-pink);">Information is easily at hand and reliable</li>
     <li style="--impact-bg:var(--color-green);">Feedback loops are in place, allowing early course corrections</li>
@@ -58,7 +58,7 @@
 </section>
 
 <section>
-  <h2>Direct stakeholders</h2>
+  <h3>Direct stakeholders</h3>
   <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-green);">
     {{ for s of stakeholders |> filter(s => s.type === 'direct') }}
       <li class="grid-block">
@@ -72,7 +72,7 @@
 </section>
 
 <section>
-  <h2>Indirect stakeholders</h2>
+  <h3>Indirect stakeholders</h3>
   <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-yellow);">
     {{ for s of stakeholders |> filter(s => s.type === 'indirect') }}
       <li class="grid-block">

@@ -6,12 +6,15 @@
 </section>
 
 <section>
-  <h2>Outputs and Outcomes</h2>
-  <p>The <strong>story of change</strong> identifies <span style="font-weight:bold;">Outputs</span> and <span style="font-weight:bold;">Outcomes</span>.</p>
+  <h3>The story of change</h3>
+  <p>The story of change identifies
+    <strong>Inputs</strong>, 
+    <strong>Outputs</strong> and <strong>Outcomes</strong>
+    leading to <strong>Impact</strong>.</p>
 
   <svg viewBox="-5 -5 380 60" font-size="10">
     <path d="M35 25 h 300" stroke="var(--color-grey)" stroke-width="5"/>
-    <rect width="70" height="50" fill="var(--color-pink)"/>
+    <rect width="70" height="50" fill="var(--color-pink)" stroke="var(--color-darkgrey)" stroke-width="3"/>
     <rect x="100" width="70" height="50" fill="var(--color-green)" stroke="var(--color-darkgrey)" stroke-width="3"/>
     <rect x="200" width="70" height="50" fill="var(--color-yellow)"/>
     <rect x="300" width="70" height="50" fill="var(--color-pink)"/>
@@ -23,13 +26,14 @@
     </g>
   </svg>
 
-  <p>The open data workstream and live dashboard will focus on <span style="font-weight:bold;">Outputs</span>.</p>
+  <p>The open data workstream and live dashboard will focus on <strong>Inputs</strong> and <strong>Outputs</strong>.</p>
 </section>
 
 <section style="display: flex; flex-direction: column;">
-  <h2>Output mapping</h2>
+  <h3>Output mapping</h3>
   <div id="graph" data-file="{{ "/strategy/data.json" |> url }}"  data-flash="Live graph!"></div>
   <script type="module" src="/assets/js/spring-graph.js"></script>
+  <p>Each prioritised input or output will map to a source.</p>
 </section>
 
 {{#
