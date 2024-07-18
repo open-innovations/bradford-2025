@@ -6,7 +6,62 @@
 </section>
 
 <section>
-<h3>Key milestones</h3>
+<h3>Illustrative timeline and milestones</h3>
+
+{{>
+  const w = 40;
+  const rowh = 15;
+  const h = rowh * 13 + 6;
+  const gutter = 170;
+  const quarters = 8;
+  const months = Array.from(Array(quarters)).map((_, x) => 3 * x + 7);
+}}
+
+<div style="max-height:80vh;">
+<svg viewBox="0 0 {{ gutter + (quarters - 0.5) * w }} {{ h + 30 }}" style="border:1px solid black;" font-size="10px">
+  <rect width="100%" height="100%" fill="var(--color-darkgrey)" />
+  <g transform="translate({{ gutter }}, {{ rowh }})" fill="white">
+  <g text-anchor="middle">
+    {{ for i, month of months }}<text x={{ i * w }}>{{ `${ 2024 + Math.floor(month / 12) }-${month % 12}-01` |> date("MMM yy") }} </text>{{ /for }}
+  </g>
+  <g stroke="var(--color-grey)">
+    <path d="M0 10 {{ for _ of months }}v{{ h }}m{{ w }} -{{ h }}{{ /for }}">
+  </g>
+  <g transform="translate(0 20)" stroke="var(--color-yellow)" stroke-linecap="round" stroke-width="12">
+    <path d="M{{ 2/3*w }} 0h0" title="Programme launch"/>
+    <path d="M{{ w/3 }} {{ 1 * rowh }}H{{ 2/3*w }}" stroke="var(--color-green)"/>
+    <path d="M{{ 2/3 * w + 6 }} {{ 2 * rowh }}h{{ w * 2/3 - 6 }}" stroke="var(--color-green)"/>
+    <path d="M{{ 4/3 * w + 6 }} {{ 3 * rowh }}h{{ w * 2/3 - 6 }}" stroke="var(--color-green)"/>
+
+    <path d="M{{ 2*w }} {{ 5 * rowh }} H{{ 6*w }}"/>
+    <path d="M{{ 3*w }} {{ 6 * rowh }}h0m{{ w }} 0h0m{{ w }} 0h0"/>
+    <path d="M{{ 8/3*w }} {{ 7 * rowh }}h0m{{ 2/3*w }} 0h0m{{ w }} 0h0m{{ 1.2 * w }} 0h0"/>
+
+    <path d="M{{ 2*w }} {{ 8 * rowh }}H{{ 6 * w }}" stroke="var(--color-pink)"/>
+    <path d="M{{ 2.5 * w }} {{ 9 * rowh }}h{{ w / 3 }}m{{ w / 2 }} 0h{{ w / 3 }}m{{ w }} 0h{{ w / 3 }}" stroke="var(--color-green)"/>
+
+    <path d="M{{ 6*w }} {{ 11 * rowh }}h{{ w }}"/>
+    <path d="M{{ 6*w }} {{ 12 * rowh }}h{{ w / 2 }}" stroke="var(--color-green)"/>
+  </g>
+  <g transform="translate(-15 22.5)" text-anchor="end">
+    <text y="{{ 0 * rowh }}">Programme launch</text>
+    <text y="{{ 1 * rowh }}">Data / dashboard sprint 1</text>
+    <text y="{{ 2 * rowh }}">Data / dashboard sprint 2</text>
+    <text y="{{ 3 * rowh }}">Data / dashboard sprint 3</text>
+
+    <text y="{{ 5 * rowh }}">Bradford 2025 UK City of Culture</text>
+    <text y="{{ 6 * rowh }}">Evaluation checkpoints</text>
+    <text y="{{ 7 * rowh }}">Other stakeholder reporting</text>
+    
+    <text y="{{ 8 * rowh }}">Data / dashboard maintenance</text>
+    <text y="{{ 9 * rowh }}">Data / dashboard sprints</text>
+
+    <text y="{{ 11 * rowh }}">Evaluation reporting starts</text>
+    <text y="{{ 12 * rowh }}">Data / dashboard finalisation</text>
+  </g>
+  </g>
+</svg>
+</div>
 
 <aside class="notes">
   <ul>
