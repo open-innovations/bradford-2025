@@ -1,27 +1,29 @@
+import jsonLoader from "lume/core/loaders/json.ts";
 import lume from "lume/mod.ts";
 import base_path from "lume/plugins/base_path.ts";
 import date from "lume/plugins/date.ts";
 import esbuild from "lume/plugins/esbuild.ts";
+import favicon from "lume/plugins/favicon.ts";
 import feed from "lume/plugins/feed.ts";
 import metas from "lume/plugins/metas.ts";
 import postcss from "lume/plugins/postcss.ts";
 import redirects from "lume/plugins/redirects.ts";
 import sass from "lume/plugins/sass.ts";
+import sheets from "lume/plugins/sheets.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 import svgo from "lume/plugins/svgo.ts";
-import favicon from "lume/plugins/favicon.ts";
-import jsonLoader from "lume/core/loaders/json.ts";
 import transformImages from "lume/plugins/transform_images.ts";
 
 
-import oiLumeViz from "https://deno.land/x/oi_lume_viz/mod.ts";
 import autoDependency from "https://deno.land/x/oi_lume_utils/processors/auto-dependency.ts";
+import oiLumeViz from "https://deno.land/x/oi_lume_viz/mod.ts";
 
 const site = lume({
   src: "./src",
   location: new URL("https://open-innovations.github.io/bradford-2025"),
 });
 
+site.use(sheets());
 site.loadData(['.geojson', '.hexjson'], jsonLoader);
 site.process(['.html'], (pages) => pages.forEach(autoDependency));
 
