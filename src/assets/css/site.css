@@ -18,30 +18,24 @@
 }
 html {
   font-family: var(--fonstack-main);
+  font-size: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 body {
   background: var(--color-offblack);
   color: var(--color-white);
-  height: 100%;
   font-family: var(--fonstack-main);
+  min-height: 100%;
   max-width: 100ch;
+  margin-block: 0;
   margin-inline: auto;
+  padding-inline: 1rem;
+  display: flex;
+  flex-direction: column;
 }
-body > header {
-  font-size: 2rem;
-  a {
-    display: flex;
-    align-items: center;
-    color: inherit;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  * { margin-block: 0; }
-  img {
-    height: 4rem;
-  }
+main {
+    flex-grow: 1;
 }
 
 dt {
