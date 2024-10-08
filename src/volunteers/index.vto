@@ -59,8 +59,11 @@ scales:
         value: 'count', 
         scale: scales.yellow,
         key: 'code',
-        label: '{{ n | slice(0,3) }}',
-		tooltip: '{{ }}<strong>{{ count }}</strong>'
+        label: '{{ code }}',
+        columns: [
+            { name: 'tooltip', template: '{{ code }}: <strong>{{ count }}</strong> volunteers' },
+        ],
+		tooltip: 'tooltip',
 } }) }}
 </div>
 </div>
