@@ -4,11 +4,24 @@ layout: templates/page.vto
 
 scales:
     yellow: 'hsl(46, 50%, 80%) 0%, #e4ae00 100%'
+    
 ---
 
 <p>
     This page will be the home of volunteering data for Bradford 2025.
 </p>
+
+{{ comp.oi.dashboard({
+    config: {
+        data: volunteers.geo_summary,
+        title: "type",
+        value: "count",
+        width: "80%",
+        panels: [{
+            name: "TOTAL"
+        }]
+    }
+}) }}
 
 
 <div style="display:flex; gap: 1rem;">
