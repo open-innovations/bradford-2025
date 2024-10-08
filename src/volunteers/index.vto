@@ -16,9 +16,11 @@ scales:
         data: geo_summary,
         title: "type",
         value: "count",
+        colour: '#1c1b1f',
         width: "80%",
         panels: [{
-            name: "TOTAL"
+            name: "TOTAL",
+            colour: '#1c1b1f'
         }]
     }
 }) }}
@@ -67,5 +69,153 @@ scales:
 } }) }}
 </div>
 </div>
-
 </div>
+
+
+<div>
+<h2>Volunteering Signups</h2>
+<div id="hex-comparison" class="flexy" style="font-size:16px;">
+{{ comp.oi.chart.line({ 
+    config: {
+        data: 'volunteers.checkpoints_monthly',
+        width: 900, 
+        height: 400,
+        series: [
+        {
+            title: '1. Monitoring & Evaluation cumulative',
+            x: 'Month ending',
+            y: '1. Monitoring & Evaluation cumulative',
+            colour: '#ffffff'
+        },
+        {
+            title: '2. Sign Up to Induction cumulative',
+            x: 'Month ending',
+            y: '2. Sign Up to Induction cumulative',
+            colour: '#e4ae00'
+        },  
+        ],
+        axis: {
+        x: {
+            title: {
+            label: 'Month',
+            colour: '#ffffff'
+            },
+        },
+        y: {
+            grid: {
+            show: true,
+            'stroke-width': 0.5
+            },        
+            title: {
+            label: 'Checkpoints'
+            },
+            tick: { 
+            spacing: 100
+            },
+            min:0,
+            max: 1000
+        }
+    }
+} }) }}
+</div>
+</div>
+
+
+<div>
+<h2>Volunteering Shifts - Monthly</h2>
+<div id="hex-comparison" class="flexy" style="font-size:16px;">
+{{ comp.oi.chart.line({ 
+    config: {
+        data: 'volunteers.shifts_monthly',
+        width: 900, 
+        height: 400,
+        series: [
+        {
+            title: 'attended cumulative',
+            x: 'month ending',
+            y: 'attended cumulative',
+            colour: '#ffffff'
+        },
+        {
+            title: 'hours cumulative',
+            x: 'month ending',
+            y: 'hours cumulative',
+            colour: '#e4ae00'
+        },  
+        ],
+        axis: {
+        x: {
+            title: {
+            label: 'Month ending',
+            colour: '#ffffff'
+            },
+        },
+        y: {
+            grid: {
+            show: true,
+            'stroke-width': 0.5
+            },        
+            title: {
+            label: 'Shifts Completed'
+            },
+            tick: { 
+            spacing: 500
+            },
+            min:0,
+            max: 4000
+        }
+    }
+} }) }}
+</div>
+</div>
+
+
+
+<div>
+<h2>Volunteering Shifts - Weekly</h2>
+<div id="hex-comparison" class="flexy" style="font-size:16px;">
+{{ comp.oi.chart.line({ 
+    config: {
+        data: 'volunteers.shifts_weekly',
+        width: 900, 
+        height: 400,
+        series: [
+        {
+            title: 'attended cumulative',
+            x: 'week ending',
+            y: 'attended cumulative',
+            colour: '#ffffff'
+        },
+        {
+            title: 'hours cumulative',
+            x: 'week ending',
+            y: 'hours cumulative',
+            colour: '#e4ae00'
+        },  
+        ],
+        axis: {
+        x: {
+            title: {
+            label: 'Week ending',
+            colour: '#ffffff'
+            },
+        },
+        y: {
+            grid: {
+            show: true,
+            'stroke-width': 0.5
+            },        
+            title: {
+            label: 'Shift hours completed'
+            },
+            tick: { 
+            spacing: 500
+            },
+            min:0,
+            max: 4000
+        }
+    }
+} }) }}
+</div>
+</div>
+
