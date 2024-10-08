@@ -13,10 +13,9 @@ scales:
 
 {{ comp.oi.dashboard({
     config: {
-        data: geo_summary,
+        data: volunteers.geo_summary,
         title: "type",
         value: "count",
-        colour: '#1c1b1f',
         width: "80%",
         panels: [{
             name: "TOTAL",
@@ -34,7 +33,7 @@ scales:
 {{ comp.oi.map.hex_cartogram({
     config: {
         hexjson: hexes.bd_2024_opt4,
-        data: geo_summary.filter(x => x.type == 'osward'),
+        data: volunteers.geo_summary.filter(x => x.type == 'osward'),
         width: 800,
         scale: scales.yellow,
         matchKey: 'code',
@@ -52,7 +51,7 @@ scales:
 {{ comp.oi.map.svg({ 
     config: {
         geojson: { key: "name", data: geojson.bd_pcd },
-        data: geo_summary.filter(x => x.type == 'postcode_area'),
+        data: volunteers.geo_summary.filter(x => x.type == 'postcode_area'),
         width: 800,
         bounds: {
             lat: { min: 53.72, max: 53.97 },
