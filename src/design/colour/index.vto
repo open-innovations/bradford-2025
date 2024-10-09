@@ -1,0 +1,58 @@
+---
+title: Colour
+scales:
+    bicolour:
+        yellowgreen: "#e4ae00 0%, #45d10a 100%"
+        greenpink: "#45d10a 0%, #ffadd5 100%"
+        pinkyellow: "#ffadd5 0%, #e4ae00 100%"
+    divergent:
+        yellowgreen: "#e4ae00 0%, #e4ae0000 50%, #45d10a 100%"
+        greenpink: "#45d10a 0%, #45d10a00 50%, #ffadd5 100%"
+        pinkyellow: "#ffadd5 0%, #ffadd500 50%, #e4ae00 100%"
+    white:
+        whiteyellow: "white 0%, #e4ae00 100%"
+        whitegreen: "white 0%, #45d10a 100%"
+        whitepink: "white 0%, #ffadd5 100%"
+    fade:
+        greenfade: "#45d10a00 0%, #45d10a 100%"
+        yellowfade: "#e4ae0000 0%, #e4ae00 100%"
+        pinkfade: "#ffadd500 0%, #ffadd5 100%"
+---
+
+
+
+<h2>Colour classes</h2>
+
+<ul class="grid regular" style="--grid-basis: 10em">
+{{ for colour of [ 'c-yellow', 'c-pink', 'c-green' ] }}
+<li class="block" style="--block-bg:var(--color-offblack);--block-fg:white;">
+<p class="{{ colour }}">class: <code>{{ colour }}</code></p>
+</li>
+{{ /for }}
+</ul>
+
+<ul class="grid">
+{{ for colour of [ 'c-yellow', 'c-pink', 'c-green' ] }}
+<li class="block {{ colour }}">
+<p>class: <code>block {{ colour }}</code></p>
+</li>
+{{ /for }}
+</ul>
+
+<h2>Colour scales</h2>
+
+<h3>Fades</h3>
+
+{{ comp.ScaleSample({ scales: scales.fade }) }}
+
+<h3>Divergent</h3>
+
+{{ comp.ScaleSample({ scales: scales.divergent }) }}
+
+<h3>White to colour</h3>
+
+{{ comp.ScaleSample({ scales: scales.white }) }}
+
+<h3>Bi-colour</h3>
+
+{{ comp.ScaleSample({ scales: scales.bicolour }) }}

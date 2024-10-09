@@ -1,24 +1,16 @@
 ---
 title: Design System
-
-scales:
-    y: white 0%, var(--color-yellow) 100%
+description: |
+    The design and presentaton of Bradford 2025 data is founded on the corporate brand,
+    extended with best practice around data presentation and accessibility.
+    The design system contextualises these extensions.
 ---
 
-<h1>{{ title }}</h1>
-
-<h2>Colour scales</h2>
-
-<ul>
-    <li style="background: var(--color-yellow);">--color-yellow</li>
-    <li style="background: var(--color-green);">--color-green</li>
-    <li style="background: var(--color-pink);">--color-pink</li>
-</ul>
-
-
-<ul>
-    <li style="background: linear-gradient(to right, {{ scales.y }});">--color-yellow</li>
-    <li style="background: var(--color-green);">--color-green</li>
-    <li style="background: var(--color-pink);">--color-pink</li>
-</ul>
-
+<div class="grid regular">
+{{ for p of search.pages(`design url!=${url}`, 'title') }}
+<a class="block" href="{{ p.url }}">
+    <h2>{{ p.title }}</h2>
+    {{ p.description |> md }}
+</a>
+{{ /for }}
+</div>
