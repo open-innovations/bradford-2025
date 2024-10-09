@@ -107,4 +107,20 @@ site.copy("assets/vendor/");
   )
 );
 
+/**
+ * The list below maps a series of source files stored in the top-level `data` directory into the
+ * site build context. This is useful when some publicly released data is to be integrated direct
+ * into the site with no change (and a pipeline is therefore not necessary). Files can be renamed
+ * simply in this way. Note that the files will not appear in the source tree.
+ */
+[
+  [ 'volunteers/geo-summary.csv', 'volunteers/_data/geo_summary.csv' ],
+  [ 'volunteers/checkpoints-monthly.csv', 'volunteers/_data/checkpoints_monthly.csv' ],
+  [ 'volunteers/shifts-monthly.csv', 'volunteers/_data/shifts_monthly.csv' ],
+  [ 'volunteers/shifts-weekly.csv', 'volunteers/_data/shifts_weekly.csv' ],
+].forEach(([source, target]) => site.remoteFile(
+  target,
+  `data/${source}`
+))
+
 export default site;
