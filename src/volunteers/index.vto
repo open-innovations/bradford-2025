@@ -1,15 +1,17 @@
 ---
 title: Volunteers
+description: |
+    Volunteers are at the heart of Bradford 2025.
+    Explore data related to the volunteering programme.
+
 layout: templates/page.vto
 
 scales:
     yellow: 'hsl(46, 50%, 80%) 0%, #e4ae00 100%'
-    
+    greenfade: "#1c1b1f 0%, #45d10a 100%"
+    yellowfade: "#1c1b1f 0%, #e4ae00 100%"
 ---
 
-<p>
-    This page will be the home of volunteering data for Bradford 2025.
-</p>
 
 {{ comp.oi.dashboard({
     config: {
@@ -25,55 +27,57 @@ scales:
 }) }}
 
 
-<div style="display:flex; gap: 1rem;">
+<section class="grid regular">
+<h2 class="full-width">Geographic distribution of volunteers</h2>
 
 <div>
-<h2>Volunteers by Bradford Ward</h2>
-<div id="hex-comparison" class="flexy" style="font-size:10px;">
-{{ comp.oi.map.hex_cartogram({
-    config: {
-        hexjson: hexes.bd_2024_opt4,
-        data: geo_summary.filter(x => x.type == 'osward'),
-        width: 800,
-        scale: scales.yellow,
-        matchKey: 'code',
-        value: 'count',
-        label: '{{ n | slice(0,3) }}',
-		tooltip: '{{ n }}: <strong>{{ count }}</strong>'
-    }
-}) }}
-</div>  
-</div>  
+    <h3>Volunteers by Bradford MDC Ward</h3>
+    {{ comp.oi.map.hex_cartogram({
+        config: {
+            hexjson: hexes.bd_2024_opt4,
+            data: geo_summary.filter(x => x.type == 'osward'),
+            scale: scales.yellow,
+            matchKey: 'code',
+            value: 'count',
+            label: '{{ n | slice(0,3) }}',
+            tooltip: '{{ n }}: <strong>{{ count }}</strong>'
+        }
+    }) }}
+</div>
 
 <div>
-<h2>Volunteers by Bradford Postcode</h2>
-<div id="hex-comparison" class="flexy" style="font-size:10px;">
-{{ comp.oi.map.svg({ 
-    config: {
-        geojson: { key: "name", data: geojson.bd_pcd },
-        data: geo_summary.filter(x => x.type == 'postcode_area'),
-        width: 800,
-        bounds: {
-            lat: { min: 53.72, max: 53.97 },
-            lon: { min: -2.07, max: -1.63}
-        },
-        value: 'count', 
-        scale: scales.yellow,
-        key: 'code',
-        label: '{{ code }}',
-        columns: [
-            { name: 'tooltip', template: '{{ code }}: <strong>{{ count }}</strong> volunteers' },
-        ],
-		tooltip: 'tooltip',
-} }) }}
-</div>
-</div>
+    <h3>Volunteers by Bradford Postcode</h3>
+    {{ comp.oi.map.svg({ 
+        config: {
+            geojson: { key: "name", data: geojson.bd_pcd },
+            data: geo_summary.filter(x => x.type == 'postcode_area'),
+            bounds: {
+                lat: { min: 53.72, max: 53.97 },
+                lon: { min: -2.07, max: -1.63}
+            },
+            value: 'count', 
+            scale: scales.yellow,
+            key: 'code',
+            label: '{{ code }}',
+            columns: [
+                { name: 'tooltip', template: '{{ code }}: <strong>{{ count }}</strong> volunteers' },
+            ],
+            tooltip: 'tooltip',
+    } }) }}
 </div>
 
+<div class="block c-green">
+    <p>
+        The maps show the geographic distribution of volunteers across Bradford, either by ward
+        or by postcode. In either case, the postcode provided by the volunteer at sign-up
+        has been used to identify the geography.
+    </p>
+</div>
+</section>
 
+<section class="grid regular" style="--grid-basis: 30rem;">
 <div>
 <h2>Volunteering Signups</h2>
-<div id="hex-comparison" class="flexy" style="font-size:16px;">
 {{ comp.oi.chart.line({ 
     config: {
         data: checkpoints_monthly,
@@ -124,12 +128,10 @@ scales:
     }
 } }) }}
 </div>
-</div>
 
 
 <div>
 <h2>Volunteering Shifts - Monthly</h2>
-<div id="hex-comparison" class="flexy" style="font-size:16px;">
 {{ comp.oi.chart.line({ 
     config: {
         data: shifts_monthly,
@@ -173,13 +175,11 @@ scales:
     }
 } }) }}
 </div>
-</div>
 
 
 
 <div>
 <h2>Volunteering Shifts - Weekly</h2>
-<div id="hex-comparison" class="flexy" style="font-size:16px;">
 {{ comp.oi.chart.line({ 
     config: {
         data: shifts_weekly,
@@ -223,5 +223,4 @@ scales:
     }
 } }) }}
 </div>
-</div>
-
+</section>
