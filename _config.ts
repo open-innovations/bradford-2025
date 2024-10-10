@@ -23,7 +23,11 @@ const site = lume({
   location: new URL("https://open-innovations.github.io/bradford-2025"),
 });
 
-site.use(sheets());
+site.use(sheets({
+  options: {
+      cellDates: true,
+  }
+}));
 site.loadData(['.geojson', '.hexjson'], jsonLoader);
 site.process(['.html'], (pages) => pages.forEach(autoDependency));
 

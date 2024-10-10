@@ -79,6 +79,10 @@ scales:
         data: checkpoints_monthly,
         width: 900, 
         height: 400,
+        "columns": [{
+			"name": "decimal_year",
+			"template": "{{ Date | strptime(\"-%b %Y\") | decimalYear() }}"
+		}],
         series: [
         {
             title: '1. Monitoring & Evaluation cumulative',
@@ -99,6 +103,9 @@ scales:
             label: 'Month',
             colour: '#ffffff'
             },
+            tick: {
+            spacing: 2
+            }
         },
         y: {
             grid: {
@@ -130,13 +137,13 @@ scales:
         height: 400,
         series: [
         {
-            title: 'attended cumulative',
+            title: 'Attended cumulative',
             x: 'month ending',
             y: 'attended cumulative',
             colour: '#ffffff'
         },
         {
-            title: 'hours cumulative',
+            title: 'Hours cumulative',
             x: 'month ending',
             y: 'hours cumulative',
             colour: '#e4ae00'
@@ -180,13 +187,13 @@ scales:
         height: 400,
         series: [
         {
-            title: 'attended cumulative',
+            title: 'Attended cumulative',
             x: 'week ending',
             y: 'attended cumulative',
             colour: '#ffffff'
         },
         {
-            title: 'hours cumulative',
+            title: 'Hours cumulative',
             x: 'week ending',
             y: 'hours cumulative',
             colour: '#e4ae00'
