@@ -1,9 +1,10 @@
 ---
 title: Home
 layout: templates/base.vto
+url: /
 ---
 
-<style>
+{{# <style>
 html {
     height: 100%;
     font-size: 100%;
@@ -28,11 +29,10 @@ img + p {
     font-size: 1.5em;
     font-weight: bold;
 }
-</style>
-<main>
-<h1>Bradford 2025</h1>
-<img src="/assets/images/logo.svg" alt="Bradford 2025 logo">
-<p>Data Dashboard</p>
+</style> #}}
+<main style="display:flex;flex-direction:column;align-items:center;font-size:1.5rem;text-align:center;">
+<h1>{{ metas.site }}</h1>
+<img src="/assets/images/logo.svg" alt="Bradford 2025 logo" class="full-width" style="width: 20em">
 <p>
 Welcome to the data dashboard site for <strong>Bradford 2025</strong>.
 There's not much here right now, but we're planning great things behind the scenes.
@@ -44,3 +44,5 @@ In the meantime you can take a look at our <a href="/strategy/">Open Data Strate
 There's also the start of a <a href="/glossary/">glossary of terms</a> that we will build up as we develop the programme of work.
 </p>
 </main>
+
+{{ comp.SiteFooter() }}
