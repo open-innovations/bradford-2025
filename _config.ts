@@ -128,4 +128,7 @@ site.copy("assets/vendor/");
   `data/${source}`
 ))
 
+// Set up some global data
+site.data('landingPage', 'placeholder', '/landing');
+
 export default site;
