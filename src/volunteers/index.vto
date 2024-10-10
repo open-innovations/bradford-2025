@@ -76,27 +76,27 @@ scales:
 </section>
 
 <section class="grid regular" style="--grid-basis: 30rem;">
+<h2 class="full-width">Volunteering Signups</h2>
 <div>
-<h2>Volunteering Signups</h2>
 {{ comp.oi.chart.line({ 
     config: {
         data: checkpoints_monthly,
         width: 900, 
         height: 400,
-        "columns": [{
-			"name": "decimal_year",
-			"template": "{{ Date | strptime(\"-%b %Y\") | decimalYear() }}"
+        columns: [{
+			name: "decimal_year",
+			template: "{{ month ending | strptime('%Y-%m-%d') | decimalYear() }}"
 		}],
         series: [
         {
             title: '1. Monitoring & Evaluation cumulative',
-            x: 'Month ending',
+            x: 'decimal_year',
             y: '1. Monitoring & Evaluation cumulative',
             colour: '#ffffff'
         },
         {
             title: '2. Sign Up to Induction cumulative',
-            x: 'Month ending',
+            x: 'decimal_year',
             y: '2. Sign Up to Induction cumulative',
             colour: '#e4ae00'
         },  
@@ -108,7 +108,7 @@ scales:
             colour: '#ffffff'
             },
             tick: {
-            spacing: 2
+            spacing: 1
             }
         },
         y: {
@@ -119,42 +119,39 @@ scales:
             title: {
             label: 'Checkpoints'
             },
-            tick: { 
-            spacing: 100
-            },
             min:0,
             max: 1000
         }
     }
 } }) }}
 </div>
+</section>
 
-
+<section class="grid regular" style="--grid-basis: 30rem;">
+<h2 class="full-width">Volunteering Shifts</h2>
 <div>
-<h2>Volunteering Shifts - Monthly</h2>
+<h3>Shifts</h3>
 {{ comp.oi.chart.line({ 
     config: {
-        data: shifts_monthly,
-        width: 900, 
+        data: shifts_weekly,
+        width: 900,
         height: 400,
+        columns: [{
+			name: "decimal_year",
+			template: "{{ week ending | strptime('%Y-%m-%d') | decimalYear() }}"
+		}],
         series: [
         {
-            title: 'Attended cumulative',
-            x: 'month ending',
+            title: 'Shifts',
+            x: 'decimal_year',
             y: 'attended cumulative',
-            colour: '#ffffff'
-        },
-        {
-            title: 'Hours cumulative',
-            x: 'month ending',
-            y: 'hours cumulative',
             colour: '#e4ae00'
         },  
         ],
         axis: {
         x: {
             title: {
-            label: 'Month ending',
+            label: 'Week ending',
             colour: '#ffffff'
             },
         },
@@ -166,35 +163,29 @@ scales:
             title: {
             label: 'Shifts Completed'
             },
-            tick: { 
-            spacing: 500
-            },
             min:0,
-            max: 4000
+            max: 500,
         }
     }
 } }) }}
 </div>
 
 
-
 <div>
-<h2>Volunteering Shifts - Weekly</h2>
+<h3>Hours</h3>
 {{ comp.oi.chart.line({ 
     config: {
         data: shifts_weekly,
-        width: 900, 
+        width: 900,
         height: 400,
+        columns: [{
+			name: "decimal_year",
+			template: "{{ week ending | strptime('%Y-%m-%d') | decimalYear() }}"
+		}],
         series: [
         {
-            title: 'Attended cumulative',
-            x: 'week ending',
-            y: 'attended cumulative',
-            colour: '#ffffff'
-        },
-        {
-            title: 'Hours cumulative',
-            x: 'week ending',
+            title: 'Total hours',
+            x: 'decimal_year',
             y: 'hours cumulative',
             colour: '#e4ae00'
         },  
@@ -213,9 +204,6 @@ scales:
             },        
             title: {
             label: 'Shift hours completed'
-            },
-            tick: { 
-            spacing: 500
             },
             min:0,
             max: 4000
