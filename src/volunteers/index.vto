@@ -211,4 +211,41 @@ scales:
     }
 } }) }}
 </div>
+
+<h3 class="full-width">Monthly summary</h3>
+<div>
+{{ comp.LineChart({
+    data: shifts_monthly,
+    series: [
+        {
+            title: 'Total shifts',
+            x: 'decimal_year',
+            y: 'attended',
+            colour: '#e4ae00'
+        },  
+    ],
+    labels: {
+        x: 'Week ending',
+        y: 'Shifts completed',
+    }
+})}}
+</div>
+
+<div>
+{{ comp.LineChart({
+    data: shifts_monthly,
+    series: [
+        {
+            title: 'Total hours',
+            x: 'decimal_year',
+            y: 'hours',
+            colour: '#e4ae00'
+        },  
+    ],
+    labels: {
+        x: 'Week ending',
+        y: 'Shift hours completed',
+    }
+})}}
+</div>
 </section>
