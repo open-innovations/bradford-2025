@@ -10,8 +10,15 @@ scales:
     yellow: 'hsl(46, 50%, 80%) 0%, #e4ae00 100%'
     greenfade: "#1c1b1f 0%, #45d10a 100%"
     yellowfade: "#1c1b1f 0%, #e4ae00 100%"
+colours:
+    - green
+    - red
+    - blue
+    - yellow
+    - pink
 ---
 
+{{ set total_volunteers = geo_summary.find(x => x.type === 'TOTAL' ).count }}
 
 {{ comp.oi.dashboard({
     config: {
@@ -128,6 +135,83 @@ scales:
     }
 } }) }}
 </div>
+</section>
+
+<hr>
+
+<section class="grid regular" style="--grid-basis: 30rem;">
+<h2 class="full-width">Demographics of volunteers</h2>
+
+<div class="block full-width c-yellow">
+    <p>
+        This section shows summaries of volunteers by demographic groupings, including age and ethnicity.
+    </p>
+</div>
+
+<div>
+    <h3>Volunteers by age</h3>
+    {{ comp.BarChart({
+        data: demographics.filter((x) => x.category == 'age_range'),
+        category: 'variable',
+        series: [
+            {
+                title: 'Age range',
+                value: 'value'
+            }
+        ],
+    }) }}
+</div>
+
+<div>
+    <h3>Volunteers by Ethnicity</h3>
+    {{ set by_ethnicity = demographics
+        .filter((x) => x.category == 'ethnicity')
+        .filter(x => x.value)
+        .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: total_volunteers })
+    }}
+    {{ set ethnicity_series = Object.entries(by_ethnicity)
+        .map(([ value, count ]) => ({ value, count }))
+        .filter(x => !['TOTAL', 'UNSPECIFIED'].includes(x.value))
+        .toSorted((a, b) => b.count - a.count)
+        .map((x, i) => ({ value: x.value, colour: colours[i] }))
+    }}
+
+    {{ comp.oi.chart.waffle({
+        config: {
+            data: [ by_ethnicity ],
+            total: 'TOTAL',
+            series: [ ...ethnicity_series ],
+            size: [16, 8],
+            legend: { show: true, position: 'top' },
+        }
+    }) }}
+</div>
+
+<div>
+    <h3>Volunteers by Sex</h3>
+    {{ set by_sex = demographics
+        .filter((x) => x.category == 'sex')
+        .filter(x => x.value)
+        .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: total_volunteers })
+    }}
+    {{ set sex_series = Object.entries(by_sex)
+        .map(([ value, count ]) => ({ value, count }))
+        .filter(x => !['TOTAL', 'UNSPECIFIED'].includes(x.value))
+        .toSorted((a, b) => b.count - a.count)
+        .map((x, i) => ({ value: x.value, title: x.value, colour: colours[i] }))
+    }}
+
+    {{ comp.oi.chart.waffle({
+        config: {
+            data: [ by_sex ],
+            total: 'TOTAL',
+            series: [...sex_series ],
+            size: [16, 8],
+            legend: { show: true, position: 'top' },
+        }
+    }) }}
+</div>
+
 </section>
 
 <hr>

@@ -118,6 +118,7 @@ site.copy("assets/vendor/");
  * simply in this way. Note that the files will not appear in the source tree.
  */
 [
+  [ 'volunteers/demographics.csv', 'volunteers/_data/demographics.csv' ],
   [ 'volunteers/geo-summary.csv', 'volunteers/_data/geo_summary.csv' ],
   [ 'volunteers/checkpoints-monthly.csv', 'volunteers/_data/checkpoints_monthly.csv' ],
   [ 'volunteers/shifts-monthly.csv', 'volunteers/_data/shifts_monthly.csv' ],
