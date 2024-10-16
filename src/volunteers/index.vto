@@ -10,12 +10,9 @@ scales:
     yellow: 'hsl(46, 50%, 80%) 0%, #e4ae00 100%'
     greenfade: "#1c1b1f 0%, #45d10a 100%"
     yellowfade: "#1c1b1f 0%, #e4ae00 100%"
-colours:
-    - green
-    - red
-    - blue
-    - yellow
-    - pink
+undefinedSeries:
+    title: No data available
+    colour: grey
 ---
 
 {{ set total_volunteers = geo_summary.find(x => x.type === 'TOTAL' ).count }}
@@ -28,7 +25,7 @@ colours:
         width: "80%",
         panels: [{
             name: "TOTAL",
-            colour: '#1c1b1f'
+            colour: "pink",
         }]
     }
 }) }}
@@ -99,23 +96,20 @@ colours:
 		}],
         series: [
         {
-            title: '1. Monitoring & Evaluation cumulative',
-            x: 'decimal_year',
-            y: '1. Monitoring & Evaluation cumulative',
-            colour: '#ffffff'
-        },
-        {
             title: '2. Sign Up to Induction cumulative',
             x: 'decimal_year',
             y: '2. Sign Up to Induction cumulative',
-            colour: '#e4ae00'
         },  
+        {
+            title: '1. Monitoring & Evaluation cumulative',
+            x: 'decimal_year',
+            y: '1. Monitoring & Evaluation cumulative',
+        },
         ],
         axis: {
         x: {
             title: {
             label: 'Month',
-            colour: '#ffffff'
             },
             tick: {
             spacing: 1
@@ -173,14 +167,14 @@ colours:
         .map(([ value, count ]) => ({ value, count }))
         .filter(x => !['TOTAL', 'UNSPECIFIED'].includes(x.value))
         .toSorted((a, b) => b.count - a.count)
-        .map((x, i) => ({ value: x.value, colour: colours[i] }))
+        .map((x, i) => ({ value: x.value, colour: oiColour.series[i] }))
     }}
 
     {{ comp.oi.chart.waffle({
         config: {
             data: [ by_ethnicity ],
             total: 'TOTAL',
-            series: [ ...ethnicity_series ],
+            series: [ ...ethnicity_series, undefinedSeries ],
             size: [16, 8],
             legend: { show: true, position: 'top' },
         }
@@ -198,14 +192,14 @@ colours:
         .map(([ value, count ]) => ({ value, count }))
         .filter(x => !['TOTAL', 'UNSPECIFIED'].includes(x.value))
         .toSorted((a, b) => b.count - a.count)
-        .map((x, i) => ({ value: x.value, title: x.value, colour: colours[i] }))
+        .map((x, i) => ({ value: x.value, title: x.value, colour: oiColour.series[i] }))
     }}
 
     {{ comp.oi.chart.waffle({
         config: {
             data: [ by_sex ],
             total: 'TOTAL',
-            series: [...sex_series ],
+            series: [...sex_series, undefinedSeries ],
             size: [16, 8],
             legend: { show: true, position: 'top' },
         }
@@ -234,14 +228,12 @@ colours:
             title: 'Shifts',
             x: 'decimal_year',
             y: 'attended cumulative',
-            colour: '#e4ae00'
         },  
         ],
         axis: {
         x: {
             title: {
             label: 'Week ending',
-            colour: '#ffffff'
             },
         },
         y: {
@@ -276,14 +268,12 @@ colours:
             title: 'Total hours',
             x: 'decimal_year',
             y: 'hours cumulative',
-            colour: '#e4ae00'
         },  
         ],
         axis: {
         x: {
             title: {
             label: 'Week ending',
-            colour: '#ffffff'
             },
         },
         y: {
@@ -310,7 +300,6 @@ colours:
             title: 'Total shifts',
             x: 'decimal_year',
             y: 'attended',
-            colour: '#e4ae00'
         },  
     ],
     labels: {
@@ -328,7 +317,6 @@ colours:
             title: 'Total hours',
             x: 'decimal_year',
             y: 'hours',
-            colour: '#e4ae00'
         },  
     ],
     labels: {
