@@ -1,5 +1,8 @@
 ---
 title: Colour
+description: |
+    Colour is an important aspect of commnunicating information.
+    The use of colour on the Bradford 2025 Data Dashboards extends the brand guidance.
 scales:
     bicolour:
         yellowgreen: "#e4ae00 0%, #45d10a 100%"
@@ -20,24 +23,27 @@ scales:
 ---
 
 
-
+<section>
 <h2>Colour classes</h2>
 
-<ul class="grid regular" style="--grid-basis: 10em">
+<ul class="grid regular">
+<li class="full-width"><h3>Text colours</h3></li>
 {{ for colour of [ 'c-yellow', 'c-pink', 'c-green' ] }}
 <li class="block" style="--block-bg:var(--color-offblack);--block-fg:white;">
 <p class="{{ colour }}">class: <code>{{ colour }}</code></p>
 </li>
 {{ /for }}
-</ul>
-
-<ul class="grid">
+<li class="full-width"><h3>Colour blocks</h3></li>
 {{ for colour of [ 'c-yellow', 'c-pink', 'c-green' ] }}
 <li class="block {{ colour }}">
 <p>class: <code>block {{ colour }}</code></p>
 </li>
 {{ /for }}
 </ul>
+
+</section>
+
+<section>
 
 <h2>Colour scales</h2>
 
@@ -56,3 +62,5 @@ scales:
 <h3>Bi-colour</h3>
 
 {{ comp.ScaleSample({ scales: scales.bicolour }) }}
+
+</section>

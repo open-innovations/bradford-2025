@@ -1,14 +1,38 @@
+
+
 :root {
     --color-black: #000000;
-    --color-offblack: #1c1b1f;
+    --color-offblack: #262626;
     --color-white: #ffffff;
-    --color-pink: #ffadd5;
-    --color-green: #45d10a;
-    --color-yellow: #e4ae00;
+    --color-offwhite: #F4F3F2;
+    --color-chalk: #D8D6CF;
+    --color-pink: #F4ACCD;
+    --color-lightpink: #F8D9E7;
+    --color-darkpink: #C9AFBB;
+    --color-green: #45D108;
+    --color-lightgreen: #ACE892;
+    --color-darkgreen: hsl(102, 50%, 33%);
+    --color-yellow: #E0B942;
+    --color-lightyellow: #EAD79F;
     --color-grey: #c7c7c7;
     --color-midgrey: #d5d3d0;
     --color-lightgrey: #e6e4e5;
+    --color-notquitedarkgrey: #717171;
     --color-darkgrey: #434343;
+
+    --site-foreground: var(--color-black);
+    --site-background: var(--color-offwhite);
+
+    --link-color: var(--color-darkgreen);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --site-foreground: var(--color-offwhite);
+        --site-background: var(--color-black);
+
+        --link-color: var(--color-yellow);
+    }
 }
 
 .c-yellow {
@@ -22,4 +46,8 @@
 .c-pink {
     --block-bg: var(--color-pink);
     color: var(--color-pink);
+}
+
+a {
+    color: var(--link-color);
 }

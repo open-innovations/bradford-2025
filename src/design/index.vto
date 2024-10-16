@@ -6,11 +6,11 @@ description: |
     The design system contextualises these extensions.
 ---
 
-<div class="grid regular">
+<section class="grid regular">
 {{ for p of search.pages(`design url!=${url}`, 'title') }}
 <a class="block" href="{{ p.url }}">
     <h2>{{ p.title }}</h2>
     {{ p.description |> md }}
 </a>
 {{ /for }}
-</div>
+</section>
