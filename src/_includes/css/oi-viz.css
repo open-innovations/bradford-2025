@@ -15,7 +15,9 @@
   }
 }
 
-.grid .oi-viz {
+.grid .oi-map,
+.grid .oi-chart
+{
   max-width: 40rem;
   margin-inline: auto;
 }
@@ -49,6 +51,18 @@
 
 .oi-viz .oi-legend-inner {
   color: currentColor;
+}
+
+.oi-dashboard {
+  & .panel {
+    font-size: 1rem;
+    .footnote {
+      font-size: 1em;
+    }
+    *:first-child {
+      margin-top: 0;
+    }
+  }
 }
 
 /* .oi-dashboard .oi-dashboard-inner {

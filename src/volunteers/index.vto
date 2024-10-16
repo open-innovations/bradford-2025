@@ -13,21 +13,45 @@ scales:
 undefinedSeries:
     title: No data available
     colour: grey
+keyMap:
+    1. Monitoring & Evaluation cumulative: Signed up
+    2. Sign Up to Induction cumulative: Induction booked
+    3. Fully Inducted Volunteers cumulative: Active volunteers
+dashboardDetails:
+    Signed up: 
+        note: People who have signed up as potential volunteers
+    Induction booked:
+        note: People who have passed initial screening and have an induction booked #}}
+    Active volunteers:
+        note: People who have completed the volunteer sign-up process
 ---
 
+{{# TODO move this to a pipeline #}}
+{{ set summary = Object.entries(checkpoints_monthly[checkpoints_monthly.length - 1])
+    .filter(([k,v]) => k.includes('cumulative'))
+    .reduce((result, [k, v]) => ({ ...result, [keyMap[k] || k]: v }), {})
+}}
+
 <section>
-{{ set total_volunteers = geo_summary.find(x => x.type === 'TOTAL' ).count }}
+{{ set summaryDashboard = Object.entries(summary)
+    .map(([title, value]) => ({
+        title, value,
+        ...dashboardDetails[title]
+    }))
+}}
 
 {{ comp.oi.dashboard({
     config: {
-        data: geo_summary,
-        title: "type",
-        value: "count",
-        width: "80%",
-        panels: [{
-            name: "TOTAL",
-            colour: "pink",
-        }]
+        data: summaryDashboard,
+        title: "title",
+        value: "value",
+        note: "note",
+        width: "30%",
+        panels: [
+            { name: "Signed up", colour: "pink" },
+            { name: "Induction booked", colour: "yellow" },
+            { name: "Active volunteers", colour: "green" },
+        ]
     }
 }) }}
 </section>
@@ -162,7 +186,7 @@ undefinedSeries:
     {{ set by_ethnicity = demographics
         .filter((x) => x.category == 'ethnicity')
         .filter(x => x.value)
-        .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: total_volunteers })
+        .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: summary['Signed up'] })
     }}
     {{ set ethnicity_series = Object.entries(by_ethnicity)
         .map(([ value, count ]) => ({ value, count }))
@@ -187,7 +211,7 @@ undefinedSeries:
     {{ set by_sex = demographics
         .filter((x) => x.category == 'sex')
         .filter(x => x.value)
-        .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: total_volunteers })
+        .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: summary['Signed up'] })
     }}
     {{ set sex_series = Object.entries(by_sex)
         .map(([ value, count ]) => ({ value, count }))
