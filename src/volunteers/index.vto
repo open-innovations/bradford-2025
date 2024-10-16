@@ -15,6 +15,7 @@ undefinedSeries:
     colour: grey
 ---
 
+<section>
 {{ set total_volunteers = geo_summary.find(x => x.type === 'TOTAL' ).count }}
 
 {{ comp.oi.dashboard({
@@ -29,9 +30,9 @@ undefinedSeries:
         }]
     }
 }) }}
+</section>
 
 <hr>
-
 <section class="grid regular">
 <h2 class="full-width">Geographic distribution of volunteers</h2>
 
