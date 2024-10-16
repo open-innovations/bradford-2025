@@ -18,6 +18,8 @@ import transformImages from "lume/plugins/transform_images.ts";
 import autoDependency from "https://deno.land/x/oi_lume_utils/processors/auto-dependency.ts";
 import oiLumeViz from "oi_lume_viz/mod.ts";
 
+import oiLumeVizOptions from './oi-lume-viz-config.ts';
+
 const site = lume({
   src: "./src",
   location: new URL("https://open-innovations.github.io/bradford-2025"),
@@ -31,7 +33,8 @@ site.use(sheets({
 site.loadData(['.geojson', '.hexjson'], jsonLoader);
 site.process(['.html'], (pages) => pages.forEach(autoDependency));
 
-site.use(oiLumeViz());
+site.use(oiLumeViz(oiLumeVizOptions));
+site.data('oiColour', oiLumeVizOptions.colour);
 
 site.use(base_path());
 site.use(date({
