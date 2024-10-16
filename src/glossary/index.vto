@@ -1,11 +1,17 @@
 ---
 title: Glossary
+description: |
+    This site might refer to terms which are not in common use, or which have a
+    very specific meaning.
+    The glossary collects these terms into a single location
 layout: templates/page.vto
 ---
 
+<section>
 <dl>
-{{ for entry of glossary }}
+{{ for entry of glossary.toSorted((a, b) => a.term.toUpperCase() < b.term.toUpperCase() ? -1 : 1) }}
     <dt>{{ entry.term }}</dt>
         <dd>{{ entry.definition }}</dd>
 {{ /for }}
 </dl>
+</section>
