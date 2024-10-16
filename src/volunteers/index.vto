@@ -17,7 +17,7 @@ keyMap:
     1. Monitoring & Evaluation cumulative: Signed up
     2. Sign Up to Induction cumulative: Induction booked
     3. Fully Inducted Volunteers cumulative: Active volunteers
-dashboardDetails:
+checkpointDetails:
     Signed up: 
         note: People who have signed up as potential volunteers
     Induction booked:
@@ -33,10 +33,15 @@ dashboardDetails:
 }}
 
 <section>
+<h2>Summary</h2>
+<p>
+    This section summarises the key measures related to volunteers.
+    You can explore the details by scrolling down.
+</p>
 {{ set summaryDashboard = Object.entries(summary)
     .map(([title, value]) => ({
         title, value,
-        ...dashboardDetails[title]
+        ...checkpointDetails[title]
     }))
 }}
 
@@ -60,8 +65,28 @@ dashboardDetails:
 <section class="grid regular">
 <h2 class="full-width">Geographic distribution of volunteers</h2>
 
-<div>
-    <h3>Volunteers by Bradford MDC Ward</h3>
+<div class="full-width">
+    <p>
+        The maps show the geographic distribution of volunteers across Bradford, either by ward
+        or by postcode. In either case, the postcode provided by the volunteer at sign-up
+        has been used to identify the geography.
+    </p>
+</div>
+
+<h3 class="full-width">Volunteers by Bradford Council ward</h3>
+<aside class="full-width">
+    <p>
+        The <q>hexmap</q> shows the wards in the Bradford Council local authority area.
+        Hexmaps are useful as they present all elements as similarly sized,
+        and can avoid providing a skewed view of the data.
+    </p>
+    <p>
+        The equivalent geographic map is shown following the hexmap for comparison.
+    </p>
+    <p>
+        Hover over the 
+    </p>
+</aside>
     {{ comp.oi.map.hex_cartogram({
         config: {
             hexjson: hexes.bd_2024_opt4,
@@ -73,10 +98,42 @@ dashboardDetails:
             tooltip: '{{ n }}: <strong>{{ count }}</strong>'
         }
     }) }}
+
+    {{# TODO Sort out the tooltip for this #}}
+    {{ comp.oi.map.svg({ 
+        config: {
+            geojson: { key: "WD24CD", data: geojson.bd_wards },
+            data: geo_summary.filter(x => x.type == 'osward'),
+            bounds: {
+                lat: { min: 53.72, max: 53.97 },
+                lon: { min: -2.07, max: -1.63}
+            },
+            value: 'count', 
+            scale: scales.yellow,
+            key: 'code',
+            label: '{{ code }}',
+            columns: [
+                { name: 'tooltip', template: '{{ code }}: <strong>{{ count }}</strong> volunteers' },
+            ],
+            tooltip: 'tooltip',
+    } }) }}
+
+<h3 class="full-width">Volunteers by Bradford Postcode</h3>
+<div>
+    <p>
+        There is strong evidence that some Bradford residents associate themselves
+        very closely with their postcode. The map displays the number of volunteers
+        by Bradford postcode. 
+    </p>
+
+    <p class="block c-yellow">
+        Please note, the postcode map does not cover the entire Bradford Council area.
+        There are some postcodes (e.g. LS29) not on the map, and other BD postcodes
+        which are not in Bradford MDC. This map will be refined to cover these
+        cases.
+    </p>
 </div>
 
-<div>
-    <h3>Volunteers by Bradford Postcode</h3>
     {{ comp.oi.map.svg({ 
         config: {
             geojson: { key: "name", data: geojson.bd_pcd },
@@ -94,41 +151,64 @@ dashboardDetails:
             ],
             tooltip: 'tooltip',
     } }) }}
-</div>
 
-<div class="block c-green">
-    <p>
-        The maps show the geographic distribution of volunteers across Bradford, either by ward
-        or by postcode. In either case, the postcode provided by the volunteer at sign-up
-        has been used to identify the geography.
-    </p>
-</div>
 </section>
 
 <hr>
 
 <section class="grid regular" style="--grid-basis: 30rem;">
-<h2 class="full-width">Volunteering Signups</h2>
+<h2 class="full-width">Volunteering Checkpoints</h2>
+<div>
+<p>
+    This section of the {{ title }} page shows the various checkpoints that volunteers pass
+    through.
+</p>
+
+<p>
+    There are three main checkpoints:
+</p>
+<dl>
+    {{ for e of Object.entries(checkpointDetails)  }}
+    <dt>{{ e[0] }}</dt>
+        <dd>{{ e[1].note }}</dd>
+    {{ /for }}
+</dl>
+</div>
+
 <div>
 {{ comp.oi.chart.line({ 
     config: {
         data: checkpoints_monthly,
         width: 900, 
         height: 400,
-        columns: [{
-			name: "decimal_year",
-			template: "{{ month ending | strptime('%Y-%m-%d') | decimalYear() }}"
-		}],
+        columns: [
+            {
+                name: "decimal_year",
+                template: "{{ Month ending | strptime('%Y-%m') | decimalYear() }}"
+	    	},
+            {
+                name: "formatted_date",
+                template: "{{ Month ending | strptime('%Y-%m') | strftime('%b-%y') }}"
+            }
+        ],
         series: [
         {
-            title: '2. Sign Up to Induction cumulative',
+            title: keyMap['3. Fully Inducted Volunteers cumulative'],
+            x: 'decimal_year',
+            y: '3. Fully Inducted Volunteers cumulative',
+            colour: 'green',
+        },
+        {
+            title: keyMap['2. Sign Up to Induction cumulative'],
             x: 'decimal_year',
             y: '2. Sign Up to Induction cumulative',
-        },  
+            colour: 'yellow',
+        },
         {
-            title: '1. Monitoring & Evaluation cumulative',
+            title: keyMap['1. Monitoring & Evaluation cumulative'],
             x: 'decimal_year',
             y: '1. Monitoring & Evaluation cumulative',
+            colour: 'pink',
         },
         ],
         axis: {
@@ -137,7 +217,7 @@ dashboardDetails:
             label: 'Month',
             },
             tick: {
-            spacing: 1
+            spacing: 0.25
             }
         },
         y: {
@@ -161,7 +241,7 @@ dashboardDetails:
 <section class="grid regular" style="--grid-basis: 30rem;">
 <h2 class="full-width">Demographics of volunteers</h2>
 
-<div class="block full-width c-yellow">
+<div class="full-width">
     <p>
         This section shows summaries of volunteers by demographic groupings, including age and ethnicity.
     </p>
@@ -237,7 +317,23 @@ dashboardDetails:
 
 <section class="grid regular" style="--grid-basis: 30rem;">
 <h2 class="full-width">Volunteering Shifts</h2>
+
+<div class="full-width">
+<p>
+    The final section shows the number of volunteer shifts and number of hours
+    spent on the shifts.
+</p>
+
+<p class="block c-yellow">
+    At the moment, this includes all volunteering data, incliding training and
+    induction sessions.
+    This will be broken down by category as the site is refined.
+</p>
+</div>
+
 <div>
+
+
 <h3>Shifts</h3>
 {{ comp.oi.chart.line({ 
     config: {
