@@ -1,19 +1,61 @@
 /* Put any overrides to make the OI Viz components work in this file */
 
+.oi-viz {
+  .series .hex {
+    path {
+      scale: 0.95;
+      transition: scale 0.3s;
+    }
+
+    &:hover {
+      path {
+        scale: 1;
+      }
+    }
+  }
+}
+
 .grid .oi-viz {
-    max-width: 40rem;
-    margin-inline: auto;
+  max-width: 40rem;
+  margin-inline: auto;
 }
 
 .oi-legend-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .oi-legend-inner {
-    & .oi-legend-item {
-        display: flex !important;
-        gap: 0.5rem;
+  & .oi-legend-item {
+    display: flex !important;
+    align-items: center;
+    gap: 0.4rem;
+
+    &.oi-series-on {
+      color: var(--color-offblack) !important;
+      background: var(--color-midgrey) !important;
     }
+  }
+
+  & .oi-legend-icon {
+    margin: 0 !important;
+  }
 }
+
+.oi-chart-main text {
+  fill: currentColor;
+}
+
+.oi-viz .oi-legend-inner {
+  color: currentColor;
+}
+
+/* .oi-dashboard .oi-dashboard-inner {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border-style: dashed;
+  border-width: 0.5px;
+  border-color: #5f5e5e;
+  text-align: center;
+} */
