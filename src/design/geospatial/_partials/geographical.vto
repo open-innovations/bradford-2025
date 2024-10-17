@@ -10,17 +10,12 @@
 
 <p>This map was rendered with the following code</p>
 
-<pre>{{-
-`comp.oi.map.svg({
+<pre>comp.oi.map.svg({
   config: {
-    geojson: {
-      key: 'LAD24CD',
-      data: geojson.bradford_mdc
-    },
+    geojson: { key: 'LAD24CD', data: geojson.bradford_mdc },
     ...
   }
-})`
--}}</pre>
+})</pre>
 
 </div>
 
@@ -46,10 +41,7 @@
 <pre>{{-
 `comp.oi.map.svg({
   config: {
-    geojson: {
-      key: 'WD24CD',
-      data: geojson.bd_wards
-    },
+    geojson: { key: 'WD24CD', data: geojson.bd_wards },
     ...
   }
 })`
@@ -84,22 +76,19 @@
 </p>
 <table>
 <thead>
-    <tr><th>Key</th><th>Postcode Districts</th><th>Notes</th></tr>
+    <tr><th>Postcode Districts</th><th>Notes</th></tr>
 </thead>
 <tbody>
     <tr>
-        <td class="block c-pink"></td>
-        <td class="centred">BD</td>
+        <td class="centred block c-pink">BD</td>
         <td>The entirety of BD19 and BD24 codes (as well as the non-geographical BD postcode districts) are excluded from this layout.</td>
     </tr>
     <tr>
-        <td class="block c-yellow"></td>
-        <td class="centred">LS</td>
+        <td class="centred block c-yellow">LS</td>
         <td>There is a significant area of Bradford MDC which is covered by the LS29 postcode. Additionally, some LS19, LS20 and LS28 postcodes are in the covered.</td>
     </tr>
     <tr>
-        <td class="block c-green"></td>
-        <td class="centred">HD and HX</td>
+        <td class="centred block c-green">HD and HX</td>
         <td>The southern edges of the local authority area also include small parts of HD and HX postcodes.</td>
     </tr>
 </tbody>
@@ -110,10 +99,7 @@
 <pre>{{-
 `comp.oi.map.svg({
   config: {
-    geojson: {
-      key: 'name',
-      data: geojson.postcodes
-    },
+    geojson: { key: 'name', data: geojson.postcodes },
     ...
   }
 })`
