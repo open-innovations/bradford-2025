@@ -1,35 +1,55 @@
 <h2 class="full-width">Geographical</h2>
 
+<h3 class="full-width">Boundary</h3>
+<div>
+
+<p>
+    Bradford City of Culture 2025 is geographically defined by the boundary of the
+    City of Bradford Metropolitan District Council.
+</p>
+
+<p>This map was rendered with the following code</p>
+
+<pre>{{-
+`comp.oi.map.svg({
+    config: {
+        geojson: { key: 'LAD24CD', data: geojson.bradford_mdc },
+        ...
+    }
+})`
+-}}</pre>
+
+</div>
+
+<div class="block c-notquitedarkgrey">
+{{ comp.oi.map.svg({
+    config: {
+        geojson: { key: 'LAD24CD', data: geojson.bradford_mdc },
+        bounds: bounds.bradford,
+        data: [
+            { code: 'E08000032', colour: 'yellow', name: 'City of Bradford\nMetropolitan District Council' }
+        ],
+        key: 'code',
+        tooltip: 'name',
+    }
+}) }}
+</div>
+
 <h3 class="full-width">Wards</h3>
 <div>
-{{#
-<p>
-    Research has shown that some residents of Bradford identify strongly with their postcode area.
-    The map shows the postcodes that are contained within the bounds of the City of Bradford Metropolitan District Council.
-</p>
-<table>
-<thead>
-    <tr><th>Key</th><th>Postcode Districts</th><th>Notes</th></tr>
-</thead>
-<tbody>
-    <tr>
-        <td class="block c-pink"></td>
-        <td class="centred">BD</td>
-        <td>The entirety of BD19 and BD24 codes (as well as the non-geographical BD postcode districts) are excluded from this layout.</td>
-    </tr>
-    <tr>
-        <td class="block c-yellow"></td>
-        <td class="centred">LS</td>
-        <td>There is a significant area of Bradford MDC which is covered by the LS29 postcode. Additionally, some LS19, LS20 and LS28 postcodes are in the covered.</td>
-    </tr>
-    <tr>
-        <td class="block c-green"></td>
-        <td class="centred">HD and HX</td>
-        <td>The southern edges of the local authority area also include small parts of HD and HX postcodes.</td>
-    </tr>
-</tbody>
-</table>
-#}}
+
+<p>This map was rendered with the following code</p>
+
+<pre>{{-
+`comp.oi.map.svg({
+    config: {
+        geojson: { key: 'WD24CD', data: geojson.bd_wards },
+        ...
+    }
+})`
+-}}</pre>
+
+
 </div>
 
 <div class="block c-notquitedarkgrey">
@@ -77,6 +97,18 @@
     </tr>
 </tbody>
 </table>
+
+<p>This map was rendered with the following code</p>
+
+<pre>{{-
+`comp.oi.map.svg({
+    config: {
+        geojson: { key: 'name', data: geojson.postcodes },
+        ...
+    }
+})`
+-}}</pre>
+
 </div>
 
 <div class="block c-notquitedarkgrey">
