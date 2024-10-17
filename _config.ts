@@ -126,10 +126,15 @@ site.copy("assets/vendor/");
   [ 'volunteers/checkpoints-monthly.csv', 'volunteers/_data/checkpoints_monthly.csv' ],
   [ 'volunteers/shifts-monthly.csv', 'volunteers/_data/shifts_monthly.csv' ],
   [ 'volunteers/shifts-weekly.csv', 'volunteers/_data/shifts_weekly.csv' ],
-].forEach(([source, target]) => site.remoteFile(
-  target,
-  `data/${source}`
-))
+].forEach(async ([source, target]) => {
+  const file = `data/${source}`;
+  try {
+    await Deno.lstat(file);
+    return site.remoteFile(target, file);
+  } catch(e) {
+    console.error(e.message);
+  }
+})
 
 // Set up some global data
 site.data('landingPage', 'placeholder', '/landing');
@@ -144,6 +149,11 @@ site.process(['.html'], (pages) => pages.forEach(page => {
   })
   // Another kludge to avoid memory leaks on large pages
   page.content;
-}))
+}));
+
+// Suppress site pages
+[
+  '/volunteers',
+].forEach(p => site.data('url', false, p));
 
 export default site;
