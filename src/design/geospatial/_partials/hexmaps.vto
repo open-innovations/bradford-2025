@@ -1,1 +1,38 @@
-<h2>Hexmaps</h2>
+<h2 class="full-width">Hexmaps</h2>
+
+<div>
+    <p>
+        The <q>hexmap</q> shows the wards in the Bradford Council local authority area.
+        Hexmaps are useful as they present all elements as similarly sized,
+        and can avoid providing a skewed view of the data.
+    </p>
+
+<p>This map was rendered with the following code</p>
+
+<pre>{{-
+`comp.oi.map.hex_cartogram({
+    config: {
+        geojson: hexes.bd_2024,
+        label: 'short_code',
+        ...
+    }
+})`
+-}}</pre>
+
+</div>
+
+<div>
+{{ comp.oi.map.hex_cartogram({
+    config: {
+        hexjson: hexes.bd_2024,
+        data: wards.map((x, i, l) => ({ ...x, value: i + 1 })),
+        matchKey: 'code',
+        value: 'value',
+        min: 0, max: wards.length,
+        scale: 'hsl(46, 50%, 80%) 0%, #e4ae00 100%',
+        label: 'short_code',
+        tooltip: '{{ name }} ({{ short_code }})'
+    }
+}) }}
+
+</div>
