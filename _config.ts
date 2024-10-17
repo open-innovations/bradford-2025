@@ -153,7 +153,7 @@ site.process(['.html'], (pages) => pages.forEach(page => {
 
 // Suppress site pages
 [
-  '/volunteers',
+  // '/volunteers',
 ].forEach(p => site.data('url', false, p));
 
 export default site;
