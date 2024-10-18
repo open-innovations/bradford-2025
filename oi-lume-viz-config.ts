@@ -1,27 +1,37 @@
-import { getColourVariables } from './lib/parse-css.ts';
-import { denimInk } from "./lib/font-metrics.ts";
+import { getColourVariables } from "./lib/parse-css.ts";
+import { metricsBuilder } from "./lib/font-metrics.ts";
 
-const cssFile = new URL(import.meta.resolve("./src/_includes/css/colour.css")).pathname;
+const cssFile =
+  new URL(import.meta.resolve("./src/_includes/css/colour.css")).pathname;
 
-const names = await getColourVariables(cssFile, (n: string) => n.replace(/^--color-/, ""));
+const names = await getColourVariables(
+  cssFile,
+  (n: string) => n.replace(/^--color-/, ""),
+);
 
 const series = [
-    'yellow',
-    'pink',
-    'green',
-    'lightyellow',
-    'lightpink',
-    'lightgreen',
-].map(n => names[n]);
+  "yellow",
+  "pink",
+  "green",
+  "lightyellow",
+  "lightpink",
+  "lightgreen",
+].map((n) => names[n]);
 
 export default {
-    colour: {
-        names, series 
+  colour: {
+    names,
+    series,
+  },
+  font: {
+    family: '"Denim INK", "Helvetica", sans-serif',
+    fonts: {
+      "Denim INK": {
+        normal: await metricsBuilder(
+          "vendor/bd25/DenimINK-Regular-UUJ7XEES.woff",
+        ),
+        bold: await metricsBuilder("vendor/bd25/DenimINK-Bold-5SFPWNGF.woff"),
+      },
     },
-    font: {
-        family: '"Denim INK", "Helvetica", sans-serif',
-        fonts: {
-            'Denim INK': denimInk,
-        }
-    },
-}
+  },
+};
