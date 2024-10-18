@@ -1,4 +1,4 @@
-<section data-background-color="#1c1b1f" id="technical-platform">
+<section data-background-color="var(--color-offblack)" id="technical-platform">
   <h2>Technical Platform</h2>
   <p>
     We need to document how the data is processed, stored and presented.
@@ -34,7 +34,7 @@
   <p>
     Pipelines are responsible for extracting data from source systems and getting ready for publication:
   </p>
-  <ul class="impact-list">
+  <ul class="grid regular compact auto-colour auto-layout">
     <li><div>Cleansing</div><div class="tag">&hellip;validating, fixing and converting varying data formats.</div></li>
     <li><div>Anonymising</div><div class="tag">&hellip;removing personally identifiable data so it is safe to publish.</div></li>
     <li><div>Summarising</div><div class="tag">&hellip;by event, date, geography, etc.</div></li>
@@ -84,7 +84,7 @@
 
 <section>
 <h3>Geographies are difficult</h3>
-<div class="flexy">
+<div class="grid">
 <dl style="font-size:0.7em;flex-grow:2;">
   <dt style="border-inline-end:1.5em solid var(--color-green);padding-inline:0.3em;">Bradford district</dt>
     <dd>&ldquo;Official&rdquo; boundary of Bradford 2025 UK City of Culture;</dd>
@@ -140,7 +140,7 @@
 
 {{ set labels = geojson.bd_wards.features |> map(x => x.properties) |> map(x => ({ name: x.WD24NM, latitude: x.LAT, longitude: x.LONG, "font-size": 16 })) }}
 
-<div id="hex-comparison" class="flexy" style="font-size:10px;">
+<div id="hex-comparison" class="grid" style="font-size:10px;">
 {{ comp.oi.map.svg({ config: {
   geojson: { key: "WD24CD", data: geojson.bd_wards },
   bounds: {

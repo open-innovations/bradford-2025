@@ -22,3 +22,23 @@
 .centred {
   text-align: center;
 }
+
+.post-it {
+  position: relative;
+  outline: none;
+  flex-basis: 5em;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 4em;
+  background: #e4ae00;
+  padding: 0.5em;
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    /* width: 0; */
+    border-right: 0.5em solid var(--post-it-bg);
+    border-top: 0.5em solid hsl(46, 100%, 35%);
+  }
+}
