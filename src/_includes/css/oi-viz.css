@@ -35,8 +35,15 @@
     gap: 0.4rem;
 
     &.oi-series-on {
-      color: var(--color-offblack) !important;
-      background: var(--color-midgrey) !important;
+      background: unset !important;
+      outline: unset !important;
+      &:hover {
+        color: var(--color-offblack) !important;
+        background: var(--color-midgrey) !important;
+      }
+    }
+    &.oi-series-off {
+      color: #888 !important;
     }
   }
 
