@@ -11,8 +11,8 @@ scales:
     greenfade: "#1c1b1f 0%, #45d10a 100%"
     yellowfade: "#1c1b1f 0%, #e4ae00 100%"
 undefinedSeries:
-    title: No data available
-    colour: grey
+    title: Suppressed values
+    colour: '#777'
 keyMap:
     1. Monitoring & Evaluation cumulative: Signed up
     2. Sign Up to Induction cumulative: Induction booked
@@ -27,6 +27,7 @@ checkpointDetails:
 ---
 
 {{# TODO move this to a pipeline #}}
+{{ set total = geo_summary.find(x => x.type === 'TOTAL').count }}
 {{ set summary = Object.entries(checkpoints_monthly[checkpoints_monthly.length - 1])
     .filter(([k,v]) => k.includes('cumulative'))
     .reduce((result, [k, v]) => ({ ...result, [keyMap[k] || k]: v }), {})
@@ -247,8 +248,8 @@ checkpointDetails:
     </p>
 </div>
 
+<h3 class="full-width">Volunteers by age</h3>
 <div>
-    <h3>Volunteers by age</h3>
     {{ comp.BarChart({
         data: demographics.filter((x) => x.category == 'age_range'),
         category: 'variable',
@@ -261,18 +262,22 @@ checkpointDetails:
     }) }}
 </div>
 
+<h3 class="full-width">Volunteers by Ethnicity</h3>
 <div>
-    <h3>Volunteers by Ethnicity</h3>
     {{ set by_ethnicity = demographics
         .filter((x) => x.category == 'ethnicity')
         .filter(x => x.value)
-        .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: summary['Signed up'] })
+        .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: total })
     }}
     {{ set ethnicity_series = Object.entries(by_ethnicity)
         .map(([ value, count ]) => ({ value, count }))
-        .filter(x => !['TOTAL', 'UNSPECIFIED'].includes(x.value))
+        .filter(x => !['TOTAL'].includes(x.value))
         .toSorted((a, b) => b.count - a.count)
-        .map((x, i) => ({ value: x.value, colour: oiColour.series[i] }))
+        .map((x, i) => ({
+            value: x.value,
+            title: x.value === 'UNSPECIFIED' ? 'Missing data' : x.value,
+            colour: oiColour.series[i]
+        }))
     }}
 
     {{ comp.oi.chart.waffle({
@@ -286,18 +291,22 @@ checkpointDetails:
     }) }}
 </div>
 
+<h3 class="full-width">Volunteers by Sex</h3>
 <div>
-    <h3>Volunteers by Sex</h3>
     {{ set by_sex = demographics
         .filter((x) => x.category == 'sex')
         .filter(x => x.value)
-        .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: summary['Signed up'] })
+        .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: total }) 
     }}
     {{ set sex_series = Object.entries(by_sex)
         .map(([ value, count ]) => ({ value, count }))
-        .filter(x => !['TOTAL', 'UNSPECIFIED'].includes(x.value))
+        .filter(x => !['TOTAL'].includes(x.value))
         .toSorted((a, b) => b.count - a.count)
-        .map((x, i) => ({ value: x.value, title: x.value, colour: oiColour.series[i] }))
+        .map((x, i) => ({
+            value: x.value,
+            title: x.value === 'UNSPECIFIED' ? 'Missing data' : x.value,
+            colour: oiColour.series[i]
+        }))
     }}
 
     {{ comp.oi.chart.waffle({
