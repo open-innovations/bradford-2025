@@ -5,3 +5,105 @@ description: |
     The Bradford 2025 Data Dashboard will adopt a clear domain language.
 ---
 
+<h2>
+    Key concepts
+</h2>
+
+<p>
+    The main aim of the {{ metas.site }} is to present information about the
+    Bradfird City of Culture 2025 programme.
+    This is primarily segmented by
+</p>
+<dl>
+    <dt>
+        Topics
+    </dt>
+    <dd>
+        Primary data extracted direct from Bradford 2025 operational systems.
+    </dd>
+    <dt>
+        Perspectives
+    </dt>
+    <dd>
+        Reports integrating multiple topics to present a view of information about Bradford 2025.
+    </dd>
+    <dt>
+        Experiments
+    </dt>
+    <dd>
+        Speculative data derived from experimental or other open data sources.
+    </dd>
+</dl>
+
+<section class="grid regular">
+
+<section>
+<h2>
+    Topics
+</h2>
+{{ search.data('topics/').description |> md }}
+
+<p class="block centred">
+    <a href="{{ '~/topics/index.yml' |> url }}">View the topics</a>
+</p>
+
+<p>
+    Each topic will have it's own page of visualisations presenting
+    the core information derived direct from that source of information.
+</p>
+
+<p>
+    A partial list is provided below.
+</p>
+<table class="centred" style="width: 100%;">
+<thead>
+<tr><th>Topic</th><th>Source system(s)</th></tr>
+</thead>
+<tbody>
+<tr><td>Volunteers</td><td>Rosterfy</td></tr>
+<tr><td>Scheduled Events</td><td>Airtable</td></tr>
+<tr><td>Ticket Sales</td><td>Spektrix</td></tr>
+<tr><td>Event Attendance</td><td>Airtable</td></tr>
+<tr><td>&hellip;</td><td>&hellip;</td></tr>
+
+</tbody>
+</table>
+</section>
+
+<section>
+<h2>
+    Perspectives
+</h2>
+{{ search.data('perspectives/').description |> md }}
+
+<p class="block centred">
+    <a href="{{ '~/perspectives/index.yml' |> url }}">View the perspectives</a>
+</p>
+
+<p>
+    Perspectives will be created for many purposes, potentially covering
+    specific events,
+    broader evaluation aims,
+    or to meet the needs of specific stakeholders (e.g. funders, steering committees).
+</p>
+
+</section>
+
+<section>
+<h2>
+    Experiments
+</h2>
+{{ search.data('experiments/').description |> md }}
+
+<p class="block centred">
+    <a href="{{ '~/experiments/index.yml' |> url }}">View the perspectives</a>
+</p>
+
+<p>
+    We term these sources of data experiments, to distinguish them from the 
+    strongly operational topics. If they prove useful the experiments might be added to
+    the perspective reports.
+</p>
+</section>
+
+</section> <!-- end of grid -->
