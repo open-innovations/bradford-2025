@@ -9,11 +9,12 @@
   & > *:last-child {
       margin-block-end: 0;
   }
-  &:is(a) {
-      text-decoration: unset;
-      &:hover {
-          text-decoration: underline;
-      }
+  & a, &:is(a) {
+    color: inherit;
+    text-decoration: unset;
+    &:hover {
+        text-decoration: underline;
+    }
   }
 }
 
