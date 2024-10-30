@@ -7,7 +7,7 @@ description: |
 layout: templates/page.vto
 
 scales:
-    yellow: 'hsl(46, 50%, 80%) 0%, #e4ae00 100%'
+    yellow: 'hsl(46, 50%, 90%) 0%, #e4ae00 100%'
     greenfade: "#1c1b1f 0%, #45d10a 100%"
     yellowfade: "#1c1b1f 0%, #e4ae00 100%"
 undefinedSeries:
@@ -32,6 +32,24 @@ checkpointDetails:
     .filter(([k,v]) => k.includes('cumulative'))
     .reduce((result, [k, v]) => ({ ...result, [keyMap[k] || k]: v }), {})
 }}
+{{>
+    const wardSignUps = geojson.bd_wards.features.map(x => x.properties.WD24CD)
+        .map(code => ({ code, count: 0, ...geo_summary.find(w => w.code == code) }))
+        .map(d => ({
+            ...d,
+            count: d.count <= 5 && d.count > 0 ? 5 : d.count,
+            countLabel: d.count <= 5 && d.count > 0 ? 'fewer than 6' : d.count.toString()
+        }) )
+    const postcodeSignUps = geojson.postcodes.features.map(x => x.properties.name)
+        .map(code => ({ code, count: 0, ...geo_summary.find(w => w.code == code) }))
+        .map(d => ({
+            ...d,
+            count: d.count <= 5 && d.count > 0 ? 5 : d.count,
+            countLabel: d.count <= 5 && d.count > 0 ? 'fewer than 6' : d.count.toString()
+        }) )
+}}
+
+{{ postcodeSignUps |> JSON.stringify }}
 
 <section>
 <h2>Summary</h2>
@@ -91,12 +109,12 @@ checkpointDetails:
     {{ comp.oi.map.hex_cartogram({
         config: {
             hexjson: hexes.bd_2024,
-            data: geo_summary.filter(x => x.type == 'osward'),
+            data: wardSignUps,
             scale: scales.yellow,
             matchKey: 'code',
             value: 'count',
             label: '{{ n | slice(0,3) }}',
-            tooltip: '{{ n }}: <strong>{{ count }}</strong>'
+            tooltip: '{{ n }}: <strong>{{ countLabel }} volunteers</strong>'
         }
     }) }}
 
@@ -104,17 +122,17 @@ checkpointDetails:
     {{ comp.oi.map.svg({ 
         config: {
             geojson: { key: "WD24CD", data: geojson.bd_wards },
-            data: geo_summary.filter(x => x.type == 'osward'),
+            data: wardSignUps,
             bounds: {
                 lat: { min: 53.72, max: 53.97 },
-                lon: { min: -2.07, max: -1.63}
+                lon: { min: -2.07, max: -1.63 }
             },
             value: 'count', 
             scale: scales.yellow,
             key: 'code',
             label: '{{ code }}',
             columns: [
-                { name: 'tooltip', template: '{{ code }}: <strong>{{ count }}</strong> volunteers' },
+                { name: 'tooltip', template: '{{ code }}: <strong>{{ countLabel }}</strong> volunteers' },
             ],
             tooltip: 'tooltip',
     } }) }}
@@ -138,7 +156,7 @@ checkpointDetails:
     {{ comp.oi.map.svg({ 
         config: {
             geojson: { key: "name", data: geojson.postcodes },
-            data: geo_summary.filter(x => x.type == 'postcode_area'),
+            data: postcodeSignUps,
             bounds: {
                 lat: { min: 53.72, max: 53.97 },
                 lon: { min: -2.07, max: -1.63}
@@ -148,7 +166,7 @@ checkpointDetails:
             key: 'code',
             label: '{{ code }}',
             columns: [
-                { name: 'tooltip', template: '{{ code }}: <strong>{{ count }}</strong> volunteers' },
+                { name: 'tooltip', template: '{{ code }}: <strong>{{ countLabel }}</strong> volunteers' },
             ],
             tooltip: 'tooltip',
     } }) }}
