@@ -1,4 +1,4 @@
-<section data-background-color="#1c1b1f" id="stakeholders">
+<section data-background-color="var(--color-offblack)" id="stakeholders">
   <h2>Stakeholders</h2>
   <p>
     We need to know who will use the data so we can ensure we meet their needs.
@@ -22,7 +22,7 @@
   <p>
     The following pages summarise stakeholder needs using this format &rarr;
   </p>
-  <div class="grid-block" style="color: var(--color-grey) !important;--bg-col: var(--color-darkgrey);text-align:initial;"
+  <div class="block" style="--block-fg: var(--color-grey);--block-bg: var(--color-darkgrey); text-align:initial;"
     data-flash="Example"
   >
   {{ comp.Stakeholder({
@@ -36,9 +36,9 @@
 <section>
   <h3>Internal stakeholders</h3>
 
-  <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-pink);">
+  <ul class="grid auto-layout" style="font-size:1.2rem;">
     {{ for s of stakeholders |> filter(s => s.type === 'internal') }}
-      <li class="grid-block">
+      <li class="block c-pink">
         {{ comp.Stakeholder({ name: s.name, examples: s.examples, aim: s.aim }) }}
       </li>
     {{ /for }}
@@ -50,7 +50,7 @@
 
 <section>
   <h4>There are some overriding internal aims</h4>
-  <ul class="impact-list">
+  <ul class="grid regular compact auto-colour">
     <li>Information is easily at hand and reliable</li>
     <li>Feedback loops are in place, allowing early course corrections</li>
     <li>Time spent writing reports (e.g. for funders) is reduced</li>
@@ -59,9 +59,9 @@
 
 <section>
   <h3>Direct stakeholders</h3>
-  <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-green);">
+  <ul class="grid auto-layout" style="font-size:1.2rem;">
     {{ for s of stakeholders |> filter(s => s.type === 'direct') }}
-      <li class="grid-block">
+      <li class="block c-green">
         {{ comp.Stakeholder({ name: s.name, examples: s.examples, aim: s.aim }) }}
       </li>
     {{ /for }}
@@ -73,9 +73,9 @@
 
 <section>
   <h3>Indirect stakeholders</h3>
-  <ul class="no-bullets flex-grid" style="font-size:1.2rem;--bg-col:var(--color-yellow);">
+  <ul class="grid auto-layout" style="font-size:1.2rem;">
     {{ for s of stakeholders |> filter(s => s.type === 'indirect') }}
-      <li class="grid-block">
+      <li class="block c-yellow">
         {{ comp.Stakeholder({ name: s.name, examples: s.examples, aim: s.aim }) }}
       </li>
     {{ /for }}

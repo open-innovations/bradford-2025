@@ -1,0 +1,20 @@
+---
+layout: templates/page.vto
+---
+
+{{ set subpages = search.pages(`${index_tag} !url=${ url }`) }}
+
+{{ if subpages.length }}
+<ul>
+{{ for page of subpages }}
+    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+{{ /for }}
+</ul>
+{{ else }}
+<p>
+    There are no pages tagged with <q>{{ index_tag }}</p>.
+</p>
+{{ /if}}
+
+
+

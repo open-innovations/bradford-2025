@@ -1,12 +1,12 @@
-<section data-background-color="#1c1b1f" id="references">
+<section data-background-color="var(--color-offblack)" id="references">
   <h2>References</h2>
 </section>
 
 <section>
   <h3>Links</h3>
-  <ul class="impact-list" style="flex-wrap: wrap;align-items:center;">
+  <ul class="grid">
     {{ for i, s of references }}
-      <li><a href="{{ s.url }}">{{ s.title }}</a></li>
+      <li class="block"><a href="{{ s.url }}">{{ s.title }}</a></li>
     {{ /for }}
   </ul>
 </section>
