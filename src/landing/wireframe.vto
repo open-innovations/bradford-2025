@@ -1,12 +1,17 @@
 ---
-title: Home
+title: Welcome
 layout: templates/page.vto
+description: |
+    This is the data dashboard for the Bradford 2025 UK City of Culture.
+    In line with our aims to be transparent about what's going on across the city.
+    You'll find information about all aspects of Bradford 2025,
+    from events to volunteers to communities.
 ---
 
-<section class="grid regular" style="padding-bottom: 1rem;" data-flash="Topic">
+<section class="grid regular block" style="padding-bottom: 1rem;" data-flash="Topic">
 <h2 class="full-width">Events</h2>
-<div class="block c-yellow centred" style="max-width: min(15rem, 100%); margin-inline: auto;">
-<p style="margin-block:0;">Total scheduled events</p>
+<div class="block c-green centred" style="max-width: min(15rem, 100%); margin-inline: auto;">
+<p style="margin-block:0;">Total events</p>
 <p style="font-size: 3rem; font-weight: 900;margin-block:0.5rem;">987</p>
 <p style="margin-block:0;"><em>Example data</em></p>
 </div>
@@ -15,33 +20,49 @@ layout: templates/page.vto
     Bradford 2025 has an amazing programme of events. The events topic collects data about these events to
     demonstrate the breadth of activity going on throughout the year.
 </p>
+<p>
+    Events may be performances or exhibitions or workshops or training sessions and may be face-to-face or digital.
+</p>
 <a class="block c-green" href="/topics/events/">Explore the events topic &rarr;</a>
 </div>
 </section>
 
-<section class="grid regular block" style="padding-bottom: 1rem;" data-flash="Perspective">
-<h2 class="full-width">Engagement</h2>
+<section class="grid regular" style="padding-bottom: 1rem;" data-flash="Perspective">
+<h2 class="full-width">The People of Bradford</h2>
 <div>
 <p>
-    The <q>Engagement</q> perspective presents monitoring and evaluation data about engagement
-    across the Bradford 2025 area.
+    The <q>The People of Bradford</q> perspective presents monitoring and evaluation data about involvement of
+    people across the Bradford 2025 area.
+</p>
+<p>
+    This perspective covers all types of activity, including attending performances, visiting exhibitions,
+    participating in workshops, volunteering and much more.
+    {{# we are avoiding the term 'engagement' and 'attendees' in terms of indicators/metrics (although we may use it in our general narrative) and distinguishing between audiences and participants. #}}
 </p>
 <p>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur dolore ipsam minima. Quidem, tenetur quis voluptas illo dignissimos hic, reiciendis officia in cumque dolore impedit placeat fugiat perspiciatis, rem eius.
 </p>
 <p>
-    <a class="block c-yellow" href="/perspectivces/engagement/">Explore the engagement perspective &rarr;</a>
+    The perspective is named after <a href="https://bradford2025.co.uk/programme/the-people-of-bradford/">The People Of Bradford</a>
+    digital series created for Bradford 2025 by photographer Tim Smith, as it aims to put the data about how people experience Bradford 2025
+    front and centre.
+</p>
+<p>
+    <a class="block c-yellow" href="/perspectivces/people-of-bradford/">Explore the engagement perspective &rarr;</a>
 </p>
 </div>
+
 <div class="block">
 {{ comp.oi.map.svg({
     config: {
         geojson: { key: "WD24CD", data: geojson.bd_wards },
         bounds: bounds.bradford,
-        data: search.data('/design/geospatial').wards,
+        data: search.data('/design/geospatial').wards.map(x => ({ ...x, value: Math.round(Math.random() * 100)})),
         key: 'code',
         tooltip: 'name',
         tooltip: '{{ name }} ({{ short_code }})',
+        value: 'value',
+        scale: 'hsl(46, 50%, 80%) 0%, #e4ae00 100%',
         tools: {
             filter: {
                 label: 'name'
@@ -52,7 +73,7 @@ layout: templates/page.vto
 </div>
 </section>
 
-<section class="grid regular" style="padding-bottom: 1rem;" data-flash="Topic">
+<section class="grid regular block" style="padding-bottom: 1rem;" data-flash="Topic">
 <h2 class="full-width">Volunteers</h2>
 <div class="block">{{
     comp.oi.chart.line({
@@ -65,6 +86,7 @@ layout: templates/page.vto
                     title: 'Example data',
                     x: 'x',
                     y: 'y',
+                    colour: 'pink'
                 }
             ],
             axis: {
@@ -85,7 +107,7 @@ layout: templates/page.vto
 </div>
 </section>
 
-<section class="grid regular block" style="padding-bottom: 1rem;" data-flash="Topic">
+<section class="grid regular" style="padding-bottom: 1rem;" data-flash="Topic">
 <h2 class="full-width">Tickets</h2>
 <div>
 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio ipsa odit nesciunt harum recusandae nisi alias asperiores consequuntur eaque labore. Reiciendis iure fugiat voluptates eaque tenetur rerum consequatur, perferendis non!</p>
@@ -100,14 +122,14 @@ layout: templates/page.vto
             height: 400,
             category: 'category',
             series: [
-                { title: "Example series", value: "value" }
+                { title: "Example series", value: "value", colour: 'green' }
             ]
         }
     })
 }}</div>
 </section>
 
-<section>
+<section class="block">
 <h2>Explore the {{ metas.site }}</h2>
 <ul class="grid regular centred" style="--grid-basis: 10rem;">
 <li class="block c-yellow">
