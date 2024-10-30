@@ -1,3 +1,19 @@
+{{> 
+    function calculateMaxvalue() {
+        const values = data.map(d => series.map(s => d[s.y]));
+        const trueMax = Math.max(...values.flat());
+        console.log({ trueMax });
+        if (trueMax > 1000) {
+            return Math.ceil((trueMax+1) / 250 ) * 250;
+        }
+        if (trueMax > 100) {
+            return Math.ceil((trueMax+1) / 25 ) * 25;
+        }
+        return Math.ceil((trueMax+1) / 10 ) * 10;
+    }
+    let maxValue = calculateMaxvalue();
+    console.log({ maxValue })
+}}
 {{ comp.oi.chart.line({
     config: {
         data: data,
@@ -5,7 +21,7 @@
         height: 400,
         columns: [{
 			name: "decimal_year",
-			template: `{{ month ending | strptime('%Y-%m-%d') | decimalYear() }}`
+			template: `{{ ${dateField} | strptime('%Y-%m-%d') | decimalYear() }}`
 		}],
         series: series,
         axis: {
@@ -15,8 +31,8 @@
             y: {
                 grid: { show: true, 'stroke-width': 0.5 },        
                 title: { label: labels.y },
-                min:0,
-                max: 4000
+                min: 0,
+                max: maxValue,
             }
         }
     }

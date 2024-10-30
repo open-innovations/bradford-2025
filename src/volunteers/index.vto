@@ -55,10 +55,11 @@ checkpointDetails:
     This section summarises the key measures related to volunteers.
     You can explore the details by scrolling down.
 </p>
-{{ set summaryDashboard = Object.entries(summary)
-    .map(([title, value]) => ({
-        title, value,
-        ...checkpointDetails[title]
+{{ set summaryDashboard = Object.entries(checkpointDetails)
+    .map(([title, details]) => ({
+        title,
+        value: summary[title] || null,
+        ...details
     }))
 }}
 
@@ -104,6 +105,7 @@ checkpointDetails:
         Hover over the hexes to see the values and details of names.
     </p>
 </aside>
+<div class="block">
     {{ comp.oi.map.hex_cartogram({
         config: {
             hexjson: hexes.bd_2024,
@@ -115,7 +117,8 @@ checkpointDetails:
             tooltip: '{{ n }}: <strong>{{ countLabel }} volunteers</strong>'
         }
     }) }}
-
+</div>
+<div class="block">
     {{# TODO Sort out the tooltip for this #}}
     {{ comp.oi.map.svg({ 
         config: {
@@ -134,6 +137,7 @@ checkpointDetails:
             ],
             tooltip: 'tooltip',
     } }) }}
+</div>
 
 <h3 class="full-width">Volunteers by Bradford Postcode</h3>
 <div>
@@ -209,12 +213,12 @@ checkpointDetails:
             }
         ],
         series: [
-        {
-            title: keyMap['3. Fully Inducted Volunteers cumulative'],
-            x: 'decimal_year',
-            y: '3. Fully Inducted Volunteers cumulative',
-            colour: 'green',
-        },
+        //{
+        //    title: keyMap['3. Fully Inducted Volunteers cumulative'],
+        //    x: 'decimal_year',
+        //    y: '3. Fully Inducted Volunteers cumulative',
+        //    colour: 'green',
+        //},
         {
             title: keyMap['2. Sign Up to Induction cumulative'],
             x: 'decimal_year',
@@ -245,8 +249,8 @@ checkpointDetails:
             title: {
             label: 'Checkpoints'
             },
-            min:0,
-            max: 1000
+            min: 0,
+            // max: 1000
         }
     }
 } }) }}
@@ -316,6 +320,8 @@ const by_ethnicity_suppressed = total - Object.entries(by_ethnicity)
     .reduce((a, c) => a + c[1], 0)
 const suppressed_ethnicity_count = demographics
     .filter((x) => x.category == 'ethnicity').filter(x => !x.value).length;
+
+console.log(by_ethnicity)
 }}
 
 <div>
@@ -331,7 +337,7 @@ const suppressed_ethnicity_count = demographics
     </p>
 </div>
 
-<div>
+<div>x
     {{ set ethnicity_series = Object.entries(by_ethnicity)
         .map(([ value, count ]) => ({ value, count }))
         .filter(x => !['TOTAL'].includes(x.value))
@@ -426,118 +432,79 @@ const suppressed_sex_count = demographics
 </p>
 </div>
 
-<div>
 
+<h3 class="full-width">Cumulative shifts and hours</h3>
 
-<h3>Shifts</h3>
-{{ comp.oi.chart.line({ 
-    config: {
-        data: shifts_weekly,
-        width: 900,
-        height: 400,
-        columns: [{
-			name: "decimal_year",
-			template: "{{ week ending | strptime('%Y-%m-%d') | decimalYear() }}"
-		}],
-        series: [
-        {
-            title: 'Shifts',
-            x: 'decimal_year',
-            y: 'attended cumulative',
-        },  
-        ],
-        axis: {
-        x: {
-            title: {
-            label: 'Week ending',
-            },
-        },
-        y: {
-            grid: {
-            show: true,
-            'stroke-width': 0.5
-            },        
-            title: {
-            label: 'Shifts Completed'
-            },
-            min:0,
-            max: 500,
-        }
-    }
-} }) }}
-</div>
-
-
-<div>
-<h3>Hours</h3>
-{{ comp.oi.chart.line({ 
-    config: {
-        data: shifts_weekly,
-        width: 900,
-        height: 400,
-        columns: [{
-			name: "decimal_year",
-			template: "{{ week ending | strptime('%Y-%m-%d') | decimalYear() }}"
-		}],
-        series: [
-        {
-            title: 'Total hours',
-            x: 'decimal_year',
-            y: 'hours cumulative',
-        },  
-        ],
-        axis: {
-        x: {
-            title: {
-            label: 'Week ending',
-            },
-        },
-        y: {
-            grid: {
-            show: true,
-            'stroke-width': 0.5
-            },        
-            title: {
-            label: 'Shift hours completed'
-            },
-            min:0,
-            max: 4000
-        }
-    }
-} }) }}
-</div>
-
-<h3 class="full-width">Monthly summary</h3>
 <div>
 {{ comp.LineChart({
     data: shifts_monthly,
+    dateField: 'month ending',
     series: [
         {
-            title: 'Total shifts',
+            title: 'Cumulative shifts',
+            x: 'decimal_year',
+            y: 'attended cumulative',
+        },  
+    ],
+    labels: {
+        x: 'Month',
+        y: 'Shifts'
+    }
+}) }}
+</div>
+
+
+<div>
+{{ comp.LineChart({
+    data: shifts_monthly,
+    dateField: 'month ending',
+    series: [
+        {
+            title: 'Cumulative shift hours',
+            x: 'decimal_year',
+            y: 'hours cumulative',
+        },  
+    ],
+    labels: {
+        x: 'Month',
+        y: 'Hours'
+    }
+}) }}
+</div>
+
+<h3 class="full-width">Weekly summary of shifts and hours</h3>
+<div>
+{{ comp.LineChart({
+    data: shifts_weekly,
+    dateField: 'week ending',
+    series: [
+        {
+            title: 'Weekly shifts',
             x: 'decimal_year',
             y: 'attended',
         },  
     ],
     labels: {
         x: 'Week ending',
-        y: 'Shifts completed',
+        y: 'Shifts',
     }
 })}}
 </div>
 
 <div>
 {{ comp.LineChart({
-    data: shifts_monthly,
+    data: shifts_weekly,
+    dateField: 'week ending',
     series: [
         {
-            title: 'Total hours',
+            title: 'Weekly shift hours',
             x: 'decimal_year',
             y: 'hours',
         },  
     ],
     labels: {
         x: 'Week ending',
-        y: 'Shift hours completed',
+        y: 'Hours',
     }
 })}}
 </div>
