@@ -13,8 +13,7 @@
 
 <h3 class="full-width">Cumulative shifts and hours</h3>
 
-<div>
-{{ comp.LineChart({
+<div>{{ comp.LineChart({
     data: shifts.attended_cumulative_by_month,
     dateField: 'month',
     series: [
@@ -33,11 +32,9 @@
         x: 'Month',
         y: 'Shifts'
     }
-}) }}
-</div>
+}) }}</div>
 
-<div>
-{{ comp.LineChart({
+<div>{{ comp.LineChart({
     data: shifts.hours_cumulative_by_month,
     dateField: 'month',
     series: [
@@ -56,12 +53,10 @@
         x: 'Month',
         y: 'Hours'
     }
-}) }}
-</div>
+}) }}</div>
 
 <h3 class="full-width">Weekly summary of shifts and hours</h3>
-<div>
-{{ comp.LineChart({
+<div>{{ comp.LineChart({
     data: shifts.attended_by_week,
     dateField: 'week_ending',
     series: [
@@ -80,11 +75,9 @@
         x: 'Week ending',
         y: 'Shifts',
     }
-})}}
-</div>
+})}}</div>
 
-<div>
-{{ comp.LineChart({
+<div>{{ comp.LineChart({
     data: shifts.hours_by_week,
     dateField: 'week_ending',
     series: [
@@ -103,7 +96,6 @@
         x: 'Week ending',
         y: 'Hours',
     }
-})}}
-</div>
+})}}</div>
 
 </section>

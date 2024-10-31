@@ -1,0 +1,154 @@
+<section class="grid regular" style="--grid-basis: 30rem;">
+<h2 class="full-width">Demographics of volunteers</h2>
+
+<div class="full-width">
+    <p>
+        This section shows summaries of volunteers by demographic groupings, including age and ethnicity.
+    </p>
+</div>
+
+<h3 class="full-width">Volunteers by age</h3>
+{{> 
+// This is Javascript code!
+const by_age = demographics
+    .filter((x) => x.category == 'age_range')
+    .map(x => ({ ...x, percentage: 100 * x.value / total }));
+const by_age_missing = total - by_age.reduce((a, c) => a + c.value, 0);
+const by_age_max = Math.ceil(Math.max(...by_age.map(c => c.percentage))/5) * 5;;
+}}
+
+<div>
+    <p>
+        The chart shows the age breakdown of volunteers, based on the date of birth they provided when signing up.
+    </p>
+    <p>
+        There are {{ by_age_missing || 'no' }} volunteer{{ if by_age_missing !== 1 }}s{{ /if }}
+        without a date of birth recorded on Rosterfy.
+    </p>
+</div>
+<div>
+    {{ comp.BarChart({
+        data: by_age,
+        category: 'variable',
+        series: [
+            {
+                title: 'Age range',
+                value: 'percentage'
+            }
+        ],
+        axis: {
+            y: {
+                title: { label: 'Age category' },
+            },
+            x: {
+                title: { label: 'Number of volunteers in age category' },
+                max: by_age_max
+            }
+        },
+    }) }}
+</div>
+
+<h3 class="full-width">Volunteers by Ethnicity</h3>
+{{>
+const by_ethnicity = demographics
+    .filter((x) => x.category == 'ethnicity')
+    .filter(x => x.value)
+    .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: total })
+const by_ethnicity_suppressed = total - Object.entries(by_ethnicity)
+    .filter(([k, v]) => k !== 'TOTAL')
+    .reduce((a, c) => a + c[1], 0)
+const suppressed_ethnicity_count = demographics
+    .filter((x) => x.category == 'ethnicity').filter(x => !x.value).length;
+
+console.log(by_ethnicity)
+}}
+
+<div>
+    <p>
+        The chart shows the breakdown of volunteers by ethnicity.
+    </p>
+    <p>
+        There are {{ by_ethnicity.UNSPECIFIED }} volunteer records with no recorded ethnic group.
+    </p>
+    <p>
+        {{ by_ethnicity_suppressed }} volunteers have registered one of {{ suppressed_ethnicity_count }} ethnicities
+        with fewer than 10 respondents in each category. These are grouped together in the graph.
+    </p>
+</div>
+
+<div>
+    {{ set ethnicity_series = Object.entries(by_ethnicity)
+        .map(([ value, count ]) => ({ value, count }))
+        .filter(x => !['TOTAL'].includes(x.value))
+        .toSorted((a, b) => b.count - a.count)
+        .map((x, i) => ({
+            value: x.value,
+            title: x.value === 'UNSPECIFIED' ? 'Missing data' : x.value,
+            colour: oiColour.series[i]
+        }))
+    }}
+
+    {{ comp.oi.chart.waffle({
+        config: {
+            data: [ by_ethnicity ],
+            total: 'TOTAL',
+            series: [ ...ethnicity_series, undefinedSeries ],
+            size: [16, 8],
+            legend: { show: true, position: 'top' },
+        }
+    }) }}
+</div>
+
+<h3 class="full-width">Volunteers by Sex</h3>
+{{>
+const by_sex = demographics
+    .filter((x) => x.category == 'sex')
+    .filter(x => x.value)
+    .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: total }) 
+const by_sex_suppressed = total - Object.entries(by_sex)
+    .filter(([k, v]) => k !== 'TOTAL')
+    .reduce((a, c) => a + c[1], 0)
+const suppressed_sex_count = demographics
+    .filter((x) => x.category == 'sex').filter(x => !x.value).length;
+}}
+<div>
+    <p>
+        This section breaks down the self-reported sex of the volunteering team.
+    </p>
+    <p>
+        There are {{ by_sex.UNSPECIFIED }} volunteer records with no recorded sex.
+    </p>
+    <p>
+        {{ if by_sex_suppressed }}
+            {{ by_sex_suppressed }} volunteers have registered one of {{ suppressed_sex_count }}
+            {{ if suppressed_sex_count !== 1 }}sexes{{ else }}sex{{ /if }}
+            with fewer than 10 respondents in each category. These are grouped together in the graph.
+        {{ else }}
+            There are no volunteers reporting suppressed groups.
+        {{ /if}}
+    </p>
+</div>
+<div>
+    {{ set sex_series = Object.entries(by_sex)
+        .map(([ value, count ]) => ({ value, count }))
+        .filter(x => !['TOTAL'].includes(x.value))
+        .toSorted((a, b) => b.count - a.count)
+        .map((x, i) => ({
+            value: x.value,
+            title: x.value === 'UNSPECIFIED' ? 'Missing data' : x.value,
+            colour: oiColour.series[i]
+        }))
+    }}
+
+    {{ comp.oi.chart.waffle({
+        config: {
+            data: [ by_sex ],
+            total: 'TOTAL',
+            series: [...sex_series, undefinedSeries ],
+            size: [16, 8],
+            legend: { show: true, position: 'top' },
+        }
+    }) }}
+</div>
+
+</section>

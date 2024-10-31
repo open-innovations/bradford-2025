@@ -1,0 +1,52 @@
+<section class="grid regular" style="--grid-basis: 30rem;">
+<h2 class="full-width">Volunteering Checkpoints</h2>
+<div>
+<p>
+    This section of the {{ title }} page shows the various checkpoints that volunteers pass
+    through.
+</p>
+
+<p>
+    There are three main checkpoints:
+</p>
+<dl>
+    {{ for e of Object.entries(checkpointDetails)  }}
+    <dt>{{ e[0] }}</dt>
+        <dd>{{ e[1].note }}</dd>
+    {{ /for }}
+</dl>
+</div>
+
+<div>
+{{#
+{
+    title: keyMap['3. Fully Inducted Volunteers cumulative'],
+    x: 'decimal_year',
+    y: '3. Fully Inducted Volunteers cumulative',
+    colour: 'green',
+},
+ #}}
+{{
+    comp.LineChart({
+        data: checkpoints_monthly,
+        dateField: 'Month ending',
+        series: [
+            {
+                title: keyMap['2. Sign Up to Induction cumulative'],
+                x: 'decimal_year',
+                y: '2. Sign Up to Induction cumulative',
+            },
+            {
+                title: keyMap['1. Monitoring & Evaluation cumulative'],
+                x: 'decimal_year',
+                y: '1. Monitoring & Evaluation cumulative',
+            },                
+        ],
+        labels: {
+            x: 'Month',
+            y: 'Number of volunteers'
+        }
+    })
+}}
+</div>
+</section>
