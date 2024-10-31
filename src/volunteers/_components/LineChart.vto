@@ -27,13 +27,24 @@
         axis: {
             x: {
                 title: { label: labels.x },
+                // TODO Fix this, it's horrible!
+                ticks: [
+                    { value: 2024.0, label: 'Jan 2024' },
+                    { value: 2024.25, label: 'Apr 2024' },
+                    { value: 2024.5, label: 'Jul 2024' },
+                    { value: 2024.75, label: 'Oct 2024' },
+                    { value: 2025.0, label: 'Jan 2025' },
+                    { value: 2025.25, label: 'Apr 2025' },
+                    { value: 2025.5, label: 'Jul 2025' },
+                    { value: 2025.75, label: 'Oct 2025' },
+                ],
             },
             y: {
                 grid: { show: true, 'stroke-width': 0.5 },        
                 title: { label: labels.y },
                 min: 0,
                 max: maxValue,
-            }
-        }
+            },
+        },
     }
 }) }}
