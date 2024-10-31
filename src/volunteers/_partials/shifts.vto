@@ -1,0 +1,111 @@
+<section class="grid regular" style="--grid-basis: 30rem;">
+
+<h2 class="full-width">Volunteering Shifts</h2>
+
+<div class="full-width">
+    <p>
+        The final section shows the number of volunteer shifts completed and
+        number of hours spent on the shifts.
+
+        This is broken down by Bradford 2025 events and Third Party Events.
+    </p>
+</div>
+
+<h3 class="full-width">Cumulative shifts and hours</h3>
+
+<div>
+{{ comp.LineChart({
+    data: shifts.attended_cumulative_by_month,
+    dateField: 'month',
+    dateFormat: '%Y-%m',
+    series: [
+        {
+            title: 'Bradford 2025 events',
+            x: 'decimal_year',
+            y: 'BD25 Event',
+        },  
+        {
+            title: 'Third party events',
+            x: 'decimal_year',
+            y: 'Third Party Event',
+        },  
+    ],
+    labels: {
+        x: 'Month',
+        y: 'Shifts'
+    }
+}) }}
+</div>
+
+<div>
+{{ comp.LineChart({
+    data: shifts.hours_cumulative_by_month,
+    dateField: 'month',
+    dateFormat: '%Y-%m',
+    series: [
+        {
+            title: 'Bradford 2025 events',
+            x: 'decimal_year',
+            y: 'BD25 Event',
+        },  
+        {
+            title: 'Third party events',
+            x: 'decimal_year',
+            y: 'Third Party Event',
+        },  
+    ],
+    labels: {
+        x: 'Month',
+        y: 'Hours'
+    }
+}) }}
+</div>
+
+<h3 class="full-width">Weekly summary of shifts and hours</h3>
+<div>
+{{ comp.LineChart({
+    data: shifts.attended_by_week,
+    dateField: 'week_ending',
+    series: [
+        {
+            title: 'Bradford 2025 events',
+            x: 'decimal_year',
+            y: 'BD25 Event',
+        },  
+        {
+            title: 'Third party events',
+            x: 'decimal_year',
+            y: 'Third Party Event',
+        },  
+    ],
+    labels: {
+        x: 'Week ending',
+        y: 'Shifts',
+    }
+})}}
+</div>
+
+<div>
+{{ comp.LineChart({
+    data: shifts.hours_by_week,
+    dateField: 'week_ending',
+    series: [
+        {
+            title: 'Bradford 2025 events',
+            x: 'decimal_year',
+            y: 'BD25 Event',
+        },  
+        {
+            title: 'Third party events',
+            x: 'decimal_year',
+            y: 'Third Party Event',
+        },  
+    ],
+    labels: {
+        x: 'Week ending',
+        y: 'Hours',
+    }
+})}}
+</div>
+
+</section>

@@ -21,7 +21,7 @@
         height: 400,
         columns: [{
 			name: "decimal_year",
-			template: `{{ ${dateField} | strptime('%Y-%m-%d') | decimalYear() }}`
+			template: `{{ ${dateField} | strptime("${dateFormat || '%Y-%m-%d'}") | decimalYear() }}`
 		}],
         series: series,
         axis: {
