@@ -21,13 +21,13 @@ checkpointDetails:
     Signed up: 
         note: People who have signed up as potential volunteers
     Induction booked:
-        note: People who have passed initial screening and have an induction booked #}}
+        note: People who have passed initial screening and have an induction booked
     Active volunteers:
         note: People who have completed the volunteer sign-up process
 ---
 
 {{# TODO move this to a pipeline #}}
-{{ set total = geo_summary.find(x => x.type === 'TOTAL').count }}
+{{ set total = geo_summary.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
 {{ set summary = Object.entries(checkpoints_monthly[checkpoints_monthly.length - 1])
     .filter(([k,v]) => k.includes('cumulative'))
     .reduce((result, [k, v]) => ({ ...result, [keyMap[k] || k]: v }), {})
@@ -38,18 +38,18 @@ checkpointDetails:
         .map(d => ({
             ...d,
             count: d.count <= 5 && d.count > 0 ? 5 : d.count,
-            countLabel: d.count <= 5 && d.count > 0 ? 'fewer than 6' : d.count.toString()
+            countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
         }) )
     const postcodeSignUps = geojson.postcodes.features.map(x => x.properties.name)
         .map(code => ({ code, count: 0, ...geo_summary.find(w => w.code == code) }))
         .map(d => ({
             ...d,
             count: d.count <= 5 && d.count > 0 ? 5 : d.count,
-            countLabel: d.count <= 5 && d.count > 0 ? 'fewer than 6' : d.count.toString()
+            countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
         }) )
 }}
 
-<section>
+<section class="block">
 <h2>Summary</h2>
 <p>
     This section summarises the key measures related to volunteers.
@@ -84,29 +84,50 @@ checkpointDetails:
 <section class="grid regular">
 <h2 class="full-width">Geographic distribution of volunteers</h2>
 
-<div class="full-width">
+<div>
+    <h3>Overall geographic summary</h3>
     <p>
-        The maps show the geographic distribution of volunteers across Bradford, either by ward
+        There are a total of
+        {{ geo_summary.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
+        people registered in the Rosterfy system (in all states), of which
+        {{ geo_summary.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count }}
+        have not yet provided postcode data.
+        The table below shows the distribution volunteers by local authorities where
+        the count of volunteers is above 5.
+    </p>
+    
+    <div class="block centred">
+    <table style="margin-inline:auto;">
+    <thead>
+        <tr>
+            <th>Local Authority</th>
+            <th>Count of volunteers</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{ for la of geo_summary.filter(x => x.type === 'oslaua' && x.count > 5).sort((a, b) => b.count - a.count) }}
+        <tr><td>{{ codes.la[la.code]?.name || la.code }}</td><td>{{ la.count }}</td></tr>
+    {{ /for }}
+    </tbody>
+    </table>
+    </div>
+    <p>
+        The subsequent maps show the geographic distribution of volunteers across Bradford, either by ward
         or by postcode. In either case, the postcode provided by the volunteer at sign-up
         has been used to identify the geography.
     </p>
 </div>
 
-<h3 class="full-width">Volunteers by Bradford Council ward</h3>
-<aside class="full-width">
+<div class="block">
+    <h3>Hexmap of volunteers by Bradford Council ward</h3>
     <p>
-        The <q>hexmap</q> shows the wards in the Bradford Council local authority area.
+        The <q>hexmap</q> shows the number of volunteers per Bradford ward.
         Hexmaps are useful as they present all elements as similarly sized,
         and can avoid providing a skewed view of the data.
     </p>
     <p>
-        The equivalent geographic map is shown following the hexmap for comparison.
-    </p>
-    <p>
         Hover over the hexes to see the values and details of names.
     </p>
-</aside>
-<div class="block">
     {{ comp.oi.map.hex_cartogram({
         config: {
             hexjson: hexes.bd_2024,
@@ -120,6 +141,11 @@ checkpointDetails:
     }) }}
 </div>
 <div class="block">
+    <h3>Geographic map of volunteers by Bradford Council ward</h3>
+    <p>
+        The geographic map shows the equivalent data as the hexmap,
+        but in a geographic layout.
+    </p>
     {{# TODO Sort out the tooltip for this #}}
     {{ comp.oi.map.svg({ 
         config: {
@@ -140,22 +166,13 @@ checkpointDetails:
     } }) }}
 </div>
 
-<h3 class="full-width">Volunteers by Bradford Postcode</h3>
-<div>
+<div class="block">
+    <h3>Volunteers by Bradford Postcode</h3>
     <p>
         There is strong evidence that some Bradford residents associate themselves
         very closely with their postcode. The map displays the number of volunteers
         by Bradford postcode. 
     </p>
-
-    <p class="block c-yellow">
-        Please note, the postcode map does not cover the entire Bradford Council area.
-        There are some postcodes (e.g. LS29) not on the map, and other BD postcodes
-        which are not in Bradford MDC. This map will be refined to cover these
-        cases.
-    </p>
-</div>
-
     {{ comp.oi.map.svg({ 
         config: {
             geojson: { key: "name", data: geojson.postcodes },
@@ -173,7 +190,7 @@ checkpointDetails:
             ],
             tooltip: 'tooltip',
     } }) }}
-
+</div>
 </section>
 
 <hr>
