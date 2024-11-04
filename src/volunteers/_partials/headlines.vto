@@ -1,0 +1,29 @@
+<section class="block">
+<h2>Summary</h2>
+<p>
+    This section summarises the key measures related to volunteers.
+    You can explore the details by scrolling down.
+</p>
+{{ set summaryDashboard = Object.entries(checkpointDetails)
+    .map(([title, details]) => ({
+        title,
+        value: summary[title] || null,
+        ...details
+    }))
+}}
+
+{{ comp.oi.dashboard({
+    config: {
+        data: summaryDashboard,
+        title: "title",
+        value: "value",
+        note: "note",
+        width: "30%",
+        panels: [
+            { name: "Signed up", colour: "pink" },
+            { name: "Induction booked", colour: "yellow" },
+            { name: "Active volunteers", colour: "green" },
+        ]
+    }
+}) }}
+</section>

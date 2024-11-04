@@ -1,0 +1,121 @@
+{{>
+    const wardSignUps = wards
+        .map(ward => ({ ...ward, count: 0, ...geo_summary.find(w => w.code == ward.code) }))
+        .map(d => ({
+            ...d,
+            count: d.count <= 5 && d.count > 0 ? 5 : d.count,
+            countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
+        }) )
+    const postcodeSignUps = geojson.postcodes.features.map(x => x.properties.name)
+        .map(code => ({ code, count: 0, ...geo_summary.find(w => w.code == code) }))
+        .map(d => ({
+            ...d,
+            count: d.count <= 5 && d.count > 0 ? 5 : d.count,
+            countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
+        }) )
+}}
+
+<section class="grid regular">
+<h2 class="full-width">Geographic distribution of volunteers</h2>
+
+<div>
+    <h3>Overall geographic summary</h3>
+    <p>
+        There are a total of
+        {{ geo_summary.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
+        people registered in the Rosterfy system (in all states), of which
+        {{ geo_summary.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count }}
+        have not yet provided postcode data.
+        The table below shows the distribution volunteers by local authorities where
+        the count of volunteers is above 5.
+    </p>
+    
+    <div class="block centred">
+    <table style="margin-inline:auto;">
+    <thead>
+        <tr>
+            <th>Local Authority</th>
+            <th>Count of volunteers</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{ for la of geo_summary.filter(x => x.type === 'oslaua' && x.count > 5).sort((a, b) => b.count - a.count) }}
+        <tr><td>{{ codes.la[la.code]?.name || la.code }}</td><td>{{ la.count }}</td></tr>
+    {{ /for }}
+    </tbody>
+    </table>
+    </div>
+    <p>
+        The subsequent maps show the geographic distribution of volunteers across Bradford, either by ward
+        or by postcode. In either case, the postcode provided by the volunteer at sign-up
+        has been used to identify the geography.
+    </p>
+</div>
+
+<div class="block">
+    <h3>Hexmap of volunteers by ward</h3>
+    <p>
+        The <q>hexmap</q> shows the number of volunteers per Bradford ward.
+        Hexmaps are useful as they present all elements as similarly sized,
+        and can avoid providing a skewed view of the data.
+    </p>
+    <p>
+        Hover over the hexes to see the values and details of names.
+    </p>
+    {{ comp.oi.map.hex_cartogram({
+        config: {
+            hexjson: hexes.bd_2024,
+            data: wardSignUps,
+            scale: scales.yellow,
+            matchKey: 'code',
+            value: 'count',
+            label: 'short_code',
+            tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ countLabel }} volunteers'
+        }
+    }) }}
+</div>
+<div class="block">
+    <h3>Geographic map of volunteers by ward</h3>
+    <p>
+        The geographic map shows the equivalent data as the hexmap,
+        but in a geographic layout.
+    </p>
+    {{# TODO Sort out the tooltip for this #}}
+    {{ comp.oi.map.svg({ 
+        config: {
+            geojson: { key: "WD24CD", data: geojson.bd_wards },
+            data: wardSignUps,
+            bounds: bounds.bradford,
+            value: 'count', 
+            scale: scales.yellow,
+            key: 'code',
+            label: 'short_code',
+            columns: [
+                { name: 'tooltip', template: '<b>{{ name }}</b>\n{{ countLabel }} volunteers' },
+            ],
+            tooltip: 'tooltip',
+    } }) }}
+</div>
+
+<div class="block">
+    <h3>Volunteers by Bradford Postcode</h3>
+    <p>
+        Some Bradford residents associate with their postcode.
+        The map displays the number of volunteers by Bradford postcode. 
+    </p>
+    {{ comp.oi.map.svg({ 
+        config: {
+            geojson: { key: "name", data: geojson.postcodes },
+            data: postcodeSignUps,
+            bounds: bounds.bradford,
+            value: 'count', 
+            scale: scales.yellow,
+            key: 'code',
+            label: 'short_code',
+            columns: [
+                { name: 'tooltip', template: '<b>{{ code }}</b>\n{{ countLabel }} volunteers' },
+            ],
+            tooltip: 'tooltip',
+    } }) }}
+</div>
+</section>
