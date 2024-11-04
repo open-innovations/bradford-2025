@@ -19,18 +19,17 @@
 
 <div>
 {{#
-{
-    title: keyMap['3. Fully Inducted Volunteers cumulative'],
-    x: 'decimal_year',
-    y: '3. Fully Inducted Volunteers cumulative',
-    colour: 'green',
-},
  #}}
 {{
     comp.LineChart({
-        data: checkpoints_monthly,
-        dateField: 'Month ending',
+        data: checkpoints_weekly,
+        dateField: 'Week ending (Friday)',
         series: [
+            {
+                title: keyMap['3. Fully Inducted Volunteers cumulative'],
+                x: 'decimal_year',
+                y: '3. Fully Inducted Volunteers cumulative',
+            },
             {
                 title: keyMap['2. Sign Up to Induction cumulative'],
                 x: 'decimal_year',

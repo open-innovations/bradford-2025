@@ -19,11 +19,20 @@
         data: data,
         width: 900,
         height: 400,
-        columns: [{
-			name: "decimal_year",
-			template: `{{ ${dateField} | strptime("${dateFormat || '%Y-%m-%d'}") | decimalYear() }}`
-		}],
-        series: series,
+        columns: [
+            {
+                name: "decimal_year",
+                template: `{{ ${dateField} | strptime("${dateFormat || '%Y-%m-%d'}") | decimalYear() }}`
+            },
+            {
+                name: "pretty_date",
+                template: `{{ ${dateField} | strptime("${dateFormat || '%Y-%m-%d'}") | strftime("${prettyDate || '%d %b %y'}") }}`
+            }
+        ],
+        series: series.map(s => ({
+            tooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: {{ _y }}",
+            ...s,
+        })),
         axis: {
             x: {
                 title: { label: labels.x },

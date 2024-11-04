@@ -16,6 +16,7 @@
 <div>{{ comp.LineChart({
     data: shifts.attended_cumulative_by_month,
     dateField: 'month',
+    prettyDate: '%b %y',
     series: [
         {
             title: 'Bradford 2025 events',
@@ -37,6 +38,7 @@
 <div>{{ comp.LineChart({
     data: shifts.hours_cumulative_by_month,
     dateField: 'month',
+    prettyDate: '%b %y',
     series: [
         {
             title: 'Bradford 2025 events',
