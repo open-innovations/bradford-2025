@@ -1,7 +1,7 @@
 The whole upstream data directory is mirrored with the following command
 
 ```sh
-dvc import -o data/ git@github.com:bradford-2025/open-data-pipelines data/processed/
+dvc import --out data/ --rev main git@github.com:bradford-2025/open-data-pipelines data/processed/
 ```
 
 To fetch the currently defined version of the data, run the following

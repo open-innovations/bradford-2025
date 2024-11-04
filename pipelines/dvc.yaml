@@ -1,0 +1,16 @@
+vars:
+  - VOLUNTEER_DATA: ../src/volunteers/_data
+stages:
+  volunteers:
+    cmd: papermill --no-log-output volunteers.ipynb > /dev/null
+    deps:
+      - ../data/processed/volunteers/shifts.csv
+    outs:
+      - ${VOLUNTEER_DATA}/shifts/attended_by_week.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/shifts/attended_cumulative_by_month.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/shifts/hours_by_week.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/shifts/hours_cumulative_by_month.csv:
+          cache: false

@@ -1,0 +1,26 @@
+schema: '2.0'
+stages:
+  volunteers:
+    cmd: papermill --no-log-output volunteers.ipynb > /dev/null
+    deps:
+    - path: ../data/processed/volunteers/shifts.csv
+      hash: md5
+      md5: f53e0f62924abeb5026e76ca5f087337
+      size: 9983
+    outs:
+    - path: ../src/volunteers/_data/shifts/attended_by_week.csv
+      hash: md5
+      md5: aafc73e6df049e29f84613e0e5d6bd63
+      size: 703
+    - path: ../src/volunteers/_data/shifts/attended_cumulative_by_month.csv
+      hash: md5
+      md5: 2fcebcfea2ad0bf9ceed8cab3a03f716
+      size: 267
+    - path: ../src/volunteers/_data/shifts/hours_by_week.csv
+      hash: md5
+      md5: 41f8c431e470b2057f1f0b332db6bae3
+      size: 999
+    - path: ../src/volunteers/_data/shifts/hours_cumulative_by_month.csv
+      hash: md5
+      md5: 99b25616406732ba234ba772a0cbcc7d
+      size: 368
