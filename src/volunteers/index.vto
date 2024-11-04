@@ -8,7 +8,7 @@ description: |
 
 {{# TODO move this to a pipeline #}}
 {{ set total = geo_summary.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
-{{ set summary = Object.entries(checkpoints_monthly[checkpoints_monthly.length - 1])
+{{ set summary = Object.entries(checkpoints_weekly[checkpoints_weekly.length - 1])
     .filter(([k,v]) => k.includes('cumulative'))
     .reduce((result, [k, v]) => ({ ...result, [keyMap[k] || k]: v }), {})
 }}

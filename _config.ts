@@ -123,12 +123,11 @@ site.copy("assets/vendor/");
 [
   [ 'volunteers/demographics.csv', 'volunteers/_data/demographics.csv' ],
   [ 'volunteers/geo-summary.csv', 'volunteers/_data/geo_summary.csv' ],
-  [ 'volunteers/checkpoints-monthly.csv', 'volunteers/_data/checkpoints_monthly.csv' ],
   [ 'volunteers/checkpoints-weekly.csv', 'volunteers/_data/checkpoints_weekly.csv' ],
   [ 'volunteers/shifts-monthly.csv', 'volunteers/_data/shifts_monthly.csv' ],
   [ 'volunteers/shifts-weekly.csv', 'volunteers/_data/shifts_weekly.csv' ],
 ].forEach(async ([source, target]) => {
-  const file = `data/${source}`;
+  const file = `data/processed/${source}`;
   try {
     await Deno.lstat(file);
     return site.remoteFile(target, file);
