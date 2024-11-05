@@ -3,6 +3,10 @@ stages:
   volunteers:
     cmd: papermill --no-log-output volunteers.ipynb > /dev/null
     deps:
+    - path: ../data/processed/volunteers/checkpoints.csv
+      hash: md5
+      md5: f8b7d1ac3c38c96a496cb8258b5a6c4e
+      size: 9001
     - path: ../data/processed/volunteers/shifts.csv
       hash: md5
       md5: f53e0f62924abeb5026e76ca5f087337

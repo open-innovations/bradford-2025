@@ -4,6 +4,7 @@ stages:
   volunteers:
     cmd: papermill --no-log-output volunteers.ipynb > /dev/null
     deps:
+      - ../data/processed/volunteers/checkpoints.csv
       - ../data/processed/volunteers/shifts.csv
     outs:
       - ${VOLUNTEER_DATA}/people/checkpoints_weekly.csv:
