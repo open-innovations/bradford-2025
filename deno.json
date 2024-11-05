@@ -9,7 +9,8 @@
     "serve": "deno task lume -s",
     "dev": "LUME_DRAFTS=true deno task lume -s",
     "data:fetch": "pipenv run dvc fetch data/processed.dvc",
-    "data:update": "pipenv run dvc update data/processed.dvc"
+    "data:update": "pipenv run dvc update data/processed.dvc",
+    "data:pipeline": "pipenv run dvc repro pipelines/dvc.yaml"
   },
   "compilerOptions": {
     "types": [
