@@ -6,6 +6,8 @@ stages:
     deps:
       - ../data/processed/volunteers/shifts.csv
     outs:
+      - ${VOLUNTEER_DATA}/people/checkpoints_weekly.csv:
+          cache: false
       - ${VOLUNTEER_DATA}/shifts/attended_by_week.csv:
           cache: false
       - ${VOLUNTEER_DATA}/shifts/attended_cumulative_by_month.csv:
