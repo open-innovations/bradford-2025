@@ -2,23 +2,23 @@
 layout: templates/page.vto
 ---
 
-{{ set subpages = search.pages(`${index_tag} !url=${ url }`) }}
+{{ set subpages = search.pages(`${index_tag} !url=${ url }`, 'title') }}
 
-{{ if subpages.length }}
-<ul>
-{{ for page of subpages }}
-    <li>
-        <p><a href="{{ page.url }}">{{ page.title }}</a></p>
-        <p>{{ page.description |> md }}</p>
-
-    </li>
-{{ /for }}
-</ul>
-{{ else }}
-<p>
-    There are no pages tagged with <q>{{ index_tag }}</p>.
-</p>
-{{ /if}}
-
-
-
+<section>
+    {{ if subpages.length }}
+    <ul class="grid">
+    {{ for page of subpages }}
+        <li>
+        <a class="block" href="{{ page.url }}">
+            <h2>{{ page.title }}</h2>
+            <p>{{ page.description |> md }}</p>
+        </a>
+        </li>
+    {{ /for }}
+    </ul>
+    {{ else }}
+    <p>
+        There are no pages tagged with <q>{{ index_tag }}</p>.
+    </p>
+    {{ /if}}
+</section>
