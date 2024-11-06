@@ -6,6 +6,7 @@ description: |
     Explore data related to the volunteering programme.
 ---
 
+
 {{# TODO move this to a pipeline #}}
 {{ set total = geo_summary.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
 {{ set summary = Object.entries(people.checkpoints_weekly[people.checkpoints_weekly.length - 1])

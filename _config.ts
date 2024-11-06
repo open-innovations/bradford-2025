@@ -121,8 +121,8 @@ site.copy("assets/vendor/");
  * simply in this way. Note that the files will not appear in the source tree.
  */
 [
-  [ 'volunteers/demographics.csv', 'volunteers/_data/demographics.csv' ],
-  [ 'volunteers/geo-summary.csv', 'volunteers/_data/geo_summary.csv' ],
+  [ 'volunteers/demographics.csv', 'themes/volunteers/_data/demographics.csv' ],
+  [ 'volunteers/geo-summary.csv', 'themes/volunteers/_data/geo_summary.csv' ],
 ].forEach(async ([source, target]) => {
   const file = `data/processed/${source}`;
   try {
