@@ -14,9 +14,9 @@
 <h3 class="full-width">Cumulative shifts and hours</h3>
 
 <div>{{ comp.LineChart({
-    data: shifts.attended_cumulative_by_month,
-    dateField: 'month',
-    prettyDate: '%b %y',
+    data: shifts.attended_cumulative_by_week,
+    dateField: 'week_ending',
+    prettyDate: '%d %b %y',
     series: [
         {
             title: 'Bradford 2025 events',
@@ -36,8 +36,8 @@
 }) }}</div>
 
 <div>{{ comp.LineChart({
-    data: shifts.hours_cumulative_by_month,
-    dateField: 'month',
+    data: shifts.hours_cumulative_by_week,
+    dateField: 'week_ending',
     prettyDate: '%b %y',
     series: [
         {
@@ -52,7 +52,7 @@
         },  
     ],
     labels: {
-        x: 'Month',
+        x: 'Date',
         y: 'Hours'
     }
 }) }}</div>
@@ -74,7 +74,7 @@
         },  
     ],
     labels: {
-        x: 'Week ending',
+        x: 'Date',
         y: 'Shifts',
     }
 })}}</div>
@@ -95,7 +95,7 @@
         },  
     ],
     labels: {
-        x: 'Week ending',
+        x: 'Date',
         y: 'Hours',
     }
 })}}</div>
