@@ -6,6 +6,7 @@ import esbuild from "lume/plugins/esbuild.ts";
 import favicon from "lume/plugins/favicon.ts";
 import feed from "lume/plugins/feed.ts";
 import metas from "lume/plugins/metas.ts";
+import ogImages from "lume/plugins/og_images.ts";
 import postcss from "lume/plugins/postcss.ts";
 import redirects from "lume/plugins/redirects.ts";
 import sass from "lume/plugins/sass.ts";
@@ -62,7 +63,10 @@ site.use(favicon());
 site.use(svgo());
 site.use(transformImages());
 
+// SEO
+site.use(ogImages());
 site.use(metas());
+
 site.use(sitemap());
 site.use(feed({
   output: ["/site.rss", "/site.json"],
