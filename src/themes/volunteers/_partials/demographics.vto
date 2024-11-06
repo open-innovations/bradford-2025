@@ -7,7 +7,7 @@
     </p>
 </div>
 
-<h3 class="full-width">Volunteers by age</h3>
+<h3 class="full-width keep-with-next">Volunteers by age</h3>
 {{> 
 // This is Javascript code!
 const by_age = demographics
@@ -17,7 +17,7 @@ const by_age_missing = total - by_age.reduce((a, c) => a + c.value, 0);
 const by_age_max = Math.ceil(Math.max(...by_age.map(c => c.percentage))/5) * 5;;
 }}
 
-<div>
+<div class="keep-with-next">
     <p>
         The chart shows the age breakdown of volunteers, based on the date of birth they provided when signing up.
     </p>
@@ -48,7 +48,7 @@ const by_age_max = Math.ceil(Math.max(...by_age.map(c => c.percentage))/5) * 5;;
     }) }}
 </div>
 
-<h3 class="full-width">Volunteers by Ethnicity</h3>
+<h3 class="full-width keep-with-next">Volunteers by Ethnicity</h3>
 {{>
 const by_ethnicity = demographics
     .filter((x) => x.category == 'ethnicity')
@@ -59,11 +59,9 @@ const by_ethnicity_suppressed = total - Object.entries(by_ethnicity)
     .reduce((a, c) => a + c[1], 0)
 const suppressed_ethnicity_count = demographics
     .filter((x) => x.category == 'ethnicity').filter(x => !x.value).length;
-
-console.log(by_ethnicity)
 }}
 
-<div>
+<div class="keep-with-next">
     <p>
         The chart shows the breakdown of volunteers by ethnicity.
     </p>
@@ -99,7 +97,7 @@ console.log(by_ethnicity)
     }) }}
 </div>
 
-<h3 class="full-width">Volunteers by Sex</h3>
+<h3 class="full-width keep-with-next">Volunteers by Sex</h3>
 {{>
 const by_sex = demographics
     .filter((x) => x.category == 'sex')
@@ -111,7 +109,7 @@ const by_sex_suppressed = total - Object.entries(by_sex)
 const suppressed_sex_count = demographics
     .filter((x) => x.category == 'sex').filter(x => !x.value).length;
 }}
-<div>
+<div class="keep-with-next">
     <p>
         This section breaks down the self-reported sex of the volunteering team.
     </p>

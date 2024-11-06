@@ -1,6 +1,6 @@
 <section class="grid regular" style="--grid-basis: 30rem;">
 
-<h2 class="full-width">Volunteering Shifts</h2>
+<h2 class="full-width keep-with-next">Volunteering Shifts</h2>
 
 <div class="full-width">
     <p>
@@ -11,7 +11,7 @@
     </p>
 </div>
 
-<h3 class="full-width">Cumulative shifts and hours</h3>
+<h3 class="full-width keep-with-next">Cumulative shifts and hours</h3>
 
 <div>{{ comp.LineChart({
     data: shifts.attended_cumulative_by_week,
@@ -57,7 +57,7 @@
     }
 }) }}</div>
 
-<h3 class="full-width">Weekly summary of shifts and hours</h3>
+<h3 class="full-width keep-with-next">Weekly summary of shifts and hours</h3>
 <div>{{ comp.LineChart({
     data: shifts.attended_by_week,
     dateField: 'week_ending',
