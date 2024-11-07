@@ -103,7 +103,7 @@ description: |
 <p>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, fugit perferendis et cum magni recusandae aliquam, incidunt porro harum animi, voluptas quisquam expedita quos. Voluptatem numquam ab accusamus commodi eos!
 </p>
-<a class="block c-pink" href="/volunteers/">Explore the volunteers Theme &rarr;</a>
+<a class="block c-pink" href="/themes/volunteers/">Explore the volunteers Theme &rarr;</a>
 </div>
 </section>
 
@@ -129,27 +129,4 @@ description: |
 }}</div>
 </section>
 
-<section class="block">
-<h2>Explore the {{ metas.site }}</h2>
-<ul class="grid regular centred" style="--grid-basis: 10rem;">
-<li class="block c-yellow">
-    <a href="{{ '~/themes/index.yml' |> url }}">
-        <div style="font-size: 1.5em;">Themes</div>
-        <div>{{ search.data('/themes/').description }} &rarr;</div>
-    </a>
-</li>
-<li class="block c-green">
-    <a href="{{ '~/insights/index.yml' |> url }}">
-        <div style="font-size: 1.5em;">Insights</div>
-        <div>{{ search.data('/insights/').description }} &rarr;</div>
-    </a>
-</li>
-<li class="block c-pink">
-    <a href="{{ '~/experiments/index.yml' |> url }}">
-        <div style="font-size: 1.5em;">Experiments</div>
-        <div>{{ search.data('/experiments/').description }} &rarr;</div>
-    </a>
-</li>
-</ul>
-</section>
-
+{{ comp.nav.MainSections() }}
