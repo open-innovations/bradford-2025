@@ -4,14 +4,11 @@ stages:
   volunteers:
     cmd: papermill --no-log-output volunteers.ipynb > /dev/null
     deps:
+      - volunteers.ipynb
       - ../data/processed/volunteers/checkpoints.csv
       - ../data/processed/volunteers/shifts.csv
     outs:
       - ${VOLUNTEER_DATA}/people/by_demographic_age_range.csv:
-          cache: false
-      - ${VOLUNTEER_DATA}/people/by_demographic_ethnicity.csv:
-          cache: false
-      - ${VOLUNTEER_DATA}/people/by_demographic_sex.csv:
           cache: false
       - ${VOLUNTEER_DATA}/people/by_geo_oslaua.csv:
           cache: false
