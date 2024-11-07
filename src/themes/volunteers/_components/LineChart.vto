@@ -30,7 +30,7 @@
             }
         ],
         series: series.map(s => ({
-            tooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: {{ _y }}",
+            tooltip: seriesTooltip || "<b>{{ _title }}</b>\n{{ pretty_date }}: {{ _y }}",
             ...s,
         })),
         axis: {
