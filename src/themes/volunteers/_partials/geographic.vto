@@ -13,21 +13,31 @@
             count: d.count <= 5 && d.count > 0 ? 5 : d.count,
             countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
         }) )
+    const total_volunteers = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count
+    const unknown_address = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count
+    const known_address = total_volunteers - unknown_address;
 }}
 
 <section class="grid regular">
-<h2 class="full-width">Geographic distribution of volunteers</h2>
+<div class="full-width">
+<h2>Geographic distribution of volunteers</h2>
+<p>
+We want the volunteering team to be representative of the whole region.
+As our volunteers progress through the onboarding process, they provide
+we can use to map where they come from.
+We're still in the process of capturing and validating this information
+for all volunteers.
+At the moment, have validated address details for
+<strong>{{ Math.round(100 * known_address / total_volunteers) }}%</strong>
+({{ known_address }}) of our volunteers.
+</p>
+</div>
 
-<div>
-    <h3>Overall geographic summary</h3>
+<div class="block uncoloured">
+    <h3>Local Authorities</h3>
     <p>
-        There are a total of
-        {{ people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
-        people registered in the Rosterfy system (in all states), of which
-        {{ people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count }}
-        have not yet provided postcode data.
-        The table below shows the distribution volunteers by local authorities where
-        the count of volunteers is above 5.
+        The table below shows the volunteer counts by
+        local authority where the count is above 5.
     </p>
     
     <div class="block centred">
@@ -46,22 +56,13 @@
     </table>
     </div>
     <p>
-        The subsequent maps show the geographic distribution of volunteers across Bradford, either by ward
-        or by postcode. In either case, the postcode provided by the volunteer at sign-up
-        has been used to identify the geography.
+        The subsequent maps show the geographic distribution of volunteers across Bradford,
+        either by ward or by postcode district.
     </p>
 </div>
 
 <div class="block">
-    <h3>Hexmap of volunteers by ward</h3>
-    <p>
-        The <q>hexmap</q> shows the number of volunteers per Bradford ward.
-        Hexmaps are useful as they present all elements as similarly sized,
-        and can avoid providing a skewed view of the data.
-    </p>
-    <p>
-        Hover over the hexes to see the values and details of names.
-    </p>
+    <h3>Ward hexmap</h3>
     {{ comp.oi.map.hex_cartogram({
         config: {
             hexjson: hexes.bd_2024,
@@ -73,13 +74,13 @@
             tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ countLabel }} volunteers'
         }
     }) }}
+    <p>
+        The <q>hexmap</q> shows the number of volunteers living in each Bradford
+        ward where we have valdiaetd addresses.
+    </p>
 </div>
 <div class="block">
-    <h3>Geographic map of volunteers by ward</h3>
-    <p>
-        The geographic map shows the equivalent data as the hexmap,
-        but in a geographic layout.
-    </p>
+    <h3>Ward geographic map</h3>
     {{# TODO Sort out the tooltip for this #}}
     {{ comp.oi.map.svg({ 
         config: {
@@ -95,14 +96,14 @@
             ],
             tooltip: 'tooltip',
     } }) }}
+    <p>
+        The geographic map shows the equivalent data as the hexmap,
+        but in a geographic layout.
+    </p>
 </div>
 
 <div class="block">
-    <h3>Volunteers by Bradford Postcode</h3>
-    <p>
-        Some Bradford residents associate with their postcode.
-        The map displays the number of volunteers by Bradford postcode. 
-    </p>
+    <h3>Postcode district geographic map</h3>
     {{ comp.oi.map.svg({ 
         config: {
             geojson: { key: "name", data: geojson.postcodes },
@@ -117,5 +118,8 @@
             ],
             tooltip: 'tooltip',
     } }) }}
+    <p>
+        The map displays the number of volunteers by Bradford postcode district.
+    </p>
 </div>
 </section>
