@@ -10,7 +10,7 @@
     There are three main checkpoints:
 </p>
 <dl>
-    {{ for e of Object.entries(checkpointDetails)  }}
+    {{ for e of Object.entries(checkpointDetails).filter(x => x[1].type == 'checkpoint')  }}
     <dt>{{ e[0] }}</dt>
         <dd>{{ e[1].note }}</dd>
     {{ /for }}
