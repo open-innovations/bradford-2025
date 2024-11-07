@@ -1,0 +1,51 @@
+<h3 class="full-width keep-with-next">Volunteers by Sex</h3>
+{{>
+const by_sex = demographics
+    .filter((x) => x.category == 'sex')
+    .filter(x => x.value)
+    .reduce((a, c) => ({ ...a, [c.variable]: c.value }), { TOTAL: total }) 
+const by_sex_suppressed = total - Object.entries(by_sex)
+    .filter(([k, v]) => k !== 'TOTAL')
+    .reduce((a, c) => a + c[1], 0)
+const suppressed_sex_count = demographics
+    .filter((x) => x.category == 'sex').filter(x => !x.value).length;
+}}
+<div class="keep-with-next">
+    <p>
+        This section breaks down the self-reported sex of the volunteering team.
+    </p>
+    <p>
+        There are {{ by_sex.UNSPECIFIED }} volunteer records with no recorded sex.
+    </p>
+    <p>
+        {{ if by_sex_suppressed }}
+            {{ by_sex_suppressed }} volunteers have registered one of {{ suppressed_sex_count }}
+            {{ if suppressed_sex_count !== 1 }}sexes{{ else }}sex{{ /if }}
+            with fewer than 10 respondents in each category. These are grouped together in the graph.
+        {{ else }}
+            There are no volunteers reporting suppressed groups.
+        {{ /if}}
+    </p>
+</div>
+<div>
+    {{ set sex_series = Object.entries(by_sex)
+        .map(([ value, count ]) => ({ value, count }))
+        .filter(x => !['TOTAL'].includes(x.value))
+        .toSorted((a, b) => b.count - a.count)
+        .map((x, i) => ({
+            value: x.value,
+            title: x.value === 'UNSPECIFIED' ? 'Missing data' : x.value,
+            colour: oiColour.series[i]
+        }))
+    }}
+
+    {{ comp.oi.chart.waffle({
+        config: {
+            data: [ by_sex ],
+            total: 'TOTAL',
+            series: [...sex_series, undefinedSeries ],
+            size: [16, 8],
+            legend: { show: true, position: 'top' },
+        }
+    }) }}
+</div>

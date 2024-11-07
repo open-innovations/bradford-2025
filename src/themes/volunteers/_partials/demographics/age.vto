@@ -1,0 +1,39 @@
+<h3 class="full-width keep-with-next">Volunteers by age</h3>
+{{> 
+// This is Javascript code!
+const by_age = people.by_demographic_age_range
+    .map(x => ({ ...x, percentage: 100 * x.value / total }));
+const by_age_missing = total - by_age.reduce((a, c) => a + c.value, 0);
+const by_age_max = Math.ceil(Math.max(...by_age.map(c => c.percentage))/5) * 5;;
+}}
+
+<div class="keep-with-next">
+    <p>
+        The chart shows the age breakdown of volunteers, based on the date of birth they provided when signing up.
+    </p>
+    <p>
+        There are {{ by_age_missing || 'no' }} volunteer{{ if by_age_missing !== 1 }}s{{ /if }}
+        without a date of birth recorded on Rosterfy.
+    </p>
+</div>
+<div>
+    {{ comp.BarChart({
+        data: by_age,
+        category: 'variable',
+        series: [
+            {
+                title: 'Age range',
+                value: 'percentage'
+            }
+        ],
+        axis: {
+            y: {
+                title: { label: 'Age category' },
+            },
+            x: {
+                title: { label: 'Number of volunteers in age category' },
+                max: by_age_max
+            }
+        },
+    }) }}
+</div>
