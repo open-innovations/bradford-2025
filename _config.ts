@@ -126,8 +126,8 @@ site.copy("assets/vendor/");
  */
 [
   // [ 'volunteers/demographics.csv', 'themes/volunteers/_data/demographics.csv' ],
-  [ 'volunteers/geo-summary.csv', 'themes/volunteers/_data/geo_summary.csv' ],
-].forEach(async ([source, target]) => {
+  // [ 'volunteers/geo-summary.csv', 'themes/volunteers/_data/geo_summary.csv' ],
+].forEach(async ([source, target]: [string, string]) => {
   const file = `data/processed/${source}`;
   try {
     await Deno.lstat(file);

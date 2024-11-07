@@ -1,13 +1,13 @@
 {{>
     const wardSignUps = wards
-        .map(ward => ({ ...ward, count: 0, ...geo_summary.find(w => w.code == ward.code) }))
+        .map(ward => ({ ...ward, count: 0, ...people.by_geo_osward.find(w => w.code == ward.code) }))
         .map(d => ({
             ...d,
             count: d.count <= 5 && d.count > 0 ? 5 : d.count,
             countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
         }) )
     const postcodeSignUps = geojson.postcodes.features.map(x => x.properties.name)
-        .map(code => ({ code, count: 0, ...geo_summary.find(w => w.code == code) }))
+        .map(code => ({ code, count: 0, ...people.by_geo_postcode_area.find(w => w.code == code) }))
         .map(d => ({
             ...d,
             count: d.count <= 5 && d.count > 0 ? 5 : d.count,
@@ -22,9 +22,9 @@
     <h3>Overall geographic summary</h3>
     <p>
         There are a total of
-        {{ geo_summary.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
+        {{ people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
         people registered in the Rosterfy system (in all states), of which
-        {{ geo_summary.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count }}
+        {{ people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count }}
         have not yet provided postcode data.
         The table below shows the distribution volunteers by local authorities where
         the count of volunteers is above 5.
@@ -39,7 +39,7 @@
         </tr>
     </thead>
     <tbody>
-    {{ for la of geo_summary.filter(x => x.type === 'oslaua' && x.count > 5).sort((a, b) => b.count - a.count) }}
+    {{ for la of people.by_geo_oslaua.filter(x => x.type === 'oslaua' && x.count > 5).sort((a, b) => b.count - a.count) }}
         <tr><td>{{ codes.la[la.code]?.name || la.code }}</td><td>{{ la.count }}</td></tr>
     {{ /for }}
     </tbody>
