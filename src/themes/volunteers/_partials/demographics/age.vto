@@ -1,0 +1,67 @@
+{{> 
+// This is Javascript code!
+const by_age = people.by_demographic_age_range
+    .map(x => ({ ...x, percentage: 100 * x.value / total }));
+const by_age_total = by_age.map(x => x.value).reduce((a, c) => a + c, 0);
+const by_age_missing = total - by_age.reduce((a, c) => a + c.value, 0);
+const by_age_max = Math.ceil(Math.max(...by_age.map(c => c.percentage))/5) * 5;
+if (by_age.reduce((a, c) => a + c.percentage, 0) !== 100) {
+    console.warn('age percentages do not total 100%');
+}
+}}
+
+<div class="keep-with-next">
+    <h3 class="full-width">Volunteers by age</h3>
+    <p>
+        The chart shows the age breakdown of volunteers, based on the date of birth they provided when signing up.
+        We have a registered date of birth for <b>{{ Math.round(100 * by_age_total / total) }}%</b>
+        of our volunteers ({{ by_age_total }} people).
+    </p>
+    <p>
+        People need to be over the age of 18 to volunteer with Bradford 2025.
+    </p>
+    <p class="block c-green">
+        Notes:<br>
+        &bull; Date of birth calculation is based on the date that the data pipeline was run, so the values will change.<br>
+        &bull; Age ranges are to change.
+    </p>
+</div>
+<div class="block">
+    {{ comp.BarChart({
+        data: by_age,
+        category: 'variable',
+        series: [
+            {
+                title: 'Age range',
+                value: 'percentage',
+                tooltip: "{{ _title }} {{ variable }}\n<b>{{ percentage | toFixed(1) }}%</b>"
+            }
+        ],
+        tooltip: "Yo!",
+        axis: {
+            y: {
+                title: { label: 'Age range' },
+            },
+            x: {
+                title: { label: 'Percentage of volunteers in age category' },
+                max: by_age_max
+            }
+        },
+    }) }}
+</div>
+
+{{#
+<div class="block">
+    {{>
+        const age_waffle_data = by_age.reduce((a, c) => ({ ...a, [c.variable]: c.percentage }), {});
+    }}
+    {{ comp.oi.chart.waffle({
+        config: {
+            data: [ age_waffle_data ],
+            series: Object.keys(age_waffle_data).map((key, i) => ({ value: key, colour: oiColour.series[i % oiColour.series.length] })),
+            size: [16, 8],
+            legend: { show: true, position: 'top' },
+        }
+    }) }}
+</div>
+#}}

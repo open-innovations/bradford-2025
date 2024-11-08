@@ -2,7 +2,12 @@
   display: block;
   color: var(--block-fg);
   background: var(--block-bg);
+  &.uncoloured {
+    color: inherit;
+    background: inherit;
+  }
   padding: 1rem;
+  box-sizing: border-box;
   & > *:first-child {
       margin-block-start: 0;
   }

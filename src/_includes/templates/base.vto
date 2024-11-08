@@ -13,6 +13,7 @@ base_stylesheets:
   {{ for stylesheet of [...base_stylesheets, ...(stylesheets || [])] }}
     <link rel="stylesheet" href="{{ stylesheet }}" />
   {{ /for }}
+  <link rel="stylesheet" media="print" href="/assets/css/print.css">
 </head>
 <body>
   {{ content }}

@@ -6,6 +6,7 @@ import esbuild from "lume/plugins/esbuild.ts";
 import favicon from "lume/plugins/favicon.ts";
 import feed from "lume/plugins/feed.ts";
 import metas from "lume/plugins/metas.ts";
+import ogImages from "lume/plugins/og_images.ts";
 import postcss from "lume/plugins/postcss.ts";
 import redirects from "lume/plugins/redirects.ts";
 import sass from "lume/plugins/sass.ts";
@@ -62,7 +63,10 @@ site.use(favicon());
 site.use(svgo());
 site.use(transformImages());
 
+// SEO
+site.use(ogImages());
 site.use(metas());
+
 site.use(sitemap());
 site.use(feed({
   output: ["/site.rss", "/site.json"],
@@ -121,13 +125,10 @@ site.copy("assets/vendor/");
  * simply in this way. Note that the files will not appear in the source tree.
  */
 [
-  [ 'volunteers/demographics.csv', 'volunteers/_data/demographics.csv' ],
-  [ 'volunteers/geo-summary.csv', 'volunteers/_data/geo_summary.csv' ],
-  [ 'volunteers/checkpoints-monthly.csv', 'volunteers/_data/checkpoints_monthly.csv' ],
-  [ 'volunteers/shifts-monthly.csv', 'volunteers/_data/shifts_monthly.csv' ],
-  [ 'volunteers/shifts-weekly.csv', 'volunteers/_data/shifts_weekly.csv' ],
-].forEach(async ([source, target]) => {
-  const file = `data/${source}`;
+  // [ 'volunteers/demographics.csv', 'themes/volunteers/_data/demographics.csv' ],
+  // [ 'volunteers/geo-summary.csv', 'themes/volunteers/_data/geo_summary.csv' ],
+].forEach(async ([source, target]: [string, string]) => {
+  const file = `data/processed/${source}`;
   try {
     await Deno.lstat(file);
     return site.remoteFile(target, file);
@@ -150,10 +151,5 @@ site.process(['.html'], (pages) => pages.forEach(page => {
   // Another kludge to avoid memory leaks on large pages
   page.content;
 }));
-
-// Suppress site pages
-[
-  '/volunteers',
-].forEach(p => site.data('url', false, p));
 
 export default site;

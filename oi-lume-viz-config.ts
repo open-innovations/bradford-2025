@@ -16,6 +16,8 @@ const series = [
   "lightyellow",
   "lightpink",
   "lightgreen",
+  "darkgreen",
+  "darkpink",
 ].map((n) => names[n]);
 
 export default {

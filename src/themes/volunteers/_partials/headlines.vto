@@ -1,0 +1,31 @@
+<section class="block">
+<p>
+    We've been building the volunteering team throughout 2024.
+    Our volunteer induction programme officially launched in September
+    and we're busy getting everyone ready to volunteer during 2025.
+    The first events supported by volunteers took place during
+    August and September 2024.
+</p>
+{{ set summaryDashboard = Object.entries(checkpointDetails)
+    .map(([title, details]) => ({
+        title,
+        value: summary[title] || null,
+        ...details
+    }))
+}}
+
+{{ comp.oi.dashboard({
+    config: {
+        data: summaryDashboard,
+        title: "title",
+        value: "value",
+        note: "note",
+        width: "30%",
+        panels: [
+            { name: "Signed up", colour: "pink" },
+            { name: "Bradford 2025 volunteer shifts", colour: "green" },
+            { name: "Bradford 2025 volunteer hours", colour: "yellow" },
+        ]
+    }
+}) }}
+</section>

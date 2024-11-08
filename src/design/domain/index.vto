@@ -1,8 +1,8 @@
 ---
 title: Domain language
 description: |
-    Terminology that is used to describe concepts is an important aspect to clear communication.
-    The Bradford 2025 Data Dashboard will adopt a clear domain language.
+    Terminology that is used to describe concepts is an important
+    aspect to clear communication.
 ---
 
 <h2>
@@ -16,22 +16,23 @@ description: |
 </p>
 <dl>
     <dt>
-        Topics
+        Themes
     </dt>
     <dd>
         Primary data extracted direct from Bradford 2025 operational systems.
     </dd>
     <dt>
-        Perspectives
+        Insights
     </dt>
     <dd>
-        Reports integrating multiple topics to present a view of information about Bradford 2025.
+        Reports integrating multiple themes to present a view of information about Bradford 2025.
     </dd>
     <dt>
-        Experiments
+        Experiments / Trials / Explorations
     </dt>
     <dd>
-        Speculative data derived from experimental or other open data sources.
+        Speculative data derived from novel or other open data sources.
+        May be developed in partnership with research partners
     </dd>
 </dl>
 
@@ -39,16 +40,16 @@ description: |
 
 <section>
 <h2>
-    Topics
+    Themes
 </h2>
-{{ search.data('topics/').description |> md }}
+{{ search.data('themes/').description |> md }}
 
 <p class="block centred">
-    <a href="{{ '~/topics/index.yml' |> url }}">View the topics</a>
+    <a href="{{ '~/themes/index.yml' |> url }}">View the themes {{ comp.Arrow() }}</a>
 </p>
 
 <p>
-    Each topic will have it's own page of visualisations presenting
+    Each theme will have it's own page of visualisations presenting
     the core information derived direct from that source of information.
 </p>
 
@@ -57,7 +58,7 @@ description: |
 </p>
 <table class="centred" style="width: 100%;">
 <thead>
-<tr><th>Topic</th><th>Source system(s)</th></tr>
+<tr><th>Theme</th><th>Source system(s)</th></tr>
 </thead>
 <tbody>
 <tr><td>Volunteers</td><td>Rosterfy</td></tr>
@@ -72,16 +73,16 @@ description: |
 
 <section>
 <h2>
-    Perspectives
+    Insights
 </h2>
-{{ search.data('perspectives/').description |> md }}
+{{ search.data('insights/').description |> md }}
 
 <p class="block centred">
-    <a href="{{ '~/perspectives/index.yml' |> url }}">View the perspectives</a>
+    <a href="{{ '~/insights/index.yml' |> url }}">View the insights {{ comp.Arrow() }}</a>
 </p>
 
 <p>
-    Perspectives will be created for many purposes, potentially covering
+    Insights will be created for many purposes, potentially covering
     specific events,
     broader evaluation aims,
     or to meet the needs of specific stakeholders (e.g. funders, steering committees).
@@ -91,17 +92,17 @@ description: |
 
 <section>
 <h2>
-    Experiments
+    Experiments / Trials / Explorations
 </h2>
 {{ search.data('experiments/').description |> md }}
 
 <p class="block centred">
-    <a href="{{ '~/experiments/index.yml' |> url }}">View the perspectives</a>
+    <a href="{{ '~/experiments/index.yml' |> url }}">View the perspectives {{ comp.Arrow() }}</a>
 </p>
 
 <p>
     We term these sources of data experiments, to distinguish them from the 
-    strongly operational topics. If they prove useful the experiments might be added to
+    strongly operational themes. If they prove useful the experiments might be added to
     the perspective reports.
 </p>
 </section>

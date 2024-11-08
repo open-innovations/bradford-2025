@@ -1,0 +1,101 @@
+<section class="grid regular" style="--grid-basis: 30rem;">
+
+<h2 class="full-width keep-with-next">Volunteering Shifts</h2>
+
+<p>
+    With the Giraffe event in August 2024, the Bradford 2025
+    volunteers have already made a start on their important job.
+    The charts below show the numbers of shifts completed
+    and hours contributed by the volunteers.
+    They're going to be busy supporting the Bradford 2025 events,
+    and will also be lending their skills to events run by our partners.
+</p>
+
+<h3 class="full-width keep-with-next">Cumulative shifts and hours</h3>
+
+<div>{{ comp.LineChart({
+    data: shifts.attended_cumulative_by_week,
+    dateField: 'week_ending',
+    series: [
+        {
+            title: 'Bradford 2025 events',
+            x: 'decimal_year',
+            y: 'BD25 Event',
+        },  
+        {
+            title: 'Third party events',
+            x: 'decimal_year',
+            y: 'Third Party Event',
+        },  
+    ],
+    labels: {
+        x: 'Month',
+        y: 'Shifts'
+    }
+}) }}</div>
+
+<div>{{ comp.LineChart({
+    data: shifts.hours_cumulative_by_week,
+    dateField: 'week_ending',
+    series: [
+        {
+            title: 'Bradford 2025 events',
+            x: 'decimal_year',
+            y: 'BD25 Event',
+        },  
+        {
+            title: 'Third party events',
+            x: 'decimal_year',
+            y: 'Third Party Event',
+        },  
+    ],
+    labels: {
+        x: 'Date',
+        y: 'Hours'
+    }
+}) }}</div>
+
+<h3 class="full-width keep-with-next">Weekly summary of shifts and hours</h3>
+<div>{{ comp.LineChart({
+    data: shifts.attended_by_week,
+    dateField: 'week_ending',
+    series: [
+        {
+            title: 'Bradford 2025 events',
+            x: 'decimal_year',
+            y: 'BD25 Event',
+        },  
+        {
+            title: 'Third party events',
+            x: 'decimal_year',
+            y: 'Third Party Event',
+        },  
+    ],
+    labels: {
+        x: 'Date',
+        y: 'Shifts',
+    }
+})}}</div>
+
+<div>{{ comp.LineChart({
+    data: shifts.hours_by_week,
+    dateField: 'week_ending',
+    series: [
+        {
+            title: 'Bradford 2025 events',
+            x: 'decimal_year',
+            y: 'BD25 Event',
+        },  
+        {
+            title: 'Third party events',
+            x: 'decimal_year',
+            y: 'Third Party Event',
+        },  
+    ],
+    labels: {
+        x: 'Date',
+        y: 'Hours',
+    }
+})}}</div>
+
+</section>

@@ -1,0 +1,30 @@
+vars:
+  - VOLUNTEER_DATA: ../src/themes/volunteers/_data
+stages:
+  volunteers:
+    cmd: papermill --no-log-output volunteers.ipynb > /dev/null
+    deps:
+      - volunteers.ipynb
+      - ../data/processed/volunteers/checkpoints.csv
+      - ../data/processed/volunteers/shifts.csv
+    outs:
+      - ${VOLUNTEER_DATA}/people/by_demographic_age_range.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/people/by_geo_oslaua.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/people/by_geo_osward.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/people/by_geo_postcode_area.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/people/by_geo_TOTAL.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/people/checkpoints_weekly.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/shifts/attended_by_week.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/shifts/attended_cumulative_by_week.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/shifts/hours_by_week.csv:
+          cache: false
+      - ${VOLUNTEER_DATA}/shifts/hours_cumulative_by_week.csv:
+          cache: false

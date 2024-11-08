@@ -1,0 +1,41 @@
+---
+draft: true
+title: Volunteers
+description: |
+    Volunteers are at the heart of Bradford 2025.
+    Explore data related to the volunteering programme.
+---
+
+
+{{# TODO move this to a pipeline #}}
+{{ set total = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
+{{ set summary = {
+        ...Object.entries(people.checkpoints_weekly[people.checkpoints_weekly.length - 1])
+            .filter(([k,v]) => k.includes('cumulative'))
+            .reduce((result, [k, v]) => ({ ...result, [keyMap[k] || k]: v }), {}),
+        ...Object.entries(shifts.attended_cumulative_by_week.slice(-1)[0])
+            .filter(x => x[0] !== 'week_ending')
+            .reduce((a, [title, value]) => ({ ...a, [`${title} volunteer shifts`]: value }), {}),
+        ...Object.entries(shifts.hours_cumulative_by_week.slice(-1)[0])
+            .filter(x => x[0] !== 'week_ending')
+            .reduce((a, [title, value]) => ({ ...a, [`${title} volunteer hours`]: value }), {}),
+    }
+}}
+
+{{ include './_partials/headlines.vto' }}
+
+<hr>
+
+{{ include './_partials/checkpoints.vto' }}
+
+<hr>
+
+{{ include './_partials/geographic.vto' }}
+
+<hr>
+
+{{ include './_partials/demographics.vto' }}
+
+<hr>
+
+{{ include "./_partials/shifts.vto" }}
