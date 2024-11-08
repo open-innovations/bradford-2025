@@ -22,7 +22,7 @@ import oiLumeVizOptions from './oi-lume-viz-config.ts';
 
 const site = lume({
   src: "./src",
-  location: new URL("https://open-innovations.github.io/bradford-2025"),
+  location: new URL("https://data.bradford2025.co.uk/"),
 });
 
 site.use(sheets({
