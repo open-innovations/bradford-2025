@@ -26,6 +26,9 @@ const site = lume({
   location: new URL("https://data.bradford2025.co.uk/"),
 });
 
+// Include some remote asset files
+site.remoteFile("assets/images/oi-square-white.svg", "https://open-innovations.org/resources/images/logos/oi-square-white.svg")
+
 site.use(sheets({
   options: {
       cellDates: true,

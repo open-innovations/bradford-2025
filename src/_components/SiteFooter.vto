@@ -1,8 +1,7 @@
 ---
 css: |
-    .site-footer {
-        padding-block-start: 1rem;
-        padding-block-end: 2rem;
+    .comp-site-footer {
+        padding-block: 1rem;
         padding-inline: var(--site-padding);
         color: var(--color-offwhite);
         background: var(--color-black);
@@ -17,16 +16,34 @@ css: |
         a {
             color: inherit;
         }
+        & .primary {
+            margin-block-end: 1rem;
+        }
+        & .secondary {
+            display: flex;
+            gap: 0.5em;
+            font-size: 0.7em;
+            color: var(--color-grey);
+        }
+        p {
+            margin-block: 0;
+        }
     }
 ---
 
 <hr>
-<footer class="site-footer">
-    <nav class="footer-nav">
+<footer class="comp-site-footer">
+    <nav class="primary">
         <ul>
             <li><a href="/strategy/">Strategy</a></li>
             <li><a href="/glossary/">Glossary</a></li>
-            <li><a href="/design/">Design</a></li>
         </ul>
     </nav>
+    <nav class="secondary">
+        <p>Technical details:</p>
+        <ul>
+            <li><a href="/design/">Design system</a></li>
+        </ul>
+    </nav>
+    <div class="secondary" style="gap: 0;">{{ comp.Attribution() }}</div>
 </footer>

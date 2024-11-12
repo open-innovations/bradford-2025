@@ -1,0 +1,21 @@
+---
+css: |
+    .comp-attribution {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        & a {
+            display: flex;
+            align-items: inherit;
+            & img {
+                height: 1.2em;
+            }
+        }
+    }
+---
+
+<span class="comp-attribution">
+{{ metas.site }} built for&nbsp;
+<a href="https://bradford2025.co.uk"><img src="/assets/images/logo.svg">Bradford 2025</a>&nbsp;by&nbsp;
+<a href="https://open-innovations.org"><img src="/assets/images/oi-square-white.svg">&nbsp;Open Innovations</a>.
+</span>
