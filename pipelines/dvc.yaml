@@ -5,8 +5,8 @@ stages:
     cmd: papermill --no-log-output volunteers.ipynb > /dev/null
     deps:
       - volunteers.ipynb
-      - ../data/processed/volunteers/checkpoints.csv
-      - ../data/processed/volunteers/shifts.csv
+      - ../data/published/volunteers/checkpoints.csv
+      - ../data/published/volunteers/shifts.csv
     outs:
       - ${VOLUNTEER_DATA}/people/by_demographic_age_range.csv:
           cache: false
