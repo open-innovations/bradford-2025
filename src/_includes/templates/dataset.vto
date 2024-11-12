@@ -1,0 +1,42 @@
+---
+layout: templates/page.vto
+---
+
+<nav class="padded">
+    <a href="/catalogue/">&larr; Catalogue</a>
+</nav>
+
+<section class="grid">
+<div>
+    <p>Theme: {{ theme }}</p>
+    <p>Name: {{ name }}</p>
+</div>
+<p>
+    <a href="/data/published/{{ theme }}/{{ name }}.csv">Download the data (CSV)&darr;</a>
+</p>
+</section>
+
+<section>
+<h2>Schema</h2>
+<table>
+    <thead>
+        <th>Field name</th>
+        <th>Field type</th>
+        <th>Distinct values</th>
+    </thead>
+<tbody>
+    {{ for column of schema }}
+    <tr>
+        <td>{{ column.name }}</td>
+        <td>{{ column.types }}</td>
+        <td>{{ column.count }}</td>
+        <td hidden="hidden"><pre>{{
+            column |> JSON.stringify(null, 2)
+        }}</pre>
+        </td>
+    </tr>
+    {{ /for }}
+</tbody>
+
+</table>
+</section>

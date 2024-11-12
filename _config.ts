@@ -24,6 +24,8 @@ import filters from "./lib/filters.ts";
 
 import postcssConfig from "./postcss-config.ts";
 
+import bradfordDataPublisher from './lib/bradford-data-publisher.ts';
+
 const site = lume({
   src: "./src",
   location: new URL("https://data.bradford2025.co.uk/"),
@@ -31,6 +33,15 @@ const site = lume({
 
 // Include some remote asset files
 site.remoteFile("assets/images/oi-square-white.svg", "https://open-innovations.org/resources/images/logos/oi-square-white.svg")
+
+// Copy published data
+site.use(await bradfordDataPublisher({
+  publishedRoot: new URL(await import.meta.resolve('./data/published/')).pathname,
+  metadataRoot: new URL(await import.meta.resolve('./data/metadata/')).pathname,
+  exclude: [  
+    // 'volunteers',
+  ]
+}))
 
 site.use(sheets({
   options: {

@@ -1,0 +1,15 @@
+---
+title: Catalogue
+description: |
+    The catalogue documents all published datasets.
+---
+
+<section>
+<ul class="grid">
+    {{ for dataset of search.pages('dataset') }}
+        <li class="block">
+            <a href="{{ dataset.url }}">{{ dataset.title }}</a>
+        </li>
+    {{ /for }}
+</ul>
+</section>
