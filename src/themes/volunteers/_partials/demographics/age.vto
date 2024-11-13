@@ -16,14 +16,11 @@ if (by_age.reduce((a, c) => a + c.percentage, 0) !== 100) {
         The chart shows the age breakdown of volunteers, based on the date of birth they provided when signing up.
         We have a registered date of birth for <b>{{ Math.round(100 * by_age_total / total) }}%</b>
         of our volunteers ({{ by_age_total }} people).
+        The date of birth is calcuated as at {{ '2025-12-31' |> date('HUMAN_DATE') }},
+        to avoid the ranges changing throughout the year.
     </p>
     <p>
         People need to be over the age of 18 to volunteer with Bradford 2025.
-    </p>
-    <p class="block c-green">
-        Notes:<br>
-        &bull; Date of birth calculation is based on the date that the data pipeline was run, so the values will change.<br>
-        &bull; Age ranges are to change.
     </p>
 </div>
 <div class="block">
