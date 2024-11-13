@@ -29,7 +29,7 @@ layout: templates/page.vto
     <tr>
         <td>{{ column.name }}</td>
         <td>{{ column.types }}</td>
-        <td>{{ column.count }}</td>
+        <td>{{ column.stats.count }}</td>
         <td hidden="hidden"><pre>{{
             column |> JSON.stringify(null, 2)
         }}</pre>

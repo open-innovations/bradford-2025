@@ -1,5 +1,4 @@
 import { expandGlob, WalkEntry } from "jsr:@std/fs@1.0.5";
-import { parse } from "jsr:@std/csv@1.0.3";
 
 type DataPublisherOptions = {
   publishedRoot: string;
@@ -23,7 +22,7 @@ export default async function plugin(options: DataPublisherOptions) {
 
   const metadataFiles = (await Array.fromAsync(
     expandGlob(
-      "**/*.meta.csv",
+      "**/*.meta.json",
       {
         root: options.metadataRoot,
         exclude: options.exclude,
@@ -39,13 +38,13 @@ export default async function plugin(options: DataPublisherOptions) {
       .map(async (source: string) => {
         const data = await Deno.readFile(source);
         const [theme, name] = source.replace(options.metadataRoot, "").replace(
-          /\.meta\.csv$/,
+          /\.meta\.json$/,
           "",
         ).split("/");
         return {
           name,
           theme,
-          schema: parse(decoder.decode(data), { skipFirstRow: true }),
+          schema: JSON.parse(decoder.decode(data)),
         };
       }),
   );
