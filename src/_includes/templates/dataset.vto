@@ -2,32 +2,34 @@
 layout: templates/page.vto
 ---
 
-<nav class="padded">
+<nav class="padded block c-pink">
     <a href="/catalogue/">&larr; Catalogue</a>
 </nav>
 
 <section class="grid">
-<div>
-    <p>Theme: {{ theme }}</p>
-    <p>Name: {{ name }}</p>
+<div class="block c-green">
+    <p>Dataset name: <b>{{ name |> capitalise }}</b></p>
+    <p>Theme: <b>{{ theme |> capitalise }}</b></p>
 </div>
-<p>
-    <a href="/data/published/{{ theme }}/{{ name }}.csv">Download the data (CSV)&darr;</a>
-</p>
+<div>
+    <a class="block" href="/data/published/{{ theme }}/{{ name }}.csv">Download the data (CSV) &darr;</a>
+</div>
 </section>
 
 <section>
 <h2>Schema</h2>
 <table>
     <thead>
-        <th>Field name</th>
-        <th>Field type</th>
-        <th>Distinct values</th>
+        <tr>
+        <th scope="column">Field name</th>
+        <th scope="column">Field type</th>
+        <th scope="column">Distinct values</th>
+        </tr>
     </thead>
 <tbody>
     {{ for column of schema }}
     <tr>
-        <td>{{ column.name }}</td>
+        <th scope="row">{{ column.name }}</th>
         <td>{{ column.types }}</td>
         <td>{{ column.stats.count }}</td>
         <td hidden="hidden"><pre>{{
