@@ -20,6 +20,7 @@ export default async function plugin(options: DataPublisherOptions) {
     ),
   )).map((f: WalkEntry) => f.path);
 
+  // Get metadata files
   const metadataFiles = (await Array.fromAsync(
     expandGlob(
       "**/*.meta.json",
@@ -33,6 +34,7 @@ export default async function plugin(options: DataPublisherOptions) {
 
   const decoder = new TextDecoder("utf-8");
 
+  // Merge all metadata files into an object array
   const metadata = await Promise.all(
     metadataFiles
       .map(async (source: string) => {
@@ -58,7 +60,6 @@ export default async function plugin(options: DataPublisherOptions) {
     // Iterate over the published files
     for (const source of publishedFiles) {
       const target = source.replace(options.publishedRoot, sitePublishedData);
-      console.log({ target, source });
       site.remoteFile(target, source);
     }
     // Copy the site data to the result

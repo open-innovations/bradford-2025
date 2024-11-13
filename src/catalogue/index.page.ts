@@ -8,7 +8,7 @@ export default function *({ metadata, url: baseUrl }) {
         const { theme, name, schema } = item;
         const url = `${baseUrl}${theme}/${name}/`;
         const title = [theme, name].map(capitalise).map(s => `<span>${s}</span>`).join('::');
-        console.log({url});
+
         yield {
             url,
             theme,
