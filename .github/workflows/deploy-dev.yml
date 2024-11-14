@@ -55,7 +55,7 @@ jobs:
         id: cache-deno
         uses: actions/cache@v4
         with:
-          key: ${{ hashFiles('./deno.lock') }}
+          key: deno-cache-${{ hashFiles('./deno.lock') }}
           path: ${{ env.DENO_DIR }}
 
       - name: Get current data
