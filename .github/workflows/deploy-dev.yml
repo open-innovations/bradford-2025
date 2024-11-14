@@ -1,0 +1,85 @@
+# Pre-requisites
+#
+# You need either to have set the following environment secrets:
+#
+# DEPLOY_KEY - Private key for an SSH key with (at least) read only access to the bradford-2025/open-data-pipelines project
+#              The deploy key is one of the ones set in https://github.com/bradford-2025/open-data-pipelines/settings/keys
+#
+# SSH_HOST - host to deploy the site to
+# SSH_USER - user for deployment
+# SSH_PASS - password for the user
+# SSH_PATH - path on the host to deploy to
+
+name: Deploy dev
+
+"on":
+  workflow_dispatch: {}
+  push:
+    branches: [dev]
+    paths:
+      - src/**
+      - data/**/*.dvc
+      - pipelines/**
+      - _config.ts
+      - deno.json
+      - .github/workflows/deploy-dev.yml
+
+jobs:
+  # Build job
+  dev-build:
+    runs-on: ubuntu-latest
+    env:
+      DENO_DIR: /var/tmp/deno_cache
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pipenv
+
+      - name: Setup pipenv
+        run: |
+          pip install pipenv
+          pipenv install
+
+      - name: Setup deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Cache Deno dependencies
+        id: cache-deno
+        uses: actions/cache@v4
+        with:
+          key: ${{ hashFiles('./deno.lock') }}
+          path: ${{ env.DENO_DIR }}
+
+      - name: Get current data
+        run: |
+          # cp my-deploy-key deploy-key
+          umask 077
+          echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
+          eval $(ssh-agent -s)
+          ssh-add deploy-key
+          # ssh-add -l
+          pipenv run dvc pull data/published.dvc data/metadata.dvc
+
+      - name: Run pipelines
+        run: |
+          pipenv run dvc repro pipelines/dvc.yaml
+
+      - name: Deploy the site to dev
+        run: |
+          deno task build:dev
+          # apt update
+          # apt install -y rsync sshpass
+          deno task deploy:dev
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PATH: ${{ secrets.SSH_PATH }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSHPASS: ${{ secrets.SSH_PASS }}
