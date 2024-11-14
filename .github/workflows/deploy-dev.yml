@@ -72,9 +72,11 @@ jobs:
         run: |
           pipenv run dvc repro pipelines/dvc.yaml
 
-      - name: Deploy the site to dev
+      - name: Build the dev site
+        run: deno task build:dev
+
+      - name: Deploy the dev site to bytemark
         run: |
-          deno task build:dev
           # apt update
           # apt install -y rsync sshpass
           deno task deploy:dev
