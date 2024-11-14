@@ -2,7 +2,7 @@ vars:
   - VOLUNTEER_DATA: ../src/themes/volunteers/_data
 stages:
   volunteers:
-    cmd: papermill --no-log-output volunteers.ipynb > /dev/null
+    cmd: papermill --no-log-output volunteers.ipynb output/volunteers.ipynb
     deps:
       - volunteers.ipynb
       - ../data/published/volunteers/checkpoints.csv
