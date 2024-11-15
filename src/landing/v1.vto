@@ -16,16 +16,12 @@ layout: templates/base.vto
 <img src="/assets/images/logo.svg" alt="Bradford 2025 logo" class="full-width" style="width: 20em">
 <p>
 Welcome to the <strong>Bradford 2025</strong> Data Dashboard.
+We're still in the process of building the site, so you'll not find a lot of data here just yet.
+You can take a look at our <a class="c-yellow" href="/strategy/">Open Data Strategy</a>
+which sets out what we hope to achieve by being open and transparent with our data.
 </p>
 
-{{ comp.nav.MainSections() }}
-
-<p>
-In the meantime you can take a look at our <a class="c-yellow" href="/strategy/">Open Data Strategy</a> which sets out what we hope to achieve by being open and transparent with our data.
-</p>
-<p>
-There's also the start of a <a class="c-yellow" href="/glossary/">glossary of terms</a> that we will build up as we develop the programme of work.
-</p>
+{{ comp.nav.MainSections({ displayEmpty: false }) }}
 
 </main>
 
