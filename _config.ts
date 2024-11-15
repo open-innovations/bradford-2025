@@ -140,8 +140,14 @@ site.copy("assets/vendor/");
   }
 })
 
-// Set up some global data
-site.data('landingPage', 'placeholder', '/landing');
+/**
+ * Set up some global data
+ */
+
+// Set up landing page
+const landing = 'placeholder';
+const devLanding = 'v1';
+site.data('landingPage', Deno.env.get('LUME_DRAFTS') == 'true' ? devLanding : landing, '/landing');
 
 // Kludge to strip height and width from in line svg
 site.process(['.html'], (pages) => pages.forEach(page => {
