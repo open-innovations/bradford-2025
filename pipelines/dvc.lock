@@ -1,16 +1,16 @@
 schema: '2.0'
 stages:
   volunteers:
-    cmd: papermill --no-log-output volunteers.ipynb > /dev/null
+    cmd: papermill --no-log-output volunteers.ipynb output/volunteers.ipynb
     deps:
     - path: ../data/published/volunteers/checkpoints.csv
       hash: md5
-      md5: 74ed04d51f536e049500ac6cec661d85
-      size: 9360
+      md5: 099769c84a33d606f82ae73f77d7797c
+      size: 9891
     - path: ../data/published/volunteers/shifts.csv
       hash: md5
-      md5: e947bf43865c566a3f4e2f4fb1b3f6ab
-      size: 10172
+      md5: 06bf98a9d32e7d625b1cb27a92e3b1c8
+      size: 10404
     - path: volunteers.ipynb
       hash: md5
       md5: 0b9f5a87d2b838d01a6d8d624ea36399
@@ -18,41 +18,41 @@ stages:
     outs:
     - path: ../src/themes/volunteers/_data/people/by_demographic_age_range.csv
       hash: md5
-      md5: 7074b6c25fe03c522663d509b5b031d9
-      size: 195
+      md5: b7d0983e6bc5dfe7aaa5885fd22ae9fc
+      size: 196
     - path: ../src/themes/volunteers/_data/people/by_geo_TOTAL.csv
       hash: md5
-      md5: 7a4e9c9dc5bea31cfe65f99e3c568b1b
+      md5: 37386196b74ab4788edf481bcd1e4c31
       size: 54
     - path: ../src/themes/volunteers/_data/people/by_geo_oslaua.csv
       hash: md5
-      md5: 89a916d011db43a287429c0ac659208a
-      size: 656
+      md5: 2ef88518c46e2d04c44b19624e296c70
+      size: 657
     - path: ../src/themes/volunteers/_data/people/by_geo_osward.csv
       hash: md5
-      md5: 742a487ab481800859454ff2e7b7cc46
-      size: 783
+      md5: aa8caf859830bd78b5cfb56f2ea6b11c
+      size: 663
     - path: ../src/themes/volunteers/_data/people/by_geo_postcode_area.csv
       hash: md5
-      md5: 137c92ddab6485fef90e9edda023b272
-      size: 493
+      md5: 6759f81c1e452bda402d0615adcfc91b
+      size: 484
     - path: ../src/themes/volunteers/_data/people/checkpoints_weekly.csv
       hash: md5
-      md5: 9c5dd6b551a7032bbb517a421f4e7401
-      size: 524
+      md5: 22b995345d7f13b474a5e4dace9eb765
+      size: 559
     - path: ../src/themes/volunteers/_data/shifts/attended_by_week.csv
       hash: md5
-      md5: 2b067062d93cabf819acb89ea8c40788
-      size: 392
+      md5: a1c81852040ec20a8ef3d4fb779ab2db
+      size: 416
     - path: ../src/themes/volunteers/_data/shifts/attended_cumulative_by_week.csv
       hash: md5
-      md5: 1e016a8cefbf44360b2254b92ac786b5
-      size: 439
+      md5: 8ebc1fafc16b70a200cb6e47c2268af0
+      size: 467
     - path: ../src/themes/volunteers/_data/shifts/hours_by_week.csv
       hash: md5
-      md5: e066741f976799d59f70504fca388054
-      size: 543
+      md5: 25d73b73531419241c81dd6dbb13ff47
+      size: 577
     - path: ../src/themes/volunteers/_data/shifts/hours_cumulative_by_week.csv
       hash: md5
-      md5: 0aa93ad3948d1184914efc2c240c24d1
-      size: 625
+      md5: 6269e64546afab698ba177f391a56b34
+      size: 666
