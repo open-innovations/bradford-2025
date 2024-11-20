@@ -4,8 +4,6 @@
 }
 
 .site-wrapper {
-    color: var(--site-foreground);
-    background-color: var(--site-background);
     flex-grow: 1;
     padding-block-end: 2rem;
     & > :is(p, dl, h2, h3, h4, h5, section, .padded) {
@@ -45,13 +43,26 @@
 hr {
     border: none;
     background: linear-gradient(
-        var(--color-yellow) 33.333%,
-        var(--color-green) 33.333%,
-        var(--color-green) 66.666%,
-        var(--color-pink) 66.666%
+        to right,
+        var(--color-yellow) min(15%, 10rem),
+        var(--color-green) min(15%, 10rem),
+        var(--color-green) min(30%, 20rem),
+        var(--color-pink) min(30%, 20rem),
+        var(--color-pink) min(45%, 30rem),
+        var(--color-offblack) min(45%, 30rem)
     );
-    height: 2.3rem;
+    height: 1rem;
     margin: 0;
+    margin-block-start: 1rem;
+    &.horizontal {
+        background: linear-gradient(
+            var(--color-yellow) 33.333%,
+            var(--color-green) 33.333%,
+            var(--color-green) 66.666%,
+            var(--color-pink) 66.666%
+        );
+        height: 2.3rem;
+    }
 }
 
 pre {
