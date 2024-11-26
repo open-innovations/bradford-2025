@@ -1,7 +1,9 @@
 /** @jsxImportSource npm:react@18.2.0 */
 import { read } from "lume/core/utils/read.ts";
 
-const logo = `data:image/svg+xml;base64,${btoa(await read('src/assets/images/logo.svg'))}`;
+const svgToDataUri = (svg) => `data:image/svg+xml;base64,${btoa(svg)}`
+
+const logo = svgToDataUri(await read('src/assets/images/logo.svg'));
 
 export default function ({ title, description }) {
     return (
