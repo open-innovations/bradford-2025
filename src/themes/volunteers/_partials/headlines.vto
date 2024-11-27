@@ -12,19 +12,23 @@
         value: summary[title] || null,
         ...details
     }))
+    .map((p) => ({
+        ...p,
+        rounded: Math.round(p.value)
+    }))
 }}
 
 {{ comp.oi.dashboard({
     config: {
         data: summaryDashboard,
         title: "title",
-        value: "value",
+        value: "rounded",
         note: "note",
-        width: "30%",
+        align: true,
         panels: [
             { name: "Signed up", colour: "pink" },
             { name: "Bradford 2025 volunteer shifts", colour: "green" },
-            { name: "Bradford 2025 volunteer hours", colour: "yellow" },
+            { name: "Bradford 2025 volunteer hours", colour: "yellow", precision: "0.1" },
         ]
     }
 }) }}
