@@ -13,3 +13,8 @@ scripts:
     - curl --location -o vendor/bd25/DenimINK-SemiBold-6EI7BXBD.woff2 https://bradford2025.co.uk/wp-content/themes/bd25/dist/DenimINK-SemiBold-6EI7BXBD.woff2
   kml_to_geojson:
     - npx @mapbox/togeojson data/raw/bd_postcode_areas.kml > data/raw/bd_postcode_areas.geojson
+  update_data:
+    - deno task data:update
+    - deno task data:pipeline
+    - git add data
+    - 'git commit -m "chore: updating data"'
