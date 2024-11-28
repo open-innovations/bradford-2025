@@ -24,6 +24,9 @@ css: |
             gap: 0.5em;
             font-size: 0.7em;
             color: var(--color-grey);
+            &.justified {
+                justify-content: space-between;
+            }
         }
         p {
             margin-block: 0;
@@ -45,5 +48,8 @@ css: |
             <li><a href="/design/">Design system</a></li>
         </ul>
     </nav>
-    <div class="secondary" style="gap: 0;">{{ comp.Attribution() }}</div>
+    <div class="secondary justified">
+        {{ comp.Attribution() }}
+        {{ comp.licenses.Site() }}
+    </div>
 </footer>
