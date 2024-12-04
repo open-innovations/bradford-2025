@@ -35,8 +35,7 @@ At the moment, have validated address details for
 <div>
     <h3>Local Authorities</h3>
     <p>
-        The table below shows the volunteer counts by
-        local authority where the count is above 5.
+        The table below shows the volunteer counts by local authority where the count is above 5.
     </p>
     
     <div class="block centred">
@@ -61,7 +60,9 @@ At the moment, have validated address details for
 </div>
 
 <div class="block">
-    <h3>Ward hexmap</h3>
+    <h3>Volunteers by ward</h3>
+    {{ comp Tab.Set }}
+    {{ comp Tab.Panel { id: 'ward-hex', label: 'Hex map' } }}
     <figure>
         {{ comp.oi.map.hex_cartogram({
             config: {
@@ -79,10 +80,8 @@ At the moment, have validated address details for
             volunteers living in each Bradford ward.
         </figcaption>
     </figure>
-</div>
-<div class="block">
-    <h3>Ward geographic map</h3>
-    {{# TODO Sort out the tooltip for this #}}
+    {{ /comp }}
+    {{ comp Tab.Panel { id: 'ward-geo', label: 'Geographic map' } }}
     <figure>
     {{ comp.oi.map.svg({ 
         config: {
@@ -103,10 +102,12 @@ At the moment, have validated address details for
         in a geographic layout.
     </figcaption>
     </figure>
+    {{ /comp }}
+    {{ /comp }}
 </div>
 
 <div class="block">
-    <h3>Postcode district geographic map</h3>
+    <h3>Volunteers by postcode district</h3>
     <figure>
         {{ comp.oi.map.svg({
             config: {
