@@ -2,26 +2,48 @@
 <h2 class="full-width">Volunteering Checkpoints</h2>
 <div>
 <p>
-    We started recruiting volunteers early on in 2024, but the
-    volunteer onboarding process was officially launched in September 2024.
-    The process comprises three checkpoints:
+    A total of <b>{{ summary['Signed up'] }}</b> people have signed up to be
+    Bradford 2025 volunteers.
+
+    We started recruiting volunteers early on in 2024, and some of these early pioneers
+    have already supported events that us and our partners have run.
+</p>
+<p>
+    In preparation for the full programme of events, we launched the volunteer induction
+    process in September 2024. The process comprises three checkpoints:
 </p>
 <dl>
-    {{ for e of Object.entries(checkpointDetails).filter(x => x[1].type == 'checkpoint')  }}
-    <dt>{{ e[0] }}</dt>
+    <dt>Sign up</dt>
         <dd>
-            {{ e[1].note }}.
-            <b>{{ summary[e[0]] }}</b> people are at or have passed this checkpoint.
+            {{# TODO check wording #}}
+            The first step is to sign up. During this checkpoint the prospective volunteers
+            fill in an application form to collect key information that we use to track and
+            evaluate the volunteering process.
+            There are currently <b>{{ summary['Signed up'] - summary['Induction booked'] }}</b>
+            people in this checkpoint.
         </dd>
-    {{ /for }}
+
+    <dt>Induction booked</dt>
+        <dd>
+            {{# TODO Is the aspiration to have all volunteers through the induction process? #}}
+            Once they've completed their forms, we book the volunteers onto an induction
+            session to cover all the important information they'll need as Bradford 2025 volunteers.
+            At the moment, <b>{{ summary['Induction booked'] - summary['Induction completed'] }}</b>
+            people are booked onto induction sessions.
+        </dd>
+
+    <dt>Induction completed</dt>
+        <dd>
+            {{# TODO Is the aspiration to have all volunteers through the induction process? #}}
+            {{# TODO check how often volunteering induction sessions run #}}
+            Having attended an induction session, our volunteers are fully equipped to fulfil their
+            role as Bradford 2025 volunteers.
+            To date, <b>{{ summary['Induction completed'] }}</b>
+            people have completed their volunteering induction.
+        </dd>
 </dl>
 
-<p>
-    The monitoring and evaluation form is completed during the first checkpoint.
-    This form captures important information that we use to track the volunteering
-    process.
-</p>
-</div>
+  </div>
 
 <div class="block">
 {{
