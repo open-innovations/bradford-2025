@@ -2,29 +2,46 @@
 <h2 class="full-width">Volunteering Checkpoints</h2>
 <div>
 <p>
-    A total of <b>{{ summary['Signed up'] }}</b> people have signed up to be
-    Bradford 2025 volunteers.
-
-    We started recruiting volunteers early on in 2024, and some of these early pioneers
-    have already supported events that us and our partners have run.
+    We've been steadily recruiting volunteers throughout 2024. There are now a total of
+    <b>{{ summary['Signed up'] }}</b> people signed up as prospective Bradford 2025
+    volunteers.
 </p>
 <p>
-    In preparation for the full programme of events, we launched the volunteer induction
-    process in September 2024. The process comprises three checkpoints:
+{{# TODO Comments from Comms
+It says volunteers onboarding process was officially launched in Sept 2024 but above
+it says volunteer evets took place from August 2024.
+#}}
+{{# TODO Comments from Comms
+Also, the graph says inductions didn’t start until after Oct but shifts started in August –
+is the graph correct? 
+#}}
+    Some of these early volunteers have already supported events that we and our partners
+    have run. In preparation for the full programme of events during 2025, we launched
+    the volunteer induction process in September 2024. The process comprises three checkpoints:
 </p>
 <dl>
     <dt>Sign up</dt>
         <dd>
             {{# TODO check wording #}}
+            {{# TODO Comments from Comms
+            It says ‘The monitoring and evaluation form is completed during the first checkpoint.
+            This form captures important information…’ I think this needs to come out as we haven’t
+            captured all the demographics. 
+            #}}
             The first step is to sign up. During this checkpoint the prospective volunteers
-            fill in an application form to collect key information that we use to track and
-            evaluate the volunteering process.
+            fill in an application form to collect key information that we use to track the
+            volunteering process.
             There are currently <b>{{ summary['Signed up'] - summary['Induction booked'] }}</b>
             people in this checkpoint.
         </dd>
 
     <dt>Induction booked</dt>
         <dd>
+            {{# TODO Comments from Comms
+            Induction booked 
+            Are the 690 people who have an induction booked included in the 336 who have completed
+            the induction or is it separate. If so, shouldn’t it add up to 1,186?
+            #}}
             {{# TODO Is the aspiration to have all volunteers through the induction process? #}}
             Once they've completed their forms, we book the volunteers onto an induction
             session to cover all the important information they'll need as Bradford 2025 volunteers.
@@ -36,6 +53,10 @@
         <dd>
             {{# TODO Is the aspiration to have all volunteers through the induction process? #}}
             {{# TODO check how often volunteering induction sessions run #}}
+            {{# TODO Comments from Comms
+            We’re four weeks away from Jan and we still have a lot of inductions to do, so the graph
+            makes it look like we’re not ready for 2025. 
+            #}}
             Having attended an induction session, our volunteers are fully equipped to fulfil their
             role as Bradford 2025 volunteers.
             To date, <b>{{ summary['Induction completed'] }}</b>

@@ -2,7 +2,14 @@
 
 <h2 class="full-width keep-with-next">Volunteering Shifts</h2>
 
-<p>
+{{# TODO Comments from Comms
+Volunteer shifts
+As discuss earlier the 2024 shifts needs to be reflected in the copy above.
+Could we say what the 3rd party events are. 
+#}}
+{{# TODO update this copy when volunteering picks up!
+#}}
+<p class="full-width">
     With the Giraffe event in August 2024, the Bradford 2025
     volunteers have already made a start on their important job.
     The charts below show the numbers of shifts completed
@@ -10,12 +17,18 @@
     They're going to be busy supporting the Bradford 2025 events,
     and will also be lending their skills to events run by our partners.
 </p>
+<p class="full-width">
+    In the charts below <q>shifts</q> means total number of shifts completed by individual volunteers.
+    If 20 volunteers attend a single event, that would be reported as 20 shifts.
+    If each of these 20 volunteers spent 4 hours volunteering at the event, that would add 80 hours to the total.
+</p>
 
 <h3 class="full-width keep-with-next">Cumulative shifts and hours</h3>
 
 <div>{{ comp.LineChart({
     data: shifts.attended_cumulative_by_week,
     dateField: 'week_ending',
+    seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: {{ _y }} shifts",
     series: [
         {
             title: 'Bradford 2025 events',
@@ -37,6 +50,7 @@
 <div>{{ comp.LineChart({
     data: shifts.hours_cumulative_by_week,
     dateField: 'week_ending',
+    seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: {{ _y }} hours",
     series: [
         {
             title: 'Bradford 2025 events',
@@ -59,6 +73,7 @@
 <div>{{ comp.LineChart({
     data: shifts.attended_by_week,
     dateField: 'week_ending',
+    seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: {{ _y }} shifts",
     series: [
         {
             title: 'Bradford 2025 events',
@@ -80,6 +95,7 @@
 <div>{{ comp.LineChart({
     data: shifts.hours_by_week,
     dateField: 'week_ending',
+    seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: {{ _y }} hours",
     series: [
         {
             title: 'Bradford 2025 events',

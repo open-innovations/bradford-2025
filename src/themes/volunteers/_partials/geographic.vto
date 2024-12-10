@@ -21,15 +21,28 @@
 <section class="grid regular">
 <h2 class="full-width">Geographic distribution of volunteers</h2>
 <p class="full-width">
-We want to make sure the volunteering team is representative of the whole
-of Bradford.
-As our volunteers progress through the onboarding process, they provide
-address information that we use to map where they come from.
-We're still in the process of capturing and validating this information
-for all volunteers.
-At the moment, have validated address details for
+{{# TODO Comments from Comms
+
+Geographic distribution 
+We say we want to make sure the volunteering team is representative of the whole of Bradford
+but as we only have age I think this line needs to come out or change the copy so it speaks
+more about the spread across the district and not use the word representative as that could
+read as demographics. 
+
+Replaced with "We want be make sure the volunteers are drawn from across the whole Bradford area."
+#}}
+We want be make sure the volunteers are drawn from across the whole Bradford area.
+{{# TODO Comments from Comms
+
+I think we need to explain why we only have 698 postcodes, when will we have the rest?
+#}}
+The maps below are produced based on the address details that our volunteers provide during
+the <b>Sign up</b> checkpoint. 
+At the moment, have verified address details for
 <strong>{{ Math.round(100 * known_address / total_volunteers) }}%</strong>
-({{ known_address }}) of our volunteers.
+({{ known_address }}) of our volunteers. The remaining volunteers have either not yet completed
+the required forms or have provided postcodes that we don't recognise and that we're manually
+checking and correcting.
 </p>
 
 <div>
@@ -57,6 +70,13 @@ At the moment, have validated address details for
         The subsequent maps show the geographic distribution of volunteers with validated addresses
         across Bradford, either by ward or by postcode district.
     </p>
+    {{# TODO Comments from Comms
+
+    I would like to spend a bit more time looking at the ward breakdown to see if there are any
+    issues regarding areas with little sign up and add some narrative
+    #}}
+    {{# TODO Discuss ward targetting approaches with Volunteering team
+    #}}
 </div>
 
 <div class="block">
@@ -83,24 +103,24 @@ At the moment, have validated address details for
     {{ /comp }}
     {{ comp Tab.Panel { id: 'ward-geo', label: 'Geographic map' } }}
     <figure>
-    {{ comp.oi.map.svg({ 
-        config: {
-            geojson: { key: "WD24CD", data: geojson.bd_wards },
-            data: wardSignUps,
-            bounds: bounds.bradford,
-            value: 'count', 
-            scale: scales.yellow,
-            key: 'code',
-            label: 'short_code',
-            columns: [
-                { name: 'tooltip', template: '<b>{{ name }}</b>\n{{ countLabel }} volunteers' },
-            ],
-            tooltip: 'tooltip',
-    } }) }}
-    <figcaption>
-        This map shows the volunteers by Bradford ward
-        in a geographic layout.
-    </figcaption>
+        {{ comp.oi.map.svg({ 
+            config: {
+                geojson: { key: "WD24CD", data: geojson.bd_wards },
+                data: wardSignUps,
+                bounds: bounds.bradford,
+                value: 'count', 
+                scale: scales.yellow,
+                key: 'code',
+                label: 'short_code',
+                columns: [
+                    { name: 'tooltip', template: '<b>{{ name }}</b>\n{{ countLabel }} volunteers' },
+                ],
+                tooltip: 'tooltip',
+        } }) }}
+        <figcaption>
+            This map shows the volunteers by Bradford ward
+            in a geographic layout.
+        </figcaption>
     </figure>
     {{ /comp }}
     {{ /comp }}

@@ -42,3 +42,34 @@
     border-top: 0.5em solid hsl(46, 100%, 35%);
   }
 }
+
+.call-out {
+  --timing-reg: .3s;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-black);
+  background-color: var(--color-white);
+  padding-block: 0.5rem 0.7rem;
+  padding-inline: 1.8rem;
+  text-align: center;
+  border-radius: 3rem;
+  box-shadow: 1px 1px 4px #0000001a;
+  transition: color var(--timing-reg), box-shadow var(--timing-reg), background-color var(--timing-reg);
+
+  &:hover {
+    color: var(--color-white);
+    background-color: var(--color-black);
+    box-shadow: 1px 1px 1px #0000001a;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    & {
+      background-color: var(--color-offblack);
+      color: var(--color-white);
+      &:hover {
+        background-color: var(--color-white);
+        color: var(--color-black);
+      }
+    }
+  }
+}
