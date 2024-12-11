@@ -1,0 +1,49 @@
+---
+draft: true
+title: KPI Dashboard
+url: /dashboard/kpi/
+description: |
+    KPI Dashboard for WYCA.
+---
+
+<h2>EVENTS</h2>
+
+{{ comp.oi.dashboard({
+    config: {
+        data: eventsKPI,
+        title: "metric",
+        value: "count",
+        width: "20%",
+        panels: [
+            { name: "Performances and events", colour: "pink" },
+            { name: "In person performances and events", colour: "green" },
+            { name: "Online performances and events", colour: "yellow" },
+            { name: "Community led arts projects", colour: "green" },
+            { name: "Festivals", colour: "pink" },
+            { name: "Exhibitions", colour: "yellow" },
+            { name: "Exhibition days", colour: "pink" },
+            { name: "Events and Activities free to access", colour: "green" }
+        ]
+    }
+}) }}
+
+<h2>AUDIENCES</h2>
+
+{{ comp.oi.dashboard({
+    config: {
+        data: audiencesKPI,
+        title: "metric",
+        value: "count",
+        width: "20%",
+        panels: [
+            { name: "GS (Gateway Review) audience engagements with Culture, Heritage or Sport", colour: "pink" },
+            { name: "Face to face event attendees", colour: "green" },
+            { name: "Digital event attendees", colour: "yellow" },
+            { name: "Audience split from Bradford", colour: "pink" },
+            { name: "Participants involved in activities", colour: "green" },
+            { name: "Surveyed audiences reporting a positive experience", colour: "yellow" },
+            { name: "Schools engaged", colour: "pink" },
+            { name: "Participants engaged in creative health activities", colour: "green" },
+        ]
+    }
+}) }}
