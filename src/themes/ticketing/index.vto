@@ -1,10 +1,28 @@
 ---
 title: Ticketing
 description: |
-    
+    Some events are ticketed. Find out how many tickets we've already sold.
 dev: true
 ---
 
+<section>
+
+{{ comp.oi.dashboard({
+    config: {
+        data: [
+            { title: "Total orders", value: operational.summary.orders },
+            { title: "Total tickets", value: operational.summary.tickets },
+        ], title: "title",
+        value: "value",
+        note: "note",
+        align: true,
+        panels: [
+            { name: "Total orders", colour: "pink", "compact-format": false },
+            { name: "Total tickets", colour: "yellow", "compact-format": false },
+        ]
+    }
+}) }}
+</section>
 
 <section class="grid">
 
