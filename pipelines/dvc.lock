@@ -56,3 +56,24 @@ stages:
       hash: md5
       md5: d1b598f5468c2486bd9252e6f3a20229
       size: 838
+  ticketing:
+    cmd: papermill --no-log-output ticketing.ipynb output/ticketing.ipynb
+    deps:
+    - path: ../data/published/ticketing/orders.csv
+      hash: md5
+      md5: 06c710cc7512e31abd5ff71405abdee5
+      size: 1840
+    - path: ../data/published/ticketing/tickets.csv
+      hash: md5
+      md5: bd780c5f488b20b0fc73591cd91adc50
+      size: 75921
+    - path: ticketing.ipynb
+      hash: md5
+      md5: 45d38f67155d0264e62733bac589c254
+      size: 3976
+    outs:
+    - path: ../src/themes/ticketing/_data/operational
+      hash: md5
+      md5: e5759cd804d79909f577fb194036cd97.dir
+      size: 5703
+      nfiles: 3
