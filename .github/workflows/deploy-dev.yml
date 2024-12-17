@@ -60,13 +60,12 @@ jobs:
 
       - name: Get current data
         run: |
-          # cp my-deploy-key deploy-key
           umask 077
           echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
+          echo "${{ secrets.DEPLOY_KEY_HUQ }}" > deploy-key-huq
           eval $(ssh-agent -s)
-          ssh-add deploy-key
-          # ssh-add -l
-          pipenv run dvc update -R data/
+          ssh-add deploy-key deploy-key-huq          
+          pipenv run dvc update data/*.dvc
 
       - name: Run pipelines
         run: |

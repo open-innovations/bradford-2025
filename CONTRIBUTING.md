@@ -66,7 +66,7 @@ will not get the latest data from the remote repository, but will fetch the data
 contained in the commit (md5 hash) referenced in the `.dvc` file.
 
 ```sh
-dvc pull data/published.dvc data/metadata.dvc
+dvc pull -R data/
 ```
 
 If you wish to update to the latest available data, you can run `dvc update`.
@@ -75,7 +75,7 @@ consistent with the `rev` (i.e. branch name) specified in that file (or the
 default branch if that's not specified).
 
 ```sh
-dvc update data/published.dvc data/metadata.dvc
+dvc update -R data/
 ```
 
 These commands will need to be run in an environment where dvc is available. The
@@ -135,3 +135,22 @@ ensure that no leakage takes place.
    to create a `.gitignore` file in the same folder as the page with the a
    general exclusion of `/_data/*`. Exceptions can be added if needed. Once the
    data is approved for publication, this file can be removed.
+
+
+## DVC Remote access
+
+Remote files are loaded from git repos as follows:
+
+```sh
+dvc import -o TARGET_PATH git@github.com:GIT_ORG/GIT_REPO REPO_PATH
+```
+
+> _e.g._ to import data from the `data` directory of the **bradford-2025**
+> repo **my-repo** into the `data/my-data` directory, run the following command
+>
+> ```sh
+> dvc import -o data/my-data git@github.com:bradford-2025/huq-data data 
+> ```
+
+If the repo is private, you will need to have permission to access this data
+via your GitHub account, or will need to provide a deploy key for the repository.
