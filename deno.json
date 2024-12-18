@@ -1,10 +1,12 @@
 {
   "imports": {
     "lume/": "https://deno.land/x/lume@v2.4.2/",
+    "lume/cms/": "https://cdn.jsdelivr.net/gh/lumeland/cms@0.7.6/",
     "oi_lume_viz/": "https://deno.land/x/oi_lume_viz@v0.16.3/"
   },
   "tasks": {
     "lume": "echo \"import 'lume/cli.ts'\" | deno run -A -",
+    "cms": "LUME_DRAFTS=true deno task lume cms",
     "build": "deno task lume",
     "serve": "deno task lume -s",
     "dev": "LUME_DRAFTS=true deno task lume -s",
