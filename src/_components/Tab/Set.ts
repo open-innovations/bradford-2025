@@ -7,7 +7,6 @@ interface TabSetOptions {
 export default function ({ content }: TabSetOptions) {
   const fragment = new DOMParser().parseFromString(content, 'text/html');
   const panels = Array.from(fragment.querySelectorAll('[data-tab-label]'));
-  console.log(panels);
 
   const tabList = document.createElement('ul');
 

@@ -76,20 +76,12 @@ dev: true
 <section class="grid">
 <h2 class="full-width">Tickets sold by Geography</h2>
 
-{{>
-
-    const tickets_by_ward = operational.geography.filter(x => x.geography_type == 'osward')
-
-    console.log(tickets_by_ward)
-
-}}
-
 <div class="block">
     <figure>
         {{ comp.oi.map.hex_cartogram({
             config: {
                 hexjson: hexes.bd_2024,
-                data: tickets_by_ward,
+                data: operational.geography.filter(x => x.geography_type == 'osward'),
                 scale: scales.yellow,
                 matchKey: 'geography_code',
                 value: 'value',
