@@ -31,7 +31,7 @@ concurrency:
 jobs:
   # Build job
   dev-build:
-    if: github.ref == 'dev'
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     env:
       DENO_DIR: /var/tmp/deno_cache
