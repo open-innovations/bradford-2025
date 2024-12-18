@@ -13,44 +13,15 @@
             count: d.count <= 5 && d.count > 0 ? 5 : d.count,
             countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
         }) )
-    const total_volunteers = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count
     const unknown_address = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count
-    const known_address = total_volunteers - unknown_address;
 }}
+{{ set total_volunteers = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
+{{ set known_address = total_volunteers - unknown_address }}
 
 <section class="grid regular">
 <h2 class="full-width">Geographic distribution of volunteers</h2>
 <div class="full-width">
-<p>
-{{# TODO Comments from Comms
-
-Geographic distribution 
-We say we want to make sure the volunteering team is representative of the whole of Bradford
-but as we only have age I think this line needs to come out or change the copy so it speaks
-more about the spread across the district and not use the word representative as that could
-read as demographics. 
-
-Replaced with "We want be make sure the volunteers are drawn from across the whole Bradford area."
-#}}
-We want be make sure the volunteers are drawn from across the whole Bradford area.
-{{# TODO Comments from Comms
-
-I think we need to explain why we only have 698 postcodes, when will we have the rest?
-#}}
-The maps below are produced based on the address details that our volunteers provide during
-the <b>Sign up</b> checkpoint. 
-At the moment, have verified address details for
-<strong>{{ Math.round(100 * known_address / total_volunteers) }}%</strong>
-({{ known_address }}) of our volunteers. The remaining volunteers have either not yet completed
-the required forms or have provided postcodes that we don't recognise and that we're manually
-checking and correcting.
-</p>
-
-<p>
-    Our volunteer area co-ordinators are working to recruit more volunteers from across the region,
-    and also helping make sure that the already registered volunteers have filled in their forms
-    correctly.
-</p>
+{{ include 'cms/block/volunteering-geography.md' |> md }}
 </div>
 
 <div>
