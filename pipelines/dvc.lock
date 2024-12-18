@@ -5,8 +5,8 @@ stages:
     deps:
     - path: ../data/published/volunteers/checkpoints.csv
       hash: md5
-      md5: fca3e5a7e56d04c96cdee9f01009b378
-      size: 12341
+      md5: 27cf4efe796eaabd699955ac6f0a3979
+      size: 12420
     - path: ../data/published/volunteers/shifts.csv
       hash: md5
       md5: 469c0a532035417727bb50d6e02c8a29
@@ -18,28 +18,28 @@ stages:
     outs:
     - path: ../src/themes/volunteers/_data/people/by_demographic_age_range.csv
       hash: md5
-      md5: 03f4e15898a6b8b9faa66d809f3a7e82
+      md5: c46bfa08c3808bd0bc584bca3a33feb7
       size: 196
     - path: ../src/themes/volunteers/_data/people/by_geo_TOTAL.csv
       hash: md5
-      md5: 275afedd70155f2378b7892af5893d70
+      md5: 49e4317327684559cbf812e65b73676c
       size: 54
     - path: ../src/themes/volunteers/_data/people/by_geo_oslaua.csv
       hash: md5
-      md5: 5af0e057c618c18fb54a1b7646d4f601
+      md5: 4c96e190ab06465146f6cd02ed2b823e
       size: 788
     - path: ../src/themes/volunteers/_data/people/by_geo_osward.csv
       hash: md5
-      md5: 3b929234eef18d30434f12a0d9736928
+      md5: f2177cec8fdeabcb02c0e1cfb08e56af
       size: 642
     - path: ../src/themes/volunteers/_data/people/by_geo_postcode_area.csv
       hash: md5
-      md5: c6cf4cf852f3f123b48981dc6390a0fe
+      md5: c3b20039f1828b18629f40f74700e65e
       size: 490
     - path: ../src/themes/volunteers/_data/people/checkpoints_weekly.csv
       hash: md5
-      md5: 7a35de5a6de12d8c60b83f9ff292b78c
-      size: 693
+      md5: a007bbb7ff2b28c34e46e4fc88c34989
+      size: 694
     - path: ../src/themes/volunteers/_data/shifts/attended_by_week.csv
       hash: md5
       md5: b5f3ae40b689b0e0b50c231679098788
@@ -77,3 +77,23 @@ stages:
       md5: 689dbb70fd0f4497fa6e127312dd87cf.dir
       size: 5737
       nfiles: 4
+  huq:
+    cmd: papermill --no-log-output huq.ipynb output/huq.ipynb
+    deps:
+    - path: ../data/huq/mastercard.csv
+      hash: md5
+      md5: 6fdd3bd7b83eeecba00446e5f2d1c8b2
+      size: 63398
+    - path: huq.ipynb
+      hash: md5
+      md5: 09fb142c20b849281826b89bb54be160
+      size: 1850
+    outs:
+    - path: ../src/experiments/huq/_data/footfall_proxy.csv
+      hash: md5
+      md5: dbc42d85841adb094e24d7a13eda6e27
+      size: 5946
+    - path: ../src/experiments/huq/_data/spend_index.csv
+      hash: md5
+      md5: e1f3e2145b08e5ba2e44d8ffce79b9c8
+      size: 5898

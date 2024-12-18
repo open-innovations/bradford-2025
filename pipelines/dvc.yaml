@@ -38,3 +38,13 @@ stages:
     outs:
       - ${ROOT}/src/themes/ticketing/_data/operational:
           cache: false
+  huq:
+    cmd: papermill --no-log-output huq.ipynb output/huq.ipynb
+    deps:
+      - huq.ipynb
+      - ${ROOT}/data/huq/mastercard.csv
+    outs:
+      - ${ROOT}/src/experiments/huq/_data/footfall_proxy.csv:
+          cache: false
+      - ${ROOT}/src/experiments/huq/_data/spend_index.csv:
+          cache: false
