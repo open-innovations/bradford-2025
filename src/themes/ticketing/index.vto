@@ -97,3 +97,21 @@ dev: true
 </div>
 
 </section>
+
+<section display="grid">
+<div>
+{{ comp.oi.table({
+    config: {
+        data: operational.type.map(r => ({
+            ...r,
+            'Ticket type': r.type,
+            'Number of tickets sold': r.tickets,
+        })),
+        columns: [
+            { name: 'Ticket type', align: 'center' },
+            { name: 'Number of tickets sold', align: 'center' },
+        ],
+    }
+}) }}
+</div>
+</section>
