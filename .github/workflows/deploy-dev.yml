@@ -24,9 +24,14 @@ name: Deploy dev
       - deno.json
       - .github/workflows/deploy-dev.yml
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # Build job
   dev-build:
+    if: github.ref == 'dev'
     runs-on: ubuntu-latest
     env:
       DENO_DIR: /var/tmp/deno_cache
