@@ -8,7 +8,7 @@ description: >-
 ---
 There are two distinct interlocking processes:
 
-<figure>
+<figure class="block uncoloured">
 <img src="/assets/images/bradford-2025-open-data-overview.png">
 <figcaption>
   Overview of the two related processes for publishing data.
