@@ -11,7 +11,7 @@
     "serve": "deno task lume -s",
     "dev": "LUME_DRAFTS=true deno task lume -s",
     "build:dev": "LUME_DRAFTS=true deno task lume --location https://dev.open-innovations.org/bradford-2025-data/",
-    "deploy:dev": "rsync --info=STATS2 --recursive --delete --rsh=\"sshpass -e ssh -o StrictHostKeyChecking=no -l $SSH_USER\" --rsync-path \"sudo -u www-data rsync\" _site/ $SSH_HOST:$SSH_PATH",
+    "deploy:dev": "rsync --info=STATS2 --recursive --delete --rsh=\"sshpass -e ssh -o StrictHostKeyChecking=no -l $SSH_USER\" --rsync-path \"sudo -u oi-cloud rsync\" _site/ $SSH_HOST:$SSH_PATH",
     "data:pull": "pipenv run dvc pull data/*.dvc",
     "data:update": "pipenv run dvc update data/*.dvc",
     "data:pipeline": "pipenv run dvc repro pipelines/dvc.yaml",
