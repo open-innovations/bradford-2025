@@ -3,12 +3,14 @@
 }}
 
 <h2>Age</h2>
-<figure>
+<figure style="max-width: 40rem;margin-inline:auto;">
 {{ comp.oi.chart.bar({
     config: {
         data: age.by_geography
             .filter(x => x.geography_code.startsWith('E05'))
             .sort((a, b) => sortValue(b) - sortValue(a)),
+        width: 600,
+        legend: { show: true, },
         category: 'geography_name',
         stacked: true,
         series: [
