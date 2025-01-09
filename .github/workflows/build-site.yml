@@ -20,6 +20,37 @@ jobs:
 
     # Packaged action to build a Lume site. See https://github.com/dringtech/lume-build
     steps:
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pipenv
+
+      - name: Setup pipenv
+        run: |
+          pip install pipenv
+          pipenv install
+
+      - name: Get current data
+        run: |
+          umask 077
+          eval $(ssh-agent -s)
+
+          echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
+          ssh-add deploy-key
+          pipenv run dvc update data/published.dvc data/metadata.dvc
+          ssh-add -D
+
+          echo "${{ secrets.DEPLOY_KEY_HUQ }}" > deploy-key-huq
+          ssh-add deploy-key-huq          
+          pipenv run dvc update data/huq.dvc
+          ssh-add -D
+
+      - name: Run pipelines
+        run: |
+          pipenv run dvc repro pipelines/dvc.yaml
+
       - name: Build the site
         uses: dringtech/lume-build@v3
         with:
