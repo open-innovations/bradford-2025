@@ -13,30 +13,21 @@
             count: d.count <= 5 && d.count > 0 ? 5 : d.count,
             countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
         }) )
-    const total_volunteers = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count
     const unknown_address = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count
-    const known_address = total_volunteers - unknown_address;
 }}
+{{ set total_volunteers = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
+{{ set known_address = total_volunteers - unknown_address }}
 
 <section class="grid regular">
 <h2 class="full-width">Geographic distribution of volunteers</h2>
-<p class="full-width">
-We want to make sure the volunteering team is representative of the whole
-of Bradford.
-As our volunteers progress through the onboarding process, they provide
-address information that we use to map where they come from.
-We're still in the process of capturing and validating this information
-for all volunteers.
-At the moment, have validated address details for
-<strong>{{ Math.round(100 * known_address / total_volunteers) }}%</strong>
-({{ known_address }}) of our volunteers.
-</p>
+<div class="full-width">
+{{ include 'cms/block/volunteering-geography.md' |> md }}
+</div>
 
 <div>
     <h3>Local Authorities</h3>
     <p>
-        The table below shows the volunteer counts by
-        local authority where the count is above 5.
+        The table below shows the volunteer counts by local authority where the count is above 5.
     </p>
     
     <div class="block centred">
@@ -58,10 +49,19 @@ At the moment, have validated address details for
         The subsequent maps show the geographic distribution of volunteers with validated addresses
         across Bradford, either by ward or by postcode district.
     </p>
+    {{# TODO Comments from Comms
+
+    I would like to spend a bit more time looking at the ward breakdown to see if there are any
+    issues regarding areas with little sign up and add some narrative
+    #}}
+    {{# TODO Discuss ward targetting approaches with Volunteering team
+    #}}
 </div>
 
 <div class="block">
-    <h3>Ward hexmap</h3>
+    <h3>Volunteers by ward</h3>
+    {{ comp Tab.Set }}
+    {{ comp Tab.Panel { id: 'ward-hex', label: 'Hex map' } }}
     <figure>
         {{ comp.oi.map.hex_cartogram({
             config: {
@@ -75,38 +75,38 @@ At the moment, have validated address details for
             }
         }) }}
         <figcaption>
-            The <q>hexmap</q> shows the number of volunteers living in each Bradford
-            ward.
+            The <a href="/design/geospatial/#hexmaps"><q>hexmap</q></a> shows the number of
+            volunteers living in each Bradford ward.
         </figcaption>
     </figure>
-</div>
-<div class="block">
-    <h3>Ward geographic map</h3>
-    {{# TODO Sort out the tooltip for this #}}
+    {{ /comp }}
+    {{ comp Tab.Panel { id: 'ward-geo', label: 'Geographic map' } }}
     <figure>
-    {{ comp.oi.map.svg({ 
-        config: {
-            geojson: { key: "WD24CD", data: geojson.bd_wards },
-            data: wardSignUps,
-            bounds: bounds.bradford,
-            value: 'count', 
-            scale: scales.yellow,
-            key: 'code',
-            label: 'short_code',
-            columns: [
-                { name: 'tooltip', template: '<b>{{ name }}</b>\n{{ countLabel }} volunteers' },
-            ],
-            tooltip: 'tooltip',
-    } }) }}
-    <figcaption>
-        This map shows the volunteers by Bradford ward
-        in a geographic layout.
-    </figcaption>
+        {{ comp.oi.map.svg({ 
+            config: {
+                geojson: { key: "WD24CD", data: geojson.bd_wards },
+                data: wardSignUps,
+                bounds: bounds.bradford,
+                value: 'count', 
+                scale: scales.yellow,
+                key: 'code',
+                label: 'short_code',
+                columns: [
+                    { name: 'tooltip', template: '<b>{{ name }}</b>\n{{ countLabel }} volunteers' },
+                ],
+                tooltip: 'tooltip',
+        } }) }}
+        <figcaption>
+            This map shows the volunteers by Bradford ward
+            in a geographic layout.
+        </figcaption>
     </figure>
+    {{ /comp }}
+    {{ /comp }}
 </div>
 
 <div class="block">
-    <h3>Postcode district geographic map</h3>
+    <h3>Volunteers by postcode district</h3>
     <figure>
         {{ comp.oi.map.svg({
             config: {

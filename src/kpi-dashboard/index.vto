@@ -1,0 +1,61 @@
+---
+draft: true
+title: KPI Dashboard (WIREFRAME)
+url: /dashboard/kpi/
+tags:
+    - insight
+description: |
+    This insight brings together key statistics about the Bradford 2025 programme
+    into a single dashboard.
+---
+
+<p>
+    This is a prototype of the design of a potential KPI dashboard based on the requirements
+    of the West Yorkshire Combined Authority reporting. It is still Work in Progress.
+</p>
+
+<h2>Events</h2>
+
+{{ comp.WARNING() }}
+
+{{ comp.oi.dashboard({
+    config: {
+        data: eventsKPI,
+        title: "metric",
+        value: "count",
+        width: "20%",
+        panels: [
+            { name: "Performances and events", colour: "pink" },
+            { name: "In person performances and events", colour: "green" },
+            { name: "Online performances and events", colour: "yellow" },
+            { name: "Community led arts projects", colour: "green" },
+            { name: "Festivals", colour: "pink" },
+            { name: "Exhibitions", colour: "yellow" },
+            { name: "Exhibition days", colour: "pink" },
+            { name: "Events and Activities free to access", colour: "green" }
+        ]
+    }
+}) }}
+
+<h2>Audiences</h2>
+
+{{ comp.WARNING() }}
+
+{{ comp.oi.dashboard({
+    config: {
+        data: audiencesKPI,
+        title: "metric",
+        value: "count",
+        width: "20%",
+        panels: [
+            { name: "GS (Gateway Review) audience engagements with Culture, Heritage or Sport", colour: "pink" },
+            { name: "Face to face event attendees", colour: "green" },
+            { name: "Digital event attendees", colour: "yellow" },
+            { name: "Audience split from Bradford", colour: "pink" },
+            { name: "Participants involved in activities", colour: "green" },
+            { name: "Surveyed audiences reporting a positive experience", colour: "yellow" },
+            { name: "Schools engaged", colour: "pink" },
+            { name: "Participants engaged in creative health activities", colour: "green" },
+        ]
+    }
+}) }}

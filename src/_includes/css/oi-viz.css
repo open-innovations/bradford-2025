@@ -2,16 +2,26 @@
 
 .oi-viz {
   .series .hex {
-    path {
-      scale: 0.95;
-      transition: scale 0.3s;
+    & * {
+      scale: 0.9;
+      transition: 0.3s;
     }
-
     &:hover {
-      path {
+      & * {
         scale: 1;
       }
     }
+    & text {
+      pointer-events: none;
+    }
+  }
+  & .axis-grid-x {
+    & g[data] text {
+      dominant-baseline: hanging;
+    }
+  }
+  & tspan {
+    dominant-baseline: inherit;
   }
 }
 
@@ -82,13 +92,15 @@
     font-size: min(15vw, 4em);
     line-height: 1.25;
   }
+  & .oi-dashboard-inner {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    & > * {
+      flex-basis: var(--auto-dashboard-min-size);
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+  }
 }
-
-/* .oi-dashboard .oi-dashboard-inner {
-  margin-top: 2em;
-  margin-bottom: 2em;
-  border-style: dashed;
-  border-width: 0.5px;
-  border-color: #5f5e5e;
-  text-align: center;
-} */

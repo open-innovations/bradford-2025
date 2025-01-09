@@ -4,9 +4,9 @@ layout: templates/base.vto
 
 {{ comp.SiteHeader({ title }) }}
 
-<main class="site-wrapper">
-{{ comp.PageSummary(page.data) }}
+{{ comp.Breadcrumbs({ breadcrumbs }) }}
 
+<main class="site-wrapper">
 {{ content }}
 </main>
 

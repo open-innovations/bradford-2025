@@ -6,7 +6,7 @@ import esbuild from "lume/plugins/esbuild.ts";
 import favicon from "lume/plugins/favicon.ts";
 import feed from "lume/plugins/feed.ts";
 import metas from "lume/plugins/metas.ts";
-import ogImages from "lume/plugins/og_images.ts";
+import openGraphImages from "lume/plugins/og_images.ts";
 import postcss from "lume/plugins/postcss.ts";
 import redirects from "lume/plugins/redirects.ts";
 import sass from "lume/plugins/sass.ts";
@@ -15,6 +15,7 @@ import sitemap from "lume/plugins/sitemap.ts";
 import svgo from "lume/plugins/svgo.ts";
 import transformImages from "lume/plugins/transform_images.ts";
 
+import { read } from "lume/core/utils/read.ts";
 
 import autoDependency from "https://deno.land/x/oi_lume_utils/processors/auto-dependency.ts";
 import oiLumeViz from "oi_lume_viz/mod.ts";
@@ -67,7 +68,35 @@ site.use(svgo());
 site.use(transformImages());
 
 // SEO
-site.use(ogImages());
+site.use(openGraphImages({
+  satori: {
+    width: 1200,
+    height: 630,
+    fonts: [
+      {
+        name: "Denim INK",
+        weight: 100,
+        style: "normal",
+        data: await read("vendor/bd25/DenimINK-Light-HFY2BIIM.woff", true)
+      },
+      {
+        name: "Denim INK",
+        weight: 400,
+        style: "normal",
+        data: await read("vendor/bd25/DenimINK-Regular-UUJ7XEES.woff", true)
+      },
+      {
+        name: "Denim INK",
+        weight: 700,
+        style: "normal",
+        data: await read("vendor/bd25/DenimINK-Bold-5SFPWNGF.woff", true)
+      },
+      // src: url(../fonts/DenimINK-Regular-YY7M2VJL.woff2) format('woff2'),
+      //   url(../fonts/DenimINK-Regular-UUJ7XEES.woff) format('woff');
+      // font-display: swap;    
+    ]
+  },
+}));
 site.use(metas());
 
 site.use(sitemap());
@@ -140,8 +169,14 @@ site.copy("assets/vendor/");
   }
 })
 
-// Set up some global data
-site.data('landingPage', 'placeholder', '/landing');
+/**
+ * Set up some global data
+ */
+
+// Set up landing page
+const landing = 'placeholder';
+const devLanding = 'v1';
+site.data('landingPage', Deno.env.get('LUME_DRAFTS') == 'true' ? devLanding : landing, '/landing');
 
 // Kludge to strip height and width from in line svg
 site.process(['.html'], (pages) => pages.forEach(page => {

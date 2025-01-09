@@ -1,0 +1,1 @@
+export const add_date = (x) => ({ ...x, date: x.datestamp.toISOString().split('T')[0] });

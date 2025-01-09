@@ -3,8 +3,8 @@ draft: true
 title: Volunteering
 url: /themes/volunteering/
 description: |
-    Volunteers are at the heart of Bradford 2025.
-    Explore data related to the volunteering programme.
+    We all know that Bradford’s greatest asset is its people.
+    Find out the key statistics about the volunteers at the heart of Bradford 2025.
 ---
 
 
@@ -22,6 +22,20 @@ description: |
             .reduce((a, [title, value]) => ({ ...a, [`${title} volunteer hours`]: value }), {}),
     }
 }}
+<section>
+
+{{ include 'cms/block/volunteering-introduction.md' |> md }}
+
+<div class="grid">
+<p>
+    Are you interested in getting involved as a Bradford 2025 volunteer?
+</p>
+<p class="static-size">
+    <a class="call-out" href="https://bradford2025.co.uk/take-part/volunteer/">Find out more &rarr;</a>
+</p>
+</div>
+
+</section>
 
 {{ include './_partials/headlines.vto' }}
 
@@ -33,9 +47,14 @@ description: |
 
 {{ include './_partials/geographic.vto' }}
 
+{{# TODO Comments from Comms
+
+Demographics 
+This needs to come out until we can show all demographics - ethnicity, gender etc. 
 <hr>
 
 {{ include './_partials/demographics.vto' }}
+#}}
 
 <hr>
 

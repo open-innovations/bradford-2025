@@ -1,0 +1,117 @@
+---
+title: Ticketing
+description: |
+    Some events are ticketed. Find out how many tickets we've already sold.
+dev: true
+---
+
+<section>
+
+{{ comp.oi.dashboard({
+    config: {
+        data: [
+            { title: "Total orders", value: operational.summary.orders },
+            { title: "Total tickets", value: operational.summary.tickets },
+        ], title: "title",
+        value: "value",
+        note: "note",
+        align: true,
+        panels: [
+            { name: "Total orders", colour: "pink", "compact-format": false },
+            { name: "Total tickets", colour: "yellow", "compact-format": false },
+        ]
+    }
+}) }}
+</section>
+
+<section class="grid">
+
+<h2 class="full-width">Total orders and tickets</h2>
+
+<div class="block">
+{{
+    comp.LineChart({
+        data: operational.weekly_orders,
+        dateField: 'week_ending',
+        prettyDate: '%d %B %y',
+        seriesTooltip: "<b>{{ _title }}</b>\nWeek ending {{ pretty_date }}: {{ _y }}",
+        series: [
+            {
+                title: 'Total orders placed',
+                x: 'decimal_year',
+                y: 'total',
+            },
+        ],
+        labels: {
+            x: 'Date',
+            y: 'Number of volunteers'
+        }
+    })
+}}
+</div>
+
+<div class="block">
+{{
+    comp.LineChart({
+        data: operational.weekly_tickets,
+        dateField: 'week_ending',
+        prettyDate: '%d %B %y',
+        seriesTooltip: "<b>{{ _title }}</b>\nWeek ending {{ pretty_date }}: {{ _y }}",
+        series: [
+            {
+                title: 'Total tickets sold',
+                x: 'decimal_year',
+                y: 'total',
+            },
+        ],
+        labels: {
+            x: 'Date',
+            y: 'Number of volunteers'
+        }
+    })
+}}
+</div>
+</section>
+
+<section class="grid">
+<h2 class="full-width">Tickets sold by Geography</h2>
+
+<div class="block">
+    <figure>
+        {{ comp.oi.map.hex_cartogram({
+            config: {
+                hexjson: hexes.bd_2024,
+                data: operational.geography.filter(x => x.geography_type == 'osward'),
+                scale: scales.yellow,
+                matchKey: 'geography_code',
+                value: 'value',
+                label: 'short_code',
+                tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ value }} tickets sold'
+            }
+        }) }}
+        <figcaption>
+            The <a href="/design/geospatial/#hexmaps"><q>hexmap</q></a> shows the number of
+            tickets sold in each Bradford ward, based on residence of lead booker.
+        </figcaption>
+    </figure>
+</div>
+
+</section>
+
+<section display="grid">
+<div>
+{{ comp.oi.table({
+    config: {
+        data: operational.type.map(r => ({
+            ...r,
+            'Ticket type': r.type,
+            'Number of tickets sold': r.tickets,
+        })),
+        columns: [
+            { name: 'Ticket type', align: 'center' },
+            { name: 'Number of tickets sold', align: 'center' },
+        ],
+    }
+}) }}
+</div>
+</section>

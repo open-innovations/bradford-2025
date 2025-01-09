@@ -1,4 +1,5 @@
 vars:
+  - ROOT: ..
   - VOLUNTEER_DATA: ../src/themes/volunteers/_data
 stages:
   volunteers:
@@ -27,4 +28,23 @@ stages:
       - ${VOLUNTEER_DATA}/shifts/hours_by_week.csv:
           cache: false
       - ${VOLUNTEER_DATA}/shifts/hours_cumulative_by_week.csv:
+          cache: false
+  ticketing:
+    cmd: papermill --no-log-output ticketing.ipynb output/ticketing.ipynb
+    deps:
+      - ticketing.ipynb
+      - ${ROOT}/data/published/ticketing/tickets.csv
+      - ${ROOT}/data/published/ticketing/orders.csv
+    outs:
+      - ${ROOT}/src/themes/ticketing/_data/operational:
+          cache: false
+  huq:
+    cmd: papermill --no-log-output huq.ipynb output/huq.ipynb
+    deps:
+      - huq.ipynb
+      - ${ROOT}/data/huq/mastercard.csv
+    outs:
+      - ${ROOT}/src/experiments/huq/_data/footfall_proxy.csv:
+          cache: false
+      - ${ROOT}/src/experiments/huq/_data/spend_index.csv:
           cache: false

@@ -24,9 +24,14 @@ name: Deploy dev
       - deno.json
       - .github/workflows/deploy-dev.yml
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # Build job
   dev-build:
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     env:
       DENO_DIR: /var/tmp/deno_cache
@@ -60,13 +65,18 @@ jobs:
 
       - name: Get current data
         run: |
-          # cp my-deploy-key deploy-key
           umask 077
-          echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
           eval $(ssh-agent -s)
+
+          echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
           ssh-add deploy-key
-          # ssh-add -l
-          pipenv run dvc pull data/published.dvc data/metadata.dvc
+          pipenv run dvc update data/published.dvc data/metadata.dvc
+          ssh-add -D
+
+          echo "${{ secrets.DEPLOY_KEY_HUQ }}" > deploy-key-huq
+          ssh-add deploy-key-huq          
+          pipenv run dvc update data/huq.dvc
+          ssh-add -D
 
       - name: Run pipelines
         run: |

@@ -1,16 +1,33 @@
 <section class="block">
 <p>
-    We've been building the volunteering team throughout 2024.
-    Our volunteer induction programme officially launched in September
-    and we're busy getting everyone ready to volunteer during 2025.
-    The first events supported by volunteers took place during
-    August and September 2024.
+    These headline figures provide a quick insight into the volunteering programme.
+    You can find the detail behind these numbers by scrolling down the page.
+    {{# At the moment, this is mostly about the number of people who are signed up to be volunteers,
+    but as the programme of events starts, it will also show the numbers of hours that our amazing
+    volunteers have contributed. #}}
 </p>
+
+{{# TODO Feedback from Comms
+
+I’m not sure these numbers mean very much – is the number of shifts (229) good for the number
+of volunteers signed up. It feels low to me but I’ve nothing to compare it too.
+
+In the boxes the 229 shifts and 862 hours refer to Bradford 2025 events but some of them weren’t
+Bradford 2025 but partner events. 
+
+I also think it would be good to say what the shifts were, what they have done so far. And maybe
+what we have planned. 
+#}}
+
 {{ set summaryDashboard = Object.entries(checkpointDetails)
     .map(([title, details]) => ({
         title,
         value: summary[title] || null,
         ...details
+    }))
+    .map((p) => ({
+        ...p,
+        rounded: Math.round(p.value)
     }))
 }}
 
@@ -18,13 +35,13 @@
     config: {
         data: summaryDashboard,
         title: "title",
-        value: "value",
+        value: "rounded",
         note: "note",
-        width: "30%",
+        align: true,
         panels: [
-            { name: "Signed up", colour: "pink" },
-            { name: "Bradford 2025 volunteer shifts", colour: "green" },
-            { name: "Bradford 2025 volunteer hours", colour: "yellow" },
+            { name: "Signed up", colour: "pink", "compact-format": false },
+            // { name: "Bradford 2025 volunteer shifts", colour: "green" },
+            // { name: "Bradford 2025 volunteer hours", colour: "yellow", precision: "0.1" },
         ]
     }
 }) }}

@@ -1,16 +1,16 @@
 schema: '2.0'
 stages:
   volunteers:
-    cmd: papermill --no-log-output volunteers.ipynb > /dev/null
+    cmd: papermill --no-log-output volunteers.ipynb output/volunteers.ipynb
     deps:
     - path: ../data/published/volunteers/checkpoints.csv
       hash: md5
-      md5: 74ed04d51f536e049500ac6cec661d85
-      size: 9360
+      md5: d9c33e61a4e28382da5b678f186202c9
+      size: 14161
     - path: ../data/published/volunteers/shifts.csv
       hash: md5
-      md5: e947bf43865c566a3f4e2f4fb1b3f6ab
-      size: 10172
+      md5: e0a892be2f5b6d943d96ff24f18d260d
+      size: 12193
     - path: volunteers.ipynb
       hash: md5
       md5: 0b9f5a87d2b838d01a6d8d624ea36399
@@ -18,41 +18,82 @@ stages:
     outs:
     - path: ../src/themes/volunteers/_data/people/by_demographic_age_range.csv
       hash: md5
-      md5: 7074b6c25fe03c522663d509b5b031d9
-      size: 195
+      md5: b2ebfb0501bdb50db69e9d9908e07953
+      size: 196
     - path: ../src/themes/volunteers/_data/people/by_geo_TOTAL.csv
       hash: md5
-      md5: 7a4e9c9dc5bea31cfe65f99e3c568b1b
+      md5: 2daf4d23ec8b3edd0d3c597becb02e60
       size: 54
     - path: ../src/themes/volunteers/_data/people/by_geo_oslaua.csv
       hash: md5
-      md5: 89a916d011db43a287429c0ac659208a
-      size: 656
+      md5: 6b330ef56fd209afec519a9760e6cbf2
+      size: 806
     - path: ../src/themes/volunteers/_data/people/by_geo_osward.csv
       hash: md5
-      md5: 742a487ab481800859454ff2e7b7cc46
-      size: 783
+      md5: 442461cc3a29689a9a45bcf19f84b15c
+      size: 644
     - path: ../src/themes/volunteers/_data/people/by_geo_postcode_area.csv
       hash: md5
-      md5: 137c92ddab6485fef90e9edda023b272
-      size: 493
+      md5: 155f189cabeaba4978c362233b00f39c
+      size: 490
     - path: ../src/themes/volunteers/_data/people/checkpoints_weekly.csv
       hash: md5
-      md5: 9c5dd6b551a7032bbb517a421f4e7401
-      size: 524
+      md5: 04b3c68ef78b96819bd5362336bb747f
+      size: 794
     - path: ../src/themes/volunteers/_data/shifts/attended_by_week.csv
       hash: md5
-      md5: 2b067062d93cabf819acb89ea8c40788
-      size: 392
+      md5: 07007adb95211ffe4c0750d7a65e3a18
+      size: 580
     - path: ../src/themes/volunteers/_data/shifts/attended_cumulative_by_week.csv
       hash: md5
-      md5: 1e016a8cefbf44360b2254b92ac786b5
-      size: 439
+      md5: 80a683f42bfc751e91c84e977ab4f3ab
+      size: 671
     - path: ../src/themes/volunteers/_data/shifts/hours_by_week.csv
       hash: md5
-      md5: e066741f976799d59f70504fca388054
-      size: 543
+      md5: 5eea28cfe183c1fb857bc97dc49cf870
+      size: 812
     - path: ../src/themes/volunteers/_data/shifts/hours_cumulative_by_week.csv
       hash: md5
-      md5: 0aa93ad3948d1184914efc2c240c24d1
-      size: 625
+      md5: d38e4a5f84b86400da9de25f53cdfa0c
+      size: 967
+  ticketing:
+    cmd: papermill --no-log-output ticketing.ipynb output/ticketing.ipynb
+    deps:
+    - path: ../data/published/ticketing/orders.csv
+      hash: md5
+      md5: 74fdfc28815e94a7603a118db7c73177
+      size: 2186
+    - path: ../data/published/ticketing/tickets.csv
+      hash: md5
+      md5: d710b2931bee9b4da5d2020d9512e705
+      size: 341154
+    - path: ticketing.ipynb
+      hash: md5
+      md5: 3dd76a547dcfa0a92dce725b736ea28f
+      size: 4811
+    outs:
+    - path: ../src/themes/ticketing/_data/operational
+      hash: md5
+      md5: 9f79f25af2da02660b7457b9bb3990dc.dir
+      size: 7041
+      nfiles: 5
+  huq:
+    cmd: papermill --no-log-output huq.ipynb output/huq.ipynb
+    deps:
+    - path: ../data/huq/mastercard.csv
+      hash: md5
+      md5: 6fdd3bd7b83eeecba00446e5f2d1c8b2
+      size: 63398
+    - path: huq.ipynb
+      hash: md5
+      md5: 09fb142c20b849281826b89bb54be160
+      size: 1850
+    outs:
+    - path: ../src/experiments/huq/_data/footfall_proxy.csv
+      hash: md5
+      md5: dbc42d85841adb094e24d7a13eda6e27
+      size: 5946
+    - path: ../src/experiments/huq/_data/spend_index.csv
+      hash: md5
+      md5: e1f3e2145b08e5ba2e44d8ffce79b9c8
+      size: 5898

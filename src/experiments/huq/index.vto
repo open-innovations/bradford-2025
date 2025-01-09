@@ -1,0 +1,45 @@
+---
+title: Huq data
+description: |
+    We're working with huq, a location data analytics platform, to help estimate the footfall generated
+    by our events.
+draft: true
+---
+<section>
+<h2>Footfall proxy</h2>
+
+<p>
+    The calendar chart below shows a footfall proxy based on the number of Mastercard accounts
+    active across Bradford during the day.
+</p>
+{{
+    comp.oi.chart.calendar({
+        config: {
+            data: footfall_proxy.map(add_date),
+            value: 'value',
+            key: 'date',
+            startofweek: 0,
+            tooltip: '{{ date | strftime("%e %B %Y") }} <br />Account index {{ value }}',
+        }
+    })
+}}
+</section>
+
+<section>
+<h2>Spend index</h2>
+
+<p>
+    TKTKTK
+</p>
+{{
+    comp.oi.chart.calendar({
+        config: {
+            data: spend_index.map(add_date),
+            value: 'value',
+            key: 'date',
+            startofweek: 0,
+            tooltip: '{{ date | strftime("%e %B %Y") }} <br />Account index {{ value }}',
+        }
+    })
+}}
+</section>

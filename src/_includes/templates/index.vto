@@ -2,6 +2,8 @@
 layout: templates/page.vto
 ---
 
+{{ comp.PageSummary(page.data) }}
+
 {{ set subpages = search.pages(`${index_tag} !url=${ url }`, 'title') }}
 
 <section>

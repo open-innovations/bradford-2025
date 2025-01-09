@@ -2,7 +2,6 @@
     function calculateMaxvalue() {
         const values = data.map(d => series.map(s => d[s.y]));
         const trueMax = Math.max(...values.flat());
-        console.log({ trueMax });
         if (trueMax > 1000) {
             return Math.ceil((trueMax+1) / 250 ) * 250;
         }
@@ -12,7 +11,6 @@
         return Math.ceil((trueMax+1) / 10 ) * 10;
     }
     let maxValue = calculateMaxvalue();
-    console.log({ maxValue })
 }}
 {{ comp.oi.chart.line({
     config: {
