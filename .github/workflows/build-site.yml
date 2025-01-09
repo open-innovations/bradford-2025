@@ -9,17 +9,29 @@ name: Build site
     branches: [ main ]
     paths:
       - src/**
+      - data/**/*.dvc
+      - pipelines/**
       - _config.ts
       - deno.json
       - .github/workflows/build-site.yml
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # Build job
   build:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    env:
+      DENO_DIR: /var/tmp/deno_cache
 
-    # Packaged action to build a Lume site. See https://github.com/dringtech/lume-build
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup python
         uses: actions/setup-python@v5
@@ -31,6 +43,18 @@ jobs:
         run: |
           pip install pipenv
           pipenv install
+
+      - name: Setup deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Cache Deno dependencies
+        id: cache-deno
+        uses: actions/cache@v4
+        with:
+          key: deno-cache-${{ hashFiles('./deno.lock') }}
+          path: ${{ env.DENO_DIR }}
 
       - name: Get current data
         run: |
@@ -52,10 +76,11 @@ jobs:
           pipenv run dvc repro pipelines/dvc.yaml
 
       - name: Build the site
-        uses: dringtech/lume-build@v3
+        run: deno task build
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          site-build-cmd: deno task build
-          deno-version: v2.x
+          path: _site/
 
   # Deploy job
   deploy:
