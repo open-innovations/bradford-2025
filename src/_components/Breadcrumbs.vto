@@ -1,0 +1,28 @@
+---
+css: |
+    [data-comp="breadcrumbs"] {
+        padding-inline: var(--site-padding);
+        --grid-gap: 0.3em;
+        & ul {
+            list-style: none;
+            display: flex;
+            gap: var(--grid-gap);
+            padding: 0;
+        }
+        & li {
+            &:not(:last-child):after {
+                content: ">";
+                padding-inline-start: var(--grid-gap);
+            }
+        }
+    }
+---
+{{ if breadcrumbs.length > 0 }}
+<nav data-comp="breadcrumbs">
+<ul>
+{{ for b of breadcrumbs }}
+    <li><a href="{{ b.url }}">{{ b.text }}</a></li>
+{{ /for }}
+</ul>
+</nav>
+{{ /if }}

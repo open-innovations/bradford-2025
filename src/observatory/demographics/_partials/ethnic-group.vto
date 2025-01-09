@@ -1,0 +1,30 @@
+{{>
+    const sortValue = (s) => s["Asian, Asian British or Asian Welsh"];
+}}
+
+<h2>Ethnic group</h2>
+<figure>
+{{ comp.oi.chart.bar({
+    config: {
+        data: ethnic_group.by_geography
+            .filter(x => x.geography_code.startsWith('E05'))
+            .sort((a, b) => sortValue(b) - sortValue(a)),
+        category: 'geography_name',
+        stacked: true,
+        series: [
+            { value: "Asian, Asian British or Asian Welsh", title: "Asian, Asian British or Asian Welsh",},
+            { value: "Black, Black British, Black Welsh, Caribbean or African", title: "Black, Black British, Black Welsh, Caribbean or African",},
+            { value: "Mixed or Multiple ethnic groups", title: "Mixed or Multiple ethnic groups",},
+            { value: "White", title: "White", },
+            { value: "Other ethnic group", title: "Other ethnic group", },
+        ]
+    }
+}) }}
+<figcaption>
+    The chart shows the ethnic group of residents for each ward in Bradford.
+    The rows to the top of the chart have more Asian, Asian British or Asian Welsh residents.
+    The data was derived from the 2025 census.
+</figcaption>
+
+</figure>
+</div>

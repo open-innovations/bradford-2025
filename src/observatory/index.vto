@@ -1,0 +1,15 @@
+---
+title: Observatory
+description: |
+    Find out about the culture sector, demographics and economy of Bradford.
+    We're collecting and presenting this data as a baseline for our evaluation.
+---
+
+<p>
+    This data observatory presents information about the culture sector in Bradford.
+</p>
+<section class="grid regular">
+{{ for page of search.pages(`observatory url!=${url}`) }}
+    {{ comp.Section({ page }) }}
+{{ /for }}
+</section>

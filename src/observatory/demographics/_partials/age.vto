@@ -1,0 +1,36 @@
+{{>
+    const sortValue = (s) => s["Aged 4 years and under"] + s["Aged 5 to 9 years"] + s["Aged 85 years and over"] + s["Aged 10 to 15 years"] + s["Aged 16 to 19 years"] + s["Aged 20 to 24 years"];
+}}
+
+<h2>Age</h2>
+<figure>
+{{ comp.oi.chart.bar({
+    config: {
+        data: age.by_geography
+            .filter(x => x.geography_code.startsWith('E05'))
+            .sort((a, b) => sortValue(b) - sortValue(a)),
+        category: 'geography_name',
+        stacked: true,
+        series: [
+            { value: "Aged 4 years and under", title: "Aged 4 years and under", },
+            { value: "Aged 5 to 9 years", title: "Aged 5 to 9 years", },
+            { value: "Aged 10 to 15 years", title: "Aged 10 to 15 years", },
+            { value: "Aged 16 to 19 years", title: "Aged 16 to 19 years", },
+            { value: "Aged 20 to 24 years", title: "Aged 20 to 24 years", },
+            { value: "Aged 25 to 34 years", title: "Aged 25 to 34 years", },
+            { value: "Aged 35 to 49 years", title: "Aged 35 to 49 years", },
+            { value: "Aged 50 to 64 years", title: "Aged 50 to 64 years", },
+            { value: "Aged 65 to 74 years", title: "Aged 65 to 74 years", },
+            { value: "Aged 75 to 84 years", title: "Aged 75 to 84 years", },
+            { value: "Aged 85 years and over", title: "Aged 85 years and over", },
+        ]
+    }
+}) }}
+<figcaption>
+    The chart shows the age ranges of residents for each ward in Bradford,
+    with the rows to the top containing more people under the age of 25.
+    The data was derived from the 2025 census.
+</figcaption>
+
+</figure>
+</div>

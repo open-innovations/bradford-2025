@@ -1,0 +1,36 @@
+---
+title: Demographics
+description: |
+    Is Bradford a young and diverse city?
+    Explore the demographics of Bradford as reported in the last Census.
+---
+
+<section>
+{{ include 'cms/block/demographics-introduction.md' |> md }}
+</section>
+
+<hr>
+
+<section>
+<div>
+    <p>
+        Switch between the demographic views with the tab switcher.
+    </p>
+</div>
+<div class="block">
+{{ comp Tab.Set }}
+{{ comp Tab.Panel { id: 'age', label: 'Age' } }}
+<div class="block">
+{{ include './_partials/age.vto' }}
+</div>
+{{ /comp }}
+
+{{ comp Tab.Panel { id: 'ethnic-group', label: 'Ethnic group' } }}
+<div class="block">
+{{ include './_partials/ethnic-group.vto' }}
+</div>
+{{ /comp }}
+</div>
+
+{{ /comp}}
+</section>
