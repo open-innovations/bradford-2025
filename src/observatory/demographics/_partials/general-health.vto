@@ -1,0 +1,30 @@
+<h2>General health</h2>
+<figure style="max-width: 40rem;margin-inline:auto;">
+{{ comp.oi.chart.bar({
+    config: {
+        data: general_health.by_ward,
+        series: [
+            { value: "Very bad health", title: "Very bad health",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Very bad health }}%</b>", },
+            { value: "Bad health", title: "Bad health",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Bad health }}%</b>", },
+            { value: "Fair health", title: "Fair health",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Fair health }}%</b>", },
+            { value: "Good health", title: "Good health",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Good health }}%</b>", },
+            { value: "Very good health", title: "Very good health",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Very good health }}%</b>", },
+        ],
+        // Common config set in _data.yml
+        ...chart_config.bar,
+    }
+}) }}
+<figcaption>
+    The chart shows the general health of residents for each ward in Bradford.
+    The wards at the top of the chart have a higher proportion of residents who reported experiencing
+    <b>bad</b> or <b>very bad</b> health.
+    The data was derived from the 2021 census.
+</figcaption>
+
+</figure>
+</div>
