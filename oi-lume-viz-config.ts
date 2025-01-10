@@ -10,14 +10,15 @@ const names = await getColourVariables(
 );
 
 const series = [
-  "yellow",
   "pink",
   "green",
-  "lightyellow",
+  "yellow",
   "lightpink",
   "lightgreen",
+  "lightyellow",
+  "deeppink",
   "darkgreen",
-  "darkpink",
+  "deepyellow",
   "midgrey",
   "notquitedarkgrey",
   "darkgrey",
@@ -25,7 +26,7 @@ const series = [
 
 export default {
   colour: {
-    names,
+    names: names,
     series,
   },
   font: {

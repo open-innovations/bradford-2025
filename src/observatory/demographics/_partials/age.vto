@@ -1,31 +1,35 @@
-{{>
-    const sortValue = (s) => s["Aged 4 years and under"] + s["Aged 5 to 9 years"] + s["Aged 85 years and over"] + s["Aged 10 to 15 years"] + s["Aged 16 to 19 years"] + s["Aged 20 to 24 years"];
-}}
-
 <h2>Age</h2>
 <figure style="max-width: 40rem;margin-inline:auto;">
 {{ comp.oi.chart.bar({
     config: {
-        data: age.by_geography
-            .filter(x => x.geography_code.startsWith('E05'))
-            .sort((a, b) => sortValue(b) - sortValue(a)),
-        width: 600,
-        legend: { show: true, },
-        category: 'geography_name',
-        stacked: true,
+        data: age.by_ward,
         series: [
-            { value: "Aged 4 years and under", title: "Aged 4 years and under", },
-            { value: "Aged 5 to 9 years", title: "Aged 5 to 9 years", },
-            { value: "Aged 10 to 15 years", title: "Aged 10 to 15 years", },
-            { value: "Aged 16 to 19 years", title: "Aged 16 to 19 years", },
-            { value: "Aged 20 to 24 years", title: "Aged 20 to 24 years", },
-            { value: "Aged 25 to 34 years", title: "Aged 25 to 34 years", },
-            { value: "Aged 35 to 49 years", title: "Aged 35 to 49 years", },
-            { value: "Aged 50 to 64 years", title: "Aged 50 to 64 years", },
-            { value: "Aged 65 to 74 years", title: "Aged 65 to 74 years", },
-            { value: "Aged 75 to 84 years", title: "Aged 75 to 84 years", },
-            { value: "Aged 85 years and over", title: "Aged 85 years and over", },
-        ]
+            { value: "Aged 4 years and under", title: "4 and under",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 4 years and under }}%</b>", },
+            { value: "Aged 5 to 9 years", title: "5 to 9",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 5 to 9 years }}%</b>"},
+            { value: "Aged 10 to 15 years", title: "10 to 15",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 10 to 15 years }}%</b>"},
+            { value: "Aged 16 to 19 years", title: "16 to 19",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 16 to 19 years }}%</b>"},
+            { value: "Aged 20 to 24 years", title: "20 to 24",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 20 to 24 years }}%</b>"},
+            { value: "Aged 25 to 34 years", title: "25 to 34",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 25 to 34 years }}%</b>"},
+            { value: "Aged 35 to 49 years", title: "35 to 49",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 35 to 49 years }}%</b>"},
+            { value: "Aged 50 to 64 years", title: "50 to 64",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 50 to 64 years }}%</b>"},
+            { value: "Aged 65 to 74 years", title: "65 to 74",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 65 to 74 years }}%</b>"},
+            { value: "Aged 75 to 84 years", title: "75 to 84",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 75 to 84 years }}%</b>"},
+            { value: "Aged 85 years and over", title: "85 and over",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Aged 85 years and over }}%</b>"},
+        ],
+        tooltip: "yo!",
+        // Common config set in _data.yml
+        ...chart_config.bar,
     }
 }) }}
 <figcaption>

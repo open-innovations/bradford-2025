@@ -1,0 +1,53 @@
+chart_config:
+  bar:
+    category: geography_name
+    stacked: true
+    width: 600
+    legend:
+      show: true
+      position: bottom
+    colours:
+      4 and under: '#F8D9E7'
+      5 to 9: '#F4ACCD'
+      10 to 15: '#e1699f'
+      16 to 19: '#ACE892'
+      20 to 24: '#45D108'
+      25 to 34: '#437e2a'
+      35 to 49: '#EAD79F'
+      50 to 64: '#E0B942'
+      65 to 74: '#be9006'
+      # 75 to 84: '#717171'
+      # TODO Raise issue against OI Lume Viz - if the last category is specified, all seem to get the same colour
+      # 85 and over': '#d5d3d0'
+
+      Asian or Asian British/Welsh: '#F4ACCD'
+      Black, Black British/Welsh, Caribbean or African: '#45D108'
+      Mixed or Multiple: '#e1699f'
+      White: '#E0B942'
+      # Other: '#aaa'
+
+
+    axis:
+      y:
+        ticks: []
+        grid:
+          show: false
+      x:
+        grid: 
+          show: false
+        min: 0
+        max: 100
+        ticks:
+          - value: 0
+            label: 0%
+          - value: 25
+            label: 25%
+          - value: 50
+            label: 50%
+          - value: 75
+            label: 75%
+          - value: 100
+            label: 100%
+
+
+

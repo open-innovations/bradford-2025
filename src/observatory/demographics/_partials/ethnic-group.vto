@@ -1,25 +1,22 @@
-{{>
-    const sortValue = (s) => s["Asian, Asian British or Asian Welsh"];
-}}
-
 <h2>Ethnic group</h2>
 <figure style="max-width: 40rem;margin-inline:auto;">
 {{ comp.oi.chart.bar({
     config: {
-        data: ethnic_group.by_geography
-            .filter(x => x.geography_code.startsWith('E05'))
-            .sort((a, b) => sortValue(b) - sortValue(a)),
-        width: 600,
-        legend: { show: true, },
-        category: 'geography_name',
-        stacked: true,
+        data: ethnic_group.by_ward,
         series: [
-            { value: "Asian, Asian British or Asian Welsh", title: "Asian, Asian British or Asian Welsh",},
-            { value: "Black, Black British, Black Welsh, Caribbean or African", title: "Black, Black British, Black Welsh, Caribbean or African",},
-            { value: "Mixed or Multiple ethnic groups", title: "Mixed or Multiple ethnic groups",},
-            { value: "White", title: "White", },
-            { value: "Other ethnic group", title: "Other ethnic group", },
-        ]
+            { value: "Asian, Asian British or Asian Welsh", title: "Asian or Asian British/Welsh",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Asian, Asian British or Asian Welsh }}%</b>", },
+            { value: "Black, Black British, Black Welsh, Caribbean or African", title: "Black, Black British/Welsh, Caribbean or African",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Black, Black British, Black Welsh, Caribbean or African }}%</b>", },
+            { value: "Mixed or Multiple ethnic groups", title: "Mixed or Multiple",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Mixed or Multiple ethnic groups }}%</b>", },
+            { value: "White", title: "White",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ White }}%</b>", },
+            { value: "Other ethnic group", title: "Other",
+              tooltip: "<b>{{geography_name}}</b><br>{{ _title }}: <b>{{ Other ethnic group }}%</b>", },
+        ],
+        // Common config set in _data.yml
+        ...chart_config.bar,
     }
 }) }}
 <figcaption>
