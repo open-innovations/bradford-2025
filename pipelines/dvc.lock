@@ -13,7 +13,7 @@ stages:
       size: 13351
     - path: volunteers.ipynb
       hash: md5
-      md5: 0b9f5a87d2b838d01a6d8d624ea36399
+      md5: 6becaebc8f5c7e0d74d6c069fa557984
       size: 8459
     outs:
     - path: ../src/themes/volunteers/_data/people/by_demographic_age_range.csv
@@ -38,35 +38,35 @@ stages:
       size: 491
     - path: ../src/themes/volunteers/_data/people/checkpoints_weekly.csv
       hash: md5
-      md5: 4334c285765314bd7eba5c5e3eb5d737
-      size: 827
+      md5: afe61f310cddfb6663dcc7eb3f1e1469
+      size: 828
     - path: ../src/themes/volunteers/_data/shifts/attended_by_week.csv
       hash: md5
-      md5: 47018ed9bc1aa02554c75e4f15e45e4f
-      size: 606
+      md5: 750d9a0fadc161774ad377680c9139ef
+      size: 579
     - path: ../src/themes/volunteers/_data/shifts/attended_cumulative_by_week.csv
       hash: md5
-      md5: ba56c4786895a09d8751c91e3cef6123
-      size: 700
+      md5: fc974ff7601aef3c7d6ede80c063911b
+      size: 671
     - path: ../src/themes/volunteers/_data/shifts/hours_by_week.csv
       hash: md5
-      md5: 8bf1db1bf5634f46b108213441e4024d
-      size: 848
+      md5: 251758c8775b4fe594aeab490c327194
+      size: 812
     - path: ../src/themes/volunteers/_data/shifts/hours_cumulative_by_week.csv
       hash: md5
-      md5: c7e494a4926ec9e26eb90d5e5bd9e9c4
-      size: 1012
+      md5: f67e52783a8bad0aca4c53f625a46e3d
+      size: 969
   ticketing:
     cmd: papermill --no-log-output ticketing.ipynb output/ticketing.ipynb
     deps:
     - path: ../data/published/ticketing/orders.csv
       hash: md5
-      md5: 74fdfc28815e94a7603a118db7c73177
-      size: 2186
+      md5: 28761b6b7954cb0f099f436d02d5490d
+      size: 2281
     - path: ../data/published/ticketing/tickets.csv
       hash: md5
-      md5: d710b2931bee9b4da5d2020d9512e705
-      size: 341154
+      md5: b841ed2c5527dceeaf544fa41c8dc289
+      size: 1188714
     - path: ticketing.ipynb
       hash: md5
       md5: 3aa9eadfb7f321e75b0bc83d4c6f92da
@@ -74,8 +74,8 @@ stages:
     outs:
     - path: ../src/themes/ticketing/_data/operational
       hash: md5
-      md5: 9f79f25af2da02660b7457b9bb3990dc.dir
-      size: 7041
+      md5: f23a8c921c69f91158698f33ca486feb.dir
+      size: 7369
       nfiles: 5
   huq:
     cmd: papermill --no-log-output huq.ipynb output/huq.ipynb
