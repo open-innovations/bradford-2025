@@ -1,0 +1,48 @@
+
+<section>
+<h2>Tickets</h2>
+
+{{ comp BigNumber {
+    number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets.toLocaleString(),
+    classes: 'c-pink',
+} }}
+<p>Total tickets sold</p>
+{{ /comp }}
+
+<section class="grid">
+{{# <figure>
+{{ comp.oi.chart.bar({
+    config: {
+        data: tickets.summary.filter(x => x.start != 'ALL'),
+        category: 'start',
+        series: [
+            { value: 'count_of_tickets', title: 'Tickets sold' },
+        ],
+    }
+}) }}
+</figure> #}}
+<figure class="block">
+{{ comp.oi.map.hex_cartogram({
+    config: {
+        hexjson: hexes.bd_2024,
+        data: tickets.by_geography,
+        scale: scales.yellow,
+        matchKey: 'geography_code',
+        value: 'count_of_tickets',
+        label: 'short_code',
+        tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ count_of_tickets }} tickets sold',
+    }
+}) }}
+</figure>
+</section>
+
+<hr>
+
+{{#
+<code><pre>
+{{ tickets.summary |> JSON.stringify }}
+{{ tickets.by_geography |> JSON.stringify }}
+</pre></code>
+#}}
+
+</section>

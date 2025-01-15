@@ -48,3 +48,15 @@ stages:
           cache: false
       - ${ROOT}/src/experiments/huq/_data/spend_index.csv:
           cache: false
+
+  events:
+    # Set this in the `params.yaml` file
+    foreach: ${events}
+    do:
+      cmd: papermill --no-log-output events.ipynb output/events.ipynb -p id '${key}-event' -p spektrix_event_ids '${item.spektrix_event_ids}'
+      deps:
+        - events.ipynb
+        - ${ROOT}/data/published/ticketing/
+      outs:
+        - ${ROOT}/src/insights/${key}-event/_data/tickets/:
+            cache: false
