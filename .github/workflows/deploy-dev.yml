@@ -15,7 +15,7 @@ name: Deploy dev
 "on":
   workflow_dispatch: {}
   push:
-    branches: [dev]
+    branches: [ main ]
     paths:
       - src/**
       - data/**/*.dvc
@@ -31,7 +31,7 @@ concurrency:
 jobs:
   # Build job
   dev-build:
-    if: github.ref == 'refs/heads/dev'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     env:
       DENO_DIR: /var/tmp/deno_cache
