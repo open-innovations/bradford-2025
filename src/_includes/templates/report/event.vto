@@ -1,0 +1,7 @@
+---
+layout: templates/page.vto
+tags:
+  - report
+---
+{{ comp.event.Headlines({ tickets, volunteers }) }}
+{{ if tickets }}{{ comp.event.Tickets({ tickets }) }}{{ /if }}

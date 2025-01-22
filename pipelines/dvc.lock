@@ -122,3 +122,28 @@ stages:
       md5: 3f8561993c8f7c9b54a256d67d122a2e.dir
       size: 79
       nfiles: 1
+  events@la-haine:
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
+      '4001APBPRCSHVVMHTCBMSPSJRNDMCHHLV' -p venue_postcode 'BD1 1JT' -p rosterfy_event_ids
+      '26307' -p id 'la-haine-event'
+    deps:
+    - path: ../data/published/ticketing/
+      hash: md5
+      md5: 7b4515062cb5eac2d82d1b0a83103a41.dir
+      size: 1261794
+      nfiles: 3
+    - path: events.ipynb
+      hash: md5
+      md5: 8d86e24fb541e30514402a1d4be4951f
+      size: 2438
+    outs:
+    - path: ../src/insights/la-haine-event/_data/tickets/
+      hash: md5
+      md5: e761dab8fee960f219365ce53d8d5505.dir
+      size: 6404
+      nfiles: 3
+    - path: ../src/insights/la-haine-event/_data/volunteers/
+      hash: md5
+      md5: 939e2611f90aa6418f86720255693434.dir
+      size: 54
+      nfiles: 1
