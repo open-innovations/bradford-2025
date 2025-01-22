@@ -51,6 +51,33 @@ class Tickets:
             .sort(['start', 'geography_type', 'geography_code'])
             .cut('start', 'geography_type', 'geography_code', 'count_of_tickets')
         ).cache()
+    
+    def types(self):
+            by_type = (
+                self.all
+                .selecteq('geography_type', 'oslaua')
+                .convert(
+                    'type',
+                    # TODO check these mappings with Hannah
+                    {
+                        'Audio Description': 'Accessible Ticket',
+                        'BSL Interpreted': 'Accessible Ticket',
+                        'Essential Companion': 'Accessible Ticket',
+                        'Wheelchair User': 'Accessible Ticket',
+                        'Guest Ticket': 'Full Price',
+                        'Z Community Ticket': 'Community Ticket',
+                        'Under 16': 'Child Ticket',
+                    },
+                )
+                .aggregate('type', sum, 'count_of_tickets', field='count')
+                .selectnotin('type', ['Z Company Ticket', 'Z Press Ticket'])
+                .sort('count', reverse=True)
+            )
+            total = sum(by_type.values('count'))
+            by_type = by_type.addfield('percentage', lambda r: round(100 * r['count'] / total, 1))
+
+            return by_type
+
 
     def total(self):
         return (

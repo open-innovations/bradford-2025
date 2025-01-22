@@ -36,6 +36,70 @@
 </figure>
 </section>
 
+<h2>Ticket types</h2>
+
+<section class="grid regular">
+<div class="block">
+<figure>
+{{ comp.oi.chart.waffle({
+    config: {
+        data: [tickets.by_type.reduce(( a, c ) => ({ ...a, [c.type]: c.percentage }), {})],
+        size: [20, 15],
+        series: [
+            {
+                value: 'Full Price', title: 'Full price', colour: '#F4ACCD',
+                tooltip: 'Full price tickets <b>{{ Full Price }}%</b>',
+            },
+            {
+                value: 'Child Ticket', title: 'Child', colour: '#45D108',
+                tooltip: 'Child tickets <b>{{ Child Ticket }}%</b>',
+            },
+            {
+                value: 'Senior Ticket', title: 'Senior', colour: '#E0B942',
+                tooltip: 'Senior tickets <b>{{ Senior Ticket }}%</b>',
+            },
+            {
+                value: 'Community Ticket', title: 'Community', colour: '#e1699f',
+                tooltip: 'Community tickets <b>{{ Community Ticket }}%</b>',
+            },
+            {
+                value: 'Bradford Youth Pass', title: 'Youth Pass', colour: '#437e2a',
+                tooltip: 'Bradford Youth Pass tickets <b>{{ Bradford Youth Pass }}%</b>',
+            },
+            {
+                value: 'Accessible Ticket', title: 'Accessible', colour: '#be9006',
+                tooltip: 'Accessible tickets <b>{{ Accessible Ticket }}%</b>',
+            },
+        ],
+        legend: {
+            show: true,
+            position: 'bottom',
+        },
+    }
+}) }}
+<figcaption>
+    Proportion of ticket types sold by type of ticket.
+</figcaption>
+</figure>
+</div>
+<div>
+<p>The graph to shows the percentage of tickets by type of ticket.</p>
+<p>Tickets types are as described below</p>
+<ul>
+<li>
+    <b>Child Tickets</b> and <b>Senior Tickets</b> are concessionary tickets based on age.
+    These might differ from event to event.
+</li>
+<li>
+{{# TODO update description based on feedback from Richard Dunbar #}}
+    <b>Community Tickets</b> are distributed to specific communities by the Bradford 2025 team.
+</li>
+<li>
+    <b>Accessible Tickets</b> includes <b>BSL Interpreted</b>, <b>Audio Description</b>, <b>Wheelchair User</b> and <b>Essential Companion</b> tickets
+</li>
+</ul>
+</div>
+</section>
 <hr>
 
 {{#
