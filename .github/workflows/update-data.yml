@@ -1,0 +1,68 @@
+# Pre-requisites
+#
+# You need either to have set the following environment secrets:
+#
+# DEPLOY_KEY - Private key for an SSH key with (at least) read only access to the bradford-2025/open-data-pipelines project
+#              The deploy key is one of the ones set in https://github.com/bradford-2025/open-data-pipelines/settings/keys
+#
+
+name: Update data
+
+"on":
+  workflow_dispatch: {}
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "40 06 * * *"
+  push:
+    branches: [ main ]
+    paths:
+      - pipelines/**
+      - .github/workflows/update-data.yml
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Build job
+  update:
+    name: Update data and commit
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pipenv
+
+      - name: Setup pipenv
+        run: |
+          pip install pipenv
+          pipenv install
+
+      - name: Update data
+        run: |
+          umask 077
+          eval $(ssh-agent -s)
+
+          echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
+          ssh-add deploy-key
+          pipenv run dvc update --no-download data/published.dvc data/metadata.dvc
+          ssh-add -D
+
+          echo "${{ secrets.DEPLOY_KEY_HUQ }}" > deploy-key-huq
+          ssh-add deploy-key-huq          
+          pipenv run dvc update --no-download data/huq.dvc
+          ssh-add -D
+
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update data
+          file_pattern: data pipelines
+
