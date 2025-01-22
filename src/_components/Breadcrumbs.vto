@@ -15,14 +15,18 @@ css: |
                 padding-inline-start: var(--grid-gap);
             }
         }
+        & a {
+            font-weight: 700;
+        }
     }
 ---
 {{ if breadcrumbs.length > 0 }}
 <nav data-comp="breadcrumbs">
 <ul>
-{{ for b of breadcrumbs }}
-    <li><a href="{{ b.url }}">{{ b.text }}</a></li>
+{{ for b of breadcrumbs.filter(x => x && x.url !== url) }}
+<li><a href="{{ b.url }}">{{ b.title }}</a></li>
 {{ /for }}
+<li>{{ title }}</li>
 </ul>
 </nav>
 {{ /if }}
