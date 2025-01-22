@@ -5,12 +5,12 @@ stages:
     deps:
     - path: ../data/published/volunteers/checkpoints.csv
       hash: md5
-      md5: f553da7dc3583cc0dacb7eb90b7e6d40
-      size: 14645
+      md5: 3f73c728be9edf7e459b447e42ffd3ad
+      size: 15245
     - path: ../data/published/volunteers/shifts.csv
       hash: md5
-      md5: 91683f30088fd194c563a43cde3f29dc
-      size: 13351
+      md5: 84c557542fa8232091f4f0de7302180e
+      size: 14035
     - path: volunteers.ipynb
       hash: md5
       md5: 6becaebc8f5c7e0d74d6c069fa557984
@@ -18,44 +18,44 @@ stages:
     outs:
     - path: ../src/themes/volunteers/_data/people/by_demographic_age_range.csv
       hash: md5
-      md5: 1a191fbc36d87d0a4089913ea3c80fc3
+      md5: a6295b71e837f862e584adfc92f232c4
       size: 196
     - path: ../src/themes/volunteers/_data/people/by_geo_TOTAL.csv
       hash: md5
-      md5: 91d549a285c83e4011ca26a42e772778
+      md5: 08c069e5f84bc082e30829df4e2a48ec
       size: 54
     - path: ../src/themes/volunteers/_data/people/by_geo_oslaua.csv
       hash: md5
-      md5: d8a2e63cd91305ba05c1cd3c44f976dd
-      size: 899
+      md5: 2d3f374a10e0a4b1bf5942773948e615
+      size: 936
     - path: ../src/themes/volunteers/_data/people/by_geo_osward.csv
       hash: md5
-      md5: 2cb8f6144184a092feff20fc4336c767
+      md5: 2160cf415f2595b79a00a5939f1f0f7d
       size: 644
     - path: ../src/themes/volunteers/_data/people/by_geo_postcode_area.csv
       hash: md5
-      md5: b583b1215b419b3bccc5a1e4e0725e42
+      md5: ae39c6c024ae774262c5009a2f08bbdc
       size: 491
     - path: ../src/themes/volunteers/_data/people/checkpoints_weekly.csv
       hash: md5
-      md5: c000b94976e56917e9334c98481ee3bd
-      size: 828
+      md5: 1c9f12bb5a548959d82da0a3eab73513
+      size: 863
     - path: ../src/themes/volunteers/_data/shifts/attended_by_week.csv
       hash: md5
-      md5: 750d9a0fadc161774ad377680c9139ef
-      size: 579
+      md5: 544711d7fd373cfa64511c4f70d00cba
+      size: 625
     - path: ../src/themes/volunteers/_data/shifts/attended_cumulative_by_week.csv
       hash: md5
-      md5: fc974ff7601aef3c7d6ede80c063911b
-      size: 671
+      md5: c2bc7bec0c0645468734006856a9c00e
+      size: 729
     - path: ../src/themes/volunteers/_data/shifts/hours_by_week.csv
       hash: md5
-      md5: 251758c8775b4fe594aeab490c327194
-      size: 812
+      md5: fbdad8c6adc613b58f748bed91381d6e
+      size: 881
     - path: ../src/themes/volunteers/_data/shifts/hours_cumulative_by_week.csv
       hash: md5
-      md5: f67e52783a8bad0aca4c53f625a46e3d
-      size: 969
+      md5: 2d637d61254f4c51037d72c68255696d
+      size: 1054
   ticketing:
     cmd: papermill --no-log-output ticketing.ipynb output/ticketing.ipynb
     deps:
@@ -98,7 +98,7 @@ stages:
       md5: e1f3e2145b08e5ba2e44d8ffce79b9c8
       size: 5898
   events@rise:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p id rise-event
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p id 'rise-event'
       -p spektrix_event_ids '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ'
     deps:
     - path: ../data/published/ticketing/
