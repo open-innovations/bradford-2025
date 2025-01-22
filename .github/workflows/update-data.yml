@@ -43,12 +43,12 @@ jobs:
 
           echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
           ssh-add deploy-key
-          pipenv run dvc update --no-download data/published.dvc data/metadata.dvc
+          pipenv run dvc update data/published.dvc data/metadata.dvc
           ssh-add -D
 
           echo "${{ secrets.DEPLOY_KEY_HUQ }}" > deploy-key-huq
           ssh-add deploy-key-huq          
-          pipenv run dvc update --no-download data/huq.dvc
+          pipenv run dvc update data/huq.dvc
           ssh-add -D
 
       - name: Commit and Push changes
