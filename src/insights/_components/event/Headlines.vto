@@ -1,5 +1,5 @@
 <section class="grid">
-{{ if tickets }}
+{{ if tickets?.summary }}
 {{ comp BigNumber {
     number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets.toLocaleString(),
     suffix: 'tickets',
@@ -9,9 +9,9 @@
 {{ /comp }}
 {{ /if }}
 
-{{ if volunteers }}
+{{ if volunteers?.summary }}
 {{ comp BigNumber {
-    number: volunteers.summary.find(x => x.date == 'ALL').hours.toLocaleString(),
+    number: volunteers?.summary.find(x => x.date == 'ALL').hours.toLocaleString(),
     suffix: 'volunteer hours',
     classes: 'c-yellow',
 } }}
