@@ -1,4 +1,5 @@
 name: Setup python environment
+description: Install and configure caching for Python environment
 runs:
   using: composite
   steps:
@@ -9,6 +10,7 @@ runs:
         cache: pipenv
 
     - name: Setup pipenv
+      shell: bash
       run: |
         pip install pipenv
         pipenv install
