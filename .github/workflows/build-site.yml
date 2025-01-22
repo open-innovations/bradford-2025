@@ -37,27 +37,10 @@ jobs:
           fetch-depth: 0
 
       - name: Setup python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pipenv
-
-      - name: Setup pipenv
-        run: |
-          pip install pipenv
-          pipenv install
+        uses: ./.github/actions/setup-python-environment
 
       - name: Setup deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: Cache Deno dependencies
-        id: cache-deno
-        uses: actions/cache@v4
-        with:
-          key: deno-cache-${{ hashFiles('./deno.lock') }}
-          path: ${{ env.DENO_DIR }}
+        uses: ./.github/actions/setup-deno-environment
 
       - name: Get current data
         run: |

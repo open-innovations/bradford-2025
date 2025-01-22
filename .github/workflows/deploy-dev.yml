@@ -44,27 +44,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pipenv
-
-      - name: Setup pipenv
-        run: |
-          pip install pipenv
-          pipenv install
+        uses: ./.github/actions/setup-python-environment
 
       - name: Setup deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: Cache Deno dependencies
-        id: cache-deno
-        uses: actions/cache@v4
-        with:
-          key: deno-cache-${{ hashFiles('./deno.lock') }}
-          path: ${{ env.DENO_DIR }}
+        uses: ./.github/actions/setup-deno-environment
 
       - name: Get current data
         run: |
@@ -73,12 +56,12 @@ jobs:
 
           echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
           ssh-add deploy-key
-          pipenv run dvc update data/published.dvc data/metadata.dvc
+          pipenv run dvc pull data/published.dvc data/metadata.dvc
           ssh-add -D
 
           echo "${{ secrets.DEPLOY_KEY_HUQ }}" > deploy-key-huq
           ssh-add deploy-key-huq          
-          pipenv run dvc update data/huq.dvc
+          pipenv run dvc pull data/huq.dvc
           ssh-add -D
 
       - name: Run pipelines
