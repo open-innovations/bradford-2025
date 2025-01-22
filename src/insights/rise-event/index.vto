@@ -4,4 +4,6 @@ description: Event monitoring report for RISE, 10-11 January 2025
 draft: true
 ---
 
-{{ comp.event.Tickets({ tickets })}}
+{{ comp.event.Headlines({ tickets, volunteers }) }}
+
+{{ if tickets }}{{ comp.event.Tickets({ tickets }) }}{{ /if }}

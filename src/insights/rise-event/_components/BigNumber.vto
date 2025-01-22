@@ -1,22 +1,20 @@
 ---
 css: |
     [data-comp=big-number] {
-        color: var(--block-fg) !important;
-        background: var(--block-bg);
         padding: 1em;
-        display: flex;
+        display: flex !important;
         flex-direction: column;
         align-items: center;
         & p {
             margin-block: 0;
         }
         & .number {
-            font-size: 3em;
+            font-size: min(4em, var(--big-number-size, 20vw));
             font-weight: bold;
         }
     }
 ---
-<div data-comp="big-number" class="{{ classes || ""}}">
-<p class="number">{{ number }}</p>
+<div data-comp="big-number" class="block {{ classes || ""}}">
+<p class="number">{{ number }}{{ if suffix }} {{ suffix }}{{ /if }}</p>
 {{ content }}
 </div>

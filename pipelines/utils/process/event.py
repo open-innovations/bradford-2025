@@ -106,3 +106,24 @@ class Tickets:
             )
             .cache()
         )
+
+
+class Volunteers(object):
+    def __init__(self, ids: list[str]):
+        self.data = (
+            etl
+            .fromcsv(PUBLISHED / 'volunteers/shifts.csv').selectin('rosterfy_event_id', ids)
+            .convertnumbers()
+        )
+
+    def summarise(self):
+        config = {
+            'attended': ('attended', sum),
+            'hours': ('hours', sum),
+        }
+
+        agg = self.data.aggregate(key='date', aggregation=config)
+        return etl.cat(
+            agg,
+            agg.aggregate(key=None, aggregation=config).addfield('date', 'ALL')
+        )

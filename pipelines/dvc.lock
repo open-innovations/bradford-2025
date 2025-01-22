@@ -98,8 +98,9 @@ stages:
       md5: e1f3e2145b08e5ba2e44d8ffce79b9c8
       size: 5898
   events@rise:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p id 'rise-event'
-      -p spektrix_event_ids '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ'
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
+      '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids
+      '25890' -p id 'rise-event'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -108,11 +109,16 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 1eaafb389a0abf6bfca5f778077e968f
-      size: 1938
+      md5: 8d86e24fb541e30514402a1d4be4951f
+      size: 2438
     outs:
     - path: ../src/insights/rise-event/_data/tickets/
       hash: md5
-      md5: 6df3e2b0104ce54577dda438ca829926.dir
-      size: 16650
-      nfiles: 2
+      md5: d2356aa987a4f2706582c17d23157945.dir
+      size: 16827
+      nfiles: 3
+    - path: ../src/insights/rise-event/_data/volunteers/
+      hash: md5
+      md5: 3f8561993c8f7c9b54a256d67d122a2e.dir
+      size: 79
+      nfiles: 1

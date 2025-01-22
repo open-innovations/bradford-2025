@@ -1,0 +1,26 @@
+<section class="grid">
+{{ if tickets }}
+{{ comp BigNumber {
+    number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets.toLocaleString(),
+    suffix: 'tickets',
+    classes: 'c-pink',
+} }}
+<p>Total tickets sold</p>
+{{ /comp }}
+{{ /if }}
+
+{{ if volunteers }}
+{{ comp BigNumber {
+    number: volunteers.summary.find(x => x.date == 'ALL').hours.toLocaleString(),
+    suffix: 'volunteer hours',
+    classes: 'c-yellow',
+} }}
+<p>
+    Overall there were
+    {{ volunteers.summary.find(x => x.date == 'ALL').hours.toLocaleString() }}
+    hours of volunteering across
+    {{ volunteers.summary.find(x => x.date == 'ALL').attended.toLocaleString() }}
+    individual shifts.
+</p>
+{{ /comp }}
+{{ /if }}
