@@ -9,23 +9,26 @@
 <p>Total tickets sold</p>
 {{ /comp }}
 
-<section class="grid">
-{{# <figure>
-{{ comp.oi.chart.bar({
-    config: {
-        data: tickets.summary.filter(x => x.start != 'ALL'),
-        category: 'start',
-        series: [
-            { value: 'count_of_tickets', title: 'Tickets sold' },
-        ],
-    }
-}) }}
-</figure> #}}
-<figure class="block">
+<h2>Geographic ticket allocation</h2>
+{{> const by_ward = tickets.by_geography
+        .filter(x => x.start == 'ALL' && x.geography_type == 'osward' && x.geography_code !== 'OTHER')
+        .map(w => ({
+            ...w,
+            ...geojson.bd_wards.features.map(x => x.properties).find(x => x.WD24CD === w.geography_code)
+        }))
+}}
+
+<section class="grid regular">
+<div class="block fix-svg-ratio-bd">
+
+{{ comp Tab.Set }}
+{{ comp Tab.Panel { id: 'tickets-hex', label: 'Hex' } }}
+
+<figure>
 {{ comp.oi.map.hex_cartogram({
     config: {
         hexjson: hexes.bd_2024,
-        data: tickets.by_geography,
+        data: by_ward,
         scale: scales.yellow,
         matchKey: 'geography_code',
         value: 'count_of_tickets',
@@ -33,7 +36,75 @@
         tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ count_of_tickets }} tickets sold',
     }
 }) }}
+<figcaption>
+    Schematic presentation of tickets sold by Bradford Ward.
+</figcaption>
 </figure>
+{{ /comp }} {{# Tab.Panel #}} 
+
+{{ comp Tab.Panel { id: 'tickets-geo', label: 'Geographic' }}}
+<figure>
+    {{ comp.oi.map.svg({ 
+        config: {
+            geojson: { key: "WD24CD", data: geojson.bd_wards },
+            data: by_ward,
+            bounds: bounds.bradford,
+            value: 'count_of_tickets',
+            scale: scales.yellow,
+            key: 'geography_code',
+            tooltip: '<b>{{ WD24NM }}</b>:\n{{ count_of_tickets }} tickets sold',
+    } }) }}
+<figcaption>
+    Geographic presentation of tickets sold by Bradford Ward.
+</figcaption>
+</figure>
+{{ /comp }} {{# Tab.Set - geo map #}}
+
+{{ /comp }} {{# Tab.Set #}}
+</div>
+
+<div>
+<p>
+The maps to the show tickets sold across the wards of Bradford.
+</p>
+<p>
+In addition to this visitors came from outside Bradford:
+</p>
+
+{{>
+    const oslauaTickets = tickets.by_geography
+    .map(x => ({ geography_code: "UNKNOWN", ...x }))
+    .filter(
+        x => x.start === 'ALL' && x.geography_type === 'oslaua' && x.count_of_tickets > 20
+    )
+    .sort((a, b) => b.count_of_tickets - a.count_of_tickets)
+    .map(x => ({ ...x, name: codes.la[x.geography_code]?.name || x.geography_code }))
+}}
+
+<table style="margin-inline: auto;">
+<thead>
+<tr>
+    <th scope="col">Local Authority</th>
+    <th scope="col">Count of tickets</th></tr>
+</thead>
+<tbody>
+{{ for area of oslauaTickets }}
+{{ if area.geography_code !== 'UNKNOWN' }}
+    <tr>
+    <th scope="row">{{ area.name }}</th>
+    <td style="text-align: center;">{{ area.count_of_tickets.toLocaleString() }}</td>
+    </tr>
+{{ /if }}
+{{ /for }}
+</tbody>
+</table>
+
+<p>
+There were also
+<b>{{ oslauaTickets.find(x => x.geography_code === 'UNKNOWN').count_of_tickets.toLocaleString() }} tickets</b>
+that could not be assigned to a local authority, either as they were outside the UK,
+or the ticket holder's postcode was missing or otherwise invalid.
+</p>
 </section>
 
 <h2>Ticket types</h2>
