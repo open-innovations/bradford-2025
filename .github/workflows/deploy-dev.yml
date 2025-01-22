@@ -23,6 +23,9 @@ name: Deploy dev
       - _config.ts
       - deno.json
       - .github/workflows/deploy-dev.yml
+  workflow_run:
+    workflows: [Update data]
+    types: [completed]    
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
