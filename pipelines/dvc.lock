@@ -61,21 +61,21 @@ stages:
     deps:
     - path: ../data/published/ticketing/orders.csv
       hash: md5
-      md5: 28761b6b7954cb0f099f436d02d5490d
-      size: 2281
+      md5: e1921867c68e08f979a7cb20f1f87723
+      size: 2401
     - path: ../data/published/ticketing/tickets.csv
       hash: md5
-      md5: b841ed2c5527dceeaf544fa41c8dc289
-      size: 1188714
+      md5: f97e168325e1a6ebf334904bca770d2c
+      size: 1297450
     - path: ticketing.ipynb
       hash: md5
-      md5: 8a4ea912f6b3613812159f2994bd485e
-      size: 4815
+      md5: 1da4f858220f8e1eb69dbffaa58d2290
+      size: 5238
     outs:
     - path: ../src/themes/ticketing/_data/operational
       hash: md5
-      md5: a097f3448f6f0f241c5dc8992670863c.dir
-      size: 7369
+      md5: 68488ac37b1fc8fd465e3304bdafab71.dir
+      size: 7330
       nfiles: 5
   huq:
     cmd: papermill --no-log-output huq.ipynb output/huq.ipynb
@@ -104,8 +104,8 @@ stages:
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 7b4515062cb5eac2d82d1b0a83103a41.dir
-      size: 1261794
+      md5: 750329226245e47b203b2d872f03535f.dir
+      size: 1381689
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -114,7 +114,7 @@ stages:
     outs:
     - path: ../src/insights/rise-event/_data/tickets/
       hash: md5
-      md5: d2356aa987a4f2706582c17d23157945.dir
+      md5: df36457cc5e5952268b4c7f744ea017e.dir
       size: 16827
       nfiles: 3
     - path: ../src/insights/rise-event/_data/volunteers/
@@ -129,8 +129,8 @@ stages:
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 7b4515062cb5eac2d82d1b0a83103a41.dir
-      size: 1261794
+      md5: 750329226245e47b203b2d872f03535f.dir
+      size: 1381689
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -139,8 +139,8 @@ stages:
     outs:
     - path: ../src/insights/la-haine-event/_data/tickets/
       hash: md5
-      md5: e761dab8fee960f219365ce53d8d5505.dir
-      size: 6404
+      md5: 76ed9c41cd7ec0ff115f24d7ecd29a52.dir
+      size: 6688
       nfiles: 3
     - path: ../src/insights/la-haine-event/_data/volunteers/
       hash: md5
@@ -149,12 +149,12 @@ stages:
       nfiles: 1
   events@les-girafes:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      '' -p venue_postcode '' -p rosterfy_event_ids '24438' -p id 'les-girafes-event'
+      '' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids '24438' -p id 'les-girafes-event'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 7b4515062cb5eac2d82d1b0a83103a41.dir
-      size: 1261794
+      md5: 750329226245e47b203b2d872f03535f.dir
+      size: 1381689
       nfiles: 3
     - path: events.ipynb
       hash: md5
