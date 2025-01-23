@@ -98,17 +98,25 @@ dev: true
 
 </section>
 
-<section display="grid">
-<div>
+<section class="grid">
+<h3 class="full-width">Breakdowns</h3>
+<div class="block">
 {{ comp.oi.table({
     config: {
-        data: operational.type.map(r => ({
-            ...r,
-            'Ticket type': r.type,
-            'Number of tickets sold': r.tickets,
-        })),
+        data: operational.type,
         columns: [
             { name: 'Ticket type', align: 'center' },
+            { name: 'Number of tickets sold', align: 'center' },
+        ],
+    }
+}) }}
+</div>
+<div class="block">
+{{ comp.oi.table({
+    config: {
+        data: operational.event_type,
+        columns: [
+            { name: 'Event type', align: 'center' },
             { name: 'Number of tickets sold', align: 'center' },
         ],
     }
