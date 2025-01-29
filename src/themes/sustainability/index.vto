@@ -1,0 +1,95 @@
+---
+title: Sustainability
+description: |
+    We take our environmental responsibilities very seriously, and are monitoring our carbon footprint for all activities.
+draft: true
+---
+<section>
+<p>
+    We are monitoring travel, energy consumption and other consumption to capture a full picture of the environmental impact
+    of running the Bradford 2025 City of Culture.
+    We're working with <a href="https://wearesail.org/">SAIL</a>, an environmental sustainability not-for-profit, to build our
+    sustainability impact model.
+    For each activity, we convert to an carbon dioxide equivalence using standardised conversions, and categorise by type of impact,
+    <a href="https://tco2e.net/terminology/">scope</a> and Bradford 2025 event (where possible).
+</p>
+<p>
+    Ideally we would benchmark this against other similar events, but we don't believe this exists.
+    We plan to capture detailed information about all our activities and publish them for others to refer to in the future.
+</p>
+<p>
+</p>
+</section>
+
+<section>
+<h2>Sustainability headlines</h2>
+{{ comp Masonry }}
+    {{ comp Brick { cols: 2 } }}
+    {{ comp BigNumber {
+        label: "Total emissions",
+        number: calculations.summary.total_tCO2e,
+        suffix: ''
+    } }}
+    <p class="centred">
+        Tonnes of carbon dioxide equivalent <span>(tCO<sub>2</sub>e)</span>
+    </p>
+    {{ /comp }}
+    {{ /comp }}
+    {{ comp Brick }}
+    {{ comp BigNumber {
+        label: "Project related",
+        number: calculations.summary.project_related_emissions,
+        suffix: '%'
+    } }}
+    <p class="centred">
+        Emissions that can be allocated to projects.
+    </p>
+    {{ /comp }}
+{{ /comp }}
+</section>
+<hr>
+
+<section>
+<h2>Details</h2>
+{{ comp Masonry }}
+{{ comp Brick { cols: 5 } }}
+<h3>Breakdown by impact category</h3>
+<figure class="limit-width">
+{{>
+    const seriesConfig = {
+        'Audience travel': {
+            colour: oiColour.names.pink
+        },
+        'Energy': {
+            colour: oiColour.names.green
+        },
+        'Program travel': {
+            colour: oiColour.names.yellow
+        },
+        'Purchased goods and services': {
+            colour: oiColour.names.darkgrey
+        },
+    }
+    const waffleSeries = Object.entries(calculations.by_impact[0])
+        .sort((a, b) => b[1] - a[1])
+        .map((s) => ({ value: s[0], ...seriesConfig[s[0]] }));
+}}
+{{ comp.oi.chart.waffle({
+    config: {
+        data: calculations.by_impact,
+        series: waffleSeries,
+        size: [22, 8],
+        legend: { show: true, position: 'bottom' },
+    }
+}) }}
+<figcaption>
+
+
+<p>
+The figure above shows the allocation of estimated emissions into impact categories.
+</p>
+</figcaption>
+</figure>
+{{ /comp }}
+{{ /comp }}
+</section>

@@ -66,3 +66,13 @@ stages:
             cache: false
         - ${ROOT}/src/insights/${key}-event/_data/volunteers/:
             cache: false
+
+  sustainability:
+    cmd: jupyter execute sustainability.ipynb
+    deps:
+      - sustainability.ipynb
+      - ${ROOT}/data/published/sustainability/calculations.csv
+    outs:
+      - ${ROOT}/src/themes/sustainability/_data/calculations/:
+          cache: false
+          persist: true

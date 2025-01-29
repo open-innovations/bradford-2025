@@ -1,0 +1,22 @@
+---
+css: |
+    [data-comp=brick] {
+        display: flex;
+        flex-direction: column;
+        & > * {
+            flex-grow: 1;
+        }
+    }
+---
+{{>
+    let style = '';
+    if (cols) {
+        style += `--cols:${cols}`;
+    }
+}}
+<{{ tag || 'div' }} data-comp="brick"
+    {{ if style }} style="{{ style }}"{{ /if }}
+    {{ if classes }} class="{{ classes }}"{{ /if }}
+>
+{{ content }}
+</{{ tag || 'div'}}>

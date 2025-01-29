@@ -8,6 +8,10 @@ css: |
         & p {
             margin-block: 0;
         }
+        & .label {
+            font-size: min(1.5em, 10vw);
+            font-weight: 300;
+        }
         & .number {
             font-size: min(4em, var(--big-number-size, 20vw));
             font-weight: bold;
@@ -15,6 +19,7 @@ css: |
     }
 ---
 <div data-comp="big-number" class="block {{ classes || ""}}">
-<p class="number">{{ number }}{{ if suffix }} {{ suffix }}{{ /if }}</p>
+{{ if label }}<p class="label">{{ label }}</p>{{ /if -}}
+<p class="number"><span class="numeric">{{ number }}</span>{{ if suffix }}{{ suffix }}{{ /if }}</p>
 {{ content }}
 </div>

@@ -171,3 +171,20 @@ stages:
       md5: 0e833fc473d028a5c31a5ef8040afff6.dir
       size: 114
       nfiles: 1
+  sustainability:
+    cmd: jupyter execute sustainability.ipynb
+    deps:
+    - path: ../data/published/sustainability/calculations.csv
+      hash: md5
+      md5: 82a9c9deb62f2eac79596da6d2952059
+      size: 27966
+    - path: sustainability.ipynb
+      hash: md5
+      md5: 05d19e2a8cd53bae3c8fa03b8a974897
+      size: 3592
+    outs:
+    - path: ../src/themes/sustainability/_data/calculations/
+      hash: md5
+      md5: d071cad1952738714c680b2c1bb4c9ba.dir
+      size: 160
+      nfiles: 2
