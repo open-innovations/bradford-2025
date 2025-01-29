@@ -3,6 +3,26 @@ title: Ticketing
 description: |
     Some events are ticketed. Find out how many tickets we've already sold.
 dev: true
+seriesConfig:
+    Full Price:
+        colour: pink
+    Child Ticket: 
+        colour: green
+    Senior Ticket:
+        colour: yellow
+    Community Ticket:
+        colour: deeppink
+    Bradford 2025:
+        colour: darkgreen
+    Bradford Youth Pass:
+        colour: deepyellow
+    Accessible Ticket:
+        colour: notquitedarkgrey
+
+    Main Programme:
+        colour: pink
+    VIP Reception: 
+        colour: green
 ---
 
 <section>
@@ -98,9 +118,14 @@ dev: true
 
 </section>
 
-<section class="grid">
-<h3 class="full-width">Breakdowns</h3>
-<div class="block">
+{{ set tickets_by_ticket_type = operational.type |> wafflify( 'Ticket type', 'Number of tickets sold', { seriesConfig, minValue: 0.4 }) }}
+{{ set tickets_by_event_type = operational.event_type |> wafflify('Event type', 'Number of tickets sold', { seriesConfig, minValue: 0.4 } ) }}
+
+<section>
+<h3>Breakdowns</h3>
+{{ comp Masonry }}
+{{ comp Brick { cols: 2 } }}
+{{#
 {{ comp.oi.table({
     config: {
         data: operational.type,
@@ -110,8 +135,19 @@ dev: true
         ],
     }
 }) }}
-</div>
-<div class="block">
+#}}
+{{ comp.oi.chart.waffle({
+    config: {
+        ...tickets_by_ticket_type,
+        size: [12, 12],
+        legend: { show: true, position: 'bottom' }
+    }
+}) }}
+{{ /comp }}
+{{# Brick #}}
+
+{{ comp Brick { cols: 2 } }}
+{{#
 {{ comp.oi.table({
     config: {
         data: operational.event_type,
@@ -121,5 +157,17 @@ dev: true
         ],
     }
 }) }}
-</div>
+#}}
+{{ comp.oi.chart.waffle({
+    config: {
+        ...tickets_by_event_type,
+        size: [12, 12],
+        legend: { show: true, position: 'bottom' }
+    }
+}) }}
+{{ /comp }}
+{{# Brick #}}
+{{ /comp }}
+{{# Masonry #}}
 </section>
+

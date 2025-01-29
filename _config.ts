@@ -21,6 +21,7 @@ import autoDependency from "https://deno.land/x/oi_lume_utils/processors/auto-de
 import oiLumeViz from "oi_lume_viz/mod.ts";
 
 import oiLumeVizOptions from './oi-lume-viz-config.ts';
+import filters from "./lib/filters.ts";
 
 const site = lume({
   src: "./src",
@@ -189,5 +190,7 @@ site.process(['.html'], (pages) => pages.forEach(page => {
   // Another kludge to avoid memory leaks on large pages
   page.content;
 }));
+
+site.use(filters);
 
 export default site;
