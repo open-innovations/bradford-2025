@@ -1,0 +1,31 @@
+{{>
+    const seriesConfig = {
+        'Audience travel': {
+            colour: oiColour.names.pink,
+            tooltip: 'Audience travel <b>{{ Audience travel }}%</b>',
+        },
+        'Energy': {
+            colour: oiColour.names.green,
+            tooltip: 'Energy <b>{{ Energy }}%</b>',
+        },
+        'Program travel': {
+            colour: oiColour.names.yellow,
+            tooltip: 'Program travel <b>{{ Program travel }}%</b>',
+        },
+        'Purchased goods and services': {
+            colour: oiColour.names.midgrey,
+            tooltip: 'Purchased goods and services <b>{{ Purchased goods and services }}%</b>',
+        },
+    }
+    const waffleSeries = Object.entries(calculations.by_impact[0])
+        .sort((a, b) => b[1] - a[1])
+        .map((s) => ({ value: s[0], ...seriesConfig[s[0]] }));
+}}
+{{ comp.oi.chart.waffle({
+    config: {
+        data: calculations.by_impact,
+        series: waffleSeries,
+        size: [22, 8],
+        legend: { show: true, position: 'bottom' },
+    }
+}) }}

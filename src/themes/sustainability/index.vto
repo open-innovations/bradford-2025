@@ -52,42 +52,14 @@ draft: true
 <section>
 <h2>Details</h2>
 {{ comp Masonry }}
-{{ comp Brick { cols: 5 } }}
+{{ comp Brick { cols: 3 } }}
 <h3>Breakdown by impact category</h3>
 <figure class="limit-width">
-{{>
-    const seriesConfig = {
-        'Audience travel': {
-            colour: oiColour.names.pink
-        },
-        'Energy': {
-            colour: oiColour.names.green
-        },
-        'Program travel': {
-            colour: oiColour.names.yellow
-        },
-        'Purchased goods and services': {
-            colour: oiColour.names.darkgrey
-        },
-    }
-    const waffleSeries = Object.entries(calculations.by_impact[0])
-        .sort((a, b) => b[1] - a[1])
-        .map((s) => ({ value: s[0], ...seriesConfig[s[0]] }));
-}}
-{{ comp.oi.chart.waffle({
-    config: {
-        data: calculations.by_impact,
-        series: waffleSeries,
-        size: [22, 8],
-        legend: { show: true, position: 'bottom' },
-    }
-}) }}
+{{ include './_partials/impact-category.vto' }}
 <figcaption>
-
-
-<p>
-The figure above shows the allocation of estimated emissions into impact categories.
-</p>
+    <p>
+        The figure above shows the allocation of estimated emissions into impact categories.
+    </p>
 </figcaption>
 </figure>
 {{ /comp }}
