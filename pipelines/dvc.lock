@@ -100,77 +100,63 @@ stages:
   events@rise:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids
-      '25890' -p id 'rise-event'
+      '25890' -p project_id 'recf4tPyjoXi81NDo' -p id 'rise-event'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 750329226245e47b203b2d872f03535f.dir
-      size: 1381689
+      md5: 78d14365f324d3ab95f7456edbaaed2e.dir
+      size: 1628075
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 8d86e24fb541e30514402a1d4be4951f
-      size: 2438
+      md5: 1688b86c601df0f642be62bb8da2582b
+      size: 3076
     outs:
-    - path: ../src/insights/rise-event/_data/tickets/
+    - path: ../src/insights/rise-event/_data/event/
       hash: md5
-      md5: df36457cc5e5952268b4c7f744ea017e.dir
-      size: 16827
-      nfiles: 3
-    - path: ../src/insights/rise-event/_data/volunteers/
-      hash: md5
-      md5: 3f8561993c8f7c9b54a256d67d122a2e.dir
-      size: 79
-      nfiles: 1
+      md5: 3b332730adb05290df2b1d579a1e654e.dir
+      size: 17032
+      nfiles: 6
   events@la-haine:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '4001APBPRCSHVVMHTCBMSPSJRNDMCHHLV' -p venue_postcode 'BD1 1JT' -p rosterfy_event_ids
-      '26307' -p id 'la-haine-event'
+      '26307' -p project_id 'None' -p id 'la-haine-event'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 750329226245e47b203b2d872f03535f.dir
-      size: 1381689
+      md5: 78d14365f324d3ab95f7456edbaaed2e.dir
+      size: 1628075
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 8d86e24fb541e30514402a1d4be4951f
-      size: 2438
+      md5: 1688b86c601df0f642be62bb8da2582b
+      size: 3076
     outs:
-    - path: ../src/insights/la-haine-event/_data/tickets/
+    - path: ../src/insights/la-haine-event/_data/event/
       hash: md5
-      md5: 76ed9c41cd7ec0ff115f24d7ecd29a52.dir
-      size: 6688
-      nfiles: 3
-    - path: ../src/insights/la-haine-event/_data/volunteers/
-      hash: md5
-      md5: 939e2611f90aa6418f86720255693434.dir
-      size: 54
-      nfiles: 1
+      md5: 38ca35cd0179aa85575bc10dbdafaf9a.dir
+      size: 6742
+      nfiles: 4
   events@les-girafes:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      '' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids '24438' -p id 'les-girafes-event'
+      'recu2QievPdxr1dnH' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids '24438'
+      -p project_id 'None' -p id 'les-girafes-event'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 750329226245e47b203b2d872f03535f.dir
-      size: 1381689
+      md5: 78d14365f324d3ab95f7456edbaaed2e.dir
+      size: 1628075
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 8d86e24fb541e30514402a1d4be4951f
-      size: 2438
+      md5: 1688b86c601df0f642be62bb8da2582b
+      size: 3076
     outs:
-    - path: ../src/insights/les-girafes-event/_data/tickets/
+    - path: ../src/insights/les-girafes-event/_data/event/
       hash: md5
-      md5: d751713988987e9331980363e24189ce.dir
-      size: 0
-      nfiles: 0
-    - path: ../src/insights/les-girafes-event/_data/volunteers/
-      hash: md5
-      md5: 0e833fc473d028a5c31a5ef8040afff6.dir
-      size: 114
-      nfiles: 1
+      md5: 8bd559a462c8166b0c28486a9d1ca54d.dir
+      size: 215
+      nfiles: 4
   sustainability:
     cmd: jupyter execute sustainability.ipynb
     deps:

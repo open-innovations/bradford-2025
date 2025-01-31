@@ -127,3 +127,25 @@ class Volunteers(object):
             agg,
             agg.aggregate(key=None, aggregation=config).addfield('date', 'ALL')
         )
+
+
+class Sustainability(object):
+    def __init__(self, project_id: str):
+        self.data = (
+            etl
+            .fromcsv(PUBLISHED / 'sustainability/calculations.csv')
+            .selecteq('project_id', project_id)
+            .convertnumbers()
+        )
+    
+    def summarise(self):
+        summary = self.data.aggregate(['impact_type', 'scope'], sum, 'calculation_tco2e', field='tCO2e')
+
+        return (
+            etl.cat(
+                summary,
+                summary.aggregate(['scope'], sum, 'tCO2e', field='tCO2e'),
+                summary.aggregate(None, sum, 'tCO2e', field='tCO2e')
+            )
+            .replace(['impact_type', 'scope'], None, 'ALL')
+        )

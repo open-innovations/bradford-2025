@@ -1,8 +1,8 @@
-<section class="grid">
-{{ if tickets?.summary }}
+<section class="grid regular">
+{{ if (tickets?.summary && tickets.summary.length > 0) }}
 {{ comp BigNumber {
+    label: 'Tickets sold',
     number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets.toLocaleString(),
-    suffix: 'tickets',
     classes: 'c-pink',
 } }}
 <p>Total tickets sold</p>
@@ -11,16 +11,35 @@
 
 {{ if volunteers?.summary }}
 {{ comp BigNumber {
-    number: volunteers?.summary.find(x => x.date == 'ALL').hours.toLocaleString(),
-    suffix: 'volunteer hours',
+    label: "Volunteer time",
+    number: volunteers?.summary.find(x => x.date == 'ALL').hours.toLocaleString(undefined, { maximumFractionDigits: 1 }),
+    suffix: ' hours',
     classes: 'c-yellow',
 } }}
-<p>
-    Overall there were
-    {{ volunteers.summary.find(x => x.date == 'ALL').hours.toLocaleString() }}
-    hours of volunteering across
-    {{ volunteers.summary.find(x => x.date == 'ALL').attended.toLocaleString() }}
+<p class="centred">
+    Hours were completed in
+    {{ volunteers.summary.find(x => x.date == 'ALL').attended.toLocaleString(undefined, { maximumFractionDigits: 1 }) }}
     individual shifts.
+</p>
+<p class="centred">
+    <i>Data has been extracted from the volunteer management system, and is subject to change as adjustments and data validation is completed.</i>
+</p>
+{{ /comp }}
+
+{{ if sustainability?.summary }}
+{{ comp BigNumber {
+    label: "Carbon footprint",
+    number: sustainability.summary.tCO2e.toLocaleString(undefined, { maximumFractionDigits: 3 }),
+    suffix: ' tonnes',
+    classes: 'c-green',
+} }}
+<p class="centred">
+    Estimated tonnes of carbon dioxide equivalent <span>(tCO<sub>2</sub>e).</span>
+</p>
+<p class="centred">
+    <i>This estimate includes activities which been associated with the project &ndash; the true carbon footprint could be higher, and this figure could change as more activities are identified.</i>
 </p>
 {{ /comp }}
 {{ /if }}
+{{ /if }}
+</section>
