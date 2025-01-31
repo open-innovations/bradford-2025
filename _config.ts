@@ -9,7 +9,6 @@ import metas from "lume/plugins/metas.ts";
 import openGraphImages from "lume/plugins/og_images.ts";
 import postcss from "lume/plugins/postcss.ts";
 import redirects from "lume/plugins/redirects.ts";
-import sass from "lume/plugins/sass.ts";
 import sheets from "lume/plugins/sheets.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 import svgo from "lume/plugins/svgo.ts";
@@ -60,7 +59,6 @@ site.use(esbuild({
     treeShaking: true,
   },
 }));
-site.use(sass()); // Requried for Reveal themes
 site.use(postcss());
 site.use(redirects());
 site.use(favicon());

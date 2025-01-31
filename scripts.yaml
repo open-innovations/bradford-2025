@@ -1,4 +1,13 @@
 scripts:
+  prepare_reveal:
+    cmd: reveal-theme/build.ts
+    allow: # or a map
+      env: SASS_PATH
+      read: .
+      write: src/assets/css/reveal-bd25.css
+    env:
+      SASS_PATH: node_modules/reveal.js/
+
   get_typefaces:
     - mkdir --parents vendor/bd25
     - curl --location -o vendor/bd25/DenimINK-Bold-5SFPWNGF.woff https://bradford2025.co.uk/wp-content/themes/bd25/dist/DenimINK-Bold-5SFPWNGF.woff
