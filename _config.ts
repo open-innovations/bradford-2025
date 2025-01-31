@@ -22,6 +22,8 @@ import oiLumeViz from "oi_lume_viz/mod.ts";
 import oiLumeVizOptions from './oi-lume-viz-config.ts';
 import filters from "./lib/filters.ts";
 
+import postcssConfig from "./postcss-config.ts";
+
 const site = lume({
   src: "./src",
   location: new URL("https://data.bradford2025.co.uk/"),
@@ -59,7 +61,7 @@ site.use(esbuild({
     treeShaking: true,
   },
 }));
-site.use(postcss());
+site.use(postcss(postcssConfig));
 site.use(redirects());
 site.use(favicon());
 
