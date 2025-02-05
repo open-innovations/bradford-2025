@@ -1,5 +1,6 @@
 export const tags = ['dataset'];
 export const layout = 'templates/dataset.vto';
+export const draft = true;
 
 const capitalise = (s: string) => s.charAt(0).toLocaleUpperCase() + s.slice(1);
 
@@ -17,7 +18,6 @@ export default function *({ metadata, url: baseUrl, search }) {
             key,
             title,
             schema,
-            draft: true,
         }
     }
 }
