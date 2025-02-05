@@ -39,7 +39,7 @@ site.use(await bradfordDataPublisher({
   publishedRoot: new URL(await import.meta.resolve('./data/published/')).pathname,
   metadataRoot: new URL(await import.meta.resolve('./data/metadata/')).pathname,
   exclude: [  
-    // 'volunteers',
+    'volunteers/demographics',
   ]
 }))
 

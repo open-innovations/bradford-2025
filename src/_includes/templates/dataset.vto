@@ -17,6 +17,22 @@ layout: templates/page.vto
 </section>
 
 <section>
+{{ set refs = search.pages(`datasets*=${key}`) }}
+<h2>Referenced by</h2>
+
+{{ if refs.length > 0 }}
+    <ul class="grid">
+    {{ for ref of refs }}
+        <li><a class="block c-yellow" href="{{ ref.url }}">{{ ref.title }}</a>
+    {{ /for }}
+    </ul>
+{{ else }}
+    <p>This dataset is not referenced</p>
+{{ /if}}
+</section>
+
+
+<section>
 <h2>Schema</h2>
 <table>
     <thead>

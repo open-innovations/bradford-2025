@@ -1,0 +1,13 @@
+{{ if datasets }}
+<aside data-comp="data-references" class="block">
+<p>This page uses data from the following sources:</p>
+<ul class="grid">
+{{ for dataset of datasets }}
+    {{ set cataloguePage = search.page(`dataset key=${ dataset }`) }}
+    <li class="block c-yellow">
+        <a href="{{ cataloguePage.url }}">{{ cataloguePage.title }}</a>
+    </li>
+{{ /for }}
+</ul>
+</aside>
+{{ /if }}
