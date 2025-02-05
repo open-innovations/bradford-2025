@@ -16,7 +16,8 @@ export default function *({ metadata, url: baseUrl, search }) {
             name,
             key,
             title,
-            schema
+            schema,
+            draft: true,
         }
     }
 }
