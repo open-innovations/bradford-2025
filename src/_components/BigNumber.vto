@@ -17,9 +17,54 @@ css: |
             font-weight: bold;
         }
     }
+js: |
+    const observer = new IntersectionObserver(
+        (entries, observer) => {
+            for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                entry.target.animate();
+            }
+        },
+        {
+            threshold: 0.75,
+        }
+    );
+    document.querySelectorAll('[data-comp=big-number][data-animate]').forEach(numberBlock => {
+        const numericEl = numberBlock.querySelector('span.numeric');
+        const target = +(numberBlock.dataset.number);
+        const roundingOptions = JSON.parse(numberBlock.dataset?.roundingOptions || '{}');
+
+        const setValue = (n) => {
+            numericEl.innerHTML = n.toLocaleString(undefined, roundingOptions);
+        };
+
+        function animate() {
+            let value = 0;
+            const increment = (target - value) / 25;
+            let timer;
+            const updateNumber = () => {
+                value += increment;
+                setValue(value);
+                if (Math.abs(value) >= Math.abs(target)) {
+                    clearInterval(timer);
+                    setValue(target);
+                }
+            }
+            timer = setInterval(updateNumber, 40);
+        }
+        numericEl.animate = animate;
+        observer.observe(numericEl);
+    })
 ---
-<div data-comp="big-number" class="block {{ classes || ""}}">
+<div
+    data-comp="big-number"
+    class="block {{ classes || ""}}"
+    {{ if animate -}}
+    data-animate data-number="{{ number }}"
+    {{- if roundingOptions }} data-rounding-options={{ JSON.stringify(roundingOptions) }}{{ /if -}}
+    {{ /if -}}
+>
 {{ if label }}<p class="label">{{ label }}</p>{{ /if -}}
-<p class="number"><span class="numeric">{{ number.toLocaleString() }}</span>{{ if suffix }}{{ suffix }}{{ /if }}</p>
+<p class="number"><span class="numeric">{{ number.toLocaleString(undefined, roundingOptions) }}</span>{{ if suffix }}{{ suffix }}{{ /if }}</p>
 {{ content }}
 </div>

@@ -4,6 +4,8 @@
     label: 'Tickets sold',
     number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets,
     classes: 'c-pink',
+    animate: true,
+    roundingOptions: { maximumFractionDigits: 0 }
 } }}
 <p>Total tickets sold</p>
 {{ /comp }}
@@ -15,6 +17,8 @@
     number: volunteers?.summary.find(x => x.date == 'ALL').hours,
     suffix: ' hours',
     classes: 'c-yellow',
+    animate: true,
+    roundingOptions: { maximumFractionDigits: 0 }
 } }}
 <p class="centred">
     Hours were completed in
@@ -32,6 +36,8 @@
     number: sustainability.summary.tCO2e,
     suffix: ' tonnes',
     classes: 'c-green',
+    animate: true,
+    roundingOptions: { maximumSignificantDigits: 2 }
 } }}
 <p class="centred">
     Estimated tonnes of carbon dioxide equivalent <span>(tCO<sub>2</sub>e).</span>

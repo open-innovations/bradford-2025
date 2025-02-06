@@ -29,6 +29,9 @@ import bradfordDataPublisher from './lib/bradford-data-publisher.ts';
 const site = lume({
   src: "./src",
   location: new URL("https://data.bradford2025.co.uk/"),
+  components: {
+    jsFile: 'assets/js/components.js',
+  }
 });
 
 // Include some remote asset files
@@ -63,6 +66,7 @@ site.use(date({
   }
 }));
 site.use(esbuild({
+  extensions: ['.ts'],
   options: {
     bundle: true,
     format: "esm",
