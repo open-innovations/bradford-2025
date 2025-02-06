@@ -58,12 +58,12 @@ stages:
           -p venue_postcode '${item.venue_postcode}'
           -p rosterfy_event_ids '${item.rosterfy_event_ids}'
           -p project_id '${item.project_id}'
-          -p id '${key}-event'
+          -p id '${key}'
       deps:
         - events.ipynb
         - ${ROOT}/data/published/ticketing/
       outs:
-        - ${ROOT}/src/insights/${key}-event/_data/event/:
+        - ${ROOT}/src/events/${key}/_data/event/:
             cache: false
 
   sustainability:

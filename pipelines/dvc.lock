@@ -100,7 +100,7 @@ stages:
   events@rise:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids
-      '25890' -p project_id 'recf4tPyjoXi81NDo' -p id 'rise-event'
+      '25890' -p project_id 'recf4tPyjoXi81NDo' -p id 'rise'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -109,10 +109,10 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 1688b86c601df0f642be62bb8da2582b
-      size: 3076
+      md5: d607da4680498cd8b5bd0876c1e68b12
+      size: 3074
     outs:
-    - path: ../src/insights/rise-event/_data/event/
+    - path: ../src/events/rise/_data/event/
       hash: md5
       md5: 3b332730adb05290df2b1d579a1e654e.dir
       size: 17032
@@ -120,7 +120,7 @@ stages:
   events@la-haine:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '4001APBPRCSHVVMHTCBMSPSJRNDMCHHLV' -p venue_postcode 'BD1 1JT' -p rosterfy_event_ids
-      '26307' -p project_id 'None' -p id 'la-haine-event'
+      '26307' -p project_id 'None' -p id 'la-haine'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -129,10 +129,10 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 1688b86c601df0f642be62bb8da2582b
-      size: 3076
+      md5: d607da4680498cd8b5bd0876c1e68b12
+      size: 3074
     outs:
-    - path: ../src/insights/la-haine-event/_data/event/
+    - path: ../src/events/la-haine/_data/event/
       hash: md5
       md5: 38ca35cd0179aa85575bc10dbdafaf9a.dir
       size: 6742
@@ -140,7 +140,7 @@ stages:
   events@les-girafes:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       'recu2QievPdxr1dnH' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids '24438'
-      -p project_id 'None' -p id 'les-girafes-event'
+      -p project_id 'None' -p id 'les-girafes'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -149,10 +149,10 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 1688b86c601df0f642be62bb8da2582b
-      size: 3076
+      md5: d607da4680498cd8b5bd0876c1e68b12
+      size: 3074
     outs:
-    - path: ../src/insights/les-girafes-event/_data/event/
+    - path: ../src/events/les-girafes/_data/event/
       hash: md5
       md5: 8bd559a462c8166b0c28486a9d1ca54d.dir
       size: 215
