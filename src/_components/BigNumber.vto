@@ -20,6 +20,6 @@ css: |
 ---
 <div data-comp="big-number" class="block {{ classes || ""}}">
 {{ if label }}<p class="label">{{ label }}</p>{{ /if -}}
-<p class="number"><span class="numeric">{{ number }}</span>{{ if suffix }}{{ suffix }}{{ /if }}</p>
+<p class="number"><span class="numeric">{{ number.toLocaleString() }}</span>{{ if suffix }}{{ suffix }}{{ /if }}</p>
 {{ content }}
 </div>

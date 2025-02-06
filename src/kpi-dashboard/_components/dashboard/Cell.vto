@@ -1,0 +1,16 @@
+---
+css: |
+    [data-comp=dashboard-cell] {
+        display: flex !important;
+        flex-direction: column;
+        & .title {
+            flex-grow: 1;
+        }
+    }
+---
+{{ comp Brick }}
+<div data-comp='dashboard-cell' class="block"{{ if flash }} data-flash="{{ flash }}"{{ /if }}>
+<{{ heading_level || 'h3' }} class="title">{{ title }}</{{ heading_level || 'h3' }}>
+{{ content }}
+</div>
+{{ /comp }}

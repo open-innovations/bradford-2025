@@ -2,7 +2,7 @@
 {{ if (tickets?.summary && tickets.summary.length > 0) }}
 {{ comp BigNumber {
     label: 'Tickets sold',
-    number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets.toLocaleString(),
+    number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets,
     classes: 'c-pink',
 } }}
 <p>Total tickets sold</p>
@@ -12,13 +12,13 @@
 {{ if volunteers?.summary }}
 {{ comp BigNumber {
     label: "Volunteer time",
-    number: volunteers?.summary.find(x => x.date == 'ALL').hours.toLocaleString(undefined, { maximumFractionDigits: 1 }),
+    number: volunteers?.summary.find(x => x.date == 'ALL').hours,
     suffix: ' hours',
     classes: 'c-yellow',
 } }}
 <p class="centred">
     Hours were completed in
-    {{ volunteers.summary.find(x => x.date == 'ALL').attended.toLocaleString(undefined, { maximumFractionDigits: 1 }) }}
+    {{ volunteers.summary.find(x => x.date == 'ALL').attended }}
     individual shifts.
 </p>
 <p class="centred">
@@ -29,7 +29,7 @@
 {{ if sustainability?.summary }}
 {{ comp BigNumber {
     label: "Carbon footprint",
-    number: sustainability.summary.tCO2e.toLocaleString(undefined, { maximumFractionDigits: 3 }),
+    number: sustainability.summary.tCO2e,
     suffix: ' tonnes',
     classes: 'c-green',
 } }}

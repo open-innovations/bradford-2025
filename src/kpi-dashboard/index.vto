@@ -18,44 +18,163 @@ description: |
 
 {{ comp.WARNING() }}
 
-{{ comp.oi.dashboard({
-    config: {
-        data: eventsKPI,
-        title: "metric",
-        value: "count",
-        width: "20%",
-        panels: [
-            { name: "Performances and events", colour: "pink" },
-            { name: "In person performances and events", colour: "green" },
-            { name: "Online performances and events", colour: "yellow" },
-            { name: "Community led arts projects", colour: "green" },
-            { name: "Festivals", colour: "pink" },
-            { name: "Exhibitions", colour: "yellow" },
-            { name: "Exhibition days", colour: "pink" },
-            { name: "Events and Activities free to access", colour: "green" }
-        ]
-    }
-}) }}
+{{ comp dashboard.Frame }}
+
+    {{ comp dashboard.Cell {
+        title: 'Performances and events',
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.events['Performances and events']
+        }) }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: 'In person performances and events',
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.events['In person performances and events']
+        }) }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: 'Online performances and events',
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.events['Online performances and events']
+        }) }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: 'Community led arts projects',
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.events['Community led arts projects']
+        }) }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: 'Festivals',
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.events['Festivals']
+        }) }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: 'Exhibitions',
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.events['Exhibitions']
+        }) }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: 'Exhibition days',
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.events['Exhibition days']
+        }) }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: 'Events and Activities free to access',
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.events['Events and Activities free to access']
+        }) }}
+    {{ /comp }}
+
+{{ /comp }}
+</section>
 
 <h2>Audiences</h2>
 
-{{ comp.WARNING() }}
+{{ comp dashboard.Frame }}
+    {{ comp dashboard.Cell {
+        title: "GS (Gateway Review) audience engagements with Culture, Heritage or Sport",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["GS (Gateway Review) audience engagements with Culture, Heritage or Sport"]
+        }) }}
+    {{ /comp }}
 
-{{ comp.oi.dashboard({
-    config: {
-        data: audiencesKPI,
-        title: "metric",
-        value: "count",
-        width: "20%",
-        panels: [
-            { name: "GS (Gateway Review) audience engagements with Culture, Heritage or Sport", colour: "pink" },
-            { name: "Face to face event attendees", colour: "green" },
-            { name: "Digital event attendees", colour: "yellow" },
-            { name: "Audience split from Bradford", colour: "pink" },
-            { name: "Participants involved in activities", colour: "green" },
-            { name: "Surveyed audiences reporting a positive experience", colour: "yellow" },
-            { name: "Schools engaged", colour: "pink" },
-            { name: "Participants engaged in creative health activities", colour: "green" },
-        ]
-    }
-}) }}
+    {{ comp dashboard.Cell {
+        title: "Face to face event attendees",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Face to face event attendees"] 
+        }) }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Digital event attendees",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Digital event attendees"] 
+        }) }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Audience split from Bradford",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Audience split from Bradford"] 
+        }) }}
+
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Participants involved in activities",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Participants involved in activities"] 
+        }) }}
+
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Surveyed audiences reporting a positive experience",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Surveyed audiences reporting a positive experience"] 
+        }) }}
+
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Schools engaged",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Schools engaged"] 
+        }) }}
+
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Participants engaged in creative health activities",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Participants engaged in creative health activities"]
+        }) }}
+
+    {{ /comp }}
+
+{{ /comp }}
+
+{{ comp.WARNING() }}
