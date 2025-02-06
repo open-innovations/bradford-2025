@@ -15,6 +15,11 @@ css: |
         & .number {
             font-size: min(4em, var(--big-number-size, 20vw));
             font-weight: bold;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5ch;
+            align-items: center;
+            justify-content: center;
         }
     }
 js: |
@@ -65,6 +70,8 @@ js: |
     {{ /if -}}
 >
 {{ if label }}<p class="label">{{ label }}</p>{{ /if -}}
-<p class="number"><span class="numeric">{{ number.toLocaleString(undefined, roundingOptions) }}</span>{{ if suffix }}{{ suffix }}{{ /if }}</p>
+<p class="number">
+    <span class="numeric">{{ number.toLocaleString(undefined, roundingOptions) }}</span>
+    {{ if suffix }}<span>{{ suffix }}</span>{{ /if }}</p>
 {{ content }}
 </div>
