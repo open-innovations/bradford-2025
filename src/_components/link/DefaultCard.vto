@@ -1,0 +1,16 @@
+---
+css: |
+    [data-comp=link-default-card] {
+        & > *:first-child {
+            margin-block-start: 0;
+        }
+        & > *:last-child {
+            margin-block-end: 0;
+        }
+
+    }
+---
+<a data-comp='link-default-card' href="{{ url }}">
+    <h2>{{ title }}</h2>
+    {{ description |> md }}
+</a>

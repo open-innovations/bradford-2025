@@ -1,0 +1,18 @@
+{{ set links = search.pages(
+    `${ predicate } !url=${ url }`,
+    `${ sortBy || 'title' }`)
+-}}
+
+{{ if links.length -}}
+<ul data-comp="link-list" class="grid {{ classes || ''}}">
+{{ for link of links }}
+    <li class="block">
+    {{ (displayComponent || comp.link.DefaultCard)(link) }}
+    </li>
+{{ /for }}
+</ul>
+{{ else }}
+<p>
+    There are no pages tagged with <q>{{ predicate }}.</p>
+</p>
+{{ /if}}
