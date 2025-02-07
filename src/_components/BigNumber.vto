@@ -28,6 +28,7 @@ js: |
             for (const entry of entries) {
                 if (!entry.isIntersecting) continue;
                 entry.target.animate();
+                observer.unobserve(entry.target);
             }
         },
         {
