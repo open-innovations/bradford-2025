@@ -61,7 +61,8 @@
 The maps show tickets sold across the wards of Bradford.
 </p>
 <p>
-In addition to this visitors came from outside Bradford:
+Tickets were issued to attendees from the following Local Authorities.
+This list contains any Local Authority with a count of more than 20 tickets:
 </p>
 
 {{>
@@ -82,7 +83,7 @@ In addition to this visitors came from outside Bradford:
 </thead>
 <tbody>
 {{ for area of oslauaTickets }}
-{{ if area.geography_code !== 'UNKNOWN' }}
+{{ if !['MISSING', 'UNMATCHED'].includes(area.geography_code) }}
     <tr>
     <th scope="row">{{ area.name }}</th>
     <td style="text-align: center;">{{ area.count_of_tickets.toLocaleString() }}</td>
@@ -93,10 +94,24 @@ In addition to this visitors came from outside Bradford:
 </table>
 
 <p>
-There were also
-<b>{{ oslauaTickets.find(x => x.geography_code === 'UNKNOWN').count_of_tickets.toLocaleString() }} tickets</b>
+{{>
+    const unmatched = oslauaTickets.find(x => x.geography_code === 'UNMATCHED');
+    const missing = oslauaTickets.find(x => x.geography_code === 'MISSING');
+    console.log({
+        missing,
+        unmatched
+    })
+}}
+{{ if missing }}
+There were
+<b>{{ oslauaTickets.find(x => x.geography_code === 'MISSING').count_of_tickets.toLocaleString() }} tickets</b>
+orders missing a postcode which cannot be mapped to a geographic area.
+{{ /if }}
+{{ if unmatched }} There were also
+<b>{{ unmatched.count_of_tickets.toLocaleString() }} tickets</b>
 that could not be assigned to a local authority, either as they were outside the UK,
-or the ticket holder's postcode was missing or otherwise invalid.
+or the ticket holder's postcode was invalid.
+{{ /if }}
 </p>
 </section>
 
