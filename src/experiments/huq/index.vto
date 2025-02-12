@@ -5,8 +5,29 @@ description: |
     by our events.
 draft: true
 ---
+
 <section>
-<h2>Footfall proxy</h2>
+<h2>Footfall</h2>
+
+
+{{
+    comp.oi.chart.calendar({
+        config: {
+            data: footfall.map(add_date),
+            value: 'estimated_actual_footfall',
+            key: 'date',
+            startofweek: 1,
+            tooltip: '{{ date | strftime("%e %B %Y") }} <br />Footfall {{ estimated_actual_footfall }}',
+        }
+    })
+}}
+</section>
+
+
+
+
+<section>
+<h2>Active Mastercard accounts</h2>
 
 <p>
     The calendar chart below shows a footfall proxy based on the number of Mastercard accounts
