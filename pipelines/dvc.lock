@@ -65,8 +65,8 @@ stages:
       size: 2720
     - path: ../data/published/ticketing/tickets.csv
       hash: md5
-      md5: 661e0f9571b944b9a55594b5420dd492
-      size: 1692850
+      md5: 0863f76468f659c4676e6c11c9f9b003
+      size: 1692844
     - path: ticketing.ipynb
       hash: md5
       md5: 18c8477182108f103e79a84b4f981d02
@@ -74,8 +74,8 @@ stages:
     outs:
     - path: ../src/themes/ticketing/_data/operational
       hash: md5
-      md5: e356bd095bc96dc345c1b0a5fd309d91.dir
-      size: 7497
+      md5: 575ad1ae7407999242fb73a7e49019ac.dir
+      size: 8485
       nfiles: 7
   huq:
     cmd: papermill --no-log-output huq.ipynb output/huq.ipynb
@@ -104,8 +104,8 @@ stages:
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 490fcfe0d9e501893f150fcd9e9f0fbb.dir
-      size: 1786142
+      md5: ed418b1a51061dd10153c30b1aa1526b.dir
+      size: 1792633
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -114,8 +114,8 @@ stages:
     outs:
     - path: ../src/events/rise/_data/event/
       hash: md5
-      md5: 97e96dd5ff47c89bf7ebe6eb9c2d34ca.dir
-      size: 382
+      md5: c5cf0193718f1b8188bccf063d796cf4.dir
+      size: 17108
       nfiles: 6
   events@la-haine:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
@@ -124,8 +124,8 @@ stages:
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 490fcfe0d9e501893f150fcd9e9f0fbb.dir
-      size: 1786142
+      md5: ed418b1a51061dd10153c30b1aa1526b.dir
+      size: 1792633
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -134,8 +134,8 @@ stages:
     outs:
     - path: ../src/events/la-haine/_data/event/
       hash: md5
-      md5: 80320e7e87dd6e431660c03aded3a788.dir
-      size: 155
+      md5: 38ca35cd0179aa85575bc10dbdafaf9a.dir
+      size: 6742
       nfiles: 4
   events@les-girafes:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
@@ -144,8 +144,8 @@ stages:
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 490fcfe0d9e501893f150fcd9e9f0fbb.dir
-      size: 1786142
+      md5: ed418b1a51061dd10153c30b1aa1526b.dir
+      size: 1792633
       nfiles: 3
     - path: events.ipynb
       hash: md5
