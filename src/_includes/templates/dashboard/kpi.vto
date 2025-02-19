@@ -1,0 +1,26 @@
+---
+layout: templates/page.vto
+---
+
+{{ comp.WARNING() }}
+
+{{ content }}
+
+<p>
+    {{# TODO make sure that start / end date are output by pipelines #}}
+    This dashboard shows data from {{ timescale.start |> date('HUMAN_DATE') }} to {{ Math.min(new Date(), timescale.end) |> date('HUMAN_DATE') }}.
+</p>
+
+<h2>Events</h2>
+
+{{ include './_partials/events.vto' }}
+
+<h2>Audiences</h2>
+
+{{ include './_partials/audiences.vto' }}
+
+<h2>Participants</h2>
+
+{{ include './_partials/participants.vto' }}
+
+{{ comp.WARNING() }}

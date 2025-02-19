@@ -1,21 +1,6 @@
 {{ comp dashboard.Frame }}
 
-    {{ comp dashboard.Cell {
-        title: 'Performances and events',
-        flash: 'Sample',
-    } }}
-        {{ comp.BigNumber({
-            number: sample.events['Performances and events'],
-        }) }}
-        {{ comp Controls }}
-            {{ comp Popover }}
-                <p>
-                    Total count of {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}
-                    (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}) held during the timescale covered by the dashboard.
-                </p>
-            {{ /comp }}
-        {{ /comp }}
-    {{ /comp }}
+    {{ include './performances-and-events.vto' }}
 
     {{ comp dashboard.Cell {
         title: 'In person performances and events',
