@@ -5,13 +5,15 @@ description: |
     very specific meaning.
     The glossary collects these terms into a single location
 layout: templates/page.vto
+url: /glossary/
+tags:
+    - index
 ---
 
 <section>
 <dl>
-{{ for entry of glossary.toSorted((a, b) => a.term.toUpperCase() < b.term.toUpperCase() ? -1 : 1) }}
-    <dt>{{ entry.term }}</dt>
-        <dd>{{ entry.definition }}</dd>
+{{ for entry of search.pages('glossary !index').toSorted((a, b) => a.url.toUpperCase() < b.url.toUpperCase() ? -1 : 1) }}
+    {{ comp.Entry({ ...entry }) }}
 {{ /for }}
 </dl>
 </section>
