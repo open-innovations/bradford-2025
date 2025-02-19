@@ -8,7 +8,7 @@ layout: templates/page.vto
 
 <p>
     {{# TODO make sure that start / end date are output by pipelines #}}
-    This dashboard shows data from {{ timescale.start |> date('HUMAN_DATE') }} to {{ Math.min(new Date(), timescale.end) |> date('HUMAN_DATE') }}.
+    This dashboard shows data from {{ timestamp.start |> date('HUMAN_DATE') }} to {{ timestamp.end |> date('HUMAN_DATE') }}.
 </p>
 
 <h2>Events</h2>

@@ -1,16 +1,44 @@
 {{ comp dashboard.Cell {
     title: 'Performances and events',
-    flash: 'Sample',
+    flash: 'Partial',
 } }}
-    {{ comp.BigNumber({
-        number: sample.events['Performances and events'],
-    }) }}
+    {{ comp BigNumber {
+        number: events.projects.count,
+        suffix: ' projects'
+    } }}
+        <p class="centred">Events are not yet fully tracked. Presenting Project as summary.</p>
+    {{ /comp }}
     {{ comp Controls }}
         {{ comp Popover }}
             <p>
                 Total count of {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}
                 (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}) held during the timescale covered by the dashboard.
             </p>
+            {{ comp BigNumber {
+                number: events.projects.count,
+                suffix: ' projects'
+            } }}
+                <p class="centred">
+                    Count of projects active between {{ timestamp.start |> date('HUMAN_DATE')}}
+                    and {{ timestamp.end |> date('HUMAN_DATE')}}.
+                </p>
+            {{ /comp }}
+            <table>
+            <thead>
+                <tr>
+                    <th>Producing model</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ for v of Object.entries(events.projects.producing_model) -}}
+                <tr>
+                    <td>{{ v[0] }}</td>
+                    <td>{{ v[1] }}</td>
+                </tr>
+                {{ /for -}}
+            </tbody>
+            </table>
         {{ /comp }}
     {{ /comp }}
 {{ /comp }}
