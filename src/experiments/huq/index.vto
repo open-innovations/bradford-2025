@@ -7,8 +7,11 @@ draft: true
 ---
 
 <section>
-<h2>Footfall</h2>
+{{ include './_partials/about.md' |> md }}
+</section>
 
+<section>
+<h2>Footfall</h2>
 
 {{
     comp.oi.chart.calendar({
@@ -16,7 +19,17 @@ draft: true
             data: footfall.map(add_date),
             value: 'estimated_actual_footfall',
             key: 'date',
-            startofweek: 1,
+            min: 0,
+            max: 1100000,
+            legend: {
+                show: true,
+                position: 'top',
+                items: [
+                    { value: 0, label: '0' },
+                    { value: 1100000, label: '1,500,000' },
+                ]
+            },
+            //startofweek: 1,
             tooltip: '{{ date | strftime("%e %B %Y") }} <br />Footfall {{ estimated_actual_footfall }}',
         }
     })
