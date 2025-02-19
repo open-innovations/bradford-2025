@@ -16,7 +16,7 @@ import transformImages from "lume/plugins/transform_images.ts";
 
 import { read } from "lume/core/utils/read.ts";
 
-import autoDependency from "https://deno.land/x/oi_lume_utils/processors/auto-dependency.ts";
+import autoDependency from "oi_lume_utils/processors/auto-dependency.ts";
 import oiLumeViz from "oi_lume_viz/mod.ts";
 
 import oiLumeVizOptions from './oi-lume-viz-config.ts';

@@ -1,0 +1,75 @@
+---
+css: |
+    [data-comp=Popover] {
+        .popover-content {
+            clip: rect(0 0 0 0); 
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
+            position: absolute;
+            white-space: nowrap; 
+            width: 1px;
+        }
+        & button.show {
+            height: 100%;
+        }
+    }
+    [data-comp=ActivePopover] {
+        position: fixed;
+        background: #00000070;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        & > div {
+            background: white;
+            margin: 2rem;
+            padding: 1rem;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        & .content-area {
+            overflow-y: auto;
+            position: absolute;
+            top: 3rem;
+            left: 1rem;
+            right: 1rem;
+            bottom: 1rem;
+        }
+        & button.hide {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            height: 1.5rem;
+        }
+    }
+    button.icon {
+        color: currentColor;
+        background: unset;
+        padding: 0;
+        margin: 0;
+        line-height: 1;
+        border: unset;
+        cursor: pointer;
+        & > svg {
+            height: 100%;
+            stroke: currentColor;
+        }
+    }
+---
+<aside data-comp="Popover" data-dependencies="/assets/js/popover.js">
+    <button class="show icon">
+    <svg viewBox="0 0 10 10">
+        <g transform="translate(5, 5)">
+        <circle r="3"></circle>
+        <text font-size="5" font-weight="bold" fill="currentColor" stroke="none" font-style="oblique" dy="0.35em" text-anchor="middle">i</text>
+        </g>
+    </svg>
+    </button>
+    <div class="popover-content">
+    {{ content }}
+    </div>
+</aside>

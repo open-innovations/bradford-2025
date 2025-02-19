@@ -14,9 +14,9 @@ description: |
     of the West Yorkshire Combined Authority reporting. It is still Work in Progress.
 </p>
 
-<h2>Events</h2>
-
 {{ comp.WARNING() }}
+
+<h2>Events</h2>
 
 {{ comp dashboard.Frame }}
 
@@ -27,8 +27,10 @@ description: |
         {{ comp.BigNumber({
             number: sample.events['Performances and events'],
         }) }}
-        {{ comp Details }}
-        Total count of performances and events held during Bradford 2025.
+        {{ comp Controls }}
+            {{ comp Popover }}
+                <p>Total count of performances and events held during Bradford 2025.</p>
+            {{ /comp }}
         {{ /comp }}
     {{ /comp }}
 
@@ -39,6 +41,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.events['In person performances and events'],
         }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -48,6 +55,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.events['Online performances and events'],
         }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -57,6 +69,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.events['Community led arts projects'],
         }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -66,6 +83,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.events['Festivals'],
         }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -75,6 +97,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.events['Exhibitions'],
         }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -84,6 +111,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.events['Exhibition days'],
         }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -93,6 +125,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.events['Events and Activities free to access'],
         }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
 {{ /comp }}
@@ -108,6 +145,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.audience["GS (Gateway Review) audience engagements with Culture, Heritage or Sport"],
         }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -117,6 +159,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.audience["Face to face event attendees"] ,
         }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -126,6 +173,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.audience["Digital event attendees"] ,
         }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -135,7 +187,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.audience["Audience split from Bradford"] ,
         }) }}
-
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -145,7 +201,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.audience["Participants involved in activities"] ,
         }) }}
-
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -155,12 +215,14 @@ description: |
         {{ comp.BigNumber({
             number: sample.audience["Surveyed audiences reporting a positive experience"] ,
         }) }}
-        {{ comp Details }}
-        <p>Each survey will have</p>
-        <ul>
-        <li>What would you rate it? (Overall satisfaction) (1-5)</li>
-        <li>How likely on a scale of 1-10 7+ positive? (Net Promoter Score) (1-10)</li>
-        </ul>
+        {{ comp Controls }}
+            {{ comp Popover }}
+                <p>Each survey will have</p>
+                <ul>
+                <li>What would you rate it? (Overall satisfaction) (1-5)</li>
+                <li>How likely on a scale of 1-10 7+ positive? (Net Promoter Score) (1-10)</li>
+                </ul>
+            {{ /comp }}
         {{ /comp }}
     {{ /comp }}
 
@@ -171,7 +233,11 @@ description: |
         {{ comp.BigNumber({
             number: sample.audience["Schools engaged"] ,
         }) }}
-        {{#  #}}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
     {{ comp dashboard.Cell {
@@ -182,6 +248,11 @@ description: |
             number: sample.audience["Participants engaged in creative health activities"],
         }) }}
         {{# Estelle - creative health manager. How this data logged. John McMahon #}}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
     {{ /comp }}
 
 {{ /comp }}
