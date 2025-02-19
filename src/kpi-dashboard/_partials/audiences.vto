@@ -1,0 +1,76 @@
+{{ comp dashboard.Frame }}
+    {{ comp dashboard.Cell {
+        title: "GS (Gateway Review) audience engagements with Culture, Heritage or Sport",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["GS (Gateway Review) audience engagements with Culture, Heritage or Sport"],
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Face to face event attendees",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Face to face event attendees"] ,
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Digital event attendees",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Digital event attendees"] ,
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Audience split from Bradford",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Audience split from Bradford"] ,
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Surveyed audiences reporting a positive experience",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Surveyed audiences reporting a positive experience"] ,
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                <p>Each survey will have</p>
+                <ul>
+                <li>What would you rate it? (Overall satisfaction) (1-5)</li>
+                <li>How likely on a scale of 1-10 7+ positive? (Net Promoter Score) (1-10)</li>
+                </ul>
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}
+
+{{ /comp }}

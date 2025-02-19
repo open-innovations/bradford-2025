@@ -1,0 +1,46 @@
+{{ comp dashboard.Frame }}
+
+    {{ comp dashboard.Cell {
+        title: "Participants involved in activities",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Participants involved in activities"] ,
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Schools engaged",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Schools engaged"] ,
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}
+
+    {{ comp dashboard.Cell {
+        title: "Participants engaged in creative health activities",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["Participants engaged in creative health activities"],
+        }) }}
+        {{# Estelle - creative health manager. How this data logged. John McMahon #}}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}
+
+{{ /comp }} {{# dashboard.Frame #}}
