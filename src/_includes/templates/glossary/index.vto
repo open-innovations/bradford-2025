@@ -1,0 +1,15 @@
+---
+layout: templates/page.vto
+---
+
+<section>
+{{ comp.paginated.Nav({ pagination }) }}
+
+<dl>
+{{ for entry of results }}
+    {{ comp.glossary.Entry({ ...entry }) }}
+{{ /for }}
+</dl>
+
+{{ comp.paginated.Nav({ pagination }) }}
+</section>

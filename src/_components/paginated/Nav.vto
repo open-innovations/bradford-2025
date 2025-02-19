@@ -1,0 +1,7 @@
+{{ if pagination }}
+<nav>
+Navigation: 
+{{ if pagination.previous }}<a href="{{ pagination.previous }}">Previous</a>{{ /if }}
+{{ if pagination.next }}<a href="{{ pagination.next }}">Next</a>{{ /if }}
+</nav>
+{{ /if }}
