@@ -15,6 +15,10 @@ base_stylesheets:
   {{ /for }}
   <link rel="stylesheet" media="print" href="/assets/css/print.css">
   <script src="/assets/js/components.js" defer></script>
+  {{ if build.host == 'data.bradford2025.co.uk' -}}
+  <script async src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js"></script>
+  <script defer src="/assets/js/cookie-control.js"></script>
+  {{- /if }}
 </head>
 <body>
   {{ content }}

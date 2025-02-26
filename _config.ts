@@ -195,6 +195,10 @@ site.copy("assets/vendor/");
 const landing = 'placeholder';
 const devLanding = 'v1';
 site.data('landingPage', Deno.env.get('LUME_DRAFTS') == 'true' ? devLanding : landing, '/landing');
+site.data('build', {
+  live: site.options.location.host == 'data.bradford2025.co.uk',
+  host: site.options.location.host,
+});
 
 // Kludge to strip height and width from in line svg
 site.process(['.html'], (pages) => pages.forEach(page => {
