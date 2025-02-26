@@ -97,10 +97,6 @@ This list contains any Local Authority with a count of more than 20 tickets:
 {{>
     const unmatched = oslauaTickets.find(x => x.geography_code === 'UNMATCHED');
     const missing = oslauaTickets.find(x => x.geography_code === 'MISSING');
-    console.log({
-        missing,
-        unmatched
-    })
 }}
 {{ if missing }}
 There were
