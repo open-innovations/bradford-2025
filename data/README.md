@@ -9,12 +9,12 @@ dvc import --out data/metadata/ --rev main git@github.com:bradford-2025/open-dat
 To fetch the currently defined version of the data, run the following
 
 ```sh
-dvc pull data/published.dvc data/metadata.dvc
+dvc pull data/published.dvc data/metadata.dvc data/status.json.dvc
 ```
 
 To update the version to the latest available on the remote repository, run the command
 
 ```sh
-dvc update data/published.dvc data/metadata.dvc
+dvc update data/published.dvc data/metadata.dvc data/status.json.dvc
 ```
 
