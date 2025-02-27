@@ -63,6 +63,7 @@ site.use(base_path());
 site.use(date({
   formats: {
     BD25_LONG_DATE: "d MMMM yyyy",
+    BD25_LONG_DATETIME: "d MMMM yyyy H:mm",
   }
 }));
 site.use(esbuild({
@@ -211,6 +212,11 @@ site.process(['.html'], (pages) => pages.forEach(page => {
   // Another kludge to avoid memory leaks on large pages
   page.content;
 }));
+
+site.remoteFile(
+  'healthcheck/_data/status.json',
+  import.meta.resolve('./data/status.json')
+);
 
 site.use(filters);
 

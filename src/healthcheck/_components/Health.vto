@@ -1,0 +1,17 @@
+---
+css: |
+    [data-comp=Status] {
+        text-align: center;
+        &.healthy {
+            color: white;
+            background: green;
+        }
+        &.unhealthy {
+            color: black;
+            background: red;
+        }
+    }
+---
+<div data-comp="Status" class="{{ [health ? 'healthy' : 'unhealthy', 'status'].join(' ') }}" style="{{ style || '' }}">
+    {{ health ? 'Healthy' : 'Unhealthy' }}
+</div>

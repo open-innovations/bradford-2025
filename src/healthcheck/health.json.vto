@@ -1,0 +1,5 @@
+---
+layout: templates/json.vto
+url: /healthcheck/health.json
+---
+{{ healthcheck({ status }) |> JSON.stringify(null, null) }}
