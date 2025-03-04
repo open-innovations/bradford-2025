@@ -1,0 +1,14 @@
+---
+css: |
+    [data-comp="grid-Auto"] {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--grid-gap);
+        & > * {
+            flex-grow: 1;
+        }
+    }
+---
+<div data-comp="grid-Auto">
+{{ content }}
+</div>
