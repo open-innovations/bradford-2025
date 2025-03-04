@@ -1,10 +1,9 @@
 ---
 css: |
-    [data-comp=masonry] {
-        --gap: 0.5rem;
+    [data-comp=grid-Masonry] {
         --column-count: 1;
         display: grid;
-        grid-gap: var(--gap);
+        gap: var(--grid-gap);
         grid-template-columns: repeat(var(--column-count), 1fr);
         grid-auto-flow: row dense;
         &>* {
@@ -19,6 +18,6 @@ css: |
         @media (min-width: 880px) { & { --column-count: 6; } }
     }
 ---
-<div data-comp="masonry">
+<div data-comp="grid-Masonry">
     {{ content }}
 </div>

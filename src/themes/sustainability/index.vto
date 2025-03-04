@@ -25,8 +25,8 @@ datasets:
 
 <section>
 <h2>Sustainability headlines</h2>
-{{ comp Masonry }}
-    {{ comp Brick { cols: 2 } }}
+{{ comp grid.Masonry }}
+    {{ comp grid.Brick { cols: 2 } }}
     {{ comp BigNumber {
         label: "Total emissions",
         number: calculations.summary.total_tCO2e,
@@ -37,7 +37,7 @@ datasets:
     </p>
     {{ /comp }}
     {{ /comp }}
-    {{ comp Brick }}
+    {{ comp grid.Brick }}
     {{ comp BigNumber {
         label: "Project related",
         number: calculations.summary.project_related_emissions,
@@ -53,8 +53,8 @@ datasets:
 
 <section>
 <h2>Details</h2>
-{{ comp Masonry }}
-{{ comp Brick { cols: 3 } }}
+{{ comp grid.Masonry }}
+{{ comp grid.Brick { cols: 3 } }}
 <h3>Breakdown by impact category</h3>
 <figure class="limit-width">
 {{ include './_partials/impact-category.vto' }}

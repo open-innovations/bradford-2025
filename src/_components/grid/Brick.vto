@@ -1,6 +1,6 @@
 ---
 css: |
-    [data-comp=brick] {
+    [data-comp=grid-Brick] {
         display: flex;
         flex-direction: column;
         & > * {
@@ -14,7 +14,7 @@ css: |
         style += `--cols:${cols}`;
     }
 }}
-<{{ tag || 'div' }} data-comp="brick"
+<{{ tag || 'div' }} data-comp="grid-Brick"
     {{ if style }} style="{{ style }}"{{ /if }}
     {{ if classes }} class="{{ classes }}"{{ /if }}
 >

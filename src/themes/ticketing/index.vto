@@ -126,8 +126,8 @@ seriesConfig:
 
 <section>
 <h3>Breakdowns</h3>
-{{ comp Masonry }}
-{{ comp Brick { cols: 2 } }}
+{{ comp grid.Masonry }}
+{{ comp grid.Brick { cols: 2 } }}
 {{#
 {{ comp.oi.table({
     config: {
@@ -149,7 +149,7 @@ seriesConfig:
 {{ /comp }}
 {{# Brick #}}
 
-{{ comp Brick { cols: 2 } }}
+{{ comp grid.Brick { cols: 2 } }}
 {{#
 {{ comp.oi.table({
     config: {
