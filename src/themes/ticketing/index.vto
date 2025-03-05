@@ -2,7 +2,7 @@
 title: Ticketing
 description: |
     Some events are ticketed. Find out how many tickets we've already sold.
-dev: true
+draft: true
 datasets:
     - tickets/orders
     - tickets/tickets
@@ -139,6 +139,7 @@ seriesConfig:
     }
 }) }}
 #}}
+{{ comp Figure { caption: 'Proportion of tickets sold by type of ticket' } }}
 {{ comp.oi.chart.waffle({
     config: {
         ...tickets_by_ticket_type,
@@ -146,6 +147,7 @@ seriesConfig:
         legend: { show: true, position: 'bottom' }
     }
 }) }}
+{{ /comp }}
 {{ /comp }}
 {{# Brick #}}
 
@@ -161,6 +163,7 @@ seriesConfig:
     }
 }) }}
 #}}
+{{ comp Figure { caption: 'Proportion of tickets sold by type of event' } }}
 {{ comp.oi.chart.waffle({
     config: {
         ...tickets_by_event_type,
@@ -168,6 +171,7 @@ seriesConfig:
         legend: { show: true, position: 'bottom' }
     }
 }) }}
+{{ /comp }}
 {{ /comp }}
 {{# Brick #}}
 {{ /comp }}
