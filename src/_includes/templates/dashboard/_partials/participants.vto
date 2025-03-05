@@ -43,4 +43,32 @@
         {{ /comp }}
     {{ /comp }}
 
+        {{ comp dashboard.Cell {
+        title: "GS (Gateway Review) Number of individuals engaged with professional development or educational opportunities",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["GS (Gateway Review) Number of individuals engaged with professional development or educational opportunities"],
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}
+
+       {{ comp dashboard.Cell {
+        title: "GS (Gateway Review) Numbers of individuals provided with volunteering opportunities",
+        flash: 'Sample',
+    } }}
+        {{ comp.BigNumber({
+            number: sample.audience["GS (Gateway Review) Numbers of individuals provided with volunteering opportunities"],
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                TBC
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}
+
 {{ /comp }} {{# dashboard.Frame #}}
