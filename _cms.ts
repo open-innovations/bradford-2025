@@ -31,4 +31,15 @@ cms.collection({
     nameField: "reference"
 });
 
+cms.collection({
+    name: "Dashboard metrics",
+    store: "src:insights/dashboard/_data/metrics/*.yml",
+    fields: [ 
+        { name: "title", type: "text", attributes: { required: true } },
+        { name: "forecast", type: "number" },
+        { name: "actual", type: "number" },
+        { name: "description", type: "markdown" }
+    ],
+    documentName: "{title}.md",
+})
 export default cms;
