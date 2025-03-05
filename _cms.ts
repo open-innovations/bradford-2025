@@ -40,6 +40,6 @@ cms.collection({
         { name: "actual", type: "number" },
         { name: "description", type: "markdown" }
     ],
-    documentName: "{title}.md",
+    documentName: "{title}.yml",
 })
 export default cms;
