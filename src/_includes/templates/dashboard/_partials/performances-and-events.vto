@@ -4,7 +4,7 @@
 } }}
     {{ comp BigNumber {
         number: metrics.events_total.actual,
-        suffix: ' projects'
+        suffix: ' events'
     } }}
         <p class="centred">Events are not yet fully tracked. Presenting Project as summary.</p>
     {{ /comp }}
@@ -17,7 +17,7 @@
             {{# {{ metrics.total_events.description |> md }} #}}
             {{ comp BigNumber {
                 number: metrics.events_total.actual,
-                suffix: ' projects'
+                suffix: ' events'
             } }}
                 <p class="centred">
                     Count of projects active between {{ timestamp.start |> date('HUMAN_DATE')}}
