@@ -36,6 +36,7 @@ cms.collection({
     store: "src:insights/dashboard/_data/metrics/*.yml",
     fields: [ 
         { name: "title", type: "text", attributes: { required: true } },
+        { name: "flash", type: "text" },
         { name: "forecast", type: "number" },
         { name: "actual", type: "number" },
         { name: "description", type: "markdown" }
