@@ -3,11 +3,11 @@
     {{ include './performances-and-events.vto' }}
 
     {{ comp dashboard.Cell {
-        title: 'In person performances and events',
+        title: metrics.events_in_person.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.events['In person performances and events'],
+            number: metrics.events_in_person.actual,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -20,11 +20,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: 'Online performances and events',
+        title: metrics.events_online.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.events['Online performances and events'],
+            number: metrics.events_online.actual,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -37,11 +37,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: 'Community-led arts projects',
+        title: metrics.events_community_led.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.events['Community led arts projects'],
+            number: metrics.events_community_led.actual,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -62,11 +62,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: 'Festivals',
+        title: metrics.events_festivals.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.events['Festivals'],
+            number: metrics.events_festivals.actual,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -82,11 +82,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: 'Exhibitions',
+        title: metrics.events_exhibitions.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.events['Exhibitions'],
+            number: metrics.events_exhibitions.actual,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -110,11 +110,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: 'Exhibition days',
+        title: metrics.events_exhibition_days.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.events['Exhibition days'],
+            number: metrics.events_exhibition_days.actual,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -130,11 +130,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: 'Events and Activities free to access',
+        title: metrics.events_free_activities.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.events['Events and Activities free to access'],
+            number: metrics.events_free_activities.actual,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}

@@ -1,11 +1,11 @@
 {{ comp dashboard.Frame }}
 
     {{ comp dashboard.Cell {
-        title: "Participants involved in activities",
+        title: metrics.participants_involved_activities.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.audience["Participants involved in activities"] ,
+            number: metrics.participants_involved_activities.actual ,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -15,11 +15,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: "Schools engaged",
+        title: metrics.participants_schools_engaged.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.audience["Schools engaged"] ,
+            number: metrics.participants_schools_engaged.actual ,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -29,11 +29,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: "Participants engaged in creative health activities",
+        title: metrics.participants_creative_health.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.audience["Participants engaged in creative health activities"],
+            number: metrics.participants_creative_health.actual,
         }) }}
         {{# Estelle - creative health manager. How this data logged. John McMahon #}}
         {{ comp Controls }}
@@ -44,11 +44,11 @@
     {{ /comp }}
 
         {{ comp dashboard.Cell {
-        title: "GS (Gateway Review) Number of individuals engaged with professional development or educational opportunities",
+        title: metrics.participants_professional_educational.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.audience["GS (Gateway Review) Number of individuals engaged with professional development or educational opportunities"],
+            number: metrics.participants_professional_educational.actual,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -58,11 +58,11 @@
     {{ /comp }}
 
        {{ comp dashboard.Cell {
-        title: "GS (Gateway Review) Numbers of individuals provided with volunteering opportunities",
+        title: metrics.participants_volunteering_opportunities.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.audience["GS (Gateway Review) Numbers of individuals provided with volunteering opportunities"],
+            number: metrics.participants_volunteering_opportunities.actual,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}

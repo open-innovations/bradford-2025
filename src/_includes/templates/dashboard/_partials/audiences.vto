@@ -1,10 +1,10 @@
 {{ comp dashboard.Frame }}
     {{ comp dashboard.Cell {
-        title: "GS (Gateway Review) audience engagements with Culture, Heritage or Sport",
+        title: metrics.audiences_culture_heritage_sport.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.audience["GS (Gateway Review) audience engagements with Culture, Heritage or Sport"],
+            number: metrics.audiences_culture_heritage_sport.actual,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -14,11 +14,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: "Face to face event attendees",
+        title: metrics.audiences_f2f_events.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.audience["Face to face event attendees"] ,
+            number: metrics.audiences_f2f_events.actual ,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -28,11 +28,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: "Digital event attendees",
+        title: metrics.audiences_digital_event_attendees.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.audience["Digital event attendees"] ,
+            number: metrics.audiences_digital_event_attendees.actual ,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -42,11 +42,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: "Audience split from Bradford",
+        title: metrics.audiences_split_bradford.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.audience["Audience split from Bradford"] ,
+            number: metrics.audiences_split_bradford.actual ,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -56,11 +56,11 @@
     {{ /comp }}
 
     {{ comp dashboard.Cell {
-        title: "Surveyed audiences reporting a positive experience",
+        title: metrics.audiences_positive_experience.title,
         flash: 'Sample',
     } }}
         {{ comp.BigNumber({
-            number: sample.audience["Surveyed audiences reporting a positive experience"] ,
+            number: metrics.audiences_positive_experience.actual ,
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
