@@ -14,7 +14,7 @@
                 Total count of {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}
                 (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}) held during the timescale covered by the dashboard.
             </p>
-            {{# {{ metrics.total_events.description |> md }} #}}
+            {{ metrics.events_total.description |> md }}
             {{ comp BigNumber {
                 number: metrics.events_total.actual,
                 suffix: ' events'

@@ -15,6 +15,7 @@
                     Total count of in-person {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}
                     (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}) held during the timescale covered by the dashboard.
                 </p>
+                {{ metrics.events_in_person.description |> md }}
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
@@ -32,6 +33,7 @@
                     Total count of online {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}
                     (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}) held during the timescale covered by the dashboard.
                 </p>
+                {{ metrics.events_online.description |> md }}
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
@@ -57,6 +59,7 @@
                 <p>
                     Could this double count?
                 </p>
+                {{ metrics.events_community_led.description |> md }}
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
@@ -77,6 +80,7 @@
                 <p>
                     Festivals will be counted as active if they started during the dashboard timescale.
                 </p>
+                {{ metrics.events_festivals.description |> md }}
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
@@ -105,6 +109,7 @@
                 <p>
                     Is an exhibition considered a project? Why isn't project defined in the glossary? Should it be?
                 </p>
+                {{ metrics.events_exhibitions.description |> md }}
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
@@ -125,6 +130,7 @@
                 <p>
                     Exhibitions days will be counted if they occur during the dashboard timescale.
                 </p>
+                {{ metrics.events_exhibition_days.description |> md }}
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
@@ -142,6 +148,7 @@
                     Total count of free-to-access {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} (and activities - are these defined separately??)
                     that were occurred during the timescale covered by the dashboard.
                 </p>
+                {{ metrics.events_free_activities.description |> md }}
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
