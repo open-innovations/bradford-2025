@@ -1,11 +1,11 @@
 ---
 css: |
-    [data-comp=details] {
+    [data-comp=Details] {
         &[open] {
         }
     }
 ---
-<details data-comp='details'>
+<details data-comp='Details'>
     {{ if summary }}<summary>{{ summary }}</summary>{{ /if -}}
     {{ content }}
 </details>
