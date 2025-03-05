@@ -81,6 +81,7 @@
 .oi-dashboard {
   & .panel {
     font-size: 1rem;
+    text-align: center;
     .footnote {
       font-size: 1em;
     }
@@ -91,6 +92,8 @@
   & .bignum {
     font-size: min(15vw, 4em);
     line-height: 1.25;
+    /* Fix for Safari */
+    display: unset;
   }
   & .oi-dashboard-inner {
     box-sizing: border-box;
