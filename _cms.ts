@@ -46,4 +46,17 @@ cms.collection({
     delete: false,
 })
 
+cms.collection({
+    name: "Glossary",
+    store: "src:glossary/term/*.md",
+    fields: [ 
+        { name: "title", type: "text", attributes: { required: true } },
+        { name: "description", type: "markdown" },
+        { name: "content", type: "markdown" },
+    ],
+    documentName: "{title}.md",
+    // create: false,
+    delete: false,
+})
+
 export default cms;
