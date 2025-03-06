@@ -104,8 +104,8 @@ stages:
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 076b37a053e286d111280fcbb1c7943b.dir
-      size: 1943860
+      md5: 800a4edadf2abecbeccc6c47c11a1eb0.dir
+      size: 2090297
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -124,8 +124,8 @@ stages:
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 076b37a053e286d111280fcbb1c7943b.dir
-      size: 1943860
+      md5: 800a4edadf2abecbeccc6c47c11a1eb0.dir
+      size: 2090297
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -144,8 +144,8 @@ stages:
     deps:
     - path: ../data/published/ticketing/
       hash: md5
-      md5: 076b37a053e286d111280fcbb1c7943b.dir
-      size: 1943860
+      md5: 800a4edadf2abecbeccc6c47c11a1eb0.dir
+      size: 2090297
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -174,3 +174,23 @@ stages:
       md5: 00f4482977cf9cc90e4b3e295747f157.dir
       size: 160
       nfiles: 2
+  events@grue:
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
+      '7601AHCJPTHNBCVJHLQNKQVKDRKRMLTPC' -p venue_postcode 'None' -p rosterfy_event_ids
+      '26540' -p project_id 'recpLG4BaPUSjpEhJ' -p id 'grue'
+    deps:
+    - path: ../data/published/ticketing/
+      hash: md5
+      md5: 800a4edadf2abecbeccc6c47c11a1eb0.dir
+      size: 2090297
+      nfiles: 3
+    - path: events.ipynb
+      hash: md5
+      md5: d607da4680498cd8b5bd0876c1e68b12
+      size: 3074
+    outs:
+    - path: ../src/events/grue/_data/event/
+      hash: md5
+      md5: ff3e6dccf56b600331f8b9f476bdca8a.dir
+      size: 60364
+      nfiles: 6
