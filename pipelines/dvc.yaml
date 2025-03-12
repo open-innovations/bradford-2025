@@ -75,3 +75,22 @@ stages:
       - ${ROOT}/src/themes/sustainability/_data/calculations/:
           cache: false
           persist: true
+
+  dashboards:
+    # Set this in the `params.yaml` file
+    foreach: ${dashboards}
+    do:
+      cmd: papermill --no-log-output dashboard.ipynb -
+        -p target '${item.target}'
+        -p start '${item.start}'
+        -p end '${item.end}'
+        -p fixed_date '${item.fixed_date}'
+      deps:
+        - dashboard.ipynb
+        - ${ROOT}/data/published/
+      outs:
+        - ${ROOT}/src/insights/dashboard/${item.target}/_data/:
+            cache: false
+            persist: true
+      
+
