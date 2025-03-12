@@ -6,11 +6,11 @@
     } }}
         {{ comp.BigNumber({
             number: metrics.participants_involved_activities.actual ,
+            suffix: ' participants',
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
                 TBC
-                v
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
@@ -21,6 +21,7 @@
     } }}
         {{ comp.BigNumber({
             number: metrics.participants_schools_engaged.actual ,
+            suffix: ' schools',
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -36,6 +37,7 @@
     } }}
         {{ comp.BigNumber({
             number: metrics.participants_creative_health.actual,
+            suffix: ' participants',
         }) }}
         {{# Estelle - creative health manager. How this data logged. John McMahon #}}
         {{ comp Controls }}

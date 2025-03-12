@@ -5,6 +5,7 @@
     } }}
         {{ comp.BigNumber({
             number: metrics.audiences_culture_heritage_sport.actual,
+            suffix: ' engagements',
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -19,6 +20,7 @@
     } }}
         {{ comp.BigNumber({
             number: metrics.audiences_f2f_events.actual ,
+            suffix: ' attendees',
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -34,6 +36,7 @@
     } }}
         {{ comp.BigNumber({
             number: metrics.audiences_digital_event_attendees.actual ,
+            suffix: ' attendees',
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -49,6 +52,7 @@
     } }}
         {{ comp.BigNumber({
             number: metrics.audiences_split_bradford.actual ,
+            suffix: '%',
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
@@ -63,7 +67,8 @@
         flash: metrics.audiences_positive_experience.flash,
     } }}
         {{ comp.BigNumber({
-            number: metrics.audiences_positive_experience.actual ,
+            number: metrics.audiences_positive_experience.actual,
+            suffix: '%',
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
