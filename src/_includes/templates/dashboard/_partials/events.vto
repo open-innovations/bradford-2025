@@ -1,3 +1,6 @@
+{{# TODO All TBC to be replaced with definition of what the top-level number shows
+#}}
+
 {{ comp dashboard.Frame }}
 
     {{ include './performances-and-events.vto' }}
@@ -108,12 +111,10 @@
                     started before or during the dashboard timescale
                     and finished either during or after the dashboard timescale.
                 </p>
-                <p>
+                {{#
                     Could this double count?
-                </p>
-                <p>
                     Is an exhibition considered a project? Why isn't project defined in the glossary? Should it be?
-                </p>
+                #}}
                 {{ metrics.events_exhibitions.description |> md }}
             {{ /comp }}
         {{ /comp }}

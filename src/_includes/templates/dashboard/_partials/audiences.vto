@@ -1,3 +1,6 @@
+{{# TODO All TBC to be replaced with definition of what the top-level number shows
+#}}
+
 {{ comp dashboard.Frame }}
     {{ comp dashboard.Cell {
         title: metrics.audiences_culture_heritage_sport.title,
@@ -24,8 +27,15 @@
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
-                TBC
+                <p>
+                    The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for face-to-face events that ran during the timescale.
+                </p>
                 {{ metrics.audiences_f2f_events.description |> md }}
+
+                {{# TODO Add count of tickets sold
+                    TODO Add count of tickets scanned (if available)
+                #}}
+
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
@@ -58,6 +68,9 @@
             {{ comp Popover }}
                 TBC
                 {{ metrics.audiences_split_bradford.description |> md }}
+
+                {{# TODO Add overall split of tickets sold to Bradford
+                #}}
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
@@ -72,12 +85,14 @@
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
+
+                {{ metrics.audiences_positive_experience.description |> md }}
+
                 <p>Each survey will have</p>
                 <ul>
                 <li>What would you rate it? (Overall satisfaction) (1-5)</li>
                 <li>How likely on a scale of 1-10 7+ positive? (Net Promoter Score) (1-10)</li>
                 </ul>
-                {{ metrics.audiences_positive_experience.description |> md }}
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
