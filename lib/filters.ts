@@ -27,9 +27,12 @@ const wafflify = (sourceData, key = 'key', value = 'value', options = {}) => {
 
 export const capitalise = (s: string) => s.charAt(0).toLocaleUpperCase() + s.slice(1);
 
+export const listify = (l: string[], classes = "") => l.map(e => `<li class="${ classes }">${ e }</li>`).join('');
+
 export default function (site) {
     site.filter('wafflify', wafflify);
     site.filter('capitalise', capitalise);
+    site.filter('listify', listify);
     return site;
 }
 

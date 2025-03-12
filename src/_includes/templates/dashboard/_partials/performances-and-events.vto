@@ -10,14 +10,48 @@
         {{ comp Popover }}
             <p>
                 Total count of {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}
-                (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}) held during the timescale covered by the dashboard.
+                (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }})
+                held between {{ timestamp.start |> date('HUMAN_DATE') }} and {{ timestamp.end |> date('HUMAN_DATE')}}.
             </p>
             {{ metrics.events_total.description |> md }}
 
-            {{# TODO Add count of volunteer events between times
-                TODO Add count of ticketed events between times
-                TODO Add count of projects
-            #}}
+            <table style="margin-inline: auto; border-spacing: 1rem;">
+            <thead>
+                <tr>
+                <th scope="col">Measure</th>
+                <th scope="col">Value</th>
+                <th scope="col">Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">Ticketed events</th>
+                <td>{{ tickets.events.count }} events</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">Volunteering opportunities</th>
+                <td>{{ volunteer_shifts.shifts.count }} events</td>
+                <td>There may be more than one volunteering opportunity per event</td>
+            </tr>
+            </tbody>
+            </table>
+
+            <p>
+                Projects that delivered events during the timescale include:
+            </p>
+            <ul class="grid">{{ events.projects.names |> listify('block c-pink') }}</ul>
+
+            <p>
+                Ticketed events include:
+            </p>
+            <ul class="grid">{{ tickets.events.names |> listify('block c-yellow') }}</ul>
+
+            <p>
+                Volunteering opportunities included
+            </p>
+            <ul class="grid">{{ volunteer_shifts.events.names |> listify(('block c-green')) }}</ul>
+
 
             {{# Hide this for the moment
             {{ comp BigNumber {

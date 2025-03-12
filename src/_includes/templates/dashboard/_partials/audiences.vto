@@ -36,6 +36,10 @@
                     TODO Add count of tickets scanned (if available)
                 #}}
 
+                <p>
+                    {{ tickets.sold.total.toLocaleString() }} tickets were sold to the ticketed events.
+                </p>
+
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
@@ -71,6 +75,10 @@
 
                 {{# TODO Add overall split of tickets sold to Bradford
                 #}}
+
+                <p>
+                    {{ (100 * tickets.sold.bradford / tickets.sold.total).toLocaleString(undefined, { maximumFractionDigits: 0 }) }}% of ticket were bought by residents of Bradford.
+                </p>
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}

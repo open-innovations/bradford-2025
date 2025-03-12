@@ -18,6 +18,32 @@
                 {{# TODO Add count of volunteer shifts completed
                 #}}
 
+                <table style="margin-inline: auto; border-spacing: 1rem;">
+                <thead>
+                    <tr>
+                    <th scope="col">Measure</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Total volunteering shifts completed</th>
+                    <td>{{ volunteer_shifts.shifts.attended }} volunteer shifts</td>
+                    <td>
+                        This is the number of individual shifts completed. If 10 volunteers are staffing an event, this will count 10 shifts.
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Total hours of volunteering completed</th>
+                    <td>{{ volunteer_shifts.shifts.hours }} hours</td>
+                    <td>
+                        This is the total number of hours completed. If 10 volunteers attend a 2 hour shift, this will count 20 hours of volunteering.
+                    </td>
+                </tr>
+                </tbody>
+                </table>
+
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}
