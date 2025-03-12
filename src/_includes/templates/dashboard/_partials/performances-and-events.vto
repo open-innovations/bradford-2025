@@ -15,6 +15,8 @@
                 (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}) held during the timescale covered by the dashboard.
             </p>
             {{ metrics.events_total.description |> md }}
+
+            {{# Hide this for the moment
             {{ comp BigNumber {
                 number: metrics.events_total.actual,
                 suffix: ' events'
@@ -40,6 +42,7 @@
                 {{ /for -}}
             </tbody>
             </table>
+            #}}
         {{ /comp }}
     {{ /comp }}
 {{ /comp }}
