@@ -4,7 +4,7 @@ layout: templates/page.vto
 
 {{ comp.PageSummary(page.data) }}
 
-{{ set subpages = search.pages(`${index_tag} !url=${ url }`, 'title') }}
+{{ set subpages = search.pages(`${index_tag} !sub !url=${ url }`, 'title') }}
 
 <section>
     {{ if subpages.length }}
