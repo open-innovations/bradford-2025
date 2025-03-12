@@ -205,14 +205,14 @@ stages:
       nfiles: 9
     - path: dashboard.ipynb
       hash: md5
-      md5: e7dbbe3919a42c8010d644856e2f1916
-      size: 6005
+      md5: 7d0ce23411f03ba992a3fb283bc5ae1c
+      size: 6898
     outs:
     - path: ../src/insights/dashboard//_data/
       hash: md5
-      md5: 127902a702ac63b3cf41d510fc34fd41.dir
-      size: 2850
-      nfiles: 23
+      md5: 8b6c18e7902d97ed476b590b1ba64274.dir
+      size: 3908
+      nfiles: 24
   dashboards@q1:
     cmd: papermill --no-log-output dashboard.ipynb - -p target 'q1' -p start '2025-01-01'
       -p end '2025-03-31' -p fixed_date 'true'
@@ -224,11 +224,11 @@ stages:
       nfiles: 9
     - path: dashboard.ipynb
       hash: md5
-      md5: e7dbbe3919a42c8010d644856e2f1916
-      size: 6005
+      md5: 7d0ce23411f03ba992a3fb283bc5ae1c
+      size: 6898
     outs:
     - path: ../src/insights/dashboard/q1/_data/
       hash: md5
-      md5: 4ea6de9a261ed27a73dba196d932f9fc.dir
-      size: 1065
-      nfiles: 3
+      md5: 11cf6fd5f6f36171dc2271fe3b5a3b70.dir
+      size: 2123
+      nfiles: 4
