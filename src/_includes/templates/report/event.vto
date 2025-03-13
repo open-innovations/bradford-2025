@@ -2,6 +2,4 @@
 layout: templates/page.vto
 ---
 {{ comp.event.Headlines({ ...event }) }}
-{{ if event }}
 {{ comp.event.Tickets({ tickets: event.tickets }) }}
-{{ /if }}
