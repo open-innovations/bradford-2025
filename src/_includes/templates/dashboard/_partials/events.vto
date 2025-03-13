@@ -60,10 +60,7 @@
                 <p>
                     Projects will be counted as active if the project either
                     started before or during the dashboard timescale
-                    and finished either during or after the dashboard timescale.
-                </p>
-                <p>
-                    Could this double count?
+                    and finished either during or after the dashboard timescale. NOTE: Could this double count?
                 </p>
                 {{ metrics.events_community_led.description |> md }}
             {{ /comp }}
@@ -156,7 +153,9 @@
                     Total count of free-to-access {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} (and activities - are these defined separately??)
                     that were occurred during the timescale covered by the dashboard.
                 </p>
-                {{ metrics.events_free_activities.description |> md }}
+                <p>Total number of projects to date which are free = X</p>
+                <p>Total number of events to date which are free = X</p>
+                {{# {{ metrics.events_free_activities.description |> md }} #}}
             {{ /comp }}
         {{ /comp }}
     {{ /comp }}

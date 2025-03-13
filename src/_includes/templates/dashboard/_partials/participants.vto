@@ -13,10 +13,11 @@
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
-                TBC
 
                 {{# TODO Add count of volunteer shifts completed
                 #}}
+                {{ metrics.participants_involved_activities.description |> md }}
+
 
                 <table style="margin-inline: auto; border-spacing: 1rem;">
                 <thead>
@@ -58,7 +59,6 @@
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
-                TBC
                 {{ metrics.participants_schools_engaged.description |> md }}
             {{ /comp }}
         {{ /comp }}
@@ -75,7 +75,6 @@
         {{# Estelle - creative health manager. How this data logged. John McMahon #}}
         {{ comp Controls }}
             {{ comp Popover }}
-                TBC
                 {{ metrics.participants_creative_health.description |> md }}
             {{ /comp }}
         {{ /comp }}
@@ -90,7 +89,6 @@
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
-                TBC
                 {{ metrics.participants_professional_educational.description |> md }}
             {{ /comp }}
         {{ /comp }}
@@ -105,7 +103,6 @@
         }) }}
         {{ comp Controls }}
             {{ comp Popover }}
-                TBC
                 {{ metrics.participants_volunteering_opportunities.description |> md }}
             {{ /comp }}
         {{ /comp }}
