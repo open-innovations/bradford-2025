@@ -194,7 +194,7 @@ site.copy("assets/vendor/");
 
 // Set up landing page
 const landing = 'placeholder';
-const devLanding = 'v1';
+const devLanding = 'v2';
 site.data('landingPage', Deno.env.get('LUME_DRAFTS') == 'true' ? devLanding : landing, '/landing');
 site.data('build', {
   live: site.options.location.host == 'data.bradford2025.co.uk',
