@@ -9,7 +9,7 @@ css: |
         }
     }
 ---
-{{ comp grid.Brick }}
+{{ comp grid.Brick { style: 'min-width: min(20rem, 100%);' } }}
 <div data-comp='dashboard-Cell' class="block"{{ if flash }} data-flash="{{ flash }}"{{ /if }}>
 <{{ heading_level || 'h3' }} class="title">{{ title }}</{{ heading_level || 'h3' }}>
 {{ content }}

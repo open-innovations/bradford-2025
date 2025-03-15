@@ -9,13 +9,13 @@ css: |
     }
 ---
 {{>
-    let style = '';
+    let extraStyle = '';
     if (cols) {
-        style += `--cols:${cols}`;
+        extraStyle += `--cols:${cols}`;
     }
 }}
 <{{ tag || 'div' }} data-comp="grid-Brick"
-    {{ if style }} style="{{ style }}"{{ /if }}
+    {{ if style }} style="{{ style }}{{ extraStyle }}"{{ /if }}
     {{ if classes }} class="{{ classes }}"{{ /if }}
 >
 {{ content }}
