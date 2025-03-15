@@ -4,11 +4,15 @@ css: |
         display: flex;
         flex-wrap: wrap;
         gap: var(--grid-gap);
+        padding-inline: 0;
         & > * {
+            max-width: 100%;
+            overflow-x: auto;
             flex-grow: 1;
+            flex-shrink: 1;
         }
     }
 ---
-<div data-comp="grid-Auto">
+<{{ tag || 'div' }} data-comp="grid-Auto">
 {{ content }}
-</div>
+</{{ tag || 'div' }}>

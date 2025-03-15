@@ -8,16 +8,16 @@ layout: templates/page.vto
 
 <section>
     {{ if subpages.length }}
-    <ul class="grid">
+    {{ comp grid.Auto { tag: 'ul' } }}
     {{ for page of subpages }}
-        <li>
+        {{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;" } }}
         <a class="block" href="{{ page.url }}">
             <h2>{{ page.title }}</h2>
-            <p>{{ page.description |> md }}</p>
+            {{ page.description |> md }}
         </a>
-        </li>
+        {{ /comp }}
     {{ /for }}
-    </ul>
+    {{ /comp }}
     {{ else }}
     <p>
         There are no pages tagged with <q>{{ index_tag }}.</p>
