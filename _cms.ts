@@ -39,7 +39,8 @@ cms.collection({
         { name: "flash", type: "text" },
         { name: "forecast", type: "number" },
         { name: "actual", type: "number" },
-        { name: "description", type: "markdown" }
+        { name: "description", description: "This will be displayed as narrative on the site", type: "markdown" },
+        { name: "notes", description: "Internal notes, not for public display", type: "markdown" },
     ],
     documentName: "{title}.yml",
     // create: false,

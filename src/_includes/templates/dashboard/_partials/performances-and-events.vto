@@ -31,7 +31,7 @@
             </tr>
             <tr>
                 <th scope="row">Volunteering opportunities</th>
-                <td>{{ volunteer_shifts.shifts.count }} events</td>
+                <td>{{ volunteers.shifts.count }} events</td>
                 <td>There may be more than one volunteering opportunity per event</td>
             </tr>
             </tbody>
@@ -50,7 +50,7 @@
             <p>
                 Volunteering opportunities included
             </p>
-            <ul class="grid">{{ volunteer_shifts.events.names |> listify(('block c-green')) }}</ul>
+            <ul class="grid">{{ volunteers.events.names |> listify(('block c-green')) }}</ul>
 
 
             {{# Hide this for the moment

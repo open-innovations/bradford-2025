@@ -205,8 +205,8 @@ stages:
       nfiles: 9
     - path: dashboard.ipynb
       hash: md5
-      md5: 361c10a9e0b76b85282a36b89e6da12f
-      size: 7972
+      md5: e0e5379c4616705738a119eeb8b46617
+      size: 8464
     outs:
     - path: ../src/insights/dashboard//_data/events.json
       hash: md5
@@ -220,10 +220,10 @@ stages:
       hash: md5
       md5: a9a3d9d02cc63be324a73b287ef6f7d5
       size: 44
-    - path: ../src/insights/dashboard//_data/volunteer_shifts.json
+    - path: ../src/insights/dashboard//_data/volunteers.json
       hash: md5
-      md5: 79ea8c7db6a93c50dbe94026bb8b2c01
-      size: 1226
+      md5: 2861d503786d5cea2a305f344afefc68
+      size: 1395
   dashboards@q1:
     cmd: papermill --no-log-output dashboard.ipynb - -p target 'q1' -p start '2025-01-01'
       -p end '2025-03-31' -p fixed_date 'true'
@@ -235,8 +235,8 @@ stages:
       nfiles: 9
     - path: dashboard.ipynb
       hash: md5
-      md5: 361c10a9e0b76b85282a36b89e6da12f
-      size: 7972
+      md5: e0e5379c4616705738a119eeb8b46617
+      size: 8464
     outs:
     - path: ../src/insights/dashboard/q1/_data/events.json
       hash: md5
@@ -250,7 +250,7 @@ stages:
       hash: md5
       md5: 8230919b926b2ab4e00cd8146a404411
       size: 44
-    - path: ../src/insights/dashboard/q1/_data/volunteer_shifts.json
+    - path: ../src/insights/dashboard/q1/_data/volunteers.json
       hash: md5
-      md5: 79ea8c7db6a93c50dbe94026bb8b2c01
-      size: 1226
+      md5: 2861d503786d5cea2a305f344afefc68
+      size: 1395
