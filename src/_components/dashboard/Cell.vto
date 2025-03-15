@@ -1,17 +1,16 @@
 ---
 css: |
-    [data-comp=dashboard-cell] {
+    [data-comp=dashboard-Cell] {
         display: flex !important;
         flex-direction: column;
         height: 100%;
-        min-width:400px;
         & .title {
             flex-grow: 1;
         }
     }
 ---
 {{ comp grid.Brick }}
-<div data-comp='dashboard-cell' class="block"{{ if flash }} data-flash="{{ flash }}"{{ /if }}>
+<div data-comp='dashboard-Cell' class="block"{{ if flash }} data-flash="{{ flash }}"{{ /if }}>
 <{{ heading_level || 'h3' }} class="title">{{ title }}</{{ heading_level || 'h3' }}>
 {{ content }}
 </div>
