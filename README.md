@@ -1,5 +1,9 @@
 # Bradford 2025 data dashboard
 
+_TL;DR:_ This site depends on data which is not checked in to git.
+Assuming you have a working `deno` and `pipenv` environment, the task `deno task daily` will prepare the site for build.
+For running the local version you probably want `deno task dev`.
+
 ## Pre-requisites
 
 1. Ensure that you can run `ssh git@github.com` successfully. If not, follow
