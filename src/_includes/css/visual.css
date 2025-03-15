@@ -1,7 +1,7 @@
 .block {
   display: block;
-  color: var(--block-fg);
-  background: var(--block-bg);
+  color: var(--block-fg, var(--color-white));
+  background: var(--block-bg, var(--color-offblack));
   &.uncoloured, &.no-colour {
     color: inherit;
     background: inherit;
