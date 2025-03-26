@@ -63,6 +63,8 @@ Could we say what the 3rd party events are.
 <p>
     The table below shows the cumulative shifts and hours by all volunteers by type of event, including internal (induction, education and evaluation) events.
 </p>
+{{ set sLatest = shifts.attended_cumulative_by_week.at(-1) }}
+{{ set hLatest = shifts.hours_cumulative_by_week.at(-1) }}
 <table>
     <thead>
         <tr class="c-pink">
@@ -72,15 +74,14 @@ Could we say what the 3rd party events are.
         </tr>
     <thead>
     <tbody>
-        <tr><th scope="row">Bradford 2025 event</th><td></td><td></td></tr>
-        <tr><th scope="row">Third Party Event</th><td></td><td></td></tr>
-        <tr><th scope="row">Induction</th><td></td><td></td></tr>
-        <tr><th scope="row">Education</th><td></td><td></td></tr>
-        <tr><th scope="row">Evaluation</th><td></td><td></td></tr>
-        <tr class="c-pink"><th scope="row">Total</th><td></td><td></td></tr>
+        <tr><th scope="row">Bradford 2025 event</th><td>{{ sLatest['BD25 Event']}}</td><td>{{ hLatest['BD25 Event']}}</td></tr>
+        <tr><th scope="row">Third Party Event</th><td>{{ sLatest['Third Party Event']}}</td><td>{{ hLatest['Third Party Event']}}</td></tr>
+        <tr><th scope="row">Induction</th><td>{{ sLatest['Induction']}}</td><td>{{ hLatest['Induction']}}</td></tr>
+        <tr><th scope="row">Education</th><td>{{ sLatest['Education']}}</td><td>{{ hLatest['Education']}}</td></tr>
+        <tr><th scope="row">Evaluation</th><td>{{ sLatest['Evaluation']}}</td><td>{{ hLatest['Evaluation']}}</td></tr>
+        <tr class="c-pink"><th scope="row">Total</th><td>{{sLatest['BD25 Event'] + sLatest['Third Party Event'] + sLatest['Induction'] + sLatest['Education'] + sLatest['Evaluation'] }}</td><td>{{hLatest['BD25 Event'] + hLatest['Third Party Event'] + hLatest['Induction'] + hLatest['Education'] + hLatest['Evaluation'] }}</td></tr>
     </tbody>
 </table>
-
 </div>
 
 <h3 class="full-width keep-with-next">Weekly summary of shifts and hours</h3>
