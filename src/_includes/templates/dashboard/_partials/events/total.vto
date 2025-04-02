@@ -1,7 +1,8 @@
 {{ comp dashboard.Cell {
     title: metrics.events_total.title,
     flash: metrics.events_total.flash,
-    upTo: metrics.events_total.upTo
+    upTo: metrics.events_total.upTo,
+	classes: 'events'
 } }}
     {{ comp.BigNumber({
         number: metrics.events_total.actual,
