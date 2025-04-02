@@ -51,9 +51,13 @@ jobs:
           pipenv run dvc update data/huq.dvc
           ssh-add -D
 
+      - name: Run pipelines
+        run: |
+          pipenv run dvc repro -R pipelines
+
       - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Update data
+          commit_message: Update data and run pipelines
           file_pattern: data pipelines src
 
