@@ -1,13 +1,15 @@
 {{ comp dashboard.Cell {
     title: metrics.events_total.title,
     flash: metrics.events_total.flash,
-    upTo: metrics.events_total.upTo,
 	classes: 'events'
 } }}
     {{ comp.BigNumber({
-        number: metrics.events_total.actual,
+        number: events.events.count,
         suffix: ''
     }) }}
+	{{ comp.dashboard.Footer({
+		upTo: timestamp.end
+	}) }}
     {{ comp Controls }}
         {{ comp Popover }}
             <p>
@@ -27,14 +29,24 @@
             </thead>
             <tbody>
             <tr>
+                <th scope="row">Total events</th>
+                <td class="centred">{{ events.events.count }}</td>
+                <td>
+                    Count of events of type 'Public-facing activity' running between
+                    {{ timestamp.start |> date('HUMAN_DATE') }} and
+                    {{ timestamp.end |> date('HUMAN_DATE') }}, as recorded in
+                    the Bradford 2025 Project Hub.
+                </td>
+            </tr>
+            <tr>
                 <th scope="row">Ticketed events</th>
-                <td>{{ tickets.events.count }} events</td>
+                <td class="centred">{{ tickets.events.count }}</td>
                 <td></td>
             </tr>
             <tr>
-                <th scope="row">Volunteering opportunities</th>
-                <td>{{ volunteers.shifts.count }} events</td>
-                <td>There may be more than one volunteering opportunity per event</td>
+                <th scope="row">Volunteering shifts</th>
+                <td class="centred">{{ volunteers.shifts.count }}</td>
+                <td>There may be more than one volunteering shift per event, or each volunteering shift might cover multiple events</td>
             </tr>
             </tbody>
             </table>
