@@ -8,6 +8,9 @@
         number: volunteers.people.checkpoints["1. Monitoring & Evaluation"],
         suffix: '',
     }) }}
+	{{ comp.dashboard.Footer({
+		upTo: timestamp.end
+	}) }}
     {{ comp Controls }}
         {{ comp Popover }}
             {{ metrics.participants_volunteering_opportunities.description |> md }}
