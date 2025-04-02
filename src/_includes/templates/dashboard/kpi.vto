@@ -23,7 +23,18 @@ layout: templates/page.vto
 
 <h2>Events</h2>
 
-{{ include './_partials/events.vto' }}
+{{ comp dashboard.Frame }}
+
+    {{ include './_partials/events/total.vto' }}
+	{{ include './_partials/events/in_person.vto' }}
+	{{ include './_partials/events/online.vto' }}
+	{{ include './_partials/events/community_led.vto' }}
+	{{ include './_partials/events/festivals.vto' }}
+	{{ include './_partials/events/exhibitions.vto' }}
+	{{ include './_partials/events/exhibition_days.vto' }}
+	{{ include './_partials/events/free_activities.vto' }}
+
+{{ /comp }}
 
 <h2>Audiences</h2>
 
