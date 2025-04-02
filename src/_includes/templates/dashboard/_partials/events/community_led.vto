@@ -1,0 +1,24 @@
+
+{{ comp dashboard.Cell {
+	title: metrics.events_community_led.title,
+	flash: metrics.events_community_led.flash,
+} }}
+	{{ comp.BigNumber({
+		number: metrics.events_community_led.actual,
+		suffix: '',
+	}) }}
+	{{ comp Controls }}
+		{{ comp Popover }}
+			<p>
+				Total count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}
+				that were active during the timescale covered by the dashboard.
+			</p>
+			<p>
+				Projects will be counted as active if the project either
+				started before or during the dashboard timescale
+				and finished either during or after the dashboard timescale. NOTE: Could this double count?
+			</p>
+			{{ metrics.events_community_led.description |> md }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}

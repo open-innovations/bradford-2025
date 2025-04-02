@@ -1,0 +1,28 @@
+
+    {{ comp dashboard.Cell {
+        title: metrics.events_exhibitions.title,
+        flash: metrics.events_exhibitions.flash,
+    } }}
+        {{ comp.BigNumber({
+            number: metrics.events_exhibitions.actual,
+            suffix: '',
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                <p>
+                    Total count of exhibitions
+                    that were active during the timescale covered by the dashboard.
+                </p>
+                <p>
+                    Exhibitions will be counted as active if the project either
+                    started before or during the dashboard timescale
+                    and finished either during or after the dashboard timescale.
+                </p>
+                {{#
+                    Could this double count?
+                    Is an exhibition considered a project? Why isn't project defined in the glossary? Should it be?
+                #}}
+                {{ metrics.events_exhibitions.description |> md }}
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}

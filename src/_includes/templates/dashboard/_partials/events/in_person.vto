@@ -1,0 +1,23 @@
+
+{{ comp dashboard.Cell {
+	title: metrics.events_in_person.title,
+	flash: metrics.events_in_person.flash,
+	
+} }}
+	{{ comp.BigNumber({
+		number: metrics.events_in_person.actual,
+		suffix: '',
+	}) }}
+	{{ comp.dashboard.Footer({
+		upTo: metrics.events_in_person.upTo
+	}) }}
+	{{ comp Controls }}
+		{{ comp Popover }}
+			<p>
+				Total count of in-person {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}
+				(including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}) held during the timescale covered by the dashboard.
+			</p>
+			{{ metrics.events_in_person.description |> md }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}

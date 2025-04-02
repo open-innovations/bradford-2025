@@ -24,43 +24,54 @@ scales:
 
 
 <section>
-<h2>Colour classes</h2>
+	<h2>Colour classes</h2>
 
-<ul class="grid regular">
-<li class="full-width"><h3>Text colours</h3></li>
-{{ for colour of [ 'c-yellow', 'c-pink', 'c-green' ] }}
-<li class="block" style="--block-bg:var(--color-offblack);--block-fg:white;">
-<p class="{{ colour }}">class: <code>{{ colour }}</code></p>
-</li>
-{{ /for }}
-<li class="full-width"><h3>Colour blocks</h3></li>
-{{ for colour of [ 'c-yellow', 'c-pink', 'c-green' ] }}
-<li class="block {{ colour }}">
-<p>class: <code>block {{ colour }}</code></p>
-</li>
-{{ /for }}
-</ul>
-
+	<ul class="grid regular">
+		<li class="full-width"><h3>Text colours</h3></li>
+		{{ for colour of [ 'c-yellow', 'c-pink', 'c-green' ] }}
+			<li class="block" style="--block-bg:var(--color-offblack);--block-fg:white;">
+			<p class="{{ colour }}">class: <code>{{ colour }}</code></p>
+			</li>
+		{{ /for }}
+		<li class="full-width"><h3>Colour blocks</h3></li>
+		{{ for colour of [ 'c-yellow', 'c-pink', 'c-green' ] }}
+			<li class="block {{ colour }}">
+			<p>class: <code>block {{ colour }}</code></p>
+			</li>
+		{{ /for }}
+	</ul>
 </section>
 
 <section>
+	<ul class="grid regular">
+		<li class="full-width"><h3>CSS colours</h3></li>
+		{{ for colour of [ 'yellow', 'pink', 'green' ] }}
+			<li class="block" style="--block-bg:var(--color-{{ colour }});--block-fg:white;">
+				<p><code>--color-{{ colour }}</code></p>
+			</li>
+		{{ /for }}
+	</ul>
+</section>
 
-<h2>Colour scales</h2>
 
-<h3>Fades</h3>
+<section>
 
-{{ comp.ScaleSample({ scales: scales.fade }) }}
+	<h2>Colour scales</h2>
 
-<h3>Divergent</h3>
+	<h3>Fades</h3>
 
-{{ comp.ScaleSample({ scales: scales.divergent }) }}
+	{{ comp.ScaleSample({ scales: scales.fade }) }}
 
-<h3>White to colour</h3>
+	<h3>Divergent</h3>
 
-{{ comp.ScaleSample({ scales: scales.white }) }}
+	{{ comp.ScaleSample({ scales: scales.divergent }) }}
 
-<h3>Bi-colour</h3>
+	<h3>White to colour</h3>
 
-{{ comp.ScaleSample({ scales: scales.bicolour }) }}
+	{{ comp.ScaleSample({ scales: scales.white }) }}
+
+	<h3>Bi-colour</h3>
+
+	{{ comp.ScaleSample({ scales: scales.bicolour }) }}
 
 </section>
