@@ -13,18 +13,15 @@ layout: templates/page.vto
 
 
 <h2>Headlines</h2>
-
-
 {{ comp dashboard.Frame }}
 	{{ include './_partials/events/total.vto' }}
 	{{ include "./_partials/audiences/total.vto" }}
 	{{ include './_partials/participants/volunteers.vto' }}
 {{ /comp }}
 
+
 <h2>Events</h2>
-
-{{ comp dashboard.Frame }}
-
+{{ comp dashboard.Frame {bigfirst:true} }}
     {{ include './_partials/events/total.vto' }}
 	{{ include './_partials/events/in_person.vto' }}
 	{{ include './_partials/events/online.vto' }}
@@ -33,16 +30,27 @@ layout: templates/page.vto
 	{{ include './_partials/events/exhibitions.vto' }}
 	{{ include './_partials/events/exhibition_days.vto' }}
 	{{ include './_partials/events/free_activities.vto' }}
-
 {{ /comp }}
 
-<h2>Audiences</h2>
 
-{{ include './_partials/audiences.vto' }}
+<h2>Audiences</h2>
+{{ comp dashboard.Frame {bigfirst:true} }}    
+	{{ include "./_partials/audiences/total.vto" }}
+	{{ include "./_partials/audiences/f2f.vto" }}
+	{{ include "./_partials/audiences/digital_attendees.vto" }}
+	{{ include "./_partials/audiences/split_bradford.vto" }}
+	{{ include "./_partials/audiences/positive_experience.vto" }}
+{{ /comp }}
+
 
 <h2>Participants</h2>
-
-{{ include './_partials/participants.vto' }}
+{{ comp dashboard.Frame {bigfirst:true} }}
+	{{ include "./_partials/participants/involved_activities.vto" }}
+	{{ include "./_partials/participants/schools_engaged.vto" }}
+	{{ include "./_partials/participants/creative_health.vto" }}
+	{{ include "./_partials/participants/professional_educational.vto" }}
+    {{ include './_partials/participants/volunteers.vto' }}
+{{ /comp }}
 
 {{ comp.WARNING() }}
 

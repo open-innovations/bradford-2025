@@ -1,0 +1,14 @@
+
+        {{ comp dashboard.Cell {
+        title: metrics.participants_professional_educational.title,
+        flash: metrics.participants_professional_educational.flash,
+    } }}
+        {{ comp.BigNumber({
+            number: metrics.participants_professional_educational.actual,
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                {{ metrics.participants_professional_educational.description |> md }}
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}

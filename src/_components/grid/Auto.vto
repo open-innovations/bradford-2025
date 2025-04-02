@@ -11,8 +11,11 @@ css: |
             flex-grow: 1;
             flex-shrink: 1;
         }
+        &.big-first > *:first-child {
+            flex-basis: 100%;
+        }
     }
 ---
-<{{ tag || 'div' }} data-comp="grid-Auto">
+<{{ tag || 'div' }} data-comp="grid-Auto" {{ if bigfirst }}class="big-first"{{ /if }}>
 {{ content }}
 </{{ tag || 'div' }}>

@@ -1,3 +1,12 @@
+---
+css: |
+    [data-comp=dashboard-Cell] {
+        .date {
+            text-align: center;
+            color: var(--date-fg, #dddddd);
+        }
+    }
+---
 {{ if upTo }}
     <p class='date'>
         <span class="text">as of {{ upTo |> date('HUMAN_DATE') }}</span>

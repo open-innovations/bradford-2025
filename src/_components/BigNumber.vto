@@ -1,7 +1,6 @@
 ---
 css: |
     [data-comp=big-number] {
-        padding: 1em;
         display: flex !important;
         flex-direction: column;
         align-items: center;
@@ -60,7 +59,7 @@ js: |
 ---
 <div
     data-comp="big-number"
-    class="block {{ classes || ""}}"
+    {{ if classes }}class="{{ classes || ""}}"{{ /if }}
     {{ if animate -}}
     data-animate data-number="{{ number }}"
     {{- if roundingOptions }} data-rounding-options={{ JSON.stringify(roundingOptions) }}{{ /if -}}

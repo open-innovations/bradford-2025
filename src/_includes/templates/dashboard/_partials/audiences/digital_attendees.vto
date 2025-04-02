@@ -1,0 +1,15 @@
+
+    {{ comp dashboard.Cell {
+        title: metrics.audiences_digital_event_attendees.title,
+        flash: metrics.audiences_digital_event_attendees.flash,
+    } }}
+        {{ comp.BigNumber({
+            number: metrics.audiences_digital_event_attendees.actual ,
+            suffix: '',
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                {{ metrics.audiences_digital_event_attendees.description |> md }}
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}

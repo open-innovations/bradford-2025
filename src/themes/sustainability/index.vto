@@ -30,7 +30,8 @@ datasets:
     {{ comp BigNumber {
         label: "Total emissions",
         number: calculations.summary.total_tCO2e,
-        suffix: ''
+        suffix: '',
+		classes: 'block'
     } }}
     <p class="centred">
         Tonnes of carbon dioxide equivalent <span>(tCO<sub>2</sub>e)</span>
@@ -41,7 +42,8 @@ datasets:
     {{ comp BigNumber {
         label: "Project related",
         number: calculations.summary.project_related_emissions,
-        suffix: '%'
+        suffix: '%',
+		classes: 'block'
     } }}
     <p class="centred">
         Emissions that can be allocated to projects.

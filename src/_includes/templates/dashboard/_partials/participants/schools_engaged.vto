@@ -1,0 +1,15 @@
+
+    {{ comp dashboard.Cell {
+        title: metrics.participants_schools_engaged.title,
+        flash: metrics.participants_schools_engaged.flash,
+    } }}
+        {{ comp.BigNumber({
+            number: metrics.participants_schools_engaged.actual ,
+            suffix: '',
+        }) }}
+        {{ comp Controls }}
+            {{ comp Popover }}
+                {{ metrics.participants_schools_engaged.description |> md }}
+            {{ /comp }}
+        {{ /comp }}
+    {{ /comp }}

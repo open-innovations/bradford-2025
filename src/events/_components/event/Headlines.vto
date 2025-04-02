@@ -3,7 +3,7 @@
 {{ comp BigNumber {
     label: 'Tickets sold',
     number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets,
-    classes: 'c-pink',
+    classes: 'block c-pink',
     animate: true,
     roundingOptions: { maximumFractionDigits: 0 }
 } }}
@@ -16,7 +16,7 @@
     label: "Volunteer time",
     number: volunteers?.summary.find(x => x.date == 'ALL').hours,
     suffix: ' hours',
-    classes: 'c-yellow',
+    classes: 'block c-yellow',
     animate: true,
     roundingOptions: { maximumFractionDigits: 0 }
 } }}
@@ -35,7 +35,7 @@
     label: "Carbon footprint",
     number: sustainability.summary.tCO2e,
     suffix: ' tonnes',
-    classes: 'c-green',
+    classes: 'block c-green',
     animate: true,
     roundingOptions: { maximumSignificantDigits: 2 }
 } }}
