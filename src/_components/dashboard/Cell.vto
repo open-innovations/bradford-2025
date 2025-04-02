@@ -21,7 +21,7 @@ css: |
 {{ content }}
 {{ if upTo }}
     <p class='date'>
-        <span class="text">as of {{ upTo || '01/23/4567' }}</span>
+        <span class="text">as of {{ upTo |> date('HUMAN_DATE') }}</span>
     </p>
 {{ /if }}
 </div>
