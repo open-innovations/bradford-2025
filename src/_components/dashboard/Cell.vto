@@ -11,10 +11,18 @@ css: |
             text-align: center;
         }
     }
+    .date {
+        text-align: center;
+    }
 ---
 {{ comp grid.Brick { style: 'min-width: min(20rem, 100%);' } }}
 <div data-comp='dashboard-Cell' class="block"{{ if flash }} data-flash="{{ flash }}"{{ /if }}>
 <{{ heading_level || 'h3' }} class="title">{{ title }}</{{ heading_level || 'h3' }}>
 {{ content }}
+{{ if upTo }}
+    <p class='date'>
+        <span class="text">as of {{ upTo || '01/23/4567' }}</span>
+    </p>
+{{ /if }}
 </div>
 {{ /comp }}
