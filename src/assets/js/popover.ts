@@ -28,6 +28,7 @@ function initialisePopover(popover: HTMLElement) {
         if (!popup.isConnected) return;
         popup.remove();
         document.body.classList.remove('no-scroll');
+		btnShow.focus();
     }
     
     btnShow?.addEventListener('click', show);
