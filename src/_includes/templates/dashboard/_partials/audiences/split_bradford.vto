@@ -1,21 +1,22 @@
-    {{ comp dashboard.Cell {
-        title: metrics.audiences_split_bradford.title,
-        flash: metrics.audiences_split_bradford.flash,
-    } }}
-        {{ comp.BigNumber({
-            number: metrics.audiences_split_bradford.actual ,
-            suffix: '%',
-        }) }}
-        {{ comp Controls }}
-            {{ comp Popover }}
-                {{ metrics.audiences_split_bradford.description |> md }}
+{{ comp dashboard.Cell {
+	title: metrics.audiences_split_bradford.title,
+	flash: metrics.audiences_split_bradford.flash,
+	classes: 'audiences'
+} }}
+	{{ comp.BigNumber({
+		number: metrics.audiences_split_bradford.actual ,
+		suffix: '%',
+	}) }}
+	{{ comp Controls }}
+		{{ comp Popover }}
+			{{ metrics.audiences_split_bradford.description |> md }}
 
-                {{# TODO Add overall split of tickets sold to Bradford
-                #}}
+			{{# TODO Add overall split of tickets sold to Bradford
+			#}}
 
-                <p>
-                    {{ (100 * tickets.sold.bradford / tickets.sold.total).toLocaleString(undefined, { maximumFractionDigits: 0 }) }}% of ticket were bought by residents of Bradford.
-                </p>
-            {{ /comp }}
-        {{ /comp }}
-    {{ /comp }}
+			<p>
+				{{ (100 * tickets.sold.bradford / tickets.sold.total).toLocaleString(undefined, { maximumFractionDigits: 0 }) }}% of ticket were bought by residents of Bradford.
+			</p>
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}

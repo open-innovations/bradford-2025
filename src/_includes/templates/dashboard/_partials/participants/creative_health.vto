@@ -1,16 +1,16 @@
-
-    {{ comp dashboard.Cell {
-        title: metrics.participants_creative_health.title,
-        flash: metrics.participants_creative_health.flash,
-    } }}
-        {{ comp.BigNumber({
-            number: metrics.participants_creative_health.actual,
-            suffix: '',
-        }) }}
-        {{# Estelle - creative health manager. How this data logged. John McMahon #}}
-        {{ comp Controls }}
-            {{ comp Popover }}
-                {{ metrics.participants_creative_health.description |> md }}
-            {{ /comp }}
-        {{ /comp }}
-    {{ /comp }}
+{{ comp dashboard.Cell {
+	title: metrics.participants_creative_health.title,
+	flash: metrics.participants_creative_health.flash,
+	classes: 'participants'
+} }}
+	{{ comp.BigNumber({
+		number: metrics.participants_creative_health.actual,
+		suffix: '',
+	}) }}
+	{{# Estelle - creative health manager. How this data logged. John McMahon #}}
+	{{ comp Controls }}
+		{{ comp Popover }}
+			{{ metrics.participants_creative_health.description |> md }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}

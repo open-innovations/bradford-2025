@@ -1,19 +1,19 @@
+{{ comp dashboard.Cell {
+	title: metrics.audiences_f2f_events.title,
+	flash: metrics.audiences_f2f_events.flash,
+	classes: 'audiences'
+} }}
+	{{ comp.BigNumber({
+		number: metrics.audiences_f2f_events.actual ,
+		suffix: '',
+	}) }}
+	{{ comp Controls }}
+		{{ comp Popover }}
+			<p>
+				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for face-to-face events that ran during the timescale.
+			</p>
+			{{ metrics.audiences_f2f_events.description |> md }}
 
-    {{ comp dashboard.Cell {
-        title: metrics.audiences_f2f_events.title,
-        flash: metrics.audiences_f2f_events.flash,
-    } }}
-        {{ comp.BigNumber({
-            number: metrics.audiences_f2f_events.actual ,
-            suffix: '',
-        }) }}
-        {{ comp Controls }}
-            {{ comp Popover }}
-                <p>
-                    The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for face-to-face events that ran during the timescale.
-                </p>
-                {{ metrics.audiences_f2f_events.description |> md }}
-
-            {{ /comp }}
-        {{ /comp }}
-    {{ /comp }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}

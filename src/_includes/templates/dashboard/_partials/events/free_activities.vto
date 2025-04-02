@@ -1,19 +1,19 @@
-
-    {{ comp dashboard.Cell {
-        title: metrics.events_free_activities.title,
-        flash: metrics.events_free_activities.flash,
-    } }}
-        {{ comp.BigNumber({
-            number: metrics.events_free_activities.actual,
-            suffix: '',
-        }) }}
-        {{ comp Controls }}
-            {{ comp Popover }}
-                <p>
-                    Total count of free-to-access {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} (and activities - are these defined separately??)
-                    that were occurred during the timescale covered by the dashboard.
-                </p>
-                {{ metrics.events_free_activities.description |> md }}
-            {{ /comp }}
-        {{ /comp }}
-    {{ /comp }}
+{{ comp dashboard.Cell {
+	title: metrics.events_free_activities.title,
+	flash: metrics.events_free_activities.flash,
+	classes: 'events'
+} }}
+	{{ comp.BigNumber({
+		number: metrics.events_free_activities.actual,
+		suffix: '',
+	}) }}
+	{{ comp Controls }}
+		{{ comp Popover }}
+			<p>
+				Total count of free-to-access {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} (and activities - are these defined separately??)
+				that were occurred during the timescale covered by the dashboard.
+			</p>
+			{{ metrics.events_free_activities.description |> md }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}

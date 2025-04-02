@@ -1,22 +1,22 @@
-
-    {{ comp dashboard.Cell {
-        title: metrics.events_exhibition_days.title,
-        flash: metrics.events_exhibition_days.flash,
-    } }}
-        {{ comp.BigNumber({
-            number: metrics.events_exhibition_days.actual,
-            suffix: '',
-        }) }}
-        {{ comp Controls }}
-            {{ comp Popover }}
-                <p>
-                    Total count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}
-                    that were occurred during the timescale covered by the dashboard.
-                </p>
-                <p>
-                    Exhibitions days will be counted if they occur during the dashboard timescale.
-                </p>
-                {{ metrics.events_exhibition_days.description |> md }}
-            {{ /comp }}
-        {{ /comp }}
-    {{ /comp }}
+{{ comp dashboard.Cell {
+	title: metrics.events_exhibition_days.title,
+	flash: metrics.events_exhibition_days.flash,
+	classes: 'events'
+} }}
+	{{ comp.BigNumber({
+		number: metrics.events_exhibition_days.actual,
+		suffix: '',
+	}) }}
+	{{ comp Controls }}
+		{{ comp Popover }}
+			<p>
+				Total count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}
+				that were occurred during the timescale covered by the dashboard.
+			</p>
+			<p>
+				Exhibitions days will be counted if they occur during the dashboard timescale.
+			</p>
+			{{ metrics.events_exhibition_days.description |> md }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}
