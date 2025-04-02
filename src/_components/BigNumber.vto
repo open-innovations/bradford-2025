@@ -69,8 +69,7 @@ js: |
 {{ if label }}<p class="label">{{ label }}</p>{{ /if -}}
     <p class="number">
         <span class="numeric">{{ number.toLocaleString(undefined, roundingOptions) -}}</span>
-        {{# {{- if suffix }}<span class="suffix">{{ suffix }}</span>{{ /if -}} #}}
-        {{# Remove suffix for now. #}}
+        {{- if suffix }}<span class="suffix">{{ suffix }}</span>{{ /if -}}
     </p>
 {{ content }}
 </div>
