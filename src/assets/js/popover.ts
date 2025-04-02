@@ -21,6 +21,7 @@ function initialisePopover(popover: HTMLElement) {
         if (popup.isConnected) return;
         document.body.appendChild(popup);
         document.body.classList.add('no-scroll');
+		btnHide.focus();
     }
     
     const hide = () => {

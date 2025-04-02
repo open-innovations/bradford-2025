@@ -9,11 +9,19 @@ css: |
             position: absolute;
             white-space: nowrap; 
             width: 1px;
+            display: none;
         }
         & button.show {
             height: 100%;
             aspect-ratio: 1;
+            border-radius: 100%;
+            color: var(--color-offblack);
         }
+        & button.show:hover {
+            color: var(--color-black);
+            outline-color: var(--color-white);
+        }
+        background: transparent;
     }
     [data-comp=ActivePopover] {
         position: fixed;
@@ -59,16 +67,21 @@ css: |
         & > svg {
             height: 100%;
             stroke: currentColor;
+            stroke-width: 0;
+            background: transparent;
         }
     }
 ---
 <aside data-comp="Popover" data-dependencies="/assets/js/popover.js">
     <button class="show icon">
-    <svg viewBox="0 0 10 10">
-        <g transform="translate(5, 5)">
-        <circle r="3" fill="transparent"></circle>
-        <text font-size="5" font-weight="bold" fill="currentColor" stroke="none" font-style="oblique" dy="0.35em" dx="-0.075em" text-anchor="middle">i</text>
-        </g>
+    <svg viewBox="-4 -4 8 8">
+		<defs>
+			<mask id="sample">
+				<circle x="-4" y="-4" r="4" fill="white"/>
+				<text font-family="serif" font-size="6" font-weight="bold" fill="black" stroke="none" font-style="oblique" x="0" y="0" dy="0.35em" text-anchor="middle">i</text>
+			</mask>
+		</defs>
+        <circle x="0" y="0" r="3.8" stroke="none" fill="currentColor" mask="url(#sample)"></circle>
     </svg>
     </button>
     <div class="popover-content">
