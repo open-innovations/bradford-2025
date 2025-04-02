@@ -19,10 +19,6 @@ css: |
 <div data-comp='dashboard-Cell' class="block"{{ if flash }} data-flash="{{ flash }}"{{ /if }}>
 <{{ heading_level || 'h3' }} class="title">{{ title }}</{{ heading_level || 'h3' }}>
 {{ content }}
-{{ if upTo }}
-    <p class='date'>
-        <span class="text">as of {{ upTo |> date('HUMAN_DATE') }}</span>
-    </p>
-{{ /if }}
+
 </div>
 {{ /comp }}

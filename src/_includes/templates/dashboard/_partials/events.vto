@@ -7,12 +7,15 @@
 
     {{ comp dashboard.Cell {
         title: metrics.events_in_person.title,
-        flash: metrics.events_in_person.flash,
+        flash: metrics.events_in_person.flash
     } }}
         {{ comp.BigNumber({
             number: metrics.events_in_person.actual,
             suffix: '',
         }) }}
+		{{ comp.dashboard.Footer({
+			upTo: metrics.events_in_person.upTo
+		}) }}
         {{ comp Controls }}
             {{ comp Popover }}
                 <p>

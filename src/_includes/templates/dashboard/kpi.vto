@@ -11,6 +11,16 @@ layout: templates/page.vto
     This dashboard shows data from {{ timestamp.start |> date('HUMAN_DATE') }} to {{ timestamp.end |> date('HUMAN_DATE') }}.
 </p>
 
+
+<h2>Headlines</h2>
+
+
+{{ comp dashboard.Frame }}
+	{{ include './_partials/performances-and-events.vto' }}
+	{{ include "./_partials/audiences/total.vto" }}
+	{{ include './_partials/participants/volunteers.vto' }}
+{{ /comp }}
+
 <h2>Events</h2>
 
 {{ include './_partials/events.vto' }}

@@ -2,34 +2,8 @@
 #}}
 
 {{ comp dashboard.Frame }}
-    {{ comp dashboard.Cell {
-        title: metrics.audiences_culture_heritage_sport.title,
-        flash: metrics.audiences_culture_heritage_sport.flash,
-    } }}
-        {{ comp.BigNumber({
-            number: metrics.audiences_culture_heritage_sport.actual,
-            suffix: '',
-        }) }}
-        {{ comp Controls }}
-            {{ comp Popover }}
-                <p>
-                    The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events that ran between
-                    between {{ timestamp.start |> date('HUMAN_DATE') }} and {{ timestamp.end |> date('HUMAN_DATE') }}.
-                </p>
-                {{ metrics.audiences_culture_heritage_sport.description |> md }}
-
-                <h4>Ticket sales</h4>
-
-                <p>
-                    {{ tickets.sold.total.toLocaleString() }} tickets were sold to the ticketed events that were held in the period covered by this dashboard.
-                </p>
-
-                {{# TODO Add count of tickets scanned (if available)
-                #}}
-
-            {{ /comp }}
-        {{ /comp }}
-    {{ /comp }}
+    
+	{{ include "./audiences/total.vto" }}
 
     {{ comp dashboard.Cell {
         title: metrics.audiences_f2f_events.title,
