@@ -5,7 +5,7 @@ function initialisePopover(popover: HTMLElement) {
     const popup = document.createElement('aside')
     const btnHide = document.createElement('button');
     btnHide.classList.add('hide', 'icon');
-    btnHide.innerHTML = `<svg viewBox="0 0 10 10" stroke-width="2px"><path d="M2 2 L8 8 M2 8 L8 2"></svg>`;
+    btnHide.innerHTML = `<svg viewBox="0 0 10 10"><path d="M2 2 L8 8 M2 8 L8 2" stroke="currentColor" stroke-width="2px"></svg>`;
     {
         popup.dataset.comp="ActivePopover";
         const container = document.createElement('div');

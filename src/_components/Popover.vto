@@ -16,12 +16,15 @@ css: |
             aspect-ratio: 1;
             border-radius: 100%;
             color: var(--color-offblack);
+            stroke: currentColor;
+            stroke-width: 0;
         }
         & button.show:hover {
             color: var(--color-black);
             outline-color: var(--color-white);
         }
         background: transparent;
+        line-height: 0;
     }
     [data-comp=ActivePopover] {
         position: fixed;
@@ -54,6 +57,7 @@ css: |
             top: 1rem;
             right: 1rem;
             height: 1.5rem;
+            color: var(--color-offblack);
         }
     }
     button.icon {
@@ -66,8 +70,6 @@ css: |
         cursor: pointer;
         & > svg {
             height: 100%;
-            stroke: currentColor;
-            stroke-width: 0;
             background: transparent;
         }
     }
