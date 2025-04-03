@@ -11,19 +11,20 @@ css: |
             background: black;
         }
     }
-    .block {
-        &:is(a):hover, & a:hover, &:is(a):focus, & a:focus {
-            outline: none;
-            [data-comp=pill] {
-                color: white;
-                background: black;
-            }
+    .block:hover, .block a:hover, .block:focus , .block a:focus, {
+        outline: none;
+        [data-comp=pill] {
+            color: white;
+            background: black;
+            outline: .15em dashed black;
+            outline-offset: .3em;
         }
-        &:is(a):focus, & a:focus {
-            [data-comp=pill] {
-                outline: .15em dashed currentColor;
-                outline-offset: .3em;
-            }
+    }
+
+    .block:focus {
+        [data-comp=pill] {
+            outline: .15em dashed black;
+            outline-offset: .3em;
         }
     }
 ---
