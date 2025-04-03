@@ -10,8 +10,9 @@ css: |
             display: flex;
             align-items: center;
             color: inherit;
+            margin-top: 12px;
             font-weight: bold;
-            font-size: min(2rem, 9vw);
+            font-size: min(1.53rem, 9vw);
             text-decoration: none;
             gap: 0.5rem;
             &:hover {
@@ -24,13 +25,19 @@ css: |
         & img {
             height: 4rem;
         }
+        .logo-title {
+            margin-top: -4px;
+            .logo-main,.logo-sub { display: block; line-height: 1em; }
+            .logo-main { letter-spacing: -0.3px; }
+            .logo-sub { font-weight: 300; }
+        }
     }
 ---
 
 <header class="comp-site-header">
-<a href="/">
-<img src="/assets/images/logo.svg" alt="Bradford 2025 logo" inline>
-<p>{{ metas.site }}</p>
-</a>
-<h1>{{ title }}</h1>
+	<a href="/">
+		<img src="/assets/images/logo.svg" alt="Bradford 2025 logo" inline>
+		<p class="logo-title"><span class="logo-main">{{ metas.brand }}</span><span class="logo-sub">{{ metas.subbrand }}</span></p>
+	</a>
+	<h1>{{ title }}</h1>
 </header>
