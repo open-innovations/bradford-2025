@@ -7,13 +7,14 @@
 		number: tickets.sold.total,
 	}) }}
 	{{ comp.dashboard.Footer({
-		upTo: metrics.audiences_culture_heritage_sport.upTo
+		dateRange: timestamp,
+		updated: timestamp.updated,
 	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<p>
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events that ran between
-				between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.
+				between {{ comp.Date({start:timestamp.start, end:timestamp.end}) }}.
 			</p>
 			{{ metrics.audiences_culture_heritage_sport.description |> md }}
 

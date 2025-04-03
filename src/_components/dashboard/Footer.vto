@@ -6,9 +6,16 @@ css: |
     }
 ---
 <footer data-comp='dashboard-Footer'>
-{{ if upTo }}
+{{ if (upTo || dateRange || updated) }}
     <p class='date'>
+    {{ if dateRange }}
+        <span class="text">{{ comp.Date({ ...dateRange }) }}</span>
+    {{ else if upTo }}
         <span class="text">up to {{ comp.Date({start:upTo}) }}</span>
+    {{ /if -}}
+    {{- if updated -}}
+    <span class="text">(updated on {{ comp.Date({ start: updated }) }})</span>
+    {{- /if }}
     </p>
 {{ /if }}
 </footer>
