@@ -1,32 +1,41 @@
 function initialisePopover(popover: HTMLElement) {
     const btnShow = popover.querySelector('button.show');
     const content = popover.querySelector('div.popover-content');
-    
-    const popup = document.createElement('aside')
+
+	let popup = document.querySelector('dialog');
+	if(!document.querySelector('dialog')){
+		popup = document.createElement('dialog');
+		popup.removeAttribute('open');
+		document.body.appendChild(popup);
+	}
+	popup.dataset.comp = "ActivePopover";
+
     const btnHide = document.createElement('button');
     btnHide.classList.add('hide', 'icon');
     btnHide.innerHTML = `<svg viewBox="0 0 10 10"><path d="M2 2 L8 8 M2 8 L8 2" stroke="currentColor" stroke-width="2px"></svg>`;
-    {
-        popup.dataset.comp="ActivePopover";
-        const container = document.createElement('div');
-        const clonedContent = document.createElement('div');
-        clonedContent.classList.add('content-area');
-        popup.appendChild(container);
-        container.appendChild(btnHide);
-        container.appendChild(clonedContent);
-        clonedContent.innerHTML = content!.innerHTML;
-    }
-    
+
+	const clonedContent = document.createElement('div');
+	clonedContent.classList.add('content-area');
+	clonedContent.innerHTML = content!.innerHTML;
+
+	popup.addEventListener('click',function(event){
+		var rect = popup.getBoundingClientRect();
+		var isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height &&
+		rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+		if(!isInDialog) popup.close();
+	});
+
     const show = () => {
-        if (popup.isConnected) return;
-        document.body.appendChild(popup);
+		popup.showModal();
+		popup.innerHTML = "";
+		popup.appendChild(btnHide);
+		popup.appendChild(clonedContent);
         document.body.classList.add('no-scroll');
 		btnHide.focus();
     }
     
     const hide = () => {
-        if (!popup.isConnected) return;
-        popup.remove();
+		popup.close();
         document.body.classList.remove('no-scroll');
 		btnShow.focus();
     }

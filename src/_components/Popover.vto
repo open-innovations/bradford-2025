@@ -1,5 +1,12 @@
 ---
 css: |
+    ::backdrop {
+      background: black;
+      opacity: 0.8;
+    }
+    body.no-scroll {
+        margin: 0; height: 100%; overflow: hidden;
+    }
     [data-comp=Popover] {
         .popover-content {
             clip: rect(0 0 0 0); 
@@ -26,35 +33,22 @@ css: |
         line-height: 0;
     }
     [data-comp=ActivePopover] {
-        position: fixed;
-        background: #00000070;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        background: var(--site-background);
+        color: var(--site-foreground);
+        width: calc(100% - 2*var(--site-padding));
+        height: calc(100% - 2*var(--site-padding));
+        padding: 0;
         & > div {
-            background-color: var(--site-background);
-            color: var(--site-foreground);
-            margin: 2rem;
-            padding: 1rem;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            padding: var(--site-padding);
         }
         & .content-area {
             overflow-y: auto;
-            position: absolute;
-            top: 3rem;
-            left: 1rem;
-            right: 1rem;
-            bottom: 1rem;
+            & > *:first-child { margin-top: 0; }
         }
         & button.hide {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
+            position: sticky;
+            top: 0.5rem;
+            left: calc(100% - 2rem);
             height: 1.5rem;
             color: var(--site-foreground);
         }
