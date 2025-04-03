@@ -18,18 +18,21 @@
             <table>
             <thead>
             <tr class="c-pink">
-                <th>Measure</th>
-                <th>Value</th>
+                <th scope="col">Measure</th>
+                <th scope="col">Value</th>
+                <th scope="col">Description</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <th scope="row">Number of volunteers signed up</th>
+                <th scope="row">Signed up</th>
                 <td class="centred">{{ volunteers.people.checkpoints["1. Monitoring & Evaluation"].toLocaleString() }}</td>
+                <td>Number of volunteers who have expressed an interest and are completing their profile.</td>
             </tr>
             <tr>
-                <th scope="row">Number of volunteers who have completed the induction process</th>
+                <th scope="row">Completed induction</th>
                 <td class="centred">{{ volunteers.people.checkpoints["3. Fully Inducted Volunteers"].toLocaleString() }}</td>
+                <td>Number of volunteers who have completed the induction process</td>
             </tr>
             </tbody>
             </table>
