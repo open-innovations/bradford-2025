@@ -4,7 +4,7 @@
 	classes: 'events'
 } }}
     {{ comp.BigNumber({
-        number: events.events.count,
+        number: events.events.count + manual.events.our_patch,
         suffix: ''
     }) }}
     {{ comp.dashboard.Footer({
@@ -21,7 +21,7 @@
 
             <table style="margin-inline: auto; border-spacing: 1rem;">
             <thead>
-                <tr>
+                <tr class="c-yellow">
                 <th scope="col">Measure</th>
                 <th scope="col">Value</th>
                 <th scope="col">Notes</th>
@@ -29,18 +29,25 @@
             </thead>
             <tbody>
             <tr>
-                <th scope="row">Total events</th>
+                <th scope="row">Events recorded in Project Hub</th>
                 <td class="centred">{{ events.events.count }}</td>
                 <td>
-                    Count of events of type 'Public-facing activity' running between
-                    {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}, as recorded in
-                    the Bradford 2025 Project Hub.
+                    Events
+                    running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}
+                    recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>.
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Our Patch events</th>
+                <td class="centred">{{ manual.events.our_patch }}</td>
+                <td>
+                    Events run under as part of the Our Patch (community engagements) project.
                 </td>
             </tr>
             <tr>
                 <th scope="row">Ticketed events</th>
                 <td class="centred">{{ tickets.events.count }}</td>
-                <td></td>
+                <td>Ticketed events that ran between {{ comp.Date({ ...timestamp }) }}.</td>
             </tr>
             <tr>
                 <th scope="row">Volunteering shifts</th>
@@ -50,6 +57,7 @@
             </tbody>
             </table>
 
+            {{ if false }}
             <p>
                 Projects that delivered events during the timescale include:
             </p>
@@ -64,7 +72,7 @@
                 Volunteering opportunities included
             </p>
             <ul class="grid">{{ volunteers.events.names |> listify(('block c-green')) }}</ul>
-
+            {{ /if }}
 
             {{# Hide this for the moment
             {{ comp BigNumber {

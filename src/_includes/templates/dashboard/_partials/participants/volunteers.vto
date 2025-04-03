@@ -13,13 +13,7 @@
 	}) }}
     {{ comp Controls }}
         {{ comp Popover }}
-            {{ metrics.participants_volunteering_opportunities.description |> md }}
-
-            <p>
-                Volunteer numbers and activities are being actively monitored.
-                A <a href="/themes/volunteering/">prototype volunteering dashboard</a> has been developed and is
-                updated nightly with the most recent figures from the volunteer management system.
-            </p>
+            {{ metrics.participants_volunteering_opportunities.description |> md |> vto(page.data) }}
 
             <table>
             <thead>
@@ -31,11 +25,11 @@
             <tbody>
             <tr>
                 <th scope="row">Number of volunteers signed up</th>
-                <td>{{ volunteers.people.checkpoints["1. Monitoring & Evaluation"].toLocaleString() }}</td>
+                <td class="centred">{{ volunteers.people.checkpoints["1. Monitoring & Evaluation"].toLocaleString() }}</td>
             </tr>
             <tr>
                 <th scope="row">Number of volunteers who have completed the induction process</th>
-                <td>{{ volunteers.people.checkpoints["3. Fully Inducted Volunteers"].toLocaleString() }}</td>
+                <td class="centred">{{ volunteers.people.checkpoints["3. Fully Inducted Volunteers"].toLocaleString() }}</td>
             </tr>
             </tbody>
             </table>

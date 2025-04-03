@@ -13,16 +13,32 @@
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<p>
-				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events that ran between
+				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events held between
 				between {{ comp.Date({start:timestamp.start, end:timestamp.end}) }}.
 			</p>
 			{{ metrics.audiences_culture_heritage_sport.description |> md }}
 
-			<h4>Ticket sales</h4>
-
-			<p>
-				{{ tickets.sold.total.toLocaleString() }} tickets were sold to the ticketed events that were held in the period covered by this dashboard.
-			</p>
+			<table>
+				<thead>
+				<tr class="c-green">
+					<th scope="col">Measure</th>
+					<th scope="col">Value</th>
+					<th scope="col">Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<th scope='row'>Ticket sales</th>
+					<td class="centred">{{ tickets.sold.total.toLocaleString() }}</td>
+					<td>Total tickets sold for events held {{ comp.Date({ ...timestamp }) }}</td>
+				</tr>
+				<tr>
+					<th scope='row'>Tickets scanned</th>
+					<td class="centred">{{ '&mdash;' }}</td>
+					<td>Total tickets scanned at events held {{ comp.Date({ ...timestamp }) }}</td>
+				</tr>
+				</tbody>
+			</table>
 
 			{{# TODO Add count of tickets scanned (if available)
 			#}}
