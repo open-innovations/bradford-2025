@@ -1,0 +1,5 @@
+{{ if end }}
+<span class="date-range">{{ start |> date("L LLL")}} – {{ end |> date("L LLL y")}}</span>
+{{ else }}
+<span class="date">{{ start |> date("L LLL y")}}</span>
+{{ /if }}

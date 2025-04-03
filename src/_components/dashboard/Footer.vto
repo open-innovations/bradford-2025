@@ -9,6 +9,6 @@ css: |
 ---
 {{ if upTo }}
     <p class='date'>
-        <span class="text">up to {{ upTo |> date('HUMAN_DATE') }}</span>
+        <span class="text">up to {{ comp.Date({start:upTo}) }}</span>
     </p>
 {{ /if }}

@@ -16,7 +16,7 @@ if (by_age.reduce((a, c) => a + c.percentage, 0) !== 100) {
         The chart shows the age breakdown of volunteers, based on the date of birth they provided when signing up.
         We have a registered date of birth for <b>{{ Math.round(100 * by_age_total / total) }}%</b>
         of our volunteers ({{ by_age_total }} people).
-        The date of birth is calcuated as at {{ '2025-12-31' |> date('HUMAN_DATE') }},
+        The date of birth is calcuated as at {{ comp.Date({start:'2025-12-31'}) }},
         to avoid the ranges changing throughout the year.
     </p>
     <p>

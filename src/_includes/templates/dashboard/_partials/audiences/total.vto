@@ -14,7 +14,7 @@
 		{{ comp Popover }}
 			<p>
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events that ran between
-				between {{ timestamp.start |> date('HUMAN_DATE') }} and {{ timestamp.end |> date('HUMAN_DATE') }}.
+				between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.
 			</p>
 			{{ metrics.audiences_culture_heritage_sport.description |> md }}
 

@@ -11,7 +11,7 @@ description: |
         {{ comp.BigNumber({number: events.summary.total }) }}
         <div class="centred">
             Total events recorded in the <strong>Bradford 2025 Project hub</strong>.<br>
-            {{ events.summary.date.earliest |> date('HUMAN_DATE') }} to {{ events.summary.date.latest |> date('HUMAN_DATE') }}
+            {{ comp.Date({start:events.summary.date.earliest,end:events.summary.date.latest}) }}
         </div>
     {{ /comp }}
 {{ /comp }}

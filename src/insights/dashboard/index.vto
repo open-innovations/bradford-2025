@@ -25,7 +25,7 @@ oldUrl:
         {{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;--block-bg:var(--color-lightgrey);--block-fg:var(--color-offblack);" } }}
             <a class="block" href="{{ d.url }}">
                 <h2>{{ d.title }}</h2>
-                <p>{{ comp.DateRange({start:d.timestamp.start,end:d.timestamp.end}) }}</p>
+                <p>{{ comp.Date({start:d.timestamp.start,end:d.timestamp.end}) }}</p>
 				<p>{{ comp Pill }}View &rarr;{{ /comp }}</p>
             </a>
         {{ /comp }}
