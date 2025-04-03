@@ -1,14 +1,14 @@
 ---
 css: |
-    [data-comp=dashboard-Cell] {
-        .date {
-            text-align: center;
-            color: var(--date-fg, #dddddd);
-        }
+    [data-comp=dashboard-Footer] {
+        text-align: center;
+        color: var(--date-fg, #dddddd);
     }
 ---
+<footer data-comp='dashboard-Footer'>
 {{ if upTo }}
     <p class='date'>
         <span class="text">up to {{ comp.Date({start:upTo}) }}</span>
     </p>
 {{ /if }}
+<footer>
