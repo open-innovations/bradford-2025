@@ -5,27 +5,25 @@ oldUrl:
     - /dashboard/kpi/
 ---
 {{# Content for this is defined in <src/_includes/templates/dashboard/kpi.vto> #}}
-<p>
-    This is a prototype of the design of a potential KPI dashboard based on the requirements
-    of the West Yorkshire Combined Authority reporting. It is still Work in Progress. This dashboard will eventually show live metrics from the Bradford 2025 operational systems, updated nightly.
-    There are also more static reports based on quarterly stakeholder reporting:
-</p>
 
-{{# <ul>
-    {{ for d of ['q1'].map(x => search.page(`url="${url}${x}/"`)) }}
-    <li>
-    <a href="{{ d.url }}">{{ d.title }}
-    </a>
-    </li>
-    {{ /for }}
-</ul> #}}
+{{ echo |> md }}
+This dashboard shows the cumulative totals for significant output indicators for Bradford 2025.
+It is a <q>live</q> dashboard which draws data from key operational systems every night to provide an up-to-date view of delivery.
+The structure of the dashboard is derived from the reporting requirements of the West Yorkshire Combined Authority.
+
+The dashboard is currently work in progress, with some missing data, and some manually entered data.
+We are working hard to extract and verify the quality of the operational data.
+
+There are other versions of this dashboard which cover specific periods based on stakeholder reporting cycles.
+You can review these by clicking on the links below:
+{{ /echo }}
+
 <section>
 {{ comp grid.Auto { tag: 'ul' } }}
     {{ for d of ['q1', 'q2'].map(x => search.page(`url="${url}${x}/"`)) }}
         {{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;--block-bg:var(--color-lightgrey);--block-fg:var(--color-offblack);" } }}
             <a class="block" href="{{ d.url }}">
-                <h2>{{ d.title }}</h2>
-                <p>{{ comp.Date({start:d.timestamp.start,end:d.timestamp.end}) }}</p>
+                <p>{{ d.title }}: {{ comp.Date({start:d.timestamp.start,end:d.timestamp.end}) }}</p>
 				<p>{{ comp Pill }}View &rarr;{{ /comp }}</p>
             </a>
         {{ /comp }}

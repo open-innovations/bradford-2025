@@ -6,12 +6,11 @@ layout: templates/page.vto
 
 {{ content }}
 
-{{ comp.WARNING() }}
-
 <p>
-    {{# TODO make sure that start / end date are output by pipelines #}}
-    The dashboards below show data from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.
+    The figures below cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.
 </p>
+
+{{ comp.WARNING() }}
 
 <h2>Headlines</h2>
 {{ comp dashboard.Frame }}
