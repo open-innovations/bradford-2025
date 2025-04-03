@@ -7,6 +7,9 @@
 		number: metrics.participants_creative_health.actual,
 		suffix: '',
 	}) }}
+	{{ comp.dashboard.Footer({
+		upTo: metrics.participants_creative_health.upTo
+	}) }}
 	{{# Estelle - creative health manager. How this data logged. John McMahon #}}
 	{{ comp Controls }}
 		{{ comp Popover }}

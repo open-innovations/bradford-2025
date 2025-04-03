@@ -7,6 +7,9 @@
 		number: metrics.participants_schools_engaged.actual ,
 		suffix: '',
 	}) }}
+	{{ comp.dashboard.Footer({
+		upTo: metrics.participants_schools_engaged.upTo
+	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
 			{{ metrics.participants_schools_engaged.description |> md }}

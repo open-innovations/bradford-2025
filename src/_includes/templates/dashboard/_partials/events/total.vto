@@ -7,8 +7,8 @@
         number: events.events.count,
         suffix: ''
     }) }}
-	{{ comp.dashboard.Footer({
-		upTo: timestamp.end
+    {{ comp.dashboard.Footer({
+		upTo: metrics.events_total.upTo
 	}) }}
     {{ comp Controls }}
         {{ comp Popover }}

@@ -7,6 +7,9 @@
 		number: metrics.audiences_digital_event_attendees.actual ,
 		suffix: '',
 	}) }}
+        {{ comp.dashboard.Footer({
+		upTo: metrics.audiences_digital_event_attendees.upTo
+	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
 			{{ metrics.audiences_digital_event_attendees.description |> md }}

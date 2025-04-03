@@ -6,6 +6,9 @@
 	{{ comp.BigNumber({
 		number: metrics.participants_professional_educational.actual,
 	}) }}
+	{{ comp.dashboard.Footer({
+		upTo: metrics.participants_professional_educational.upTo
+	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
 			{{ metrics.participants_professional_educational.description |> md }}

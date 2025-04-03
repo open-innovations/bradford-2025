@@ -7,6 +7,9 @@
 		number: metrics.events_online.actual,
 		suffix: '',
 	}) }}
+	{{ comp.dashboard.Footer({
+		upTo: metrics.events_online.upTo
+	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<p>

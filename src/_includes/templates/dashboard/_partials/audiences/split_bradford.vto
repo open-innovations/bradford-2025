@@ -7,6 +7,9 @@
 		number: metrics.audiences_split_bradford.actual ,
 		suffix: '%',
 	}) }}
+        {{ comp.dashboard.Footer({
+		upTo: metrics.audiences_split_bradford.upTo
+	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
 			{{ metrics.audiences_split_bradford.description |> md }}

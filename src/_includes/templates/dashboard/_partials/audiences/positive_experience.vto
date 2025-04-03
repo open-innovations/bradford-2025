@@ -7,6 +7,9 @@
 		number: metrics.audiences_positive_experience.actual,
 		suffix: '%',
 	}) }}
+        {{ comp.dashboard.Footer({
+		upTo: metrics.audiences_positive_experience.upTo
+	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
 
