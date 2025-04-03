@@ -5,22 +5,22 @@ layout: templates/page.vto
 {{# <p>{{ comp.Date({start:timestamp.start,end:timestamp.end}) }}</p> #}}
 
 {{ comp.WARNING() }}
-<section>
+<section id="headlines">
 	<p>
 		The figures below cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.
 	</p>
 
 	{{ comp dashboard.Frame }}
-		{{ include './_partials/events/total.vto' }}
-		{{ include "./_partials/audiences/total.vto" }}
-		{{ include './_partials/participants/volunteers.vto' }}
+		{{ include './_partials/events/total.vto' { navLink: '#events' } }}
+		{{ include "./_partials/audiences/total.vto" { navLink: '#audiences' } }}
+		{{ include './_partials/participants/volunteers.vto' { navLink: '#participants' } }}
 	{{ /comp }}
 	
 	{{ content }}
 </section>
 <hr>
 
-<h2>Events</h2>
+<h2 id="events">Events</h2>
 {{ comp dashboard.Frame {bigfirst:true} }}
     {{ include './_partials/events/total.vto' }}
 	{{ include './_partials/events/in_person.vto' }}
@@ -33,7 +33,7 @@ layout: templates/page.vto
 {{ /comp }}
 
 
-<h2>Audiences</h2>
+<h2 id="audiences">Audiences</h2>
 {{ comp dashboard.Frame {bigfirst:true} }}    
 	{{ include "./_partials/audiences/total.vto" }}
 	{{ include "./_partials/audiences/f2f.vto" }}
@@ -43,7 +43,7 @@ layout: templates/page.vto
 {{ /comp }}
 
 
-<h2>Participants</h2>
+<h2 id="participants">Participants</h2>
 {{ comp dashboard.Frame {bigfirst:true} }}
 	{{ include "./_partials/participants/involved_activities.vto" }}
 	{{ include "./_partials/participants/schools_engaged.vto" }}

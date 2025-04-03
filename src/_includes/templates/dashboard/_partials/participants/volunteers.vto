@@ -12,6 +12,7 @@
 		upTo: timestamp.end
 	}) }}
     {{ comp Controls }}
+        {{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
         {{ comp Popover }}
             {{ metrics.participants_volunteering_opportunities.description |> md |> vto(page.data) }}
 

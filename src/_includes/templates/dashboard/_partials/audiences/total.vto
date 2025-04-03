@@ -11,6 +11,7 @@
 		updated: timestamp.updated,
 	}) }}
 	{{ comp Controls }}
+		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
 		{{ comp Popover }}
 			<p>
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events held between

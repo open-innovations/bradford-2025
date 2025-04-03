@@ -11,6 +11,7 @@
 		upTo: timestamp.end
 	}) }}
     {{ comp Controls }}
+        {{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
         {{ comp Popover }}
             <p>
                 Total count of {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}
