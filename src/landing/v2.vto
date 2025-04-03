@@ -12,6 +12,7 @@ headerExtra: |
     .river.centred {
         align-items:center;
     }
+    .river h2 { margin: 0; }
     </style>
 ---
 <main class="site-wrapper">
@@ -32,11 +33,11 @@ headerExtra: |
 </section>
 
 {{ if (search.pages('insight layout!=templates/index.vto').length > 0) || (displayEmpty || false) }}
-<section class="block c-yellow">
+<section class="block c-yellow-light">
     <div class="river">
         <a href="{{ '~/insights/index.yml' |> url }}">
-            <div style="font-size: 1.5em;">Insights</div>
-            <div>{{ search.data('/insights/').description }}</div>
+            <h2>Insights</h2>
+            <p>{{ search.data('/insights/').description }}</p>
             <p>
                 {{ comp Pill }}Explore the insights &rarr;{{ /comp }}
             </p>
@@ -47,11 +48,11 @@ headerExtra: |
 
 
 {{ if (search.pages('theme layout!=templates/index.vto').length > 0) || (displayEmpty || false) }}
-<section class="block c-green">
+<section class="block c-green-light">
     <div class="river">
         <a href="{{ '~/themes/index.yml' |> url }}">
-            <div style="font-size: 1.5em;">Themes</div>
-            <div>{{ search.data('/themes/').description }}</div>
+            <h2>Themes</h2>
+            <p>{{ search.data('/themes/').description }}</p>
             <p>
                 {{ comp Pill }}Explore the themes &rarr;{{ /comp }}
             </p>
@@ -60,11 +61,11 @@ headerExtra: |
 </section>
 
 {{ if (search.pages('experiment layout!=templates/index.vto').length > 0) || (displayEmpty || false) }}
-<section class="block c-pink">
+<section class="block c-pink-light">
     <div class="river">
         <a href="{{ '~/experiments/index.yml' |> url }}">
-            <div style="font-size: 1.5em;">Experiments</div>
-            <div>{{ search.data('/experiments/').description }}</div>
+            <h2>Experiments</h2>
+            <p>{{ search.data('/experiments/').description }}</p>
             <p>
                 {{ comp Pill }}Explore the experiments &rarr;{{ /comp }}
             </p>

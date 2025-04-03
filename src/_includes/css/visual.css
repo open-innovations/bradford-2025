@@ -1,29 +1,29 @@
 .block {
-  --hover: var(--color-pink);
-  display: block;
-  color: var(--block-fg, var(--color-white));
-  background: var(--block-bg, var(--color-offblack));
-  &.uncoloured, &.no-colour {
-    color: inherit;
-    background: inherit;
-  }
-  padding: 1rem;
-  box-sizing: border-box;
-  & > *:first-child {
-      margin-block-start: 0;
-  }
-  & > *:last-child {
-      margin-block-end: 0;
-  }
-  &:is(a), & a {
-    text-decoration: unset;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  & a {
-    color: inherit;
-  }
+	--hover: var(--color-pink);
+	display: block;
+	color: var(--block-fg, var(--color-white));
+	background: var(--block-bg, var(--color-offblack));
+	&.uncoloured, &.no-colour {
+		color: inherit;
+		background: inherit;
+	}
+	padding: 1rem;
+	box-sizing: border-box;
+	& > *:first-child {
+		margin-block-start: 0;
+	}
+	& > *:last-child {
+		margin-block-end: 0;
+	}
+	&:is(a), & a {
+		text-decoration: unset;
+	}
+	& a {
+		color: inherit;
+	}
+}
+.block:is(a):hover, .block:is(a):focus {
+	background: var(--block-bg, var(--color-black));
 }
 
 

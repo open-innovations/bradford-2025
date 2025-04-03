@@ -1,14 +1,29 @@
 ---
 css: |
     [data-comp=pill] {
-        color: black;
-        background: white;
+        color: var(--flash-fg,black);
+        background: var(--flash-bg,white);
         padding: 0.4em 1em;
         border-radius: 3em;
         display: inline-block;
         &:hover {
             color: white;
             background: black;
+        }
+    }
+    .block {
+        &:is(a):hover, & a:hover, &:is(a):focus, & a:focus {
+            outline: none;
+            [data-comp=pill] {
+                color: white;
+                background: black;
+            }
+        }
+        &:is(a):focus, & a:focus {
+            [data-comp=pill] {
+                outline: .15em dashed currentColor;
+                outline-offset: .3em;
+            }
         }
     }
 ---
