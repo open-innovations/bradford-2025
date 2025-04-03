@@ -1,16 +1,17 @@
 ---
 layout: templates/page.vto
 ---
+{{# TODO: check adding dates to the tops of pages #}}
+{{# <p>{{ timestamp.start |> date('HUMAN_DATE') }} to {{ timestamp.end |> date('HUMAN_DATE') }}</p> #}}
 
 {{ content }}
 
-<p>
-    {{# TODO make sure that start / end date are output by pipelines #}}
-    This dashboard shows data from {{ timestamp.start |> date('HUMAN_DATE') }} to {{ timestamp.end |> date('HUMAN_DATE') }}.
-</p>
-
 {{ comp.WARNING() }}
 
+<p>
+    {{# TODO make sure that start / end date are output by pipelines #}}
+    These dashboards shows data from {{ timestamp.start |> date('HUMAN_DATE') }} to {{ timestamp.end |> date('HUMAN_DATE') }}.
+</p>
 
 <h2>Headlines</h2>
 {{ comp dashboard.Frame }}

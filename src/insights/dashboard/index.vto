@@ -1,6 +1,6 @@
 ---
 draft: true
-title: Key Performance Indicators
+title: "2025 dashboard"
 oldUrl:
     - /dashboard/kpi/
 ---
@@ -12,15 +12,26 @@ oldUrl:
 
 <p>
     This dashboard will eventually show live metrics from the Bradford 2025 operational systems, updated nightly.
-    There are also more static reports based on quarterly stakeholder reporting. These are listed below:
+    There are also more static reports based on quarterly stakeholder reporting.
 </p>
 
-<ul>
+{{# <ul>
     {{ for d of ['q1'].map(x => search.page(`url="${url}${x}/"`)) }}
     <li>
     <a href="{{ d.url }}">{{ d.title }}
     </a>
     </li>
     {{ /for }}
-</ul>
-
+</ul> #}}
+<section>
+{{ comp grid.Auto { tag: 'ul' } }}
+    {{ for d of ['q1'].map(x => search.page(`url="${url}${x}/"`)) }}
+        {{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;" } }}
+            <a class="block" href="{{ d.url }}">
+                <h2>{{ d.title }}</h2>
+                <p>{{ d.timestamp.start |> date("HUMAN_DATE")}} to {{d.timestamp.end |> date("HUMAN_DATE")}}</p>
+            </a>
+        {{ /comp }}
+    {{ /for }}
+{{ /comp }}
+</section>

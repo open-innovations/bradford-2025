@@ -1,22 +1,23 @@
 ---
 layout: templates/page.vto
+sort_order: title
 ---
 
 {{ comp.PageSummary(page.data) }}
 
-{{ set subpages = search.pages(`${index_tag} !sub !url=${ url }`, 'title') }}
+{{ set subpages = search.pages(`${index_tag} !sub !url=${ url }`, sort_order) }}
 
 <section>
     {{ if subpages.length }}
     {{ comp grid.Auto { tag: 'ul' } }}
-    {{ for page of subpages }}
-        {{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;" } }}
-        <a class="block" href="{{ page.url }}">
-            <h2>{{ page.title }}</h2>
-            {{ page.description |> md }}
-        </a>
-        {{ /comp }}
-    {{ /for }}
+        {{ for page of subpages }}
+            {{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;" } }}
+            <a class="block" href="{{ page.url }}">
+                <h2>{{ page.title }}</h2>
+                {{ page.description |> md }}
+            </a>
+            {{ /comp }}
+        {{ /for }}
     {{ /comp }}
     {{ else }}
     <p>
