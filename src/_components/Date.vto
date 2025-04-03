@@ -1,5 +1,10 @@
 {{ if end }}
-<span class="date-range">{{ start |> date("L LLL")}} – {{ end |> date("L LLL y")}}</span>
+{{>
+    const yearless = "L LLL";
+    const withYear = yearless + " y";
+    const startDateFormat = (new Date(start)).getFullYear() == (new Date(end)).getFullYear() ? yearless : withYear;
+}}
+<span class="date-range">{{ start |> date(startDateFormat)}} – {{ end |> date(withYear)}}</span>
 {{ else }}
-<span class="date">{{ start |> date("L LLL y")}}</span>
+<span class="date">{{ start |> date(withYear)}}</span>
 {{ /if }}
