@@ -254,3 +254,23 @@ stages:
       hash: md5
       md5: c0a4c0724935265a0dc66d41faa7e322
       size: 1614
+  events@dracula:
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
+      '9001AGHDBMPJDRPSRMKLRCJGBJJMTQGDH' -p venue_postcode 'None' -p rosterfy_event_ids
+      'None' -p project_id 'None' -p id 'dracula'
+    deps:
+    - path: ../data/published/ticketing/
+      hash: md5
+      md5: b309548e21977806e44ed04d15f722a3.dir
+      size: 2711155
+      nfiles: 3
+    - path: events.ipynb
+      hash: md5
+      md5: d607da4680498cd8b5bd0876c1e68b12
+      size: 3074
+    outs:
+    - path: ../src/events/dracula/_data/event/
+      hash: md5
+      md5: 9a1ba9a4991d61dc08d6063c14f0b19d.dir
+      size: 11244
+      nfiles: 3
