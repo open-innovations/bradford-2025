@@ -21,7 +21,7 @@ oldUrl:
 </ul> #}}
 <section>
 {{ comp grid.Auto { tag: 'ul' } }}
-    {{ for d of ['q1'].map(x => search.page(`url="${url}${x}/"`)) }}
+    {{ for d of ['q1', 'q2'].map(x => search.page(`url="${url}${x}/"`)) }}
         {{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;--block-bg:var(--color-lightgrey);--block-fg:var(--color-offblack);" } }}
             <a class="block" href="{{ d.url }}">
                 <h2>{{ d.title }}</h2>
