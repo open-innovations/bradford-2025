@@ -4,15 +4,11 @@ title: "2025 dashboard"
 oldUrl:
     - /dashboard/kpi/
 ---
-{{# Content for this is defined in <src/_includes/templates/dashboard/kpi.md> #}}
+{{# Content for this is defined in <src/_includes/templates/dashboard/kpi.vto> #}}
 <p>
     This is a prototype of the design of a potential KPI dashboard based on the requirements
-    of the West Yorkshire Combined Authority reporting. It is still Work in Progress.
-</p>
-
-<p>
-    This dashboard will eventually show live metrics from the Bradford 2025 operational systems, updated nightly.
-    There are also more static reports based on quarterly stakeholder reporting.
+    of the West Yorkshire Combined Authority reporting. It is still Work in Progress. This dashboard will eventually show live metrics from the Bradford 2025 operational systems, updated nightly.
+    There are also more static reports based on quarterly stakeholder reporting:
 </p>
 
 {{# <ul>
@@ -26,10 +22,11 @@ oldUrl:
 <section>
 {{ comp grid.Auto { tag: 'ul' } }}
     {{ for d of ['q1'].map(x => search.page(`url="${url}${x}/"`)) }}
-        {{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;" } }}
+        {{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;--block-bg:var(--color-lightgrey);--block-fg:var(--color-offblack);" } }}
             <a class="block" href="{{ d.url }}">
                 <h2>{{ d.title }}</h2>
-                <p>{{ d.timestamp.start |> date("HUMAN_DATE")}} to {{d.timestamp.end |> date("HUMAN_DATE")}}</p>
+                <p>{{ comp.DateRange({start:d.timestamp.start,end:d.timestamp.end}) }}</p>
+				<p>{{ comp Pill }}View &rarr;{{ /comp }}</p>
             </a>
         {{ /comp }}
     {{ /for }}
