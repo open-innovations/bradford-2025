@@ -285,3 +285,33 @@ stages:
       md5: 9a1ba9a4991d61dc08d6063c14f0b19d.dir
       size: 11244
       nfiles: 3
+  dashboards@q2:
+    cmd: papermill --no-log-output dashboard.ipynb - -p target 'q2' -p start '2025-04-01'
+      -p end '2025-06-30' -p fixed_date 'true'
+    deps:
+    - path: ../data/published/
+      hash: md5
+      md5: 0044ed7965d896419a48e60763dc555d.dir
+      size: 3420001
+      nfiles: 11
+    - path: dashboard.ipynb
+      hash: md5
+      md5: b70e3d600d90a3c6cfa4e5b4118a61d4
+      size: 16050
+    outs:
+    - path: ../src/insights/dashboard/q2/_data/events.json
+      hash: md5
+      md5: 23121708ca16eadf62b99ca064a9fabe
+      size: 4296
+    - path: ../src/insights/dashboard/q2/_data/tickets.json
+      hash: md5
+      md5: b10a69aac8a1e8f8fc17d23d4e4a60d3
+      size: 2778
+    - path: ../src/insights/dashboard/q2/_data/timestamp.json
+      hash: md5
+      md5: b34f75923e8e4b94fa4919e047d6a1c3
+      size: 69
+    - path: ../src/insights/dashboard/q2/_data/volunteers.json
+      hash: md5
+      md5: 1a304aa7078d6ca0301a3537655a6b08
+      size: 392
