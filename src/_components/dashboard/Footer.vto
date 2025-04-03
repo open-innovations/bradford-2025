@@ -3,6 +3,12 @@ css: |
     [data-comp=dashboard-Footer] {
         text-align: center;
         color: var(--date-fg, #dddddd);
+        & > *:first-child {
+            margin-block-start: 0;
+        }
+        & > *:last-child {
+            margin-block-end: 0;
+        }
     }
 ---
 <footer data-comp='dashboard-Footer'>
