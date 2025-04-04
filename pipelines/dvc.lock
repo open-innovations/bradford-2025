@@ -334,3 +334,20 @@ stages:
       hash: md5
       md5: 13b52b4c663aad40969bba678f233a3a
       size: 2223
+  programme:
+    cmd: jupyter execute programme.ipynb
+    deps:
+    - path: ../data/published/programme/events.csv
+      hash: md5
+      md5: 8948b29c2436c6ce87fc2c8de168c183
+      size: 576891
+    - path: programme.ipynb
+      hash: md5
+      md5: d361634e0ddcab13fb34ef9d8cc9182e
+      size: 3621
+    outs:
+    - path: ../src/themes/programme/_data/events/
+      hash: md5
+      md5: ea1c78f0db2eb41d4606132a4b51f5b5.dir
+      size: 3624
+      nfiles: 4

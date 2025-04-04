@@ -2,6 +2,15 @@ vars:
   - ROOT: ..
   - VOLUNTEER_DATA: ../src/themes/volunteers/_data
 stages:
+  programme:
+    cmd: jupyter execute programme.ipynb
+    deps:
+      - programme.ipynb
+      - ${ROOT}/data/published/programme/events.csv
+    outs:
+      - ${ROOT}/src/themes/programme/_data/events/:
+          cache: false
+
   volunteers:
     cmd: papermill --no-log-output volunteers.ipynb output/volunteers.ipynb
     deps:
