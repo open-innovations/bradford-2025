@@ -4,7 +4,7 @@
 	classes: 'events'
 } }}
 	{{ comp.BigNumber({
-		number: metrics.events_community_led.actual,
+		number: (manual.events.our_patch || 0) + (manual.events.do_your_thing_micro_awards || 0),
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
