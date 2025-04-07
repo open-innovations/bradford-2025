@@ -4,7 +4,7 @@
 	classes: 'events'
 } }}
 	{{ comp.BigNumber({
-		number: metrics.events_exhibition_days.actual,
+		number:  manual.exhibitions.reduce((a, c) => a + c.days, 0) ,
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({
