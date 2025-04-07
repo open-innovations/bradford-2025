@@ -4,7 +4,7 @@
 	classes: 'events'
 } }}
 	{{ comp.BigNumber({
-		number: metrics.events_in_person.actual,
+		number: events.events.breakdown.in_person + manual.events.our_patch,
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
