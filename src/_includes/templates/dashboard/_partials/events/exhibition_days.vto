@@ -20,6 +20,27 @@
 				Exhibitions days will be counted if they occur during the dashboard timescale.
 			</p>
 			{{ metrics.events_exhibition_days.description |> md }}
+			<h3>Breakdown of exhibitions</h3>
+			<table>
+				<thead>
+					<tr class='c-yellow'>
+						<th scope='col'>Name</th>
+						<th scope='col'>Start</th>
+						<th scope='col'>End</th>
+						<th scope='col'>Days</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{ for e of manual.exhibitions }}
+						<tr>
+							<td class='centred'>{{e.name}}</td>
+							<td class='centred'>{{e.start}}</td>
+							<td class='centred'>{{e.end}}</td>
+							<td class='centred'>{{e.days}}</td>
+						</tr>
+					{{ /for }}
+				</tbody>
+			</table>
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
