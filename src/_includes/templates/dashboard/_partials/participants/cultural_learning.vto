@@ -1,0 +1,19 @@
+{{ comp dashboard.Cell {
+	title: metrics.participants_cultural_learning.title,
+	flash: metrics.participants_cultural_learning.flash,
+	classes: 'participants'
+} }}
+	{{ comp.BigNumber({
+		number: manual.participants.cultural_learning,
+		suffix: '',
+	}) }}
+	{{ comp.dashboard.Footer({
+		upTo: metrics.participants_cultural_learning.upTo
+	}) }}
+	{{# Estelle - creative health manager. How this data logged. John McMahon #}}
+	{{ comp Controls }}
+		{{ comp Popover }}
+			{{ metrics.participants_cultural_learning.description |> md }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}
