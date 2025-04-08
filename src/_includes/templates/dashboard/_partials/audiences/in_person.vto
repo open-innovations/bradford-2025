@@ -1,21 +1,21 @@
 {{ comp dashboard.Cell {
-	title: metrics.audiences_f2f_events.title,
-	flash: metrics.audiences_f2f_events.flash,
+	title: metrics.audiences_in_person_events.title,
+	flash: metrics.audiences_in_person_events.flash,
 	classes: 'audiences'
 } }}
 	{{ comp.BigNumber({
-		number: metrics.audiences_f2f_events.actual ,
+		number: tickets.sold.total ,
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({
-		upTo: metrics.audiences_f2f_events.upTo
+		upTo: metrics.audiences_in_person_events.upTo
 	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<p>
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for face-to-face events that ran during the timescale.
 			</p>
-			{{ metrics.audiences_f2f_events.description |> md }}
+			{{ metrics.audiences_in_person_events.description |> md }}
 
 		{{ /comp }}
 	{{ /comp }}
