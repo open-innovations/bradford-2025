@@ -4,7 +4,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: metrics.participants_involved_activities.actual ,
+		number: manual.participants.cultural_learning + manual.participants.community_participation + manual.participants.our_patch ,
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
@@ -12,11 +12,29 @@
 	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
-
 			{{# TODO Add count of volunteer shifts completed
 			#}}
 			{{ metrics.participants_involved_activities.description |> md }}
 
+			<table>
+				<thead class='c-pink'>
+					<tr>
+						<th scope='col'>Measure</th>
+						<th scope='col'>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Cultural learning</td><td>{{ manual.participants.cultural_learning }}</td>
+					</tr>
+					<tr>
+						<td>Our patch</td><td>{{ manual.participants.our_patch }}</td>
+					</tr>
+					<tr>
+						<td>Community participation</td><td>{{ manual.participants.community_participation }}</td>
+					</tr>
+				</tbody>
+			</table>
 
 			<table style="margin-inline: auto; border-spacing: 1rem;">
 			<thead>
