@@ -23,6 +23,47 @@
 				and finished either during or after the dashboard timescale. Note that these are also included in the "In-person" total.
 			</p>
 			{{ metrics.events_community_led.description |> md }}
+
+
+
+            <table style="margin-inline: auto; border-spacing: 1rem;">
+            <thead>
+                <tr class="c-yellow">
+                <th scope="col">Measure</th>
+                <th scope="col">Value</th>
+                <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">Our Patch events</th>
+                <td class="centred">{{ manual.events.our_patch }}</td>
+                <td>
+                    Events run as part of the Our Patch (community engagements) project.
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Do Your Thing Micro Awards</th>
+                <td class="centred">{{ manual.events.do_your_thing_micro_awards }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope='row'>Total</th>
+                <td class='centred'>{{ (manual.events.our_patch || 0) + (manual.events.do_your_thing_micro_awards || 0) }}</td>
+                <td>Total of above</td>
+            </tr>
+            {{# <tr>
+                <th scope="row">Ticketed events</th>
+                <td class="centred">{{ tickets.events.count }}</td>
+                <td>Ticketed events that ran between {{ comp.Date({ ...timestamp }) }}.</td>
+            </tr>
+            <tr>
+                <th scope="row">Volunteering shifts</th>
+                <td class="centred">{{ volunteers.shifts.count }}</td>
+                <td>There may be more than one volunteering shift per event, or each volunteering shift might cover multiple events</td>
+            </tr> #}}
+            </tbody>
+            </table>
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
