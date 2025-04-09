@@ -1,6 +1,6 @@
 {{ comp dashboard.Cell {
-	title: metrics.participants_involved_activities.title,
-	flash: metrics.participants_involved_activities.flash,
+	title: metrics.participants_total.title,
+	flash: metrics.participants_total.flash,
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
@@ -8,14 +8,14 @@
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
-		upTo: metrics.participants_involved_activities.upTo
+		upTo: metrics.participants_total.upTo
 	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
 			{{# TODO Add count of volunteer shifts completed
 			#}}
-			<h2>{{ metrics.participants_involved_activities.title }}</h2>
-			{{ metrics.participants_involved_activities.description |> md|> vto(page.data) }}
+			<h2>{{ metrics.participants_total.title }}</h2>
+			{{ metrics.participants_total.description |> md|> vto(page.data) }}
 
 			<table>
 				<thead class='c-pink'>
