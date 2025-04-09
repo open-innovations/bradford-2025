@@ -13,6 +13,7 @@
     {{ comp Controls }}
         {{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
         {{ comp Popover }}
+            <h2>{{metrics.events_total.title}}</h2>
             <p>
                 Total count of {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}
                 (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }})

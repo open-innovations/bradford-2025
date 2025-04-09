@@ -13,6 +13,7 @@
 	{{ comp Controls }}
 		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
 		{{ comp Popover }}
+			<h2>{{ metrics.audiences_culture_heritage_sport.title }}</h2>
 			<p>
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events held between
 				between {{ comp.Date({start:timestamp.start, end:timestamp.end}) }}.
