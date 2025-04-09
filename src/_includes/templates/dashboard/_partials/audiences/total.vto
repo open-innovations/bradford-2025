@@ -1,10 +1,10 @@
 {{ comp dashboard.Cell {
-	title: metrics.audiences_culture_heritage_sport.title,
-	flash: metrics.audiences_culture_heritage_sport.flash,
+	title: metrics.audiences_total.title,
+	flash: metrics.audiences_total.flash,
 	classes: 'audiences'
 } }}
 	{{ comp.BigNumber({
-		number: tickets.sold.total,
+		number: tickets.sold.total + (manual.audiences.count||0),
 	}) }}
 	{{ comp.dashboard.Footer({
 		dateRange: timestamp,
@@ -13,12 +13,12 @@
 	{{ comp Controls }}
 		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
 		{{ comp Popover }}
-			<h2>{{ metrics.audiences_culture_heritage_sport.title }}</h2>
+			<h2>{{ metrics.audiences_total.title }}</h2>
 			<p>
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events held between
 				between {{ comp.Date({start:timestamp.start, end:timestamp.end}) }}.
 			</p>
-			{{ metrics.audiences_culture_heritage_sport.description |> md }}
+			{{ metrics.audiences_total.description |> md |> vto(page.data) }}
 			
 			<table>
 				<thead>

@@ -4,7 +4,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: manual.participants.cultural_learning + manual.participants.community_participation + manual.participants.our_patch ,
+		number: volunteers.people.checkpoints["1. Monitoring & Evaluation"] + (manual.participants.count||0),
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
@@ -15,7 +15,7 @@
 			{{# TODO Add count of volunteer shifts completed
 			#}}
 			<h2>{{ metrics.participants_involved_activities.title }}</h2>
-			{{ metrics.participants_involved_activities.description |> md }}
+			{{ metrics.participants_involved_activities.description |> md|> vto(page.data) }}
 
 			<table>
 				<thead class='c-pink'>

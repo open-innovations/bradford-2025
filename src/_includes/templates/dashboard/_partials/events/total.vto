@@ -3,8 +3,12 @@
     flash: metrics.events_total.flash,
 	classes: 'events'
 } }}
+	{{# 
+		2025-04-09: This is a manual fudge of the total manual count until we automate the 3rd party events
+		Yes, there is duplication in the metrics file (/src/insights/dashboard/_data/manual/) but this will be deprecated.
+	#}}
     {{ comp.BigNumber({
-        number: events.events.count + manual.events.our_patch,
+        number: events.events.count + (manual.events.count||0),
         suffix: ''
     }) }}
     {{ comp.dashboard.Footer({
@@ -19,7 +23,7 @@
                 (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }})
                 held between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.
             </p>
-            {{ metrics.events_total.description |> md }}
+            {{ metrics.events_total.description |> md |> vto(page.data) }}
 
             <table style="margin-inline: auto; border-spacing: 1rem;">
             <thead>
