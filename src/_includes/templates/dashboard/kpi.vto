@@ -20,8 +20,9 @@ layout: templates/page.vto
 </section>
 <hr>
 
-<h2 id="events">Events</h2>
-<section>
+{{ comp InfoCard { id:"events" } }}
+
+	<h2>Events</h2>
 	{{ comp grid.Auto {bigfirst:true} }}
 		{{ include './_partials/events/total.vto' }}
 		{{ include './_partials/events/in_person.vto' }}
@@ -36,24 +37,31 @@ layout: templates/page.vto
 		{{ include './_partials/events/free_activities.vto' }}
 		{{ include './_partials/events/exhibitions.vto' }}
 	{{ /comp }}
-</section>
 
-<h2 id="audiences">Audiences</h2>
-<section>
+{{ /comp }}
+
+
+{{ comp InfoCard { id:"audiences" } }}
+
+	<h2>Audiences</h2>
 	{{ comp grid.Auto {bigfirst:true} }}    
 		{{ include "./_partials/audiences/total.vto" }}
 		{{ include "./_partials/audiences/in_person.vto" }}
 		{{ include "./_partials/audiences/digital_attendees.vto" }}
 	{{ /comp }}
+
 	<h3>Other figures of interest</h3>
 	{{ comp grid.Auto {} }}
 		{{ include "./_partials/audiences/split_bradford.vto" }}
 		{{ include "./_partials/audiences/positive_experience.vto" }}
 	{{ /comp }}
-</section>
 
-<h2 id="participants">Participants</h2>
-<section>
+{{ /comp }}
+
+
+{{ comp InfoCard { id:"participants" } }}
+
+	<h2>Participants</h2>
 	{{ comp grid.Auto {bigfirst:true} }} 
 		{{ include "./_partials/participants/total.vto" }}
 		{{ include './_partials/participants/volunteers.vto' }}
@@ -68,7 +76,8 @@ layout: templates/page.vto
 	{{ comp grid.Auto {} }}
 		{{ include "./_partials/participants/schools_engaged.vto" }}
 	{{ /comp }}
-</section>
+
+{{ /comp }}
 
 {{ comp.WARNING() }}
 

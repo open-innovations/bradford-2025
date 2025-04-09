@@ -1,6 +1,7 @@
 function initialisePopover(popover: HTMLElement) {
-    const btnShow = popover.querySelector('button.show');
-    const content = popover.querySelector('div.popover-content');
+	const btnShow = popover.querySelector('button.show');
+	const content = popover.querySelector('div.popover-content');
+	console.log('init',popover,btnShow);
 
 	let popup = document.querySelector('dialog');
 	if(!document.querySelector('dialog')){
@@ -10,9 +11,9 @@ function initialisePopover(popover: HTMLElement) {
 	}
 	popup.dataset.comp = "ActivePopover";
 
-    const btnHide = document.createElement('button');
-    btnHide.classList.add('hide', 'icon');
-    btnHide.innerHTML = `<svg viewBox="0 0 10 10"><path d="M2 2 L8 8 M2 8 L8 2" stroke="currentColor" stroke-width="2px"></svg>`;
+	const btnHide = document.createElement('button');
+	btnHide.classList.add('hide', 'icon');
+	btnHide.innerHTML = `<svg viewBox="0 0 10 10"><path d="M2 2 L8 8 M2 8 L8 2" stroke="currentColor" stroke-width="2px"></svg>`;
 
 	const clonedContent = document.createElement('div');
 	clonedContent.classList.add('content-area');
@@ -22,28 +23,27 @@ function initialisePopover(popover: HTMLElement) {
 		var rect = popup.getBoundingClientRect();
 		var isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height &&
 		rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
-		if(!isInDialog) popup.close();
+		if(!isInDialog) hide();
 	});
 
-    const show = () => {
+	const show = () => {
 		popup.showModal();
 		popup.innerHTML = "";
 		popup.appendChild(btnHide);
 		popup.appendChild(clonedContent);
-        document.body.classList.add('no-scroll');
+console.log('show',btnHide,btnShow,popover);
 		btnHide.focus();
-    }
-    
-    const hide = () => {
+	};
+	
+	const hide = () => {
+		popup.removeChild(btnHide);
 		popup.close();
-        document.body.classList.remove('no-scroll');
 		btnShow.focus();
-    }
-    
-    btnShow?.addEventListener('click', show);
-    btnHide.addEventListener('click', hide);
+	};
+	
+	btnShow?.addEventListener('click', show );
+	btnHide.addEventListener('click', hide );
+	return this;
 }
 
-document
-    .querySelectorAll<HTMLElement>('[data-comp=Popover]')
-    .forEach(initialisePopover);
+document.querySelectorAll<HTMLElement>('[data-comp=Popover]').forEach(el => { new initialisePopover(el); });

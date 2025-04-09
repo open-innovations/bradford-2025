@@ -1,0 +1,18 @@
+---
+css: |
+    [data-comp=InfoCard] h2 { font-size: 60px; line-height: 60px; margin: 0; padding-top: 54px; padding-bottom: 20px; }
+    [data-comp=InfoCard] h3 { font-size: 28px; line-height: 28px; margin: 0;  padding-top: 24px; padding-bottom: 10px; }
+---
+
+<section data-comp="InfoCard" class="info-cards"{{ if id }} id="{{ id }}"{{ /if }}>
+{{ if flag }}
+<div class="flag">
+	<svg width="57" height="54" viewBox="0 0 57 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<path d="M18.318 0V48.508L28.5 53.248L38.5 48.593V0H18.318Z" fill="#45D108"></path>
+	<path d="M0 0V39.843L0.255 40.098L19 48.825V0H0Z" fill="#E0B942"></path>
+	<path d="M38 0V48.825L56.745 40.1L57 39.845V0H38Z" fill="#F4ACCD"></path>
+	</svg>
+</div>
+{{ /if }}
+{{ content }}
+</section>

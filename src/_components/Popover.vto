@@ -4,9 +4,7 @@ css: |
       background: black;
       opacity: 0.8;
     }
-    body.no-scroll {
-        margin: 0;
-        height: 100%;
+    body:has(dialog[open]) {
         overflow: hidden;
     }
     [data-comp=Popover] {
