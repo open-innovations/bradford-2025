@@ -20,27 +20,6 @@
 			</p>
 			{{ metrics.audiences_total.description |> md |> vto(page.data) }}
 			
-			<table>
-				<thead>
-				<tr class="c-green">
-					<th scope="col">Measure</th>
-					<th scope="col">Value</th>
-					<th scope="col">Description</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<th scope='row'>Ticket sales</th>
-					<td class="centred">{{ tickets.sold.total.toLocaleString() }}</td>
-					<td>Total tickets sold for events held {{ comp.Date({ ...timestamp }) }}</td>
-				</tr>
-				{{# <tr>
-					<th scope='row'>Tickets scanned</th>
-					<td class="centred">{{ tickets.manual.scanned.toLocaleString() }}</td>
-					<td>Total tickets scanned at events held {{ comp.Date({ ...timestamp }) }}</td>
-				</tr> #}}
-				</tbody>
-			</table>
 
 			{{# TODO Add count of tickets scanned (if available)
 			#}}

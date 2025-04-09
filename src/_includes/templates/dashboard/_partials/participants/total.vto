@@ -4,7 +4,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: volunteers.people.checkpoints["1. Monitoring & Evaluation"] + (manual.participants.count||0),
+		number: volunteers.people.checkpoints["1. Monitoring & Evaluation"] + (manual.participants.cultural_learning||0) + (manual.participants.community_participation||0) + (manual.participants.our_patch||0) + (manual.participants.training_and_development||0) + (manual.participants.creative_health||0),
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
@@ -26,13 +26,25 @@
 				</thead>
 				<tbody>
 					<tr>
+						<td>Volunteers</td><td>{{ volunteers.people.checkpoints["1. Monitoring & Evaluation"] }}</td>
+					</tr>
+					<tr>
 						<td>Cultural learning</td><td>{{ manual.participants.cultural_learning }}</td>
+					</tr>
+					<tr>
+						<td>Community participation</td><td>{{ manual.participants.community_participation }}</td>
 					</tr>
 					<tr>
 						<td>Our patch</td><td>{{ manual.participants.our_patch }}</td>
 					</tr>
 					<tr>
-						<td>Community participation</td><td>{{ manual.participants.community_participation }}</td>
+						<td>Training and development participants</td><td>{{ manual.participants.training_and_development }}</td>
+					</tr>
+					<tr>
+						<td>Creative health participants</td><td>{{ manual.participants.creative_health }}</td>
+					</tr>
+					<tr>
+						<td>Total</td><td>{{ volunteers.people.checkpoints["1. Monitoring & Evaluation"] + (manual.participants.cultural_learning||0) + (manual.participants.community_participation||0) + (manual.participants.our_patch||0) + (manual.participants.training_and_development||0) + (manual.participants.creative_health||0) }}</td>
 					</tr>
 				</tbody>
 			</table>

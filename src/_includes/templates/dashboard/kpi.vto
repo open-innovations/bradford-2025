@@ -39,24 +39,36 @@ layout: templates/page.vto
 </section>
 
 <h2 id="audiences">Audiences</h2>
-{{ comp dashboard.Frame {bigfirst:true} }}    
-	{{ include "./_partials/audiences/total.vto" }}
-	{{ include "./_partials/audiences/in_person.vto" }}
-	{{ include "./_partials/audiences/digital_attendees.vto" }}
-	{{ include "./_partials/audiences/split_bradford.vto" }}
-	{{ include "./_partials/audiences/positive_experience.vto" }}
-{{ /comp }}
-
+<section>
+	{{ comp grid.Auto {bigfirst:true} }}    
+		{{ include "./_partials/audiences/total.vto" }}
+		{{ include "./_partials/audiences/in_person.vto" }}
+		{{ include "./_partials/audiences/digital_attendees.vto" }}
+	{{ /comp }}
+	<h3>Other figures of interest</h3>
+	{{ comp grid.Auto {} }}
+		{{ include "./_partials/audiences/split_bradford.vto" }}
+		{{ include "./_partials/audiences/positive_experience.vto" }}
+	{{ /comp }}
+</section>
 
 <h2 id="participants">Participants</h2>
-{{ comp dashboard.Frame {bigfirst:true} }}
-	{{ include "./_partials/participants/total.vto" }}
-	{{ include "./_partials/participants/schools_engaged.vto" }}
-	{{ include "./_partials/participants/creative_health.vto" }}
-	{{ include "./_partials/participants/professional_educational.vto" }}
-    {{ include './_partials/participants/volunteers.vto' }}
-    {{ include './_partials/participants/cultural_learning.vto' }}
-{{ /comp }}
+<section>
+	{{ comp grid.Auto {bigfirst:true} }} 
+		{{ include "./_partials/participants/total.vto" }}
+		{{ include './_partials/participants/volunteers.vto' }}
+		{{ include './_partials/participants/cultural_learning.vto' }}
+		{{ include './_partials/participants/community_participation.vto' }}
+		{{ include './_partials/participants/our_patch.vto' }}
+		{{ include "./_partials/participants/professional_educational.vto" }}
+		{{ include "./_partials/participants/creative_health.vto" }}
+	{{ /comp }}
+
+	<h3>Other figures of interest</h3>
+	{{ comp grid.Auto {} }}
+		{{ include "./_partials/participants/schools_engaged.vto" }}
+	{{ /comp }}
+</section>
 
 {{ comp.WARNING() }}
 

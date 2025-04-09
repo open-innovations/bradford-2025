@@ -4,7 +4,7 @@
 	classes: 'audiences'
 } }}
 	{{ comp.BigNumber({
-		number: tickets.sold.total ,
+		number: tickets.sold.total + (manual.audiences.count||0),
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({
@@ -18,6 +18,32 @@
 			</p>
 			{{ metrics.audiences_in_person_events.description |> md }}
 
+			<table>
+				<thead>
+				<tr class="c-green">
+					<th scope="col">Measure</th>
+					<th scope="col">Value</th>
+					<th scope="col">Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<th scope='row'>Ticket sales</th>
+					<td class="centred">{{ tickets.sold.total.toLocaleString() }}</td>
+					<td>Total tickets sold for Bradford 2025 ticketed events held {{ comp.Date({ ...timestamp }) }}</td>
+				</tr>
+				<tr>
+					<th scope='row'>3rd party</th>
+					<td class="centred">{{ manual.audiences.count.toLocaleString() }}</td>
+					<td>The total audience figures provided from 3rd-party events.</td>
+				</tr>
+				{{# <tr>
+					<th scope='row'>Tickets scanned</th>
+					<td class="centred">{{ tickets.manual.scanned.toLocaleString() }}</td>
+					<td>Total tickets scanned at events held {{ comp.Date({ ...timestamp }) }}</td>
+				</tr> #}}
+				</tbody>
+			</table>
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
