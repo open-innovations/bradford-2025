@@ -46,6 +46,11 @@
                 </td>
             </tr>
             <tr>
+                <th scope='row'>Total</th>
+                <td class='centred'>{{ events.events.count + manual.events.our_patch }}</td>
+                <td>Total of above</td>
+            </tr>
+            {{# <tr>
                 <th scope="row">Ticketed events</th>
                 <td class="centred">{{ tickets.events.count }}</td>
                 <td>Ticketed events that ran between {{ comp.Date({ ...timestamp }) }}.</td>
@@ -54,7 +59,7 @@
                 <th scope="row">Volunteering shifts</th>
                 <td class="centred">{{ volunteers.shifts.count }}</td>
                 <td>There may be more than one volunteering shift per event, or each volunteering shift might cover multiple events</td>
-            </tr>
+            </tr> #}}
             </tbody>
             </table>
 
