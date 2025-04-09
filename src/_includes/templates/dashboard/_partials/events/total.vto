@@ -6,9 +6,10 @@
 	{{# 
 		2025-04-09: This is a manual fudge of the total manual count until we automate the 3rd party events
 		Yes, there is duplication in the metrics file (/src/insights/dashboard/_data/manual/) but this will be deprecated.
+		Sum of "in-person" + "online" + "festivals" + "exhibition days"
 	#}}
     {{ comp.BigNumber({
-        number: events.events.count + (manual.events.count||0),
+        number: (events.events.breakdown.in_person || 0) + (manual.events.in_person || 0) + (events.events.breakdown.online || 0) + (metrics.events_festivals.actual || 0) + manual.exhibitions.reduce((a, c) => a + c.days, 0),
         suffix: ''
     }) }}
     {{ comp.dashboard.Footer({
@@ -23,6 +24,7 @@
                 (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }})
                 held between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.
             </p>
+
             {{ metrics.events_total.description |> md |> vto(page.data) }}
 
             <table style="margin-inline: auto; border-spacing: 1rem;">
@@ -35,25 +37,33 @@
             </thead>
             <tbody>
             <tr>
-                <th scope="row">Events recorded in Project Hub</th>
-                <td class="centred">{{ events.events.count }}</td>
+                <th scope="row">In-person events</th>
+                <td class="centred">{{ (events.events.breakdown.in_person || 0) + (manual.events.in_person || 0) }}</td>
                 <td>
                     Events
                     running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}
-                    recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>.
+                    recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong> and 3rd party events collated separately.
                 </td>
             </tr>
             <tr>
-                <th scope="row">Our Patch events</th>
-                <td class="centred">{{ manual.events.our_patch }}</td>
-                <td>
-                    Events run under as part of the Our Patch (community engagements) project.
-                </td>
+                <th scope="row">Online events</th>
+                <td class="centred">{{ metrics.events_online.actual }}</td>
+                <td>Events run online.</td>
+            </tr>
+            <tr>
+                <th scope="row">Festivals</th>
+                <td class="centred">{{ metrics.events_festivals.actual }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope='row'>Exhibition days</th>
+                <td class='centred'>{{ manual.exhibitions.reduce((a, c) => a + c.days, 0) }}</td>
+                <td></td>
             </tr>
             <tr>
                 <th scope='row'>Total</th>
-                <td class='centred'>{{ events.events.count + manual.events.our_patch }}</td>
-                <td>Total of above</td>
+                <td class='centred'>{{ (events.events.breakdown.in_person || 0) + (manual.events.in_person || 0) + (events.events.breakdown.online || 0) + (metrics.events_festivals.actual || 0) + manual.exhibitions.reduce((a, c) => a + c.days, 0) }}</td>
+                <td></td>
             </tr>
             {{# <tr>
                 <th scope="row">Ticketed events</th>

@@ -21,17 +21,22 @@ layout: templates/page.vto
 <hr>
 
 <h2 id="events">Events</h2>
-{{ comp dashboard.Frame {bigfirst:true} }}
-    {{ include './_partials/events/total.vto' }}
-	{{ include './_partials/events/in_person.vto' }}
-	{{ include './_partials/events/online.vto' }}
-	{{ include './_partials/events/community_led.vto' }}
-	{{ include './_partials/events/festivals.vto' }}
-	{{ include './_partials/events/exhibitions.vto' }}
-	{{ include './_partials/events/exhibition_days.vto' }}
-	{{ include './_partials/events/free_activities.vto' }}
-{{ /comp }}
+<section>
+	{{ comp grid.Auto {bigfirst:true} }}
+		{{ include './_partials/events/total.vto' }}
+		{{ include './_partials/events/in_person.vto' }}
+		{{ include './_partials/events/online.vto' }}
+		{{ include './_partials/events/festivals.vto' }}
+		{{ include './_partials/events/exhibition_days.vto' }}
+	{{ /comp }}
 
+	<h3>Other figures of interest</h3>
+	{{ comp grid.Auto {} }}
+		{{ include './_partials/events/community_led.vto' }}
+		{{ include './_partials/events/free_activities.vto' }}
+		{{ include './_partials/events/exhibitions.vto' }}
+	{{ /comp }}
+</section>
 
 <h2 id="audiences">Audiences</h2>
 {{ comp dashboard.Frame {bigfirst:true} }}    

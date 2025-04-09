@@ -14,6 +14,7 @@ css: |
             flex-basis: 100%;
         }
     }
+    [data-comp="grid-Auto"] + [data-comp="grid-Auto"] { margin-top: var(--grid-gap); }
 ---
 <{{ tag || 'div' }} data-comp="grid-Auto" {{ if bigfirst }}class="big-first"{{ /if }}>
 {{ content }}
