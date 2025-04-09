@@ -1,38 +1,39 @@
-<section class="grid regular" style="--grid-basis: 30rem;">
-<h2 class="full-width">Volunteering Checkpoints</h2>
-<div>
-{{ include 'cms/block/volunteering-checkpoints.md' |> md }}
-</div>
+{{ comp InfoCard { id:"check-points", classes: "grid regular" } }}
 
-<div class="block">
-{{
-    comp.LineChart({
-        data: people.checkpoints_weekly,
-        dateField: 'Week ending (Sunday)',
-        prettyDate: '%d %B %y',
-        seriesTooltip: "<b>{{ _title }}</b>\nWeek ending {{ pretty_date }}: <b>{{ _y }}</b>",
-        series: [
-            {
-                title: keyMap['3. Fully Inducted Volunteers cumulative'],
-                x: 'decimal_year',
-                y: '3. Fully Inducted Volunteers cumulative',
-            },
-            {
-                title: keyMap['2. Sign Up to Induction cumulative'],
-                x: 'decimal_year',
-                y: '2. Sign Up to Induction cumulative',
-            },
-            {
-                title: keyMap['1. Monitoring & Evaluation cumulative'],
-                x: 'decimal_year',
-                y: '1. Monitoring & Evaluation cumulative',
-            },                
-        ],
-        labels: {
-            x: 'Date',
-            y: 'Number of volunteers'
-        }
-    })
-}}
-</div>
-</section>
+	<h2 class="full-width">Volunteering Checkpoints</h2>
+	<div>
+	{{ include 'cms/block/volunteering-checkpoints.md' |> md }}
+	</div>
+
+	<div class="block">
+	{{
+		comp.LineChart({
+			data: people.checkpoints_weekly,
+			dateField: 'Week ending (Sunday)',
+			prettyDate: '%d %B %y',
+			seriesTooltip: "<b>{{ _title }}</b>\nWeek ending {{ pretty_date }}: <b>{{ _y }}</b>",
+			series: [
+				{
+					title: keyMap['3. Fully Inducted Volunteers cumulative'],
+					x: 'decimal_year',
+					y: '3. Fully Inducted Volunteers cumulative',
+				},
+				{
+					title: keyMap['2. Sign Up to Induction cumulative'],
+					x: 'decimal_year',
+					y: '2. Sign Up to Induction cumulative',
+				},
+				{
+					title: keyMap['1. Monitoring & Evaluation cumulative'],
+					x: 'decimal_year',
+					y: '1. Monitoring & Evaluation cumulative',
+				},                
+			],
+			labels: {
+				x: 'Date',
+				y: 'Number of volunteers'
+			}
+		})
+	}}
+	</div>
+{{ /comp }}

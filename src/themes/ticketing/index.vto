@@ -29,97 +29,95 @@ seriesConfig:
 ---
 
 <section>
-
-{{ comp.oi.dashboard({
-    config: {
-        data: [
-            { title: "Total orders", value: operational.summary.orders },
-            { title: "Total tickets", value: operational.summary.tickets },
-        ], title: "title",
-        value: "value",
-        note: "note",
-        align: true,
-        panels: [
-            { name: "Total orders", colour: "pink", "compact-format": false },
-            { name: "Total tickets", colour: "yellow", "compact-format": false },
-        ]
-    }
-}) }}
+	{{ comp.oi.dashboard({
+		config: {
+			data: [
+				{ title: "Total orders", value: operational.summary.orders },
+				{ title: "Total tickets", value: operational.summary.tickets },
+			], title: "title",
+			value: "value",
+			note: "note",
+			align: true,
+			panels: [
+				{ name: "Total orders", colour: "lightgreen", "compact-format": false },
+				{ name: "Total tickets", colour: "green", "compact-format": false },
+			]
+		}
+	}) }}
 </section>
 
 <section class="grid">
 
-<h2 class="full-width">Total orders and tickets</h2>
+	<h2 class="full-width">Total orders and tickets</h2>
 
-<div class="block">
-{{
-    comp.LineChart({
-        data: operational.weekly_orders,
-        dateField: 'week_ending',
-        prettyDate: '%d %B %y',
-        seriesTooltip: "<b>{{ _title }}</b>\nWeek ending {{ pretty_date }}: {{ _y }}",
-        series: [
-            {
-                title: 'Total orders placed',
-                x: 'decimal_year',
-                y: 'total'
-            },
-        ],
-        labels: {
-            x: 'Date',
-            y: 'Number of volunteers'
-        }
-    })
-}}
-</div>
+	<div class="block">
+	{{
+		comp.LineChart({
+			data: operational.weekly_orders,
+			dateField: 'week_ending',
+			prettyDate: '%d %B %y',
+			seriesTooltip: "<b>{{ _title }}</b>\nWeek ending {{ pretty_date }}: <b>{{ _y | toLocaleString() }}</b>",
+			series: [
+				{
+					title: 'Total orders placed',
+					x: 'decimal_year',
+					y: 'total',
+					colour: oiColour.names.lightgreen
+				},
+			],
+			labels: {
+				x: 'Date',
+				y: 'Number of volunteers'
+			}
+		})
+	}}
+	</div>
 
-<div class="block">
-{{
-    comp.LineChart({
-        data: operational.weekly_tickets,
-        dateField: 'week_ending',
-        prettyDate: '%d %B %y',
-        seriesTooltip: "<b>{{ _title }}</b>\nWeek ending {{ pretty_date }}: {{ _y }}",
-        series: [
-            {
-                title: 'Total tickets sold',
-                x: 'decimal_year',
-                y: 'total',
-				colour: '#E0B942'
-            },
-        ],
-        labels: {
-            x: 'Date',
-            y: 'Number of volunteers'
-        }
-    })
-}}
-</div>
+	<div class="block">
+	{{
+		comp.LineChart({
+			data: operational.weekly_tickets,
+			dateField: 'week_ending',
+			prettyDate: '%d %B %y',
+			seriesTooltip: "<b>{{ _title }}</b>\nWeek ending {{ pretty_date }}: <b>{{ _y | toLocaleString() }}</b>",
+			series: [
+				{
+					title: 'Total tickets sold',
+					x: 'decimal_year',
+					y: 'total',
+					colour: oiColour.names.green
+				},
+			],
+			labels: {
+				x: 'Date',
+				y: 'Number of volunteers'
+			}
+		})
+	}}
+	</div>
 </section>
 
 <section class="grid">
-<h2 class="full-width">Tickets sold by Geography</h2>
-
-<div class="block">
-    <figure>
-        {{ comp.oi.map.hex_cartogram({
-            config: {
-                hexjson: hexes.bd_2024,
-                data: operational.geography.filter(x => x.geography_type == 'osward'),
-                scale: scales.yellow,
-                matchKey: 'geography_code',
-                value: 'value',
-                label: 'short_code',
-                tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ value }} tickets sold'
-            }
-        }) }}
-        <figcaption>
-            The <a href="/design/geospatial/#hexmaps"><q>hexmap</q></a> shows the number of
-            tickets sold in each Bradford ward, based on residence of lead booker.
-        </figcaption>
-    </figure>
-</div>
-
+	<h2 class="full-width">Tickets sold by Geography</h2>
+	<div class="block">
+		<figure>
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_2024,
+					data: operational.geography.filter(x => x.geography_type == 'osward'),
+					scale: scales.green,
+					matchKey: 'geography_code',
+					value: 'value',
+					label: 'short_code',
+					tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ value }} tickets sold'
+				}
+			}) }}
+			<figcaption>
+				The <a href="/design/geospatial/#hexmaps"><q>hexmap</q></a> shows the number of
+				tickets sold in each Bradford ward, based on residence of lead booker.
+			</figcaption>
+		</figure>
+	</div>
 </section>
 
 {{ set tickets_by_ticket_type = operational.type |> wafflify( 'Ticket type', 'Number of tickets sold', { seriesConfig, minValue: 0.4 }) }}

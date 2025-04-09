@@ -6,7 +6,8 @@ description: |
 
 {{ comp dashboard.Frame }}
     {{ comp dashboard.Cell {
-        title: 'Total events'
+        title: 'Total events',
+        classes: 'events'
     } }}
         {{ comp.BigNumber({number: events.summary.total }) }}
         <div class="centred">
@@ -28,7 +29,7 @@ description: |
         data: events.total_by_month.map(row => ({ ...row, 'Month': row.Month.toLocaleDateString(undefined, { month: "long", year: "numeric" }) })),
         category: 'Month',
         series: [
-            { value: 'Events', title: 'Events' }
+            { value: 'Events', title: 'Events', colour: oiColour.names.yellow }
         ],
     },
 }) }}
