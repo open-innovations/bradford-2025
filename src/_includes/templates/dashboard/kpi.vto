@@ -5,7 +5,8 @@ layout: templates/page.vto
 {{# <p>{{ comp.Date({start:timestamp.start,end:timestamp.end}) }}</p> #}}
 
 {{ comp.WARNING() }}
-<section id="headlines">
+{{ comp InfoCard { id:"headlines" } }}
+	<h2>Headlines</h2>
 	<p>
 		The figures below cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.
 	</p>
@@ -17,7 +18,7 @@ layout: templates/page.vto
 	{{ /comp }}
 	
 	{{ content }}
-</section>
+{{ /comp }}
 
 <hr>
 
