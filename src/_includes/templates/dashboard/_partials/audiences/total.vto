@@ -33,11 +33,11 @@
 					<td class="centred">{{ tickets.sold.total.toLocaleString() }}</td>
 					<td>Total tickets sold for events held {{ comp.Date({ ...timestamp }) }}</td>
 				</tr>
-				<tr>
+				{{# <tr>
 					<th scope='row'>Tickets scanned</th>
 					<td class="centred">{{ tickets.manual.scanned.toLocaleString() }}</td>
 					<td>Total tickets scanned at events held {{ comp.Date({ ...timestamp }) }}</td>
-				</tr>
+				</tr> #}}
 				</tbody>
 			</table>
 
