@@ -28,16 +28,18 @@ css: |
         .logo-title {
             margin-top: -4px;
             .logo-main,.logo-sub { display: block; line-height: 1em; }
-            .logo-main { letter-spacing: -0.3px; }
+            .logo-main { letter-spacing: -0.3px; text-transform: uppercase; }
             .logo-sub { font-weight: 300; }
         }
     }
 ---
 
 <header class="comp-site-header">
+	{{# To match Brand Guidelines, the logo must contain "Bradford 2025" and "UK City of Culture" #}}
 	<a href="/">
 		<img src="/assets/images/logo.svg" alt="Bradford 2025 logo" inline>
-		<p class="logo-title"><span class="logo-main">{{ metas.brand }}</span><span class="logo-sub">{{ metas.subbrand }}</span></p>
+		<p class="logo-title"><span class="logo-main">{{ metas.brand }}</span><span class="logo-sub">{{ metas.sub_brand }}</span></p>
 	</a>
+	<p class="sub-title">{{ metas.site_title }}</p>
 	<h1>{{ title }}</h1>
 </header>
