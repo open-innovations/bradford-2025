@@ -7,8 +7,7 @@
 		number: tickets.sold.total + (manual.audiences.count||0),
 	}) }}
 	{{ comp.dashboard.Footer({
-		dateRange: timestamp,
-		updated: timestamp.updated,
+		dateRange: timestamp
 	}) }}
 	{{ comp Controls }}
 		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}

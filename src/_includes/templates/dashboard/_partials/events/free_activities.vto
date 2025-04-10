@@ -14,8 +14,7 @@
 		{{ comp Popover }}
 		    <h2>{{metrics.events_free_activities.title}}</h2>
 			<p>
-				Total count of free-to-access {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} (and activities - are these defined separately??)
-				that were occurred during the timescale covered by the dashboard.
+				Total count of free-to-access {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} that occurred during the timescale covered by the dashboard. This does not include exhibition days (each exhibition day = an event).
 			</p>
 			{{ metrics.events_free_activities.description |> md }}
 		{{ /comp }}
