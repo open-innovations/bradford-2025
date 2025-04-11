@@ -31,13 +31,16 @@
 					<td class="centred">{{ tickets.sold.total.toLocaleString() }}</td>
 				</tr>
 				<tr>
-					<th scope='row'>Total (please see inclusions and exclusions below)</th>
+					<th scope='row'>Other ticket sales and audience numbers from non-ticketed events</th>
 					<td class="centred">{{ manual.audiences.count.toLocaleString() }}</td>
+				</tr>
+				<tr>
+					<th scope='row'>Total (please see inclusions and exclusions below)</th>
+					<td class="centred">{{ (manual.audiences.count + tickets.sold.total).toLocaleString() }}</td>
 				</tr>
 				</tbody>
 			</table>
-			<p>This includes audience numbers from Alhambra, Impressions Gallery and Cartwiright Hall but excludes audience numbers from NSMM Pictureville Cinema and outdoor non-ticketed events (Ramadan Pavillion)</p>
-			<p>Note that data from NSMM (Pictureville Cinema) is not included. Also not included is audience estimates for any Bradford 2025 outdoor non-ticketed events.</p>
+			<p>This includes audience numbers from Alhambra, Impressions Gallery, Cartright Hall and NSMM Pictureville Cinema but excludes outdoor non-ticketed events.</p>
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
