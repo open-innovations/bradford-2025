@@ -1,4 +1,5 @@
 import lumeCMS from "lume/cms/mod.ts";
+import dashboardFields from "./cmsConfig.ts";
 
 const cms = lumeCMS();
 
@@ -32,15 +33,27 @@ cms.upload("assets", "src:assets/");
 // });
 
 cms.collection({
-    name: "Dashboard metrics",
+    name: "2025 dashboard",
     store: "src:insights/dashboard/_data/metrics/*.yml",
-    fields: [ 
-        { name: "title", type: "text", attributes: { required: true }, description: 'The title of the dashboard panel' },
-        { name: "description", description: "This will be displayed as narrative on the site", type: "markdown", upload: false },
-        { name: "flash", type: "text", description: 'The text displayed in the the ribbon across the top-right of the panel' },
-        { name: "upTo", type: "date", description: 'The date shown on the dashboard panel' },
-        { name: "notes", description: "Internal notes, not for public display", type: "markdown", upload: false },
-    ],
+    fields: dashboardFields,
+    documentName: "{title}.yml",
+    // create: false,
+    delete: false,
+})
+
+cms.collection({
+    name: "Janunary to March 2025 dashboard",
+    store: "src:insights/dashboard/q1/_data/metrics/*.yml",
+    fields: dashboardFields,
+    documentName: "{title}.yml",
+    // create: false,
+    delete: false,
+})
+
+cms.collection({
+    name: "April to June 2025 dashboard",
+    store: "src:insights/dashboard/q1/_data/metrics/*.yml",
+    fields: dashboardFields,
     documentName: "{title}.yml",
     // create: false,
     delete: false,
