@@ -5,7 +5,7 @@
 } }}
     {{# Using the actual number here! #}}
     {{ comp.BigNumber({
-        number: volunteers.people.checkpoints["1. Monitoring & Evaluation"],
+        number: participants.volunteers.people.checkpoints["1. Monitoring & Evaluation"],
         suffix: '',
     }) }}
 	{{ comp.dashboard.Footer({
@@ -28,12 +28,12 @@
             <tbody>
             <tr>
                 <th scope="row">Signed up</th>
-                <td class="centred">{{ volunteers.people.checkpoints["1. Monitoring & Evaluation"].toLocaleString() }}</td>
+                <td class="centred">{{ participants.volunteers.people.checkpoints["1. Monitoring & Evaluation"].toLocaleString() }}</td>
                 <td>Number of volunteers who have expressed an interest and are completing their profile.</td>
             </tr>
             <tr>
                 <th scope="row">Completed induction</th>
-                <td class="centred">{{ volunteers.people.checkpoints["3. Fully Inducted Volunteers"].toLocaleString() }}</td>
+                <td class="centred">{{ participants.volunteers.people.checkpoints["3. Fully Inducted Volunteers"].toLocaleString() }}</td>
                 <td>Number of volunteers who have completed the induction process</td>
             </tr>
             </tbody>
