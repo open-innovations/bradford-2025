@@ -3,8 +3,10 @@
 	flash: metrics.events_community_led.flash,
 	classes: 'events'
 } }}
+    {{> const total = (events.events.by_project['Our Patch']?.count || 0) + (manual.events.do_your_thing_micro_awards || 0) }}
+    {{# TODO update to pull from generated file #}}
 	{{ comp.BigNumber({
-		number: (manual.events.our_patch || 0) + (manual.events.do_your_thing_micro_awards || 0),
+		number: total,
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
@@ -35,13 +37,16 @@
                 </tr>
             </thead>
             <tbody>
+            {{ if (events.events.by_project['Our Patch']) }}
             <tr>
                 <th scope="row">Our Patch events</th>
-                <td class="centred">{{ manual.events.our_patch }}</td>
+                <td class="centred">{{ events.events.by_project['Our Patch']?.count || 0 }}</td>
                 <td>
                     Events run as part of the Our Patch (community engagements) project.
                 </td>
+
             </tr>
+            {{ /if }}
             <tr>
                 <th scope="row">Do Your Thing Micro Awards</th>
                 <td class="centred">{{ manual.events.do_your_thing_micro_awards }}</td>
@@ -49,7 +54,7 @@
             </tr>
             <tr>
                 <th scope='row'>Total</th>
-                <td class='centred'>{{ (manual.events.our_patch || 0) + (manual.events.do_your_thing_micro_awards || 0) }}</td>
+                <td class='centred'>{{ total }}</td>
                 <td>Total of above</td>
             </tr>
             {{# <tr>

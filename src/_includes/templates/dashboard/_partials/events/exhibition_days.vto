@@ -4,7 +4,7 @@
 	classes: 'events'
 } }}
 	{{ comp.BigNumber({
-		number:  manual.exhibitions.reduce((a, c) => a + c.days, 0) ,
+		number: events.events.by_category.Exhibition || 0,
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({
@@ -26,19 +26,19 @@
 				<thead>
 					<tr class='c-yellow'>
 						<th scope='col'>Name</th>
-						<th scope='col'>Start</th>
-						<th scope='col'>End</th>
 						<th scope='col'>Days</th>
+						<th scope='col'>Description</th>
 					</tr>
 				</thead>
 				<tbody>
-					{{ for e of manual.exhibitions }}
+					{{ for name, value of events.events.by_project }}
+					{{ if value.category === 'Exhibition'}}
 						<tr>
-							<td class='centred'>{{e.name}}</td>
-							<td class='centred'>{{e.start}}</td>
-							<td class='centred'>{{e.end}}</td>
-							<td class='centred'>{{e.days}}</td>
+							<th scope='row' class='centred'>{{ name }}</th>
+							<td class='centred'>{{ value.count }}</td>
+							<td class='centred'>{{# TODO add description #}}</td>
 						</tr>
+					{{ /if }}
 					{{ /for }}
 				</tbody>
 			</table>
