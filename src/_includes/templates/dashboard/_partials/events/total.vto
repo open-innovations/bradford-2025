@@ -30,8 +30,8 @@
             <table style="margin-inline: auto; border-spacing: 1rem;">
             <thead>
                 <tr class="c-yellow">
-                <th scope="col">Measure</th>
-                <th scope="col">Value</th>
+                <th scope="col">Category</th>
+                <th scope="col">Events</th>
                 <th scope="col">Description</th>
                 </tr>
             </thead>
@@ -51,7 +51,7 @@
                 <tr>
                     <th scope="row">Festival days</th>
                     <td class="centred">{{ events.events.by_category['Festival'] || 0 }}</td>
-                    <td></td>
+                    <td>{{ metrics.events_total.table_descriptions.find(x => x.row === 'Festival days').description }}</td>
                 </tr>
                 <tr>
                     <th scope='row'>Exhibition days</th>
