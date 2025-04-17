@@ -39,7 +39,7 @@ cms.collection({
     documentName: "{title}.yml",
     // create: false,
     delete: false,
-})
+});
 
 cms.collection({
     name: "Janunary to March 2025 dashboard",
@@ -48,7 +48,7 @@ cms.collection({
     documentName: "{title}.yml",
     // create: false,
     delete: false,
-})
+});
 
 cms.collection({
     name: "April to June 2025 dashboard",
@@ -57,7 +57,7 @@ cms.collection({
     documentName: "{title}.yml",
     // create: false,
     delete: false,
-})
+});
 
 cms.collection({
     name: "Glossary",
@@ -70,6 +70,6 @@ cms.collection({
     documentName: "{title}.md",
     // create: false,
     delete: false,
-})
+});
 
 export default cms;
