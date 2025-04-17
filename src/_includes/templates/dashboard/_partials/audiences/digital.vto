@@ -1,0 +1,19 @@
+{{ comp dashboard.Cell {
+	title: metrics.audiences_digital.title,
+	flash: metrics.audiences_digital.flash,
+	classes: 'audiences'
+} }}
+	{{ comp.BigNumber({
+		number: metrics.audiences_digital.actual ,
+		suffix: '',
+	}) }}
+        {{ comp.dashboard.Footer({
+		upTo: metrics.audiences_digital.upTo
+	}) }}
+	{{ comp Controls }}
+		{{ comp Popover }}
+			<h2>{{ metrics.audiences_digital.title }}</h2>
+			{{ metrics.audiences_digital.description |> md }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}

@@ -1,18 +1,18 @@
 {{ comp dashboard.Cell {
-	title: metrics.participants_professional_educational.title,
-	flash: metrics.participants_professional_educational.flash,
+	title: metrics.participants_training_and_skills.title,
+	flash: metrics.participants_training_and_skills.flash,
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
 		number: manual.participants.training_and_development,
 	}) }}
 	{{ comp.dashboard.Footer({
-		upTo: metrics.participants_professional_educational.upTo
+		upTo: metrics.participants_training_and_skills.upTo
 	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
-			<h2>{{ metrics.participants_professional_educational.title }}</h2>
-			{{ metrics.participants_professional_educational.description |> md }}
+			<h2>{{ metrics.participants_training_and_skills.title }}</h2>
+			{{ metrics.participants_training_and_skills.description |> md }}
 			<table>
 				<thead class='c-pink'>
 					<td>Source</td>

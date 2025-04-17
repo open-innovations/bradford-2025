@@ -1,18 +1,18 @@
 {{ comp dashboard.Cell {
-	title: metrics.participants_community_participation.title,
-	flash: metrics.participants_community_participation.flash,
+	title: metrics.participants_community.title,
+	flash: metrics.participants_community.flash,
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
 		number: manual.participants.community_participation,
 	}) }}
 	{{ comp.dashboard.Footer({
-		upTo: metrics.participants_community_participation.upTo
+		upTo: metrics.participants_community.upTo
 	}) }}
 	{{ comp Controls }}
 		{{ comp Popover }}
-			<h2>{{ metrics.participants_community_participation.title }}</h2>
-			{{ metrics.participants_community_participation.description |> md }}
+			<h2>{{ metrics.participants_community.title }}</h2>
+			{{ metrics.participants_community.description |> md }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
