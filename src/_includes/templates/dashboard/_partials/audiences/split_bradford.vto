@@ -3,8 +3,9 @@
 	flash: metrics.audiences_split_bradford.flash,
 	classes: 'audiences'
 } }}
+	{{> const audienceSplit = (100 * audience.ticketed.sold.bradford / audience.ticketed.sold.total) }}
 	{{ comp.BigNumber({
-		number: metrics.audiences_split_bradford.actual ,
+		number: audienceSplit.toLocaleString(undefined, { maximumFractionDigits: 0 }),
 		suffix: '%',
 	}) }}
         {{ comp.dashboard.Footer({
@@ -15,11 +16,9 @@
 			<h2>{{ metrics.audiences_split_bradford.title }}</h2>
 			{{ metrics.audiences_split_bradford.description |> md }}
 
-			{{# TODO Add overall split of tickets sold to Bradford
-			#}}
-
+			{{# TODO Turn this into a table, perhaps? #}}
 			<p>
-				{{ (100 * tickets.sold.bradford / tickets.sold.total).toLocaleString(undefined, { maximumFractionDigits: 0 }) }}% of ticket were bought by residents of Bradford.
+				{{ audienceSplit.toLocaleString(undefined, { maximumFractionDigits: 0 }) }}% of ticket were bought by residents of Bradford.
 			</p>
 		{{ /comp }}
 	{{ /comp }}

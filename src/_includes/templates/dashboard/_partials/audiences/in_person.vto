@@ -3,8 +3,9 @@
 	flash: metrics.audiences_in_person_events.flash,
 	classes: 'audiences'
 } }}
+	{{# TODO add breakdown of in-person vs online audience, somehow #}}
 	{{ comp.BigNumber({
-		number: tickets.sold.total + (manual.audiences.count||0),
+		number: audience.total,
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({
@@ -28,15 +29,15 @@
 				<tbody>
 				<tr>
 					<th scope='row'>Bradford 2025 ticket sales</th>
-					<td class="centred">{{ tickets.sold.total.toLocaleString() }}</td>
+					<td class="centred">{{ audience.ticketed.sold.total.toLocaleString() }}</td>
 				</tr>
 				<tr>
 					<th scope='row'>Other ticket sales and audience numbers from non-ticketed events</th>
-					<td class="centred">{{ manual.audiences.count.toLocaleString() }}</td>
+					<td class="centred">{{ audience.unticketed?.total.toLocaleString() }}</td>
 				</tr>
 				<tr>
 					<th scope='row'>Total (please see inclusions and exclusions below)</th>
-					<td class="centred">{{ (manual.audiences.count + tickets.sold.total).toLocaleString() }}</td>
+					<td class="centred">{{ audience.total.toLocaleString() }}</td>
 				</tr>
 				</tbody>
 			</table>

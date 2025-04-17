@@ -4,7 +4,7 @@
 	classes: 'audiences'
 } }}
 	{{ comp.BigNumber({
-		number: tickets.sold.total + (manual.audiences.count||0),
+		number: audience.total || 0,
 	}) }}
 	{{ comp.dashboard.Footer({
 		dateRange: timestamp

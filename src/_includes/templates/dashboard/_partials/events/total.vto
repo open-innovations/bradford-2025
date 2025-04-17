@@ -65,23 +65,6 @@
                 </tr>
             </tbody>
             </table>
-
-            {{ if false }}
-            <p>
-                Projects that delivered events during the timescale include:
-            </p>
-            <ul class="grid">{{ events.projects.names |> listify('block c-pink') }}</ul>
-
-            <p>
-                Ticketed events include:
-            </p>
-            <ul class="grid">{{ tickets.events.names |> listify('block c-yellow') }}</ul>
-
-            <p>
-                Volunteering opportunities included
-            </p>
-            <ul class="grid">{{ volunteers.events.names |> listify(('block c-green')) }}</ul>
-            {{ /if }}
         {{ /comp }}
     {{ /comp }}
 {{ /comp }}
