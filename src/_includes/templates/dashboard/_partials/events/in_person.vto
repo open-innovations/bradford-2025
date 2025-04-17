@@ -4,7 +4,7 @@
 	classes: 'events'
 } }}
 	{{ comp.BigNumber({
-		number: (events.events.breakdown.in_person || 0) + (manual.events.in_person || 0),
+		number: events.events.by_category['In-person'] || 0,
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
@@ -24,73 +24,34 @@
             <table style="margin-inline: auto; border-spacing: 1rem;">
             <thead>
                 <tr class="c-yellow">
-                <th scope="col">Measure</th>
-                <th scope="col">Value</th>
-                <th scope="col">Description</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Events</th>
+                    <th scope="col">Description</th>
                 </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">Events recorded in Project Hub</th>
-                <td class="centred">{{ events.events.count }}</td>
-                <td>
-                    Events
-                    running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}
-                    recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>.
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Our Patch events</th>
-                <td class="centred">{{ manual.events.our_patch }}</td>
-                <td>
-                    Events run as part of the Our Patch (community engagements) project.
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Fighting to be heard</th>
-                <td class="centred">{{ manual.events.fighting_to_be_heard }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="row">Unspun stories</th>
-                <td class="centred">{{ manual.events.unspun_stories }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="row">Extraordinary Portraits</th>
-                <td class="centred">{{ manual.events.extraordinary_portraits }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="row">Nationhood</th>
-                <td class="centred">{{ manual.events.nationhood }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="row">Jungle Book</th>
-                <td class="centred">{{ manual.events.jungle_book }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="row">Northern Soul BFI</th>
-                <td class="centred">{{ manual.events.northern_soul_bfi }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope='row'>Total</th>
-                <td class='centred'>{{ (events.events.breakdown.in_person || 0) + (manual.events.in_person || 0) }}</td>
-                <td>Total of above</td>
-            </tr>
-            {{# <tr>
-                <th scope="row">Ticketed events</th>
-                <td class="centred">{{ tickets.events.count }}</td>
-                <td>Ticketed events that ran between {{ comp.Date({ ...timestamp }) }}.</td>
-            </tr>
-            <tr>
-                <th scope="row">Volunteering shifts</th>
-                <td class="centred">{{ volunteers.shifts.count }}</td>
-                <td>There may be more than one volunteering shift per event, or each volunteering shift might cover multiple events</td>
-            </tr> #}}
+                <tr class="c-pink">
+                    <th scope="row">Total In-person events</th>
+                    <td class="centred">{{ events.events.by_category['In-person'] }}</td>
+                    <td>
+                        Events
+                        running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}
+                        recorded in the <strong>Bradford 2025 Project Hub</strong>.
+                    </td>
+                </tr>
+
+                {{# TODO Review project breakdown #}}
+                {{ for project of Object.entries(events.events.by_project).sort((a,b) => b[1].count - a[1].count) }}
+                {{ if project[1].category === 'In-person' }}
+                <tr>
+                    <th scope="row">{{ project[0] }}</th>
+                    <td class="centred">{{ project[1].count }}</td>
+                    <td>
+                    {{# TODO Add overriden description #}}
+                    </td>
+                </tr>
+                {{ /if }}
+                {{ /for }}
             </tbody>
             </table>
 		{{ /comp }}

@@ -9,7 +9,7 @@
 		Sum of "in-person" + "online" + "festivals" + "exhibition days"
 	#}}
     {{ comp.BigNumber({
-        number: (events.events.breakdown.in_person || 0) + (manual.events.in_person || 0) + (events.events.breakdown.online || 0) + (metrics.events_festivals.actual || 0) + manual.exhibitions.reduce((a, c) => a + c.days, 0),
+        number: events.events.total || 0,
         suffix: ''
     }) }}
     {{ comp.dashboard.Footer({
@@ -36,43 +36,33 @@
                 </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">In-person events</th>
-                <td class="centred">{{ (events.events.breakdown.in_person || 0) + (manual.events.in_person || 0) }}</td>
-                <td>
-					Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>, Our Patch events and events delivered by partner or commissioned organisations collated separately.
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Online events</th>
-                <td class="centred">{{ metrics.events_online.actual }}</td>
-                <td>Events run online.</td>
-            </tr>
-            <tr>
-                <th scope="row">Festivals</th>
-                <td class="centred">{{ metrics.events_festivals.actual }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope='row'>Exhibition days</th>
-                <td class='centred'>{{ manual.exhibitions.reduce((a, c) => a + c.days, 0) }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope='row'>Total</th>
-                <td class='centred'>{{ (events.events.breakdown.in_person || 0) + (manual.events.in_person || 0) + (events.events.breakdown.online || 0) + (metrics.events_festivals.actual || 0) + manual.exhibitions.reduce((a, c) => a + c.days, 0) }}</td>
-                <td></td>
-            </tr>
-            {{# <tr>
-                <th scope="row">Ticketed events</th>
-                <td class="centred">{{ tickets.events.count }}</td>
-                <td>Ticketed events that ran between {{ comp.Date({ ...timestamp }) }}.</td>
-            </tr>
-            <tr>
-                <th scope="row">Volunteering shifts</th>
-                <td class="centred">{{ volunteers.shifts.count }}</td>
-                <td>There may be more than one volunteering shift per event, or each volunteering shift might cover multiple events</td>
-            </tr> #}}
+                <tr>
+                    <th scope="row">In-person events</th>
+                    <td class="centred">{{ events.events.by_category['In-person'] || 0 }}</td>
+                    <td>
+                        Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>, Our Patch events and events delivered by partner or commissioned organisations collated separately.
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Online events</th>
+                    <td class="centred">{{ events.events.by_category['Online'] || 0 }}</td>
+                    <td>Events run online.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Festival days</th>
+                    <td class="centred">{{ events.events.by_category['Festival'] || 0 }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope='row'>Exhibition days</th>
+                    <td class="centred">{{ events.events.by_category['Exhibition'] || 0 }}</td>
+                    <td></td>
+                </tr>
+                <tr class="c-pink">
+                    <th scope='row'>Total events</th>
+                    <td class='centred'>{{ events.events.total || 0 }}</td>
+                    <td></td>
+                </tr>
             </tbody>
             </table>
 
@@ -92,33 +82,6 @@
             </p>
             <ul class="grid">{{ volunteers.events.names |> listify(('block c-green')) }}</ul>
             {{ /if }}
-
-            {{# Hide this for the moment
-            {{ comp BigNumber {
-                number: metrics.events_total.actual,
-                suffix: ' events'
-            } }}
-                <p class="centred">
-                    Count of projects active between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.
-                </p>
-            {{ /comp }}
-            <table>
-            <thead>
-                <tr>
-                    <th>Producing model</th>
-                    <th>Count</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{ for v of Object.entries(events.projects.producing_model) -}}
-                <tr>
-                    <td>{{ v[0] }}</td>
-                    <td>{{ v[1] }}</td>
-                </tr>
-                {{ /for -}}
-            </tbody>
-            </table>
-            #}}
         {{ /comp }}
     {{ /comp }}
 {{ /comp }}
