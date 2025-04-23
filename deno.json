@@ -44,5 +44,17 @@
   },
   "unstable": [
     "temporal"
-  ]
+  ],
+  "deploy": {
+    "project": "cms-bradford-2025",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [
+      "_cms.ts",
+      "deno.json",
+      "cmsConfig.ts"
+    ],
+    "entrypoint": "_cms.ts"
+  }
 }
