@@ -1,12 +1,18 @@
 import lumeCMS from "lume/cms/mod.ts";
 import dashboardFields from "./cmsConfig.ts";
 import GitHub from "lume/cms/storage/github.ts";
-import { Octokit } from "npm:octokit";
+import { Octokit } from "npm:octokit@4.1.3";
+import { createAppAuth } from "npm:@octokit/auth-app@7.2.1";
 
 // Load users from environment variables prefixed with CMS_USER_
 const username = Deno.env.get("USERNAME")!;
 const password = Deno.env.get("PASSWORD")!;
-const token = Deno.env.get("GITHUB_TOKEN")!;
+
+const githubAuthDetails = {
+    appId: Deno.env.get("GITHUB_APP_ID")!,
+    installationId: Deno.env.get("GITHUB_INSTALLATION_ID")!,
+    privateKey: Deno.env.get("GITHUB_PRIVATE_KEY")!,
+}
 
 const cms = lumeCMS({
     auth: {
@@ -23,7 +29,10 @@ const cms = lumeCMS({
 cms.storage(
     "gh",
     new GitHub({
-      client: new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") }),
+        client: new Octokit({
+            authStrategy: createAppAuth,
+            auth: githubAuthDetails
+        }),
       owner: "open-innovations",
       repo: "bradford-2025",
     }),
