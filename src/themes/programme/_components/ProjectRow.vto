@@ -1,0 +1,32 @@
+---
+css: |
+    [data-comp=ProjectRow] {
+        .in-progress {
+            font-weight: bold;
+        }
+    }
+---
+{{> 
+    const inProgress = Date.parse(latestDate) >= new Date();
+}}
+<tr data-comp="ProjectRow">
+<th scope="row">
+{{ name }}
+</th>
+
+<td>
+{{ events }} event{{ [1].includes(events) ? '' : 's' }}
+in
+{{ records }} schedule {{ [1].includes(records) ? 'entry' : 'entries' }}
+</td>
+<td>
+{{ evaluationCategory }}
+</td>
+<td>
+{{ programmeCategory |> toSorted |> join('<br>') }}
+</td>
+<td class="{{ if inProgress }}in-progress{{ /if }}">
+{{ earliestDate |> date('BD25_YEAR') }}
+{{ if latestDate != earliestDate }} to {{ latestDate |> date('BD25_YEAR') }}
+{{ /if }}{{ if inProgress }} (In progress){{ /if }}</td>
+</tr>

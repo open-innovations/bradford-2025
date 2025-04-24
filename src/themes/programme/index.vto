@@ -11,7 +11,7 @@ description: |
     } }}
         {{ comp.BigNumber({number: events.summary.total }) }}
         <div class="centred">
-            Total events recorded in the <strong>Bradford 2025 Project hub</strong>.<br>
+            Total events recorded in the <strong>Bradford 2025 Project hub</strong> Schedule table.<br>
             {{ comp.Date({start:events.summary.date.earliest,end:events.summary.date.latest}) }}
         </div>
     {{ /comp }}
@@ -22,15 +22,49 @@ description: |
 </section>
 
 <section>
+
 <h2>Summary of events by month</h2>
+
+{{>
+    const eventsByMonth = events.total_by_month.map(row => ({
+        ...row,
+        projects: Object.entries(
+            events.monthly_breakdown
+            .find(r => row.Month.toISOString() == r.Month.toISOString())
+        )
+        .filter(r => (r[0] !== 'Month') && (r[1] > 0))
+        .toSorted((a, b) => b[1] - a[1]),
+        Month: row.Month.toLocaleDateString(undefined, { month: "long", year: "numeric" })
+    }))
+}}
 
 {{ comp.oi.chart.bar({
     config: {
-        data: events.total_by_month.map(row => ({ ...row, 'Month': row.Month.toLocaleDateString(undefined, { month: "long", year: "numeric" }) })),
+        data: eventsByMonth,
         category: 'Month',
         series: [
             { value: 'Events', title: 'Events', colour: oiColour.names.yellow }
         ],
     },
 }) }}
+</section>
+
+<section>
+<h2>Summary of events by programme</h2>
+<table>
+<thead class="c-yellow">
+    <tr>
+    <th scope="column">Project Name</th>
+    <th scope="column">Events count</th>
+    <th scope="column">Evaluation category</th>
+    <th scope="column">Programme categories</th>
+    <th scope="column">Dates</th>
+    </tr>
+</thead>
+<tbody>
+{{ for name, details of events.by_project }}
+    {{ comp.ProjectRow({ name, ...details }) }}
+{{ /for }}
+<tbody>
+</table>
 </section>

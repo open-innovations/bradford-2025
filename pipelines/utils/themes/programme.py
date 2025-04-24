@@ -1,19 +1,34 @@
 from datetime import date, timedelta
+from ast import literal_eval
 
 import petl as etl
 from utils.paths import PUBLISHED
 
 
-def event_filter(row):
-    return (
-        row.Date < date.today() and
-        row.Duration >= timedelta(0) and
-        row.Duration <= timedelta(1) and
-        row['Item Type'] == 'Event (any public-facing activity)'
-    )
+def validation(row):
+    if row['Project Name'] is None:
+        return 'unknown_project'
+    if row['Item Type'] != 'Event (any public-facing activity)':
+        return 'not_event'
+    if row['Start Date'] is None:
+        return 'no_start_date'
+    if row['Start Date'] > date.today():
+        return 'future_dated'
+    if row.Date < date.fromisoformat('2024-01-01'):
+        return 'date_before_2024'
+    if row['Start Date'] > row['End Date']:
+        return 'end_before_start'
+    if 'Artist Led Awards' in row['Producing model']:
+        return 'artist_led_awards'
+    return None
 
 
 class Programme:
+    canonical_project_name = {
+        'Rise (AKA - Opening Event)': 'RISE',
+        'Our Patch (formerly Magic Waiting)': 'Our Patch',
+    }
+
     projects = (
         etl
         .fromjson(PUBLISHED / 'programme/projects.json')
@@ -26,14 +41,31 @@ class Programme:
     events, excluded_events = (
         etl
         .fromcsv(PUBLISHED / 'programme/events.csv')
+
         .convert(['Start Date', 'End Date'], etl.dateparser('%Y-%m-%d'))
-        .select(lambda r: r['Start Date'] is not None or r['End Date'] is not None)
-        .cut('id', 'project_id', 'Project Name', 'Item Type', 'Start Date', 'End Date')
+        .convert('Project Name', lambda x: x.strip())
+        .convert('Project Name', canonical_project_name)
+        .convert([
+            'Programme Category',
+            'Producing model',
+        ], literal_eval)
         .replaceall('', None)
-        .replace('Project Name', None, 'UNKNOWN')
-        .addfield('Duration', lambda r: r['End Date'] - r['Start Date'] if r['End Date'] and r['Start Date'] else timedelta())
-        .addfield('Date', lambda r: r['Start Date'] or r['End Date'])
-        .addfield('Month', lambda r: r.Date.replace(day=1))
+        .replace([
+            'Programme Category',
+            'Producing model',
+        ], None, [])
+
+        # .select(lambda r: r['Start Date'] is not None)
+        .convert('End Date', lambda _, r: r['Start Date'], pass_row=True, where=lambda r: r['Start Date'] is not None and r['End Date'] is None)
+        .cut('id', 'project_id', 'Project Name', 'Item Type', 'Start Date', 'End Date', 'Programme Category', 'Evaluation Category', 'Producing model')
+
+        .addfield('Duration', lambda r: r['End Date'] - r['Start Date'] if r['Start Date'] else None)
+        .addfield('Event Count', lambda r: max(r.Duration.days + 1, 1) if r.Duration is not None else None)
+        .addfield('Date', lambda r: r['End Date'])
+        .addfield('Month', lambda r: r.Date.replace(day=1) if r.Date else None)
+        .addfield('Validation', validation)
+
         .sort(['Date'])
-        .biselect(event_filter)
+
+        .biselect(lambda r: r.Validation == None)
     )

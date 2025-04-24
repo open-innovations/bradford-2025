@@ -64,6 +64,8 @@ site.use(date({
   formats: {
     BD25_LONG_DATE: "d MMMM yyyy",
     BD25_LONG_DATETIME: "d MMMM yyyy H:mm",
+    BD25_YEAR: "d LLL y",
+    BD25_MONTH: "d LLL",
   }
 }));
 site.use(esbuild({
