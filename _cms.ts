@@ -81,7 +81,7 @@ cms.collection({
 
 cms.collection({
     name: "April to June 2025 dashboard",
-    store: src + "insights/dashboard/q1/_data/metrics/*.yml",
+    store: src + "insights/dashboard/q2/_data/metrics/*.yml",
     fields: dashboardFields,
     documentName: "{title}.yml",
     // create: false,
