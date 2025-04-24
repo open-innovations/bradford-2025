@@ -9,6 +9,7 @@
   "tasks": {
     "lume": "echo \"import 'lume/cli.ts'\" | deno run -A -",
     "cms": "deno task lume cms",
+    "cms:dev": "STORE=local deno task lume cms",
     "build": "deno task lume",
     "serve": "deno task lume -s",
     "dev": "LUME_DRAFTS=true deno task lume -s",
