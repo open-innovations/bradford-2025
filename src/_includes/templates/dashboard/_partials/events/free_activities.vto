@@ -5,7 +5,7 @@
 } }}
 	{{# TODO discuss this with BD25 - currently updated in yaml #}}
 	{{ comp.BigNumber({
-		number: metrics.events_free_activities.actual,
+		number: metrics.events_free_activities.actual || 0,
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({

@@ -5,7 +5,7 @@
 } }}
 	{{# TODO get this number from the audience json file when pipeline creates that breakdown #}}
 	{{ comp.BigNumber({
-		number: metrics.audiences_digital.actual ,
+		number: metrics.audiences_digital.actual || 0,
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({

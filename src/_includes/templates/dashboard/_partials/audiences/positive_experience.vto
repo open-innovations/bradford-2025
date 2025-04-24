@@ -4,7 +4,7 @@
 	classes: 'audiences'
 } }}
 	{{ comp.BigNumber({
-		number: metrics.audiences_positive_experience.actual,
+		number: metrics.audiences_positive_experience.actual || 0,
 		suffix: '%',
 	}) }}
         {{ comp.dashboard.Footer({
