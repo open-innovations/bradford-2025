@@ -61,7 +61,7 @@ cms.collection({
 });
 
 cms.collection({
-    name: "Janunary to March 2025 dashboard",
+    name: "January to March 2025 dashboard",
     store: "gh:src/insights/dashboard/q1/_data/metrics/*.yml",
     fields: dashboardFields,
     documentName: "{title}.yml",
