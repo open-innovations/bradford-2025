@@ -33,7 +33,7 @@ class Programme:
         etl
         .fromjson(PUBLISHED / 'programme/projects.json')
         .convert(['Start Date', 'End Date'], lambda f: datetime.fromisoformat(f).date())
-        .cut('id', 'Project Name', 'Start Date', 'End Date', 'Programme Category', 'Greenlight Status', 'Project Phase')
+        .cut('id', 'Project Name', 'Start Date', 'End Date', 'Evaluation Category', 'Programme Category', 'Greenlight Status', 'Project Phase')
         .replace('Project Name', None, 'UNKNOWN')
         .update('Programme Category', [], where=lambda r: r['Programme Category'] is None)
     )

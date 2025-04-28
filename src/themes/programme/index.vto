@@ -67,3 +67,41 @@ description: |
 <tbody>
 </table>
 </section>
+
+<section>
+<h2>Summary of projects by Evaluation Category</h2>
+
+<p>
+Evaluation categories are derived from the Programme category assigned to the project in Airtable.
+</p>
+
+{{>
+    const evaluationCategory = Object.entries(events.by_project).reduce((a, [name, details]) => {
+        const c = details.evaluationCategory || 'UNKNOWN';
+        console.log(c)
+        return {
+            ...a,
+            [c]: [...(a[c] || []), name],
+        }
+    }, {})
+
+    console.log(evaluationCategory);
+}}
+
+{{ comp grid.Auto }}
+{{ for key of Object.keys(evaluationCategory).sort((a, b) => (a > b) ? 1 : -1) }}
+{{ comp grid.Brick }}
+    <h3>{{ key }}</h3>
+    {{ comp.BigNumber({ number: evaluationCategory[key].length, suffix: ' projects' }) }}
+    {{ comp Controls }}
+    {{ comp Popover }}
+    <p>Projects in the {{ key }} category:</p>
+    <ul>
+    {{ evaluationCategory[key].map(p => `<li>${p}</li>` ).join('') }}
+    </ul>
+    {{ /comp }}
+    {{ /comp }}
+{{ /comp }}
+{{ /for }}
+{{ /comp }}
+</section>
