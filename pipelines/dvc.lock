@@ -100,7 +100,7 @@ stages:
   events@rise:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids
-      '25890' -p project_id 'recf4tPyjoXi81NDo' -p id 'rise'
+      '25890' -p project_ids 'recf4tPyjoXi81NDo' -p id 'rise'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -109,8 +109,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: d607da4680498cd8b5bd0876c1e68b12
-      size: 3074
+      md5: cbc4fd01107548f2d6c092dd90c7496a
+      size: 3204
     outs:
     - path: ../src/events/rise/_data/event/
       hash: md5
@@ -120,7 +120,7 @@ stages:
   events@la-haine:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '4001APBPRCSHVVMHTCBMSPSJRNDMCHHLV' -p venue_postcode 'BD1 1JT' -p rosterfy_event_ids
-      '26307' -p project_id 'None' -p id 'la-haine'
+      '26307' -p project_ids 'None' -p id 'la-haine'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -129,8 +129,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: d607da4680498cd8b5bd0876c1e68b12
-      size: 3074
+      md5: cbc4fd01107548f2d6c092dd90c7496a
+      size: 3204
     outs:
     - path: ../src/events/la-haine/_data/event/
       hash: md5
@@ -140,7 +140,7 @@ stages:
   events@les-girafes:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       'recu2QievPdxr1dnH' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids '24438'
-      -p project_id 'None' -p id 'les-girafes'
+      -p project_ids 'None' -p id 'les-girafes'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -149,8 +149,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: d607da4680498cd8b5bd0876c1e68b12
-      size: 3074
+      md5: cbc4fd01107548f2d6c092dd90c7496a
+      size: 3204
     outs:
     - path: ../src/events/les-girafes/_data/event/
       hash: md5
@@ -177,7 +177,7 @@ stages:
   events@grue:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '7601AHCJPTHNBCVJHLQNKQVKDRKRMLTPC' -p venue_postcode 'None' -p rosterfy_event_ids
-      '26540' -p project_id 'recpLG4BaPUSjpEhJ' -p id 'grue'
+      '26540' -p project_ids 'recpLG4BaPUSjpEhJ' -p id 'grue'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -186,8 +186,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: d607da4680498cd8b5bd0876c1e68b12
-      size: 3074
+      md5: cbc4fd01107548f2d6c092dd90c7496a
+      size: 3204
     outs:
     - path: ../src/events/grue/_data/event/
       hash: md5
@@ -257,7 +257,7 @@ stages:
   events@dracula:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '9001AGHDBMPJDRPSRMKLRCJGBJJMTQGDH' -p venue_postcode 'None' -p rosterfy_event_ids
-      'None' -p project_id 'None' -p id 'dracula'
+      'None' -p project_ids 'None' -p id 'dracula'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -266,8 +266,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: d607da4680498cd8b5bd0876c1e68b12
-      size: 3074
+      md5: cbc4fd01107548f2d6c092dd90c7496a
+      size: 3204
     outs:
     - path: ../src/events/dracula/_data/event/
       hash: md5

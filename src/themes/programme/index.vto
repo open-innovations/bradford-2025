@@ -78,14 +78,11 @@ Evaluation categories are derived from the Programme category assigned to the pr
 {{>
     const evaluationCategory = Object.entries(events.by_project).reduce((a, [name, details]) => {
         const c = details.evaluationCategory || 'UNKNOWN';
-        console.log(c)
         return {
             ...a,
             [c]: [...(a[c] || []), name],
         }
     }, {})
-
-    console.log(evaluationCategory);
 }}
 
 {{ comp grid.Auto }}
