@@ -16,6 +16,10 @@ css: |
     }
     [data-comp="grid-Auto"] + [data-comp="grid-Auto"] { margin-top: var(--grid-gap); }
 ---
-<{{ tag || 'div' }} data-comp="grid-Auto" {{ if bigfirst }}class="big-first"{{ /if }}>
+{{> const classList = [];
+    if (bigfirst) classList.push('big-first');
+    if (classes) classList.push(...classes.split());
+}}
+<{{ tag || 'div' }} data-comp="grid-Auto" {{ if classList }}class="{{ classList.join(" ") }}"{{ /if }}>
 {{ content }}
 </{{ tag || 'div' }}>

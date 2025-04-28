@@ -109,18 +109,18 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: cbc4fd01107548f2d6c092dd90c7496a
-      size: 3204
+      md5: bd6a9159aa1c3dc0e426e386841db155
+      size: 3476
     outs:
     - path: ../src/events/rise/_data/event/
       hash: md5
-      md5: 5fa40a9ea36ef750cbeddd0ee144260f.dir
-      size: 17421
-      nfiles: 6
+      md5: 2c352ba8345084b2a05aed48a4c6fb50.dir
+      size: 17870
+      nfiles: 7
   events@la-haine:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '4001APBPRCSHVVMHTCBMSPSJRNDMCHHLV' -p venue_postcode 'BD1 1JT' -p rosterfy_event_ids
-      '26307' -p project_ids 'None' -p id 'la-haine'
+      '26307' -p project_ids 'recYvLfpThEXGXcmn' -p id 'la-haine'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -129,18 +129,18 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: cbc4fd01107548f2d6c092dd90c7496a
-      size: 3204
+      md5: bd6a9159aa1c3dc0e426e386841db155
+      size: 3476
     outs:
     - path: ../src/events/la-haine/_data/event/
       hash: md5
-      md5: 26ddb3a05fcdd54beebda29ab907d739.dir
-      size: 6820
-      nfiles: 4
+      md5: 8ba2d93fca5ca5fa518243978b34b4af.dir
+      size: 7182
+      nfiles: 7
   events@les-girafes:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       'recu2QievPdxr1dnH' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids '24438'
-      -p project_ids 'None' -p id 'les-girafes'
+      -p project_ids 'recu2QievPdxr1dnH' -p id 'les-girafes'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -149,14 +149,14 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: cbc4fd01107548f2d6c092dd90c7496a
-      size: 3204
+      md5: bd6a9159aa1c3dc0e426e386841db155
+      size: 3476
     outs:
     - path: ../src/events/les-girafes/_data/event/
       hash: md5
-      md5: a2c65636be9b573c5b948ac1fee8f8d5.dir
-      size: 215
-      nfiles: 4
+      md5: c9aeaa3f8762ea554e085f08930c4990.dir
+      size: 919
+      nfiles: 7
   sustainability:
     cmd: jupyter execute sustainability.ipynb
     deps:
@@ -177,7 +177,7 @@ stages:
   events@grue:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '7601AHCJPTHNBCVJHLQNKQVKDRKRMLTPC' -p venue_postcode 'None' -p rosterfy_event_ids
-      '26540' -p project_ids 'recpLG4BaPUSjpEhJ' -p id 'grue'
+      '26540' -p project_ids 'recoJF8kMXHloBbjt' -p id 'grue'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -186,14 +186,14 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: cbc4fd01107548f2d6c092dd90c7496a
-      size: 3204
+      md5: bd6a9159aa1c3dc0e426e386841db155
+      size: 3476
     outs:
     - path: ../src/events/grue/_data/event/
       hash: md5
-      md5: 840b86d6cbdeceb7efedea09402684c6.dir
-      size: 60364
-      nfiles: 6
+      md5: ed66109a0bec8c713bccdbecece1f0e0.dir
+      size: 60758
+      nfiles: 7
   dashboards@live:
     cmd: papermill --no-log-output dashboard.ipynb - -p target '' -p start '2025-01-01'
       -p end '2025-12-31' -p fixed_date 'false'
@@ -257,7 +257,7 @@ stages:
   events@dracula:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '9001AGHDBMPJDRPSRMKLRCJGBJJMTQGDH' -p venue_postcode 'None' -p rosterfy_event_ids
-      'None' -p project_ids 'None' -p id 'dracula'
+      'None' -p project_ids 'recjdRJvjmX67plPM' -p id 'dracula'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -266,14 +266,14 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: cbc4fd01107548f2d6c092dd90c7496a
-      size: 3204
+      md5: bd6a9159aa1c3dc0e426e386841db155
+      size: 3476
     outs:
     - path: ../src/events/dracula/_data/event/
       hash: md5
-      md5: 9a1ba9a4991d61dc08d6063c14f0b19d.dir
-      size: 11244
-      nfiles: 3
+      md5: 6cf7ef581387b814ff5c49d9e9fe2f21.dir
+      size: 11649
+      nfiles: 6
   dashboards@q2:
     cmd: papermill --no-log-output dashboard.ipynb - -p target 'q2' -p start '2025-04-01'
       -p end '2025-06-30' -p fixed_date 'true'

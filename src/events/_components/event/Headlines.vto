@@ -1,50 +1,84 @@
 <section class="grid regular">
+
+{{ if programme.summary.event_report }}
+{{ comp dashboard.Cell { classes: 'centred c-pink' }}}
+{{ comp.BigNumber({
+    label: 'Audience',
+    number: programme.summary.event_report.audience,
+    animate: true,
+    roundingOptions: { maximumFractionDigits: 0 },
+}) }}
+<p>Audience logged in event reports</p>
+{{ /comp }}
+{{ /if }}
+
 {{ if (tickets?.summary && tickets.summary.length > 0) }}
-{{ comp BigNumber {
+{{ comp dashboard.Cell { classes: 'centred c-pink' }}}
+{{ comp.BigNumber( {
     label: 'Tickets sold',
     number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets,
-    classes: 'block c-pink',
     animate: true,
     roundingOptions: { maximumFractionDigits: 0 }
-} }}
+}) }}
 <p>Total tickets sold</p>
 {{ /comp }}
 {{ /if }}
 
+{{ if programme?.summary?.event_report }}
+{{ comp dashboard.Cell { classes: 'centred c-yellow' }}}
+{{ comp.BigNumber({
+    label: 'Volunteers',
+    number: programme.summary.event_report.volunteers,
+    animate: true,
+    roundingOptions: { maximumFractionDigits: 0 },
+}) }}
+<p>Individual volunteers involved</p>
+{{ /comp }}
+
+{{ /if }}
+
 {{ if volunteers?.summary }}
-{{ comp BigNumber {
+{{ comp dashboard.Cell { classes: 'centred c-yellow' } }}
+{{ comp.BigNumber( {
     label: "Volunteer time",
     number: volunteers?.summary.find(x => x.date == 'ALL').hours,
     suffix: ' hours',
-    classes: 'block c-yellow',
     animate: true,
     roundingOptions: { maximumFractionDigits: 0 }
-} }}
-<p class="centred">
+}) }}
+<p>
     Hours were completed in
     {{ volunteers.summary.find(x => x.date == 'ALL').attended }}
     individual shifts.
 </p>
-<p class="centred">
+{{ comp Controls }}
+{{ comp Popover }}
+<p>
     <i>Data has been extracted from the volunteer management system, and is subject to change as adjustments and data validation is completed.</i>
 </p>
 {{ /comp }}
+{{ /comp }}
+{{ /comp }}
 
 {{ if sustainability?.summary }}
-{{ comp BigNumber {
+{{ comp dashboard.Cell { classes: 'centred c-green' } }}
+{{ comp.BigNumber({
     label: "Carbon footprint",
     number: sustainability.summary.tCO2e,
     suffix: ' tonnes',
-    classes: 'block c-green',
     animate: true,
     roundingOptions: { maximumSignificantDigits: 2 }
-} }}
-<p class="centred">
+}) }}
+<p>
     Estimated tonnes of carbon dioxide equivalent <span>(tCO<sub>2</sub>e).</span>
 </p>
-<p class="centred">
+{{ comp Controls }}
+{{ comp Popover }}
+<p>
     <i>This estimate includes activities which been associated with the project &ndash; the true carbon footprint could be higher, and this figure could change as more activities are identified.</i>
 </p>
+{{ /comp }}
+{{ /comp }}
 {{ /comp }}
 {{ /if }}
 {{ /if }}

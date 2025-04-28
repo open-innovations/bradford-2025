@@ -1,6 +1,57 @@
 import petl as etl
 
 from ..paths import PUBLISHED, SITE
+from ..themes.programme import Programme as _Programme
+
+
+class Programme:
+    def __init__(self, project_ids):
+        self.project_ids = project_ids
+
+        self.projects = _Programme.projects.selectin('id', project_ids)
+        self.event_reports = _Programme.event_reports.selectin(
+            'project_id', project_ids)
+
+    def summarise(self):
+        counts = dict(
+            zip(
+                ('projects', 'event_reports', ),
+                (
+                    self.projects.nrows(),
+                    self.event_reports.nrows(),
+                ),
+            )
+        )
+        categories = dict(
+            self.projects
+            .aggregate(None, {
+                'evaluation': ('Evaluation Category', set),
+                'programme': ('Programme Category', list),
+            })
+            .convert('evaluation', list)
+            .convert('programme', lambda l: list({e for s in l for e in s}))
+            .transpose()
+        ) if self.projects.nrows() > 0 else None
+
+        event_reports = dict(
+            self.event_reports
+            .aggregate(None, {
+                'audience': ('audience', sum),
+                'participants': ('participants', sum),
+                'volunteers': ('volunteers', sum),
+                'volunteerShifts': ('volunteer_shifts', sum),
+                'earliestDate': ('event_date', min),
+                'latestDate': ('event_date', max),
+            })
+            .convert(['earliestDate', 'latestDate'], lambda f: f.isoformat())
+            .transpose()
+        ) if self.event_reports.nrows() > 0 else None
+
+        return {
+            'count': counts,
+            'categories': categories,
+            'event_report': event_reports,
+        }
 
 
 class Tickets:
@@ -24,7 +75,7 @@ class Tickets:
 
     def instance_ids(self):
         return list(self.instances.values('instance_id'))
-    
+
     def breakdown(self):
         aggregation_config = {
             'key': ['instance_id', 'geography_type', 'geography_code'],
@@ -35,7 +86,7 @@ class Tickets:
         return (
             self.all
             .aggregate(
-                **aggregation_config,  
+                **aggregation_config,
             )
             # .update('geography_code', '', where=lambda x: (x.geography_type == 'oslaua') and (x.count_of_tickets < 10))
             # .aggregate(
@@ -51,33 +102,33 @@ class Tickets:
             .sort(['start', 'geography_type', 'geography_code'])
             .cut('start', 'geography_type', 'geography_code', 'count_of_tickets')
         ).cache()
-    
+
     def types(self):
-            by_type = (
-                self.all
-                .selecteq('geography_type', 'oslaua')
-                .convert(
-                    'type',
-                    # TODO check these mappings with Hannah
-                    {
-                        'Audio Description': 'Accessible Ticket',
-                        'BSL Interpreted': 'Accessible Ticket',
-                        'Essential Companion': 'Accessible Ticket',
-                        'Wheelchair User': 'Accessible Ticket',
-                        'Guest Ticket': 'Full Price',
-                        'Z Community Ticket': 'Community Ticket',
-                        'Under 16': 'Child Ticket',
-                    },
-                )
-                .aggregate('type', sum, 'count_of_tickets', field='count')
-                .selectnotin('type', ['Z Company Ticket', 'Z Press Ticket'])
-                .sort('count', reverse=True)
+        by_type = (
+            self.all
+            .selecteq('geography_type', 'oslaua')
+            .convert(
+                'type',
+                # TODO check these mappings with Hannah
+                {
+                    'Audio Description': 'Accessible Ticket',
+                    'BSL Interpreted': 'Accessible Ticket',
+                    'Essential Companion': 'Accessible Ticket',
+                    'Wheelchair User': 'Accessible Ticket',
+                    'Guest Ticket': 'Full Price',
+                    'Z Community Ticket': 'Community Ticket',
+                    'Under 16': 'Child Ticket',
+                },
             )
-            total = sum(by_type.values('count'))
-            by_type = by_type.addfield('percentage', lambda r: round(100 * r['count'] / total, 1))
+            .aggregate('type', sum, 'count_of_tickets', field='count')
+            .selectnotin('type', ['Z Company Ticket', 'Z Press Ticket'])
+            .sort('count', reverse=True)
+        )
+        total = sum(by_type.values('count'))
+        by_type = by_type.addfield(
+            'percentage', lambda r: round(100 * r['count'] / total, 1))
 
-            return by_type
-
+        return by_type
 
     def total(self):
         return (
@@ -93,7 +144,7 @@ class Tickets:
 
     def detailed(self):
         return etl.cat(self.total(), self.breakdown()).cache()
-    
+
     def summarise(self):
         return (
             self.detailed()
@@ -130,16 +181,17 @@ class Volunteers(object):
 
 
 class Sustainability(object):
-    def __init__(self, project_id: str):
+    def __init__(self, project_ids: list[str]):
         self.data = (
             etl
             .fromcsv(PUBLISHED / 'sustainability/calculations.csv')
-            .selecteq('project_id', project_id)
+            .selectin('project_id', project_ids)
             .convertnumbers()
         )
-    
+
     def summarise(self):
-        summary = self.data.aggregate(['impact_type', 'scope'], sum, 'calculation_tco2e', field='tCO2e')
+        summary = self.data.aggregate(
+            ['impact_type', 'scope'], sum, 'calculation_tco2e', field='tCO2e')
 
         return (
             etl.cat(
