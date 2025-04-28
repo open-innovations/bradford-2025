@@ -9,24 +9,49 @@ css: |
 {{> 
     const inProgress = Date.parse(latestDate) >= new Date();
 }}
-<tr data-comp="ProjectRow">
+<tr data-comp="ProjectRow" style="--big-number-size: 1.5em;">
 <th scope="row">
 {{ name }}
 </th>
 
+{{# Event Reports #}}
 <td>
-{{ events }} event{{ [1].includes(events) ? '' : 's' }}
-in
-{{ records }} schedule {{ [1].includes(records) ? 'entry' : 'entries' }}
+    {{ if eventReports }}
+        {{ comp.BigNumber({
+            number: eventReports.reports
+        })}}
+    {{ /if }}
+</td>
+
+<td>
+    {{ if events }}
+        {{ comp.BigNumber({
+            number: events
+        })}}
+        {{# {{ records }} schedule {{ [1].includes(records) ? 'row' : 'rows' }} #}}
+    {{ /if }}
 </td>
 <td>
-{{ evaluationCategory }}
+{{ comp Controls }}
+    {{ comp Popover }}
+        <p>All about the {{ name }} project.</p>
+        
+        <p>
+            If is being counted in the {{ evaluationCategory }} evaluation category.
+        </p>
+        {{ if programmeCategory }}
+        <p>
+            It's tagged with the following programme categories:
+        </p>
+        <ul>
+            {{ programmeCategory.map(x => `<li>${x}</li>`) }}
+        </ul>
+        {{ /if }}
+        
+        <p>
+        The earliest date is {{ earliestDate |> date('BD25_YEAR') }}{{ if latestDate != earliestDate }}, and the latest date is {{ latestDate |> date('BD25_YEAR') }}
+        {{ /if }}.
+        </p>
+    {{ /comp }}
+{{ /comp }}
 </td>
-<td>
-{{ programmeCategory |> toSorted |> join('<br>') }}
-</td>
-<td class="{{ if inProgress }}in-progress{{ /if }}">
-{{ earliestDate |> date('BD25_YEAR') }}
-{{ if latestDate != earliestDate }} to {{ latestDate |> date('BD25_YEAR') }}
-{{ /if }}{{ if inProgress }} (In progress){{ /if }}</td>
-</tr>

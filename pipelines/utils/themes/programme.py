@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from ast import literal_eval
 
 import petl as etl
@@ -32,8 +32,8 @@ class Programme:
     projects = (
         etl
         .fromjson(PUBLISHED / 'programme/projects.json')
-        .convert(['Date From', 'Date To'], etl.dateparser('%Y-%m-%d'))
-        .cut('id', 'Project Name', 'Date From', 'Date To', 'Programme Category')
+        .convert(['Start Date', 'End Date'], lambda f: datetime.fromisoformat(f).date())
+        .cut('id', 'Project Name', 'Start Date', 'End Date', 'Programme Category', 'Greenlight Status', 'Project Phase')
         .replace('Project Name', None, 'UNKNOWN')
         .update('Programme Category', [], where=lambda r: r['Programme Category'] is None)
     )
@@ -68,4 +68,15 @@ class Programme:
         .sort(['Date'])
 
         .biselect(lambda r: r.Validation == None)
+    )
+
+    event_reports = (
+        etl
+        .fromcsv(PUBLISHED / 'programme/event-reports.csv')
+        .convert(['report_date', 'event_date', 'start_time', 'end_time'], lambda f: datetime.fromisoformat(f).date())
+        .convert(['audience', 'tickets_pre_sold', 'tickets_on_the_door', 'participants', 'volunteers', 'volunteer_shifts'], int)
+        .replace(['audience', 'tickets_pre_sold', 'tickets_on_the_door', 'participants', 'volunteers', 'volunteer_shifts'], None, 0)
+        .convert(['Programme Category', 'Project Venue(s)'], literal_eval)
+        .convert('Project Name', canonical_project_name)
+        .cache()
     )
