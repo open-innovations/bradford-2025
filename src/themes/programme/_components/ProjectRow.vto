@@ -44,14 +44,15 @@ css: |
             It's tagged with the following programme categories:
         </p>
         <ul>
-            {{ programmeCategory.map(x => `<li>${x}</li>`) }}
+            {{ programmeCategory |> listify }}
         </ul>
         {{ /if }}
         
+        {{ if earliestDate }}
         <p>
-        The earliest date is {{ earliestDate |> date('BD25_YEAR') }}{{ if latestDate != earliestDate }}, and the latest date is {{ latestDate |> date('BD25_YEAR') }}
-        {{ /if }}.
+        The earliest date is {{ earliestDate |> date('BD25_YEAR') }}{{ if latestDate != earliestDate }}, and the latest date is {{ latestDate |> date('BD25_YEAR') }}{{ /if }}.
         </p>
+        {{ /if }}
     {{ /comp }}
 {{ /comp }}
 </td>
