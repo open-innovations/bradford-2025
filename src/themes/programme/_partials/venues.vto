@@ -1,0 +1,15 @@
+<section>
+<h2>Venues</h2>
+
+<p>
+Event reports are associated with particular venues. As an example, data related to the venues in Loading Bay is listed in the table below:
+</p>
+
+{{# <table> #}}
+<ul>
+{{ for venue, eventCount of events.by_venue.loading_bay }}
+    <li>{{ venue }} has held {{ eventCount }} event{{ eventCount !== 1 ? 's' : '' }}.
+{{ /for }}
+</ul>
+
+</section>

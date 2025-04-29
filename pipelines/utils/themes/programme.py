@@ -80,3 +80,10 @@ class Programme:
         .convert('Project Name', canonical_project_name)
         .cache()
     )
+
+    venues = (
+        etl
+        .fromcsv(PUBLISHED / 'programme/venues.csv')
+        .convert(['Org/Venue Type', 'Event Reports'], literal_eval)
+        .cache()
+    )
