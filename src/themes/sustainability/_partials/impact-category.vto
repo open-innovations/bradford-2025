@@ -16,6 +16,10 @@
             colour: oiColour.names.midgrey,
             tooltip: 'Purchased goods and services <b>{{ Purchased goods and services }}%</b>',
         },
+        'Waste': {
+            colour: oiColour.names.darkgrey,
+            tooltip: 'Waste <b>{{ Waste }}%</b>',
+        }
     }
     const waffleSeries = Object.entries(calculations.by_impact[0])
         .sort((a, b) => b[1] - a[1])
@@ -25,7 +29,8 @@
     config: {
         data: calculations.by_impact,
         series: waffleSeries,
-        size: [22, 8],
+        // TODO Unsetting this causes the graph to fail under some circumstances. I suspect down to rounding
+        // size: [22, 8],
         legend: { show: true, position: 'bottom' },
     }
 }) }}
