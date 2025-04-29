@@ -1,5 +1,17 @@
 <section class="grid regular">
 
+{{ if programme.summary.count.event_reports > 1 }}
+{{ comp dashboard.Cell { classes: 'centred c-green' }}}
+{{ comp.BigNumber({
+    label: 'Events',
+    number: programme.summary.count.event_reports,
+    animate: true,
+    roundingOptions: { maximumFractionDigits: 0 },
+}) }}
+<p>Audience logged in event reports</p>
+{{ /comp }}
+
+{{ /if }}
 {{ if programme.summary.event_report }}
 {{ comp dashboard.Cell { classes: 'centred c-pink' }}}
 {{ comp.BigNumber({

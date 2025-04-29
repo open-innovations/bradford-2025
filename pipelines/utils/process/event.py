@@ -5,12 +5,32 @@ from ..themes.programme import Programme as _Programme
 
 
 class Programme:
-    def __init__(self, project_ids):
+    def __init__(self, project_ids, venue_ids):
         self.project_ids = project_ids
 
         self.projects = _Programme.projects.selectin('id', project_ids)
-        self.event_reports = _Programme.event_reports.selectin(
-            'project_id', project_ids)
+
+        event_reports_by_programme = (
+            _Programme.event_reports
+            .selectin('project_id', project_ids)
+            
+        )
+
+        def row_per_event_report(r):
+            for e in r['Event Reports']:
+                yield (e, r['id'])
+
+        event_reports_by_venue = (
+            _Programme.venues
+            .selectin('id', venue_ids)
+            .rowmapmany(row_per_event_report, header=('id', 'venue_id'))
+            .leftjoin(_Programme.event_reports)
+        )
+
+        self.event_reports = etl.cat(
+            event_reports_by_programme,
+            event_reports_by_venue
+        )
 
     def summarise(self):
         counts = dict(
