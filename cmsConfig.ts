@@ -12,4 +12,13 @@ function customLabel(name) {
         rest = rest.join(" ");
         return `${section}: ${rest}`;
     }
-export { dashboardFields, customLabel };
+
+const dashboardConfig = {
+    fields: dashboardFields,
+    documentLabel: customLabel,
+    documentName: "{title}.yml",
+    // create: false,
+    delete: false,
+}
+
+export { dashboardConfig };
