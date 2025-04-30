@@ -47,14 +47,14 @@ headerExtra: |
 {{ /if }}
 
 
-{{ if (search.pages('theme layout!=templates/index.vto').length > 0) || (displayEmpty || false) }}
+{{ if (search.pages('theme monitoring-data layout!=templates/index.vto').length > 0) || (displayEmpty || false) }}
 <section class="block c-green-light">
     <div class="river">
         <a href="{{ '~/themes/index.yml' |> url }}">
-            <h2>Themes</h2>
+            <h2>Monitoring data</h2>
             <p>{{ search.data('/themes/').description }}</p>
             <p>
-                {{ comp Pill }}Explore the themes &rarr;{{ /comp }}
+                {{ comp Pill }}Explore the monitoring data &rarr;{{ /comp }}
             </p>
         </a>
     </div>
