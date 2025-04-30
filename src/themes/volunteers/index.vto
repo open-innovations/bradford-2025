@@ -7,25 +7,14 @@ datasets:
     - volunteers/shifts
     - volunteers/geo-summary
 description: |
-    We all know that Bradford’s greatest asset is its people.
+    We all know that Bradford's greatest asset is its people.
     Find out the key statistics about the volunteers at the heart of Bradford 2025.
 ---
 
 
 {{# TODO move this to a pipeline #}}
 {{ set total = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
-{{ set summary = {
-        ...Object.entries(people.checkpoints_weekly[people.checkpoints_weekly.length - 1])
-            .filter(([k,v]) => k.includes('cumulative'))
-            .reduce((result, [k, v]) => ({ ...result, [keyMap[k] || k]: v }), {}),
-        ...Object.entries(shifts.attended_cumulative_by_week.slice(-1)[0])
-            .filter(x => x[0] !== 'week_ending')
-            .reduce((a, [title, value]) => ({ ...a, [`${title} volunteer shifts`]: value }), {}),
-        ...Object.entries(shifts.hours_cumulative_by_week.slice(-1)[0])
-            .filter(x => x[0] !== 'week_ending')
-            .reduce((a, [title, value]) => ({ ...a, [`${title} volunteer hours`]: value }), {}),
-    }
-}}
+
 <section>
 
 {{ include 'cms/block/volunteering-introduction.md' |> md }}

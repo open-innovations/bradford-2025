@@ -18,6 +18,8 @@ stages:
       - ../data/published/volunteers/checkpoints.csv
       - ../data/published/volunteers/shifts.csv
     outs:
+      - ${VOLUNTEER_DATA}/summary.json:
+          cache: false
       - ${VOLUNTEER_DATA}/people/by_demographic_age_range.csv:
           cache: false
       - ${VOLUNTEER_DATA}/people/by_geo_oslaua.csv:

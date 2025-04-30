@@ -5,32 +5,32 @@ stages:
     deps:
     - path: ../data/published/volunteers/checkpoints.csv
       hash: md5
-      md5: 2033114e8b343128d5a45f510d6428d7
-      size: 22780
+      md5: 66d4fcb9d22aa1426f582f2d7fc699ad
+      size: 22902
     - path: ../data/published/volunteers/shifts.csv
       hash: md5
       md5: b2ccee890c289c1dbc8911f71a903a61
       size: 53535
     - path: volunteers.ipynb
       hash: md5
-      md5: 6becaebc8f5c7e0d74d6c069fa557984
-      size: 8459
+      md5: af26365c06749770122f89e103dd7316
+      size: 11464
     outs:
     - path: ../src/themes/volunteers/_data/people/by_demographic_age_range.csv
       hash: md5
-      md5: 81ee559f01942d385759e6124c3ecc86
+      md5: 1e1f10acc05d76ad29b061b6e07a2dfb
       size: 196
     - path: ../src/themes/volunteers/_data/people/by_geo_TOTAL.csv
       hash: md5
-      md5: 6c4bf68c405b4e8e919e22a7580f6b8d
+      md5: 6cfd4bab50863700271e9e2318f699ee
       size: 54
     - path: ../src/themes/volunteers/_data/people/by_geo_oslaua.csv
       hash: md5
-      md5: 650809ea71d39f8fe3eff4bbbc1a9213
+      md5: c2018030c4891ef1bb39dd86a93168e2
       size: 1313
     - path: ../src/themes/volunteers/_data/people/by_geo_osward.csv
       hash: md5
-      md5: 294126859de7a687fdd004a0b1fe987d
+      md5: 5d04eaf6e9cf1e913b495556317ed49b
       size: 648
     - path: ../src/themes/volunteers/_data/people/by_geo_postcode_area.csv
       hash: md5
@@ -38,8 +38,8 @@ stages:
       size: 493
     - path: ../src/themes/volunteers/_data/people/checkpoints_weekly.csv
       hash: md5
-      md5: 3cb1ddc8fcb97bbe60cc2ec55138c8da
-      size: 1345
+      md5: 11137484dadbde64b4308d47c50952c0
+      size: 1346
     - path: ../src/themes/volunteers/_data/shifts/attended_by_week.csv
       hash: md5
       md5: 9a1dc549839bc89f30530c13516d0cdf
@@ -56,6 +56,10 @@ stages:
       hash: md5
       md5: d695e2b0605d48284f69411a0dea8e5a
       size: 1684
+    - path: ../src/themes/volunteers/_data/summary.json
+      hash: md5
+      md5: 5578bfb1e34a592722eda71ab8fc62ab
+      size: 478
   ticketing:
     cmd: papermill --no-log-output ticketing.ipynb output/ticketing.ipynb
     deps:
