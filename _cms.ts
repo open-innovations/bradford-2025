@@ -1,5 +1,5 @@
 import lumeCMS from "lume/cms/mod.ts";
-import dashboardFields from "./cmsConfig.ts";
+import { customLabel, dashboardFields }  from "./cmsConfig.ts";
 import GitHub from "lume/cms/storage/github.ts";
 import { Octokit } from "npm:octokit@4.1.3";
 import { createAppAuth } from "npm:@octokit/auth-app@7.2.1";
@@ -65,6 +65,7 @@ cms.collection({
     name: "2025 dashboard",
     store: src + "/insights/dashboard/_data/metrics/*.yml",
     fields: dashboardFields,
+    documentLabel: customLabel,
     documentName: "{title}.yml",
     // create: false,
     delete: false,
@@ -74,6 +75,7 @@ cms.collection({
     name: "January to March 2025 dashboard",
     store: src + "/insights/dashboard/q1/_data/metrics/*.yml",
     fields: dashboardFields,
+    documentLabel: customLabel,
     documentName: "{title}.yml",
     // create: false,
     delete: false,
@@ -83,6 +85,7 @@ cms.collection({
     name: "April to June 2025 dashboard",
     store: src + "/insights/dashboard/q2/_data/metrics/*.yml",
     fields: dashboardFields,
+    documentLabel: customLabel,
     documentName: "{title}.yml",
     // create: false,
     delete: false,
