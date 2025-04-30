@@ -61,23 +61,17 @@ cms.upload("assets", src + "/assets/");
 //     nameField: "reference"
 // });
 
-cms.collection({
-    name: "2025 dashboard",
-    store: src + "/insights/dashboard/_data/metrics/*.yml",
-    ...dashboardConfig,
-});
-
-cms.collection({
-    name: "January to March 2025 dashboard",
-    store: src + "/insights/dashboard/q1/_data/metrics/*.yml",
-    ...dashboardConfig,
-});
-
-cms.collection({
-    name: "April to June 2025 dashboard",
-    store: src + "/insights/dashboard/q2/_data/metrics/*.yml",
-    ...dashboardConfig,
-});
+for (const { id, name } of [
+    { id: null, name: "2025 dashboard" },
+    { id: 'q1', name: "January to March 2025 dashboard" },
+    { id: 'q2', name: "April to June 2025 dashboard" },
+]) {
+    cms.collection({
+        name: name,
+        store: [src, 'insights/dashboard', id, '_data/metrics/*.yml'].filter(x => x).join('/'),
+        ...dashboardConfig,
+    });    
+}
 
 cms.collection({
     name: "Glossary",
