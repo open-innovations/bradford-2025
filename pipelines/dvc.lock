@@ -343,13 +343,13 @@ stages:
       size: 433222
     - path: programme.ipynb
       hash: md5
-      md5: bf4a96e627cc85f0e6275368f8e4346d
-      size: 9744
+      md5: 3c820a6d604deb85db561fb00072d668
+      size: 10037
     outs:
     - path: ../src/themes/programme/_data/events/
       hash: md5
-      md5: 3c1c6f3faaa2d0c3dfdb40d0cbe061b8.dir
-      size: 36943
+      md5: 35a80e92130be3adf0133d0827bad02b.dir
+      size: 37068
       nfiles: 6
   events@loading-bay:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
@@ -371,4 +371,25 @@ stages:
       hash: md5
       md5: 97a9ac7c116a2ef5c31caa536bbe3754.dir
       size: 273
+      nfiles: 1
+  events@beacon:
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
+      '' -p venue_postcode 'None' -p rosterfy_event_ids '' -p project_ids '' -p venue_ids
+      'rec7tn1K6r85N72yc recW1DV5uXWsrUShy recea0GEE29eKCtxu recx817GdO7wmJDf6' -p
+      id 'beacon'
+    deps:
+    - path: ../data/published/ticketing/
+      hash: md5
+      md5: 79e3d66bf762afc98336d81b63809d85.dir
+      size: 3351284
+      nfiles: 3
+    - path: events.ipynb
+      hash: md5
+      md5: f7bd8ae3cb9d18e32937c7e06ba7dc42
+      size: 3591
+    outs:
+    - path: ../src/events/beacon/_data/event/
+      hash: md5
+      md5: 187848fb8c5d5376ed087925051c51e9.dir
+      size: 274
       nfiles: 1
