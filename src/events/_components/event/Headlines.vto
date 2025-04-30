@@ -1,28 +1,64 @@
 <section class="grid regular">
 
-{{ if programme.summary.count.event_reports > 1 }}
-{{ comp dashboard.Cell { classes: 'centred c-green' }}}
-{{ comp.BigNumber({
-    label: 'Events',
-    number: programme.summary.count.event_reports,
-    animate: true,
-    roundingOptions: { maximumFractionDigits: 0 },
-}) }}
-<p>Audience logged in event reports</p>
-{{ /comp }}
-
-{{ /if }}
-{{ if programme.summary.event_report }}
-{{ comp dashboard.Cell { classes: 'centred c-pink' }}}
+{{ if programme.summary.event_report?.audience }}
+{{ comp dashboard.Cell { classes: 'centred c-yellow' }}}
 {{ comp.BigNumber({
     label: 'Audience',
     number: programme.summary.event_report.audience,
     animate: true,
     roundingOptions: { maximumFractionDigits: 0 },
 }) }}
-<p>Audience logged in event reports</p>
+<p>Total of audience recorded in event reports</p>
 {{ /comp }}
 {{ /if }}
+
+{{ if programme.summary.event_report?.participants }}
+{{ comp dashboard.Cell { classes: 'centred c-yellow' }}}
+{{ comp.BigNumber({
+    label: 'Participants',
+    number: programme.summary.event_report.participants,
+    animate: true,
+    roundingOptions: { maximumFractionDigits: 0 },
+}) }}
+<p>Total of participants recorded in event reports</p>
+{{ /comp }}
+{{ /if }}
+
+{{ if programme?.summary?.event_report }}
+{{ comp dashboard.Cell { classes: 'centred c-yellow' }}}
+{{ comp.BigNumber({
+    label: 'Volunteers',
+    number: programme.summary.event_report.volunteers,
+    animate: true,
+    roundingOptions: { maximumFractionDigits: 0 },
+}) }}
+<p>Individual volunteers {{ if volunteers?.summary }} contributed 
+    {{ volunteers?.summary.find(x => x.date == 'ALL').hours.toLocaleString() }} hours {{ /if }}.</p>
+
+{{ comp Controls }}
+{{ comp Popover }}
+<p>
+    Data has been extracted from the the Airtable Project Hub and Rosterfy volunteer management system, and is subject to change as adjustments and data validation is completed.
+</p>
+{{ /comp }}
+{{ /comp }}
+
+{{ /comp }}
+{{ /if }}
+
+{{ if programme.summary.count.event_reports > 1 }}
+{{ comp dashboard.Cell { classes: 'centred c-pink' }}}
+{{ comp.BigNumber({
+    label: 'Events',
+    number: programme.summary.count.event_reports,
+    animate: true,
+    roundingOptions: { maximumFractionDigits: 0 },
+}) }}
+<p>Total individual event reports</p>
+{{ /comp }}
+{{ /if }}
+
+
 
 {{ if (tickets?.summary && tickets.summary.length > 0) }}
 {{ comp dashboard.Cell { classes: 'centred c-pink' }}}
@@ -36,19 +72,7 @@
 {{ /comp }}
 {{ /if }}
 
-{{ if programme?.summary?.event_report }}
-{{ comp dashboard.Cell { classes: 'centred c-yellow' }}}
-{{ comp.BigNumber({
-    label: 'Volunteers',
-    number: programme.summary.event_report.volunteers,
-    animate: true,
-    roundingOptions: { maximumFractionDigits: 0 },
-}) }}
-<p>Individual volunteers involved</p>
-{{ /comp }}
-
-{{ /if }}
-
+{{#
 {{ if volunteers?.summary }}
 {{ comp dashboard.Cell { classes: 'centred c-yellow' } }}
 {{ comp.BigNumber( {
@@ -63,14 +87,10 @@
     {{ volunteers.summary.find(x => x.date == 'ALL').attended }}
     individual shifts.
 </p>
-{{ comp Controls }}
-{{ comp Popover }}
-<p>
-    <i>Data has been extracted from the volunteer management system, and is subject to change as adjustments and data validation is completed.</i>
-</p>
+
 {{ /comp }}
-{{ /comp }}
-{{ /comp }}
+{{ /if }}
+#}}
 
 {{ if sustainability?.summary }}
 {{ comp dashboard.Cell { classes: 'centred c-green' } }}
@@ -92,6 +112,5 @@
 {{ /comp }}
 {{ /comp }}
 {{ /comp }}
-{{ /if }}
 {{ /if }}
 </section>
