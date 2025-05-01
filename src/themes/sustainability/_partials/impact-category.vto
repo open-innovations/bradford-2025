@@ -30,7 +30,8 @@
         data: calculations.by_impact,
         series: waffleSeries,
         // TODO Unsetting this causes the graph to fail under some circumstances. I suspect down to rounding
-        // size: [22, 8],
+        size: [22, 8],
+        // rounding: 'floor',
         legend: { show: true, position: 'bottom' },
     }
 }) }}
