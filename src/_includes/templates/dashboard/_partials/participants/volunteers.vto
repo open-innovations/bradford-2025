@@ -1,3 +1,9 @@
+{{> const volunteersSignedUp =
+        participants.volunteers.people.checkpoints["1. Monitoring & Evaluation"] +
+        participants.volunteers.people.checkpoints["2. Sign Up to Induction"] +
+        participants.volunteers.people.checkpoints["3. Fully Inducted Volunteers"]
+}}
+
 {{ comp dashboard.Cell {
     title: metrics.participants_volunteers.title,
     flash: metrics.participants_volunteers.flash,
@@ -5,7 +11,7 @@
 } }}
     {{# Using the actual number here! #}}
     {{ comp.BigNumber({
-        number: participants.volunteers.people.checkpoints["1. Monitoring & Evaluation"],
+        number: volunteersSignedUp,
         suffix: '',
     }) }}
 	{{ comp.dashboard.Footer({
@@ -28,8 +34,8 @@
             <tbody>
             <tr>
                 <th scope="row">Signed up</th>
-                <td class="centred">{{ participants.volunteers.people.checkpoints["1. Monitoring & Evaluation"].toLocaleString() }}</td>
-                <td>Number of volunteers who have expressed an interest and are completing their profile.</td>
+                <td class="centred">{{ volunteersSignedUp.toLocaleString() }}</td>
+                <td>Number of volunteers who have expressed an interest and are completing their profile, or who have progressed to a later stage of the volunteering programme.</td>
             </tr>
             <tr>
                 <th scope="row">Completed induction</th>

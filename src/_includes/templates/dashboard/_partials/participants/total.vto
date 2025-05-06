@@ -1,10 +1,23 @@
+{{> const volunteersSignedUp =
+        participants.volunteers.people.checkpoints["1. Monitoring & Evaluation"] +
+        participants.volunteers.people.checkpoints["2. Sign Up to Induction"] +
+        participants.volunteers.people.checkpoints["3. Fully Inducted Volunteers"];
+
+	const totalParticipants = volunteersSignedUp +
+		(manual.participants.cultural_learning || 0) +
+		(manual.participants.community_participation || 0) +
+		(manual.participants.our_patch||0) +
+		(manual.participants.training_and_development||0) +
+		(manual.participants.creative_health||0);
+}}
+
 {{ comp dashboard.Cell {
 	title: metrics.participants_total.title,
 	flash: metrics.participants_total.flash,
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: participants.volunteers.people.checkpoints["1. Monitoring & Evaluation"] + (manual.participants.cultural_learning||0) + (manual.participants.community_participation||0) + (manual.participants.our_patch||0) + (manual.participants.training_and_development||0) + (manual.participants.creative_health||0),
+		number: totalParticipants,
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
@@ -26,25 +39,25 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>Volunteers</td><td>{{ participants.volunteers.people.checkpoints["1. Monitoring & Evaluation"] }}</td>
+						<td>Volunteers</td><td>{{ volunteersSignedUp.toLocaleString() }}</td>
 					</tr>
 					<tr>
-						<td>Cultural learning</td><td>{{ manual.participants.cultural_learning }}</td>
+						<td>Cultural learning</td><td>{{ manual.participants.cultural_learning.toLocaleString() }}</td>
 					</tr>
 					<tr>
-						<td>Community participation</td><td>{{ manual.participants.community }}</td>
+						<td>Community participation</td><td>{{ manual.participants.community_participation.toLocaleString() }}</td>
 					</tr>
 					<tr>
-						<td>Our patch</td><td>{{ manual.participants.our_patch }}</td>
+						<td>Our patch</td><td>{{ manual.participants.our_patch.toLocaleString() }}</td>
 					</tr>
 					<tr>
-						<td>Training and development participants</td><td>{{ manual.participants.training_and_development }}</td>
+						<td>Training and development participants</td><td>{{ manual.participants.training_and_development.toLocaleString() }}</td>
 					</tr>
 					<tr>
-						<td>Creative health participants</td><td>{{ manual.participants.creative_health }}</td>
+						<td>Creative health participants</td><td>{{ manual.participants.creative_health.toLocaleString() }}</td>
 					</tr>
 					<tr>
-						<td>Total</td><td>{{ participants.volunteers.people.checkpoints["1. Monitoring & Evaluation"] + (manual.participants.cultural_learning||0) + (manual.participants.community||0) + (manual.participants.our_patch||0) + (manual.participants.training_and_development||0) + (manual.participants.creative_health||0) }}</td>
+						<td>Total</td><td>{{ totalParticipants.toLocaleString() }}</td>
 					</tr>
 				</tbody>
 			</table>
