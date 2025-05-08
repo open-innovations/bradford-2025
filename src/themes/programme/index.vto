@@ -4,6 +4,15 @@ description: |
     Details of the programme of events that are being produced as part of the Bradford 2025 City of Culture.
 ---
 
+{{ comp WARNING }}
+<p>
+    The figures in this table are derived from data entered into the Project Hub in Airtable.
+    We are aware of some situations where the numbers are overcounted,
+    and are working with the Airtable team to resolve these issues.
+</p>
+{{ /comp }}
+
+<section>
 {{ comp dashboard.Frame }}
     {{ comp dashboard.Cell {
         title: 'Total events',
@@ -11,64 +20,24 @@ description: |
     } }}
         {{ comp.BigNumber({number: events.summary.total }) }}
         <div class="centred">
-            Total events recorded in the <strong>Bradford 2025 Project hub</strong> Schedule table.<br>
+            Total events recorded in the <strong>Bradford 2025 Project hub</strong> Event Reports and / or Schedule tables.<br>
             {{ comp.Date({start:events.summary.date.earliest,end:events.summary.date.latest}) }}
         </div>
     {{ /comp }}
 {{ /comp }}
-
-<section>
-    {{ include './_partials/data_pipeline.md' |> md }}
 </section>
 
 <section>
-
-<h2>Summary of events by month</h2>
-
-{{>
-    const eventsByMonth = events.total_by_month.map(row => ({
-        ...row,
-        projects: Object.entries(
-            events.monthly_breakdown
-            .find(r => row.Month.toISOString() == r.Month.toISOString())
-        )
-        .filter(r => (r[0] !== 'Month') && (r[1] > 0))
-        .toSorted((a, b) => b[1] - a[1]),
-        Month: row.Month.toLocaleDateString(undefined, { month: "long", year: "numeric" })
-    }))
-}}
-
-{{ comp.oi.chart.bar({
-    config: {
-        data: eventsByMonth,
-        category: 'Month',
-        series: [
-            { value: 'Events', title: 'Events', colour: oiColour.names.yellow }
-        ],
-    },
-}) }}
+    {{ include './_partials/monthly.vto' }}
 </section>
 
 <section>
-<h2>Summary of events by programme</h2>
-<table>
-<thead class="c-yellow">
-    <tr>
-    <th scope="column">Project Name</th>
-    <th scope="column">Event reports</th>
-    <th scope="column">Schedule events</th>
-    <th scope="column">More info</th>
-    </tr>
-</thead>
-<tbody>
-{{ for name, details of events.by_project }}
-    {{ comp.ProjectRow({ name, ...details }) }}
-{{ /for }}
-<tbody>
-</table>
+    {{ include './_partials/project.vto' }}
 </section>
 
-{{ include './_partials/venues.vto' }}
+<section>
+    {{ include './_partials/venues.vto' }}
+</section>
 
 <section>
 <h2>Evaluation Category</h2>
@@ -103,4 +72,9 @@ Evaluation categories are derived from the Programme category assigned to the pr
 {{ /comp }}
 {{ /for }}
 {{ /comp }}
+
+<section>
+    {{ include './_partials/data_pipeline.md' |> md }}
+</section>
+
 </section>

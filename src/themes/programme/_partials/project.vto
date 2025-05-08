@@ -1,0 +1,17 @@
+<h2>Summary of events by programme</h2>
+
+<table>
+<thead class="c-yellow">
+    <tr>
+    <th scope="column">Project Name</th>
+    <th scope="column">Events</th>
+    {{# <th scope="column">Schedule events</th> #}}
+    <th scope="column">More info</th>
+    </tr>
+</thead>
+<tbody>
+{{ for name, details of events.by_project }}
+    {{ comp.ProjectRow({ name, ...details }) }}
+{{ /for }}
+<tbody>
+</table>

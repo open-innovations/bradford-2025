@@ -1,3 +1,5 @@
+## Data pipeline
+
 The count includes events records in the **Bradford 2025 Project Hub** _Schedule_ table.
 
 The initial extract selects only the following entries:

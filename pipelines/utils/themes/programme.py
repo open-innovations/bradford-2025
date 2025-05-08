@@ -80,6 +80,7 @@ class Programme:
         .convert(['audience', 'tickets_pre_sold', 'tickets_on_the_door', 'participants', 'volunteers', 'volunteer_shifts'], int)
         .replace(['audience', 'tickets_pre_sold', 'tickets_on_the_door', 'participants', 'volunteers', 'volunteer_shifts'], None, 0)
         .convert(['Programme Category', 'Project Venue(s)'], literal_eval)
+        .convert('Project Name', lambda x: x.strip())
         .convert('Project Name', canonical_project_name)
         .cache()
     )

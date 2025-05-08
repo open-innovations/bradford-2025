@@ -16,25 +16,31 @@ css: |
 
 {{# Event Reports #}}
 <td>
-    {{ if eventReports }}
-        {{ comp.BigNumber({
-            number: eventReports.reports
-        })}}
-    {{ /if }}
+    {{ comp.BigNumber({
+        number: events
+    }) }}
 </td>
 
 <td>
-    {{ if events }}
-        {{ comp.BigNumber({
-            number: events
-        })}}
-        {{# {{ records }} schedule {{ [1].includes(records) ? 'row' : 'rows' }} #}}
-    {{ /if }}
-</td>
-<td>
 {{ comp Controls }}
     {{ comp Popover }}
-        <p>All about the {{ name }} project.</p>
+        <p>
+            All about the {{ name }} project.
+        </p>
+
+        <p>
+            We are counting <b>{{ events }} events</b> overall.
+            There are <b>{{ eventReports || 0 }} event reports</b> logged, and <b>{{ scheduledEvents || 0 }} events</b> registered in the schedule table.
+        </p>
+
+        <p>
+            NB The total is not necessarily the sum of these two values, as an effort is being made to avoid double counting by considering the
+            event reports and scheduled events during a month. If event reports are provided, the count of event is derived from the number of event reports.
+            If no event reports are provided for a month, the event count falls back to the number of scheduled events, assuming that for multi-day events there
+            is exactly one event per day.
+
+            This processing will be improved over time.
+        </p>
         
         <p>
             If is being counted in the {{ evaluationCategory }} evaluation category.
