@@ -4,7 +4,8 @@ layout: templates/page.vto
 {{# TODO: check adding dates to the tops of pages #}}
 {{# <p>{{ comp.Date({start:timestamp.start,end:timestamp.end}) }}</p> #}}
 
-{{ comp.WARNING() }}
+{{ comp WARNING }}{{ warning_message |> md }}{{ /comp }}
+
 {{ comp InfoCard { id:"headlines" } }}
 	<h2>Headlines</h2>
 	<p>
@@ -83,7 +84,7 @@ layout: templates/page.vto
 
 {{ /comp }}
 
-{{ comp.WARNING() }}
+{{ comp WARNING }}{{ warning_message |> md }}{{ /comp }}
 
 <style>
     :root {
