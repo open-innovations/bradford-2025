@@ -32,10 +32,15 @@ css: |
             margin-block: 0;
         }
     }
+    .feedback { display: block; padding: var(--site-padding); background:var(--color-yellow); color: var(--color-black); text-decoration: none; }
+    .feedback > *:first-child { margin-top: 0; }
+    .feedback > *:last-child { margin-bottom: 0; }
+    .feedback:hover, .feedback:focus { background:var(--color-lightyellow); color: var(--color-black); }
 ---
 
 <hr class="horizontal">
 {{ comp.DataReferences({ datasets, search }) }}
+<a href="https://app.sli.do/event/7AWeia2eVhmdHy9Dkm2q27/live/questions" class="feedback"><h2>Feedback</h2><p>Something wrong with this page? Got a suggestion for an improvement? Send us your feedback via Slido. Just make sure to include a link to this page in your feedback so we know what you are referring to.</p></a>
 <footer class="comp-site-footer">
     <nav class="primary">
         <ul>
