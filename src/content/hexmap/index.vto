@@ -10,6 +10,21 @@
 {{
     comp.oi.map.hex_cartogram({
         config: {
+            hexjson: hexes.bd_pcd,
+            label: 'n',
+            boundaries: {
+                bradford: {
+                    stroke: 'red',
+                    'stroke-width': '3',
+                }
+            }
+        }
+    })
+}}
+
+{{
+    comp.oi.map.hex_cartogram({
+        config: {
             hexjson: hexes.wyca,
             label: 'n',
         }
