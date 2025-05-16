@@ -1,8 +1,6 @@
 import datetime
-from datetime import date
 
 import pandas as pd
-from dateutil.relativedelta import relativedelta
 
 
 def date_to_week(date) -> datetime.datetime:
