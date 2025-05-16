@@ -54,19 +54,20 @@ class Programme:
             'Programme Category',
             'Producing model',
         ], None, [])
+        .convertnumbers()
 
         # .select(lambda r: r['Start Date'] is not None)
         # Replace missing End Dates with Start Dates if Start Date is defined
         .convert('End Date', lambda _, r: r['Start Date'], pass_row=True, where=lambda r: r['Start Date'] is not None and r['End Date'] is None)
-        
-        .cut('id', 'project_id', 'Project Name', 'Item Type', 'Start Date', 'End Date', 'Programme Category', 'Evaluation Category', 'Producing model')
 
         # Calculate duration and event counts. NB - this won't work as part of an arbitrary aggregate
         .addfield('Duration', lambda r: r['End Date'] - r['Start Date'] if r['Start Date'] else None)
-        .addfield('Event Count', lambda r: max(r.Duration.days + 1, 1) if r.Duration is not None else None)
+        .rename('_occurrences', 'Event Count')
         .addfield('Date', lambda r: r['End Date'])
         .addfield('Month', lambda r: r.Date.replace(day=1) if r.Date else None)
         .addfield('Validation', validation)
+
+        .cut('id', 'project_id', 'Project Name', 'Item Type', 'Start Date', 'End Date', 'Programme Category', 'Evaluation Category', 'Producing model', 'Duration', 'Event Count', 'Date', 'Month', 'Validation')
 
         .sort(['Date'])
 
