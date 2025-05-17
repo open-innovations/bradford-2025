@@ -90,5 +90,6 @@ class Programme:
         etl
         .fromcsv(PUBLISHED / 'programme/venues.csv')
         .convert(['Org/Venue Type', 'Event Reports'], literal_eval)
+        .replace(['Event Reports'], None, [])
         .cache()
     )
