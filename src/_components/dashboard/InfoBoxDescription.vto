@@ -1,15 +1,18 @@
 ---
 css: |
-    .editable { position: relative;  }
-    .editable:hover { outline: 2px dashed var(--color-black); outline-offset: 0.5rem; outline-color: var(--color-black); }
-    .editable > *:last-child { margin-bottom: 0; }
-    .edit-link { --flash-bg:var(--color-lightgrey); --flash-fg:var(--color-offblack); }
+    .editable .editable-area .edit-link { display: block; }
+    .editable-area { position: relative; }
+    .editable .editable-area:hover { outline: 2px dashed var(--color-black); outline-offset: 0.5rem; outline-color: var(--color-black); }
+    .editable .editable-area > *:last-child { margin-bottom: 0; }
+    .edit-link { display: none; --flash-bg:var(--color-lightgrey); --flash-fg:var(--color-offblack); }
 ---
 {{ if build.live == false }}
 <div class="editable">
+<div class="editable-area">
 {{ /if }}
 {{ metrics[file]?.description }}
 {{ if build.live == false }}
 	<p><a href="https://cms-bradford-2025.deno.dev/collection/{{ collection }}/edit/{{ file }}.yml" class="edit-link">{{ comp Pill }}Edit description for this info box &rarr;{{ /comp }}</a></p>
+</div>
 </div>
 {{ /if }}
