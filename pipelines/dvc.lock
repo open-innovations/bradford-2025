@@ -397,3 +397,23 @@ stages:
       md5: dd98b54670012a053154dff0fde61f31.dir
       size: 6202
       nfiles: 2
+  events@the-bradford-progress:
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
+      '' -p venue_postcode 'None' -p rosterfy_event_ids '29424' -p project_ids 'recSACUvnIn3yCW2S'
+      -p venue_ids '' -p id 'the-bradford-progress'
+    deps:
+    - path: ../data/published/ticketing/
+      hash: md5
+      md5: 8554394c0878d63b74b8588dfe30f5bf.dir
+      size: 3746185
+      nfiles: 3
+    - path: events.ipynb
+      hash: md5
+      md5: 27903250b81111abcc572ac1ab3df22b
+      size: 4465
+    outs:
+    - path: ../src/events/the-bradford-progress/_data/event/
+      hash: md5
+      md5: 9756ef04ce2344c975c99753c1452e0e.dir
+      size: 498
+      nfiles: 5
