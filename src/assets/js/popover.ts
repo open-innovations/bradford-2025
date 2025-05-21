@@ -1,7 +1,27 @@
+const POPOVER_PARAM = 'infobox';
+
+function showOnLoad(id: string) {
+	if (!id) false;
+	const params = new URLSearchParams(globalThis.location.search);
+	return params.get(POPOVER_PARAM) == id;
+}
+function addToLocation(id: string) {
+	if (!id) return;
+	const url = new URL(globalThis.location.toString())
+	url.searchParams.set(POPOVER_PARAM, id)
+	globalThis.history.pushState(null, '', url.toString());
+}
+function removeFromLocation(id: string) {
+	if (!id) return;
+	const url = new URL(globalThis.location.toString())
+	url.searchParams.delete(POPOVER_PARAM, id)
+	globalThis.history.pushState(null, '', url.toString());
+}
+
 function initialisePopover(popover: HTMLElement) {
 	const btnShow = popover.querySelector('button.show');
 	const content = popover.querySelector('div.popover-content');
-	console.log('init',popover,btnShow);
+	console.debug('init',popover,btnShow);
 
 	let popup = document.querySelector('dialog');
 	if(!document.querySelector('dialog')){
@@ -31,18 +51,26 @@ function initialisePopover(popover: HTMLElement) {
 		popup.innerHTML = "";
 		popup.appendChild(btnHide);
 		popup.appendChild(clonedContent);
-console.log('show',btnHide,btnShow,popover);
+console.debug('show',btnHide,btnShow,popover);
 		btnHide.focus();
+		addToLocation(popover.dataset.infoboxId);
 	};
 	
 	const hide = () => {
+		try {
 		popup.removeChild(btnHide);
 		popup.close();
 		btnShow.focus();
+		} catch(e) {
+			console.error(e)
+		}
+		removeFromLocation(popover.dataset.infoboxId);
 	};
 	
 	btnShow?.addEventListener('click', show );
 	btnHide.addEventListener('click', hide );
+
+	if (showOnLoad(popover.dataset.infoboxId)) show();
 	return this;
 }
 
