@@ -58,12 +58,10 @@ console.debug('show',btnHide,btnShow,popover);
 	};
 	
 	const hide = () => {
-		try {
-		popup.removeChild(btnHide);
 		popup.close();
-		btnShow.focus();
-		} catch(e) {
-			console.error(e)
+		if(popup.contains(btnHide)){
+			popup.removeChild(btnHide);
+			btnShow.focus();
 		}
 		removeFromLocation(popover.dataset.infoboxId);
 	};
