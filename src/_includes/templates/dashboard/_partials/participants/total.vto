@@ -33,38 +33,27 @@
                 collection: title,
                 file: "participants_total" 
                 }) |> md |> vto(page.data) }}
+			{{ comp.dashboard.InfoBoxTable({
+							"cms": metrics.participants_total,
+							"columns": [
+								{ "key": "title", "label": "Measure", "header": true },
+								{ "key": "value", "label": "Value", "class":"centred" },
+								{ "key": "description", "label": "Description" }
+							],
+							"header": {
+								"class": "c-pink"
+							},
+							"rows": [
+								{ title: "Volunteers", value: volunteersSignedUp.toLocaleString() },
+								{ title: "Cultural Learning", value: manual.participants.cultural_learning.toLocaleString() },
+								{ title: "Community participation", value: manual.participants.community_participation.toLocaleString()},
+								{ title: "Our patch", value: manual.participants.our_patch.toLocaleString()},
+								{ title: "Training and development participants", value: manual.participants.training_and_development.toLocaleString()},
+								{ title: "Creative health participants", value: manual.participants.creative_health.toLocaleString()},
+								{ title: "Total", value: manual.participants.creative_health.toLocaleString() }
 
-			<table>
-				<thead class='c-pink'>
-					<tr>
-						<th scope='col'>Measure</th>
-						<th scope='col'>Value</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Volunteers</td><td>{{ volunteersSignedUp.toLocaleString() }}</td>
-					</tr>
-					<tr>
-						<td>Cultural learning</td><td>{{ manual.participants.cultural_learning.toLocaleString() }}</td>
-					</tr>
-					<tr>
-						<td>Community participation</td><td>{{ manual.participants.community_participation.toLocaleString() }}</td>
-					</tr>
-					<tr>
-						<td>Our patch</td><td>{{ manual.participants.our_patch.toLocaleString() }}</td>
-					</tr>
-					<tr>
-						<td>Training and development participants</td><td>{{ manual.participants.training_and_development.toLocaleString() }}</td>
-					</tr>
-					<tr>
-						<td>Creative health participants</td><td>{{ manual.participants.creative_health.toLocaleString() }}</td>
-					</tr>
-					<tr>
-						<td>Total</td><td>{{ totalParticipants.toLocaleString() }}</td>
-					</tr>
-				</tbody>
-			</table>
+							]
+						}) |> md |> vto(page.data) }}
 
 			{{# <table style="margin-inline: auto; border-spacing: 1rem;">
 			<thead>

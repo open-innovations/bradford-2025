@@ -26,27 +26,21 @@
                 collection: title,
                 file: "participants_volunteers" 
                 }) |> md |> vto(page.data) }}
-            <table>
-            <thead>
-            <tr class="c-pink">
-                <th scope="col">Measure</th>
-                <th scope="col">Value</th>
-                <th scope="col">Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">Signed up</th>
-                <td class="centred">{{ volunteersSignedUp.toLocaleString() }}</td>
-                <td>Number of volunteers who have expressed an interest and are completing their profile, or who have progressed to a later stage of the volunteering programme.</td>
-            </tr>
-            <tr>
-                <th scope="row">Completed induction</th>
-                <td class="centred">{{ participants.volunteers.people.checkpoints["3. Fully Inducted Volunteers"].toLocaleString() }}</td>
-                <td>Number of volunteers who have completed the induction process</td>
-            </tr>
-            </tbody>
-            </table>
+            {{ comp.dashboard.InfoBoxTable({
+							"cms": metrics.participants_volunteers,
+							"columns": [
+								{ "key": "title", "label": "Measure", "header": true },
+								{ "key": "value", "label": "Value", "class":"centred" },
+								{ "key": "description", "label": "Description" }
+							],
+							"header": {
+								"class": "c-pink"
+							},
+							"rows": [
+								{ title: "Signed up", value: volunteersSignedUp.toLocaleString(), description: "Number of volunteers who have expressed an interest and are completing their profile, or who have progressed to a later stage of the volunteering programme." },
+								{ title: "Completed induction", value: participants.volunteers.people.checkpoints["3. Fully Inducted Volunteers"].toLocaleString(), description: "Number of volunteers who have completed the induction process." }
+							]
+						}) |> md |> vto(page.data) }}
 
         {{ /comp }}
     {{ /comp }}
