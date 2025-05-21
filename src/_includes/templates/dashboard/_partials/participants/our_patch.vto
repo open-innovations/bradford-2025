@@ -12,7 +12,11 @@
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<h2>{{ metrics.participants_our_patch.title }}</h2>
-			{{ metrics.participants_our_patch.description |> md }}
+			{{ comp.dashboard.InfoBoxDescription({
+                metrics: metrics,
+                collection: title,
+                file: "participants_our_patch" 
+                }) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

@@ -13,7 +13,11 @@
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<h2>{{ metrics.participants_schools_engaged.title }}</h2>
-			{{ metrics.participants_schools_engaged.description |> md }}
+			{{ comp.dashboard.InfoBoxDescription({
+                metrics: metrics,
+                collection: title,
+                file: "participants_schools_engaged" 
+                }) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

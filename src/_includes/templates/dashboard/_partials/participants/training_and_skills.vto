@@ -12,7 +12,11 @@
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<h2>{{ metrics.participants_training_and_skills.title }}</h2>
-			{{ metrics.participants_training_and_skills.description |> md }}
+			{{ comp.dashboard.InfoBoxDescription({
+                metrics: metrics,
+                collection: title,
+                file: "participants_training_and_skills" 
+                }) |> md |> vto(page.data) }}
 			<table>
 				<thead class='c-pink'>
 					<td>Source</td>

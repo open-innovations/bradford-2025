@@ -21,8 +21,11 @@
         {{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
         {{ comp Popover }}
             <h2>{{ metrics.participants_volunteers.title }}</h2>
-            {{ metrics.participants_volunteers.description |> md |> vto(page.data) }}
-
+            {{ comp.dashboard.InfoBoxDescription({
+                metrics: metrics,
+                collection: title,
+                file: "participants_volunteers" 
+                }) |> md |> vto(page.data) }}
             <table>
             <thead>
             <tr class="c-pink">

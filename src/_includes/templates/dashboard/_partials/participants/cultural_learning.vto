@@ -14,7 +14,11 @@
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<h2>{{ metrics.participants_cultural_learning.title }}</h2>
-			{{ metrics.participants_cultural_learning.description |> md }}
+			{{ comp.dashboard.InfoBoxDescription({
+                metrics: metrics,
+                collection: title,
+                file: "participants_cultural_learning" 
+                }) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
