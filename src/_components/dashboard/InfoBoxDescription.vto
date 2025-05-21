@@ -1,5 +1,15 @@
-{{ description }}
-
+---
+css: |
+    .editable { position: relative;  }
+    .editable:hover { outline: 1px dashed var(--color-black); outline-offset: 0.5rem; outline-color: var(--color-black); }
+    .editable > *:last-child { margin-bottom: 0; }
+    .edit-link { --block-bg:var(--color-offblack); --block-fg:var(--color-white); }
+---
 {{ if build.live == false }}
-	<a href="https://cms-bradford-2025.deno.dev/collection/{{ collection }}/edit/{{ file }}">Edit description in CMS</a>
+<div class="editable">
+{{ /if }}
+{{ description }}
+{{ if build.live == false }}
+	<p><a href="https://cms-bradford-2025.deno.dev/collection/{{ collection }}/edit/{{ file }}" class="edit-link">{{ comp Pill }}Edit description for this info box &rarr;{{ /comp }}</a></p>
+</div>
 {{ /if }}
