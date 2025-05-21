@@ -1,0 +1,17 @@
+{{ if programme.total_by_venue.length > 0 }}
+<section>
+<h2>Events breakdown</h2>
+{{ comp.dashboard.InfoBoxTable({
+    header: {
+        class: 'c-pink',
+    },
+    columns: [
+        { key: 'venue_name', label: 'Venue Name', class: "centred" },
+        { key: 'project_name', label: 'Project Name' },
+        { key: 'audience', label: 'Audience', class: "centred" },
+        { key: 'participants', label: 'Participants', class: "centred" },
+    ],
+    rows: programme.total_by_venue.sort((a, b) => a.start_date < b.start_date)
+}) }}
+</section>
+{{ /if }}

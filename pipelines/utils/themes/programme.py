@@ -83,6 +83,7 @@ class Programme:
         .convert(['Programme Category', 'Project Venue(s)'], literal_eval)
         .convert('Project Name', lambda x: x.strip())
         .convert('Project Name', canonical_project_name)
+        .convertnumbers()
         .cache()
     )
 

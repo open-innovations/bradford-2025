@@ -27,9 +27,12 @@ class Programme:
             .leftjoin(_Programme.event_reports)
         )
 
-        self.event_reports = etl.cat(
-            event_reports_by_programme,
-            event_reports_by_venue
+        self.event_reports = (
+            etl.cat(
+                event_reports_by_programme,
+                event_reports_by_venue
+            )
+            .join(_Programme.venues.cut('id','Organisation &/or Venue Name').setheader(['venue_id', 'Venue Name']))
         )
 
     def summarise(self):

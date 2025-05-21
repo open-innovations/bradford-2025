@@ -2,4 +2,7 @@
 layout: templates/page.vto
 ---
 {{ comp.event.Headlines({ ...event }) }}
+
+{{ comp.event.EventSummary({ ...event }) }}
+
 {{ comp.event.Tickets({ tickets: event.tickets }) }}

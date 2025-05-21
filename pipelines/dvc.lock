@@ -113,14 +113,14 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 9b33953f436bb4bfad93d6c42ee7315c
-      size: 3628
+      md5: 27903250b81111abcc572ac1ab3df22b
+      size: 4465
     outs:
     - path: ../src/events/rise/_data/event/
       hash: md5
-      md5: 8c0ecdddf56ba3679cb1afd8b2e6371f.dir
-      size: 17867
-      nfiles: 7
+      md5: 65670f03975e4fc8f258f4014b379760.dir
+      size: 17706
+      nfiles: 8
   events@la-haine:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '4001APBPRCSHVVMHTCBMSPSJRNDMCHHLV' -p venue_postcode 'BD1 1JT' -p rosterfy_event_ids
@@ -133,14 +133,14 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 9b33953f436bb4bfad93d6c42ee7315c
-      size: 3628
+      md5: 27903250b81111abcc572ac1ab3df22b
+      size: 4465
     outs:
     - path: ../src/events/la-haine/_data/event/
       hash: md5
-      md5: 8ba2d93fca5ca5fa518243978b34b4af.dir
-      size: 7182
-      nfiles: 7
+      md5: 83df12cd85524f75983f37e48236d58e.dir
+      size: 7184
+      nfiles: 8
   events@les-girafes:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       'recu2QievPdxr1dnH' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids '24438'
@@ -153,14 +153,14 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 9b33953f436bb4bfad93d6c42ee7315c
-      size: 3628
+      md5: 27903250b81111abcc572ac1ab3df22b
+      size: 4465
     outs:
     - path: ../src/events/les-girafes/_data/event/
       hash: md5
-      md5: 852027690353833afc012e0288c8046e.dir
-      size: 919
-      nfiles: 7
+      md5: 049dfe6ade1991ba001a43cdec07fc50.dir
+      size: 765
+      nfiles: 8
   sustainability:
     cmd: jupyter execute sustainability.ipynb
     deps:
@@ -190,14 +190,14 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 9b33953f436bb4bfad93d6c42ee7315c
-      size: 3628
+      md5: 27903250b81111abcc572ac1ab3df22b
+      size: 4465
     outs:
     - path: ../src/events/grue/_data/event/
       hash: md5
-      md5: 7ef9c6faeec3efbe28a625d1fdb8bf82.dir
-      size: 60758
-      nfiles: 7
+      md5: 597e4746c8e9d9614c9067c12c557c2c.dir
+      size: 60596
+      nfiles: 8
   dashboards@live:
     cmd: papermill --no-log-output dashboard.ipynb - -p target '' -p start '2025-01-01'
       -p end '2025-12-31' -p fixed_date 'false'
@@ -270,14 +270,14 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 9b33953f436bb4bfad93d6c42ee7315c
-      size: 3628
+      md5: 27903250b81111abcc572ac1ab3df22b
+      size: 4465
     outs:
     - path: ../src/events/dracula/_data/event/
       hash: md5
-      md5: a2eccfe818ea9cd885b9707d48f526ee.dir
-      size: 11649
-      nfiles: 6
+      md5: 0107b3ca6ed639e4ecc1ae46d717a93c.dir
+      size: 11490
+      nfiles: 7
   dashboards@q2:
     cmd: papermill --no-log-output dashboard.ipynb - -p target 'q2' -p start '2025-04-01'
       -p end '2025-06-30' -p fixed_date 'true'
@@ -368,14 +368,14 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 9b33953f436bb4bfad93d6c42ee7315c
-      size: 3628
+      md5: 27903250b81111abcc572ac1ab3df22b
+      size: 4465
     outs:
     - path: ../src/events/loading-bay/_data/event/
       hash: md5
-      md5: 1a72b2c8fbfceb41ab67e3c388216d43.dir
-      size: 273
-      nfiles: 1
+      md5: 85eb75831d75489661ad4468033fb375.dir
+      size: 2322
+      nfiles: 2
   events@beacon:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '' -p venue_postcode 'None' -p rosterfy_event_ids '' -p project_ids '' -p venue_ids
@@ -389,11 +389,11 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 9b33953f436bb4bfad93d6c42ee7315c
-      size: 3628
+      md5: 27903250b81111abcc572ac1ab3df22b
+      size: 4465
     outs:
     - path: ../src/events/beacon/_data/event/
       hash: md5
-      md5: 1642b1e1b4ef9514b82c81739e447db6.dir
-      size: 274
-      nfiles: 1
+      md5: dd98b54670012a053154dff0fde61f31.dir
+      size: 6202
+      nfiles: 2
