@@ -26,7 +26,11 @@
 				are also categorised as an Exhibition, in which case they will be counted there.
 			</p>
 
-			{{ metrics.events_festivals.description |> md }}
+			{{ comp.dashboard.InfoBoxDescription({
+				"metrics": metrics,
+				"collection": title,
+				"file": "events_festivals"
+			}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

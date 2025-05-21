@@ -17,8 +17,11 @@
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events held between
 				between {{ comp.Date({start:timestamp.start, end:timestamp.end}) }}.
 			</p>
-			{{ metrics.audiences_total.description |> md |> vto(page.data) }}
-			
+			{{ comp.dashboard.InfoBoxDescription({
+				"metrics": metrics,
+				"collection": title,
+				"file": "audiences_total"
+			}) |> md |> vto(page.data) }}
 
 			{{# TODO Add count of tickets scanned (if available)
 			#}}

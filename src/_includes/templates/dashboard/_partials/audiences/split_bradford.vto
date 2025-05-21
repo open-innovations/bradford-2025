@@ -14,7 +14,11 @@
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<h2>{{ metrics.audiences_split_bradford.title }}</h2>
-			{{ metrics.audiences_split_bradford.description |> md }}
+			{{ comp.dashboard.InfoBoxDescription({
+				"metrics": metrics,
+				"collection": title,
+				"file": "audiences_split_bradford"
+			}) |> md |> vto(page.data) }}
 
 			{{# TODO Turn this into a table, perhaps? #}}
 			<p>

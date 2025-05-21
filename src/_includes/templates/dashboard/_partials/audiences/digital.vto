@@ -14,7 +14,12 @@
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<h2>{{ metrics.audiences_digital.title }}</h2>
-			{{ metrics.audiences_digital.description |> md }}
+
+			{{ comp.dashboard.InfoBoxDescription({
+				"metrics": metrics,
+				"collection": title,
+				"file": "audiences_digital"
+			}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

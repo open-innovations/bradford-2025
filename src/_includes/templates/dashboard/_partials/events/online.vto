@@ -17,7 +17,11 @@
 				Total count of online {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}
 				(including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}) held during the timescale covered by the dashboard.
 			</p>
-			{{ metrics.events_online.description |> md }}
+			{{ comp.dashboard.InfoBoxDescription({
+				"metrics": metrics,
+				"collection": title,
+				"file": "events_online.description"
+			}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

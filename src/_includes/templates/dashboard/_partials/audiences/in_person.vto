@@ -17,31 +17,37 @@
 			<p>
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for face-to-face events that ran during the timescale.
 			</p>
-			{{ metrics.audiences_in_person_events.description |> md }}
 
-			<table>
-				<thead>
-				<tr class="c-green">
-					<th scope="col">Measure</th>
-					<th scope="col">Value</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<th scope='row'>Bradford 2025 ticket sales</th>
-					<td class="centred">{{ audience.ticketed.sold.total.toLocaleString() }}</td>
-				</tr>
-				<tr>
-					<th scope='row'>Other ticket sales and audience numbers from non-ticketed events</th>
-					<td class="centred">{{ audience.unticketed?.total.toLocaleString() }}</td>
-				</tr>
-				<tr>
-					<th scope='row'>Total (please see inclusions and exclusions below)</th>
-					<td class="centred">{{ audience.total.toLocaleString() }}</td>
-				</tr>
-				</tbody>
-			</table>
+			{{ comp.dashboard.InfoBoxDescription({
+				"metrics": metrics,
+				"collection": title,
+				"file": "audiences_in_person_events"
+			}) |> md |> vto(page.data) }}
+
+
+			{{ comp.dashboard.InfoBoxTable({
+				"cms": metrics.events_total,
+				"columns": [
+					{ "key": "title", "label": "Measure", "header": true },
+					{ "key": "value", "label": "Value", "class":"centred" }
+				],
+				"header": {
+					"class": "c-green"
+				},
+				"rows":[{
+					"title": "Bradford 2025 ticket sales",
+					"value": audience.ticketed.sold.total.toLocaleString()
+				},{
+					"title": "Other ticket sales and audience numbers from non-ticketed events",
+					"value": audience.unticketed?.total.toLocaleString()
+				},{
+					"title": "Total (please see inclusions and exclusions below)",
+					"value": audience.total.toLocaleString()
+				}]
+			}) |> md |> vto(page.data) }}
+
 			<p>This includes audience numbers from Alhambra, Impressions Gallery, Cartright Hall and NSMM Pictureville Cinema but excludes outdoor non-ticketed events.</p>
+
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

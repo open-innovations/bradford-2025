@@ -13,7 +13,11 @@
 	{{ comp Controls }}
 		{{ comp Popover }}
 			<h2>{{ metrics.audiences_positive_experience.title }}</h2>
-			{{ metrics.audiences_positive_experience.description |> md }}
+			{{ comp.dashboard.InfoBoxDescription({
+				"metrics": metrics,
+				"collection": title,
+				"file": "audiences_positive_experience"
+			}) |> md |> vto(page.data) }}
 
 			<p>Each survey will have</p>
 			<ul>
