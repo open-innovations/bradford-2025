@@ -1,9 +1,9 @@
 ---
 css: |
     .editable { position: relative;  }
-    .editable:hover { outline: 1px dashed var(--color-black); outline-offset: 0.5rem; outline-color: var(--color-black); }
+    .editable:hover { outline: 2px dashed var(--color-black); outline-offset: 0.5rem; outline-color: var(--color-black); }
     .editable > *:last-child { margin-bottom: 0; }
-    .edit-link { --block-bg:var(--color-offblack); --block-fg:var(--color-white); }
+    .edit-link { --flash-bg:var(--color-lightgrey); --flash-fg:var(--color-offblack); }
 ---
 {{ if build.live == false }}
 <div class="editable">
