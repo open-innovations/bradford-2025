@@ -70,7 +70,7 @@ stages:
           -p rosterfy_event_ids '${item.rosterfy_event_ids}'
           -p project_ids '${item.project_ids}'
           -p venue_ids '${item.venue_ids}'
-          -p id '${key}'
+          -p slug '${key}'
       deps:
         - events.ipynb
         - ${ROOT}/data/published/ticketing/

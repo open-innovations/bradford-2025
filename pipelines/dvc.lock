@@ -104,7 +104,7 @@ stages:
   events@rise:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids
-      '25890' -p project_ids 'recf4tPyjoXi81NDo' -p venue_ids '' -p id 'rise'
+      '25890' -p project_ids 'recf4tPyjoXi81NDo' -p venue_ids '' -p slug 'rise'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -113,18 +113,18 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 27903250b81111abcc572ac1ab3df22b
-      size: 4465
+      md5: ac2b731f95f6416e4726186b9ff86774
+      size: 4840
     outs:
     - path: ../src/events/rise/_data/event/
       hash: md5
-      md5: 65670f03975e4fc8f258f4014b379760.dir
+      md5: 2fa311347d6e07d38b70ab9ff1bdc4e2.dir
       size: 17706
       nfiles: 8
   events@la-haine:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '4001APBPRCSHVVMHTCBMSPSJRNDMCHHLV' -p venue_postcode 'BD1 1JT' -p rosterfy_event_ids
-      '26307' -p project_ids 'recYvLfpThEXGXcmn' -p venue_ids '' -p id 'la-haine'
+      '26307' -p project_ids 'recYvLfpThEXGXcmn' -p venue_ids '' -p slug 'la-haine'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -133,8 +133,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 27903250b81111abcc572ac1ab3df22b
-      size: 4465
+      md5: ac2b731f95f6416e4726186b9ff86774
+      size: 4840
     outs:
     - path: ../src/events/la-haine/_data/event/
       hash: md5
@@ -144,7 +144,7 @@ stages:
   events@les-girafes:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       'recu2QievPdxr1dnH' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids '24438'
-      -p project_ids 'recu2QievPdxr1dnH' -p venue_ids '' -p id 'les-girafes'
+      -p project_ids 'recu2QievPdxr1dnH' -p venue_ids '' -p slug 'les-girafes'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -153,12 +153,12 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 27903250b81111abcc572ac1ab3df22b
-      size: 4465
+      md5: ac2b731f95f6416e4726186b9ff86774
+      size: 4840
     outs:
     - path: ../src/events/les-girafes/_data/event/
       hash: md5
-      md5: 049dfe6ade1991ba001a43cdec07fc50.dir
+      md5: 041f9b404041f3b9fded3d8687ba0cbe.dir
       size: 765
       nfiles: 8
   sustainability:
@@ -181,7 +181,7 @@ stages:
   events@grue:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '7601AHCJPTHNBCVJHLQNKQVKDRKRMLTPC' -p venue_postcode 'None' -p rosterfy_event_ids
-      '26540' -p project_ids 'recoJF8kMXHloBbjt' -p venue_ids '' -p id 'grue'
+      '26540' -p project_ids 'recoJF8kMXHloBbjt' -p venue_ids '' -p slug 'grue'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -190,12 +190,12 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 27903250b81111abcc572ac1ab3df22b
-      size: 4465
+      md5: ac2b731f95f6416e4726186b9ff86774
+      size: 4840
     outs:
     - path: ../src/events/grue/_data/event/
       hash: md5
-      md5: 597e4746c8e9d9614c9067c12c557c2c.dir
+      md5: ce94d730773df94efd13c41f27a3b0a8.dir
       size: 60596
       nfiles: 8
   dashboards@live:
@@ -261,7 +261,7 @@ stages:
   events@dracula:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '9001AGHDBMPJDRPSRMKLRCJGBJJMTQGDH' -p venue_postcode 'None' -p rosterfy_event_ids
-      'None' -p project_ids 'recjdRJvjmX67plPM' -p venue_ids '' -p id 'dracula'
+      'None' -p project_ids 'recjdRJvjmX67plPM' -p venue_ids '' -p slug 'dracula'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -270,8 +270,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 27903250b81111abcc572ac1ab3df22b
-      size: 4465
+      md5: ac2b731f95f6416e4726186b9ff86774
+      size: 4840
     outs:
     - path: ../src/events/dracula/_data/event/
       hash: md5
@@ -356,10 +356,10 @@ stages:
       size: 39001
       nfiles: 6
   events@loading-bay:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      '' -p venue_postcode 'None' -p rosterfy_event_ids '' -p project_ids '' -p venue_ids
-      'rec4maUwKspPcDxNl recFYiOZvNnYDgbfk recInFDrcQ4KutUcL recIrQ1v64zKajXU1 recalzwrAJkBYOz8w'
-      -p id 'loading-bay'
+    cmd: papermill events.ipynb output/events.ipynb -p spektrix_event_ids '' -p venue_postcode
+      'None' -p rosterfy_event_ids '' -p project_ids '' -p venue_ids 'rec4maUwKspPcDxNl
+      recFYiOZvNnYDgbfk recInFDrcQ4KutUcL recIrQ1v64zKajXU1 recalzwrAJkBYOz8w' -p
+      slug 'loading-bay'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -368,8 +368,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 27903250b81111abcc572ac1ab3df22b
-      size: 4465
+      md5: 327a9ab99e96e1f2a9afa074ab910a7a
+      size: 9594
     outs:
     - path: ../src/events/loading-bay/_data/event/
       hash: md5
@@ -380,7 +380,7 @@ stages:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '' -p venue_postcode 'None' -p rosterfy_event_ids '' -p project_ids '' -p venue_ids
       'rec7tn1K6r85N72yc recW1DV5uXWsrUShy recea0GEE29eKCtxu recx817GdO7wmJDf6' -p
-      id 'beacon'
+      slug 'beacon'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -389,8 +389,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 27903250b81111abcc572ac1ab3df22b
-      size: 4465
+      md5: ac2b731f95f6416e4726186b9ff86774
+      size: 4840
     outs:
     - path: ../src/events/beacon/_data/event/
       hash: md5
@@ -400,7 +400,7 @@ stages:
   events@the-bradford-progress:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
       '' -p venue_postcode 'None' -p rosterfy_event_ids '29424' -p project_ids 'recSACUvnIn3yCW2S'
-      -p venue_ids '' -p id 'the-bradford-progress'
+      -p venue_ids '' -p slug 'the-bradford-progress'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -409,11 +409,11 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: 27903250b81111abcc572ac1ab3df22b
-      size: 4465
+      md5: ac2b731f95f6416e4726186b9ff86774
+      size: 4840
     outs:
     - path: ../src/events/the-bradford-progress/_data/event/
       hash: md5
-      md5: 9756ef04ce2344c975c99753c1452e0e.dir
+      md5: cd50f035a28968b744bfc7d5ad7c5274.dir
       size: 498
       nfiles: 5
