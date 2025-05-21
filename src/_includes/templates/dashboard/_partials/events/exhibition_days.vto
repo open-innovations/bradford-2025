@@ -27,9 +27,9 @@
 			</p>
 
 			{{ comp.dashboard.InfoBoxDescription({
-				"description": metrics.events_exhibition_days?.description,
+				"metrics": metrics,
 				"collection": title,
-				"file": "events_exhibition_days.yml"
+				"file": "events_exhibition_days"
 			}) |> md |> vto(page.data) }}
 
 			<h3>Breakdown of exhibitions</h3>

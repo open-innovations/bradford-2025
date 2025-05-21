@@ -26,9 +26,9 @@
             </p>
 
 			{{ comp.dashboard.InfoBoxDescription({
-				"description": metrics.events_total?.description,
+				"metrics": metrics,
 				"collection": title,
-				"file": "events_total.yml"
+				"file": "events_total"
 			}) |> md |> vto(page.data) }}
 
 			{{ comp.dashboard.InfoBoxTable({

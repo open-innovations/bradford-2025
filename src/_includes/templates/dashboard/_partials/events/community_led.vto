@@ -27,9 +27,9 @@
 			
 			
 			{{ comp.dashboard.InfoBoxDescription({
-				"description": metrics.events_community_led?.description,
+				"metrics": metrics,
 				"collection": title,
-				"file": "events_community_led.yml"
+				"file": "events_community_led"
 			}) |> md |> vto(page.data) }}
 
 

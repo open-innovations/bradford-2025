@@ -27,6 +27,13 @@
 				as a programme category in the Bradford 2025 Project Hub, regardless
 				of other programme categories set.
 			</p>
+
+			{{ comp.dashboard.InfoBoxDescription({
+				"metrics": metrics,
+				"collection": title,
+				"file": "events_exhibitions"
+			}) |> md |> vto(page.data) }}
+
 			<h3>Breakdown of exhibitions</h3>
 			<table>
 				<thead>
