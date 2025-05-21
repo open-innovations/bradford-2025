@@ -3,7 +3,8 @@ const POPOVER_PARAM = 'infobox';
 function showOnLoad(id: string) {
 	if (!id) false;
 	const params = new URLSearchParams(globalThis.location.search);
-	return params.get(POPOVER_PARAM) == id;
+	if(params.get(POPOVER_PARAM)) return params.get(POPOVER_PARAM)==id;
+	return false;
 }
 function addToLocation(id: string) {
 	if (!id) return;
