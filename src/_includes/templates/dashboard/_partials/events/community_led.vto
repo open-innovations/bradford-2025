@@ -24,51 +24,43 @@
 				started before or during the dashboard timescale
 				and finished either during or after the dashboard timescale. Note that these are also included in the "In-person" total.
 			</p>
-			{{ metrics.events_community_led.description |> md }}
+			
+			
+			{{ comp.dashboard.InfoBoxDescription({
+				"description": metrics.events_community_led?.description,
+				"collection": title,
+				"file": "events_community_led.yml"
+			}) |> md |> vto(page.data) }}
 
 
+			{{> const rows = [] }}
+			{{> 
+				 if(events.events.by_project['Our Patch']){
+					rows.push({
+						"title": "Our Patch events",
+						"value": events.events.by_project['Our Patch']?.count || 0,
+						"description": "Events run as part of the Our Patch (community engagements) project."
+					});
+				}
+				rows.push({ "title": "Do Your Thing Micro Awards", "value": manual.events.do_your_thing_micro_awards });
+				rows.push({ "title": "Total", "value": total, "description": "Total of above" });
+				//rows.push({ "title": "Ticketed events", "value": tickets.events.count, "description": "Ticketed events that ran between {{ comp.Date({ ...timestamp }) }}" });
+				//rows.push({ "title": "Volunteering shifts", "value": volunteers.shifts.count, "description": "There may be more than one volunteering shift per event, or each volunteering shift might cover multiple events"; });
+			}}
+			
+			{{ comp.dashboard.InfoBoxTable({
+				"cms": metrics.events_total,
+				"columns": [
+					{ "key": "title", "label": "Measure", "header": true },
+					{ "key": "value", "label": "Value", "class":"centred" },
+					{ "key": "description", "label": "Description" }
+				],
+				"header": {
+					"class": "c-yellow"
+				},
+				"rows":rows
+			}) |> md |> vto(page.data) }}
 
-            <table style="margin-inline: auto; border-spacing: 1rem;">
-            <thead>
-                <tr class="c-yellow">
-                <th scope="col">Measure</th>
-                <th scope="col">Value</th>
-                <th scope="col">Description</th>
-                </tr>
-            </thead>
-            <tbody>
-            {{ if (events.events.by_project['Our Patch']) }}
-            <tr>
-                <th scope="row">Our Patch events</th>
-                <td class="centred">{{ events.events.by_project['Our Patch']?.count || 0 }}</td>
-                <td>
-                    Events run as part of the Our Patch (community engagements) project.
-                </td>
-
-            </tr>
-            {{ /if }}
-            <tr>
-                <th scope="row">Do Your Thing Micro Awards</th>
-                <td class="centred">{{ manual.events.do_your_thing_micro_awards }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope='row'>Total</th>
-                <td class='centred'>{{ total }}</td>
-                <td>Total of above</td>
-            </tr>
-            {{# <tr>
-                <th scope="row">Ticketed events</th>
-                <td class="centred">{{ tickets.events.count }}</td>
-                <td>Ticketed events that ran between {{ comp.Date({ ...timestamp }) }}.</td>
-            </tr>
-            <tr>
-                <th scope="row">Volunteering shifts</th>
-                <td class="centred">{{ volunteers.shifts.count }}</td>
-                <td>There may be more than one volunteering shift per event, or each volunteering shift might cover multiple events</td>
-            </tr> #}}
-            </tbody>
-            </table>
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
