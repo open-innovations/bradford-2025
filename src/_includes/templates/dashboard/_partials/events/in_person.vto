@@ -22,7 +22,12 @@
                 <b>Exhibition</b>, a <b>Festival</b> or an <b>Online/Digital</b> event.
 			</p>
 
-			{{ metrics.events_in_person.description |> md }}
+
+			{{ comp.dashboard.InfoBoxDescription({
+				"description": metrics.events_in_person?.description,
+				"collection": title,
+				"file": "events_in_person.yml"
+			}) |> md |> vto(page.data) }}
 
 			{{# TODO Review project breakdown #}}
 			{{> const rows = [{

@@ -1,6 +1,6 @@
 <table style="margin-inline: auto; border-spacing: 1rem;">
 <thead>
-	<tr{{ if header.class }} class="{{ header.class }}"{{ /if }}>
+	<tr{{ if header && header.class }} class="{{ header.class }}"{{ /if }}>
 	{{ for col of columns }}
 		<th scope="col">{{ col.label }}</th>
 	{{ /for }}

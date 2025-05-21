@@ -25,7 +25,11 @@
                 held between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.
             </p>
 
-            {{ metrics.events_total.description |> md |> vto(page.data) }}
+			{{ comp.dashboard.InfoBoxDescription({
+				"description": metrics.events_total?.description,
+				"collection": title,
+				"file": "events_total.yml"
+			}) |> md |> vto(page.data) }}
 
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_total,
@@ -56,7 +60,7 @@
 					"value": (events.events.total || 0),
 					"class": "c-pink"
 				}]
-			}) |> vto(page.data) }}
+			}) |> md |> vto(page.data) }}
         {{ /comp }}
     {{ /comp }}
 {{ /comp }}
