@@ -29,10 +29,12 @@
 
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_total,
+				"columns": [
+					{ "key": "title", "label": "Category", "header": true },
+					{ "key": "value", "label": "Events", "class":"centred" },
+					{ "key": "description", "label": "Description" }
+				],
 				"header": {
-					"title":"Category",
-					"value":"Events",
-					"description":"Description",
 					"class": "c-yellow"
 				},
 				"rows":[{
@@ -40,7 +42,6 @@
 					"value": (events.events.by_category['In-person'] || 0),
 					"description": "Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>, Our Patch events and events delivered by partner or commissioned organisations collated separately."
 				},{
-				
 					"title": "Online events",
 					"value": (events.events.by_category['Online'] || 0),
 					"description": "Events run online."

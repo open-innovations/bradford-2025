@@ -25,7 +25,7 @@
 			{{ metrics.events_in_person.description |> md }}
 
 			{{# TODO Review project breakdown #}}
-			{{> rows = [{
+			{{> const rows = [{
 					"class":"c-pink",
 					"title": "Total In-person events",
 					"value": events.events.by_category['In-person'],
@@ -43,10 +43,13 @@
 
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_in_person,
+				"columns": [
+					{ "key": "title", "label": "Project", "header": true },
+					{ "key": "value", "label": "Events", "class":"centred" },
+					{ "key": "venue", "label": "Venues" },
+					{ "key": "description", "label": "Description" }
+				],
 				"header": {
-					"title":"Project",
-					"value":"Events",
-					"description":"Description",
 					"class": "c-yellow"
 				},
 				"rows":rows
