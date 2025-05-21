@@ -27,44 +27,35 @@
 
             {{ metrics.events_total.description |> md |> vto(page.data) }}
 
-            <table style="margin-inline: auto; border-spacing: 1rem;">
-            <thead>
-                <tr class="c-yellow">
-                <th scope="col">Category</th>
-                <th scope="col">Events</th>
-                <th scope="col">Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">In-person events</th>
-                    <td class="centred">{{ events.events.by_category['In-person'] || 0 }}</td>
-                    <td>
-                        Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>, Our Patch events and events delivered by partner or commissioned organisations collated separately.
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Online events</th>
-                    <td class="centred">{{ events.events.by_category['Online'] || 0 }}</td>
-                    <td>Events run online.</td>
-                </tr>
-                <tr>
-                    <th scope="row">Festival days</th>
-                    <td class="centred">{{ events.events.by_category['Festival'] || 0 }}</td>
-                    <td>{{ metrics.events_total.table_descriptions?.find(x => x.row === 'Festival days').description }}</td>
-                </tr>
-                <tr>
-                    <th scope='row'>Exhibition days</th>
-                    <td class="centred">{{ events.events.by_category['Exhibition'] || 0 }}</td>
-                    <td></td>
-                </tr>
-                <tr class="c-pink">
-                    <th scope='row'>Total events</th>
-                    <td class='centred'>{{ events.events.total || 0 }}</td>
-                    <td></td>
-                </tr>
-            </tbody>
-            </table>
+			{{ comp.dashboard.InfoBoxTable({
+				"cms": metrics.events_total,
+				"header": {
+					"title":"Category",
+					"value":"Events",
+					"description":"Description",
+					"class": "c-yellow"
+				},
+				"rows":[{
+					"title": "In-person events",
+					"value": (events.events.by_category['In-person'] || 0),
+					"description": "Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>, Our Patch events and events delivered by partner or commissioned organisations collated separately."
+				},{
+				
+					"title": "Online events",
+					"value": (events.events.by_category['Online'] || 0),
+					"description": "Events run online."
+				},{
+					"title": "Festival days",
+					"value": (events.events.by_category['Festival'] || 0)
+				},{
+					"title": "Exhibition days",
+					"value": (events.events.by_category['Exhibition'] || 0)
+				},{
+					"title": "Total events",
+					"value": (events.events.total || 0),
+					"class": "c-pink"
+				}]
+			}) |> vto(page.data) }}
         {{ /comp }}
     {{ /comp }}
 {{ /comp }}

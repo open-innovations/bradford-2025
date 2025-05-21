@@ -1,0 +1,18 @@
+<table style="margin-inline: auto; border-spacing: 1rem;">
+<thead>
+	<tr{{ if header.class }} class="{{ header.class }}"{{ /if }}>
+	<th scope="col">{{ header.title || "Measure" }}</th>
+	<th scope="col">{{ header.value || "Value" }}</th>
+	<th scope="col">{{ header.description || "Description" }}</th>
+	</tr>
+</thead>
+<tbody>
+	{{ for row of rows }}
+	<tr{{ if row.class }} class="{{ row.class }}"{{ /if }}>
+		<th scope="row">{{ row.title }}</th>
+		<td class="centred">{{ row.value }}</td>
+		<td>{{ cms?.table_descriptions?.find(x => x.row === row.title)?.description || row.description }}</td>
+	</tr>
+	{{ /for }}
+</tbody>
+</table>

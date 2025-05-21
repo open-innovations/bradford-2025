@@ -24,40 +24,34 @@
 
 			{{ metrics.events_in_person.description |> md }}
 
+			{{# TODO Review project breakdown #}}
+			{{> rows = [{
+					"class":"c-pink",
+					"title": "Total In-person events",
+					"value": events.events.by_category['In-person'],
+					"description": "Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded in the <strong>Bradford 2025 Project Hub</strong>."
+				}];
+                for(project of Object.entries(events.events.by_project).sort((a,b) => b[1].count - a[1].count)){
+					if(project[1].category === 'In-person'){
+						rows.push({
+							"title": project[0],
+							"value": project[1].count,
+						});
+					}
+				}
+			}}
 
-            <table style="margin-inline: auto; border-spacing: 1rem;">
-            <thead>
-                <tr class="c-yellow">
-                    <th scope="col">Project</th>
-                    <th scope="col">Events</th>
-                    <th scope="col">Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="c-pink">
-                    <th scope="row">Total In-person events</th>
-                    <td class="centred">{{ events.events.by_category['In-person'] }}</td>
-                    <td>
-                        Events
-                        running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}
-                        recorded in the <strong>Bradford 2025 Project Hub</strong>.
-                    </td>
-                </tr>
+			{{ comp.dashboard.InfoBoxTable({
+				"cms": metrics.events_in_person,
+				"header": {
+					"title":"Project",
+					"value":"Events",
+					"description":"Description",
+					"class": "c-yellow"
+				},
+				"rows":rows
+			}) |> vto(page.data) }}
 
-                {{# TODO Review project breakdown #}}
-                {{ for project of Object.entries(events.events.by_project).sort((a,b) => b[1].count - a[1].count) }}
-                {{ if project[1].category === 'In-person' }}
-                <tr>
-                    <th scope="row">{{ project[0] }}</th>
-                    <td class="centred">{{ project[1].count }}</td>
-                    <td>
-                    {{# TODO Add overriden description #}}
-                    </td>
-                </tr>
-                {{ /if }}
-                {{ /for }}
-            </tbody>
-            </table>
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
