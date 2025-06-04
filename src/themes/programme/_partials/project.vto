@@ -4,13 +4,15 @@
 <thead class="c-yellow">
     <tr>
     <th scope="column">Project Name</th>
+    <th scope="column">Dates</th>
     <th scope="column">Events</th>
     {{# <th scope="column">Schedule events</th> #}}
     <th scope="column">More info</th>
     </tr>
 </thead>
 <tbody>
-{{ for name, details of events.by_project }}
+{{ for project of Object.entries(events.by_project).sort((a, b) => a[1].earliestDate < b[1].earliestDate ? -1 : 1) }}
+    {{> const [ name, details ] = project }}
     {{ comp.ProjectRow({ name, ...details }) }}
 {{ /for }}
 <tbody>
