@@ -61,13 +61,26 @@ cms.upload("assets", src + "/assets/");
 //     nameField: "reference"
 // });
 
-for (const { id, name } of [
-    { id: null, name: "2025 dashboard" },
-    { id: 'q1', name: "January to March 2025 dashboard" },
-    { id: 'q2', name: "April to June 2025 dashboard" },
+for (const { id, name, description } of [
+    {
+        id: null,
+        name: "Bradford 2025 dashboard",
+        description: "Main dashboard covering the cumulative programme, 2023 to date"
+    },
+    {
+        id: 'q1',
+        name: "January to March 2025 dashboard",
+        description: "Dashboard of measurement for the first quarter of 2025",
+    },
+    {
+        id: 'q2',
+        name: "April to June 2025 dashboard",
+        description: "Dashboard of measurement for the first quarter of 2025",
+    },
 ]) {
     cms.collection({
-        name: name,
+        name,
+        description,
         store: [src, 'insights/dashboard', id, '_data/metrics/*.yml'].filter(x => x).join('/'),
         ...dashboardConfig,
     });    
@@ -75,6 +88,7 @@ for (const { id, name } of [
 
 cms.collection({
     name: "Glossary",
+    description: "Definition of terms used in Bradford 2025 evaluation",
     store: src + "/glossary/term/*.md",
     fields: [ 
         { name: "title", type: "text", attributes: { required: true } },

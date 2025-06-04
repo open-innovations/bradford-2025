@@ -118,7 +118,7 @@ stages:
     outs:
     - path: ../src/events/rise/_data/event/
       hash: md5
-      md5: 3c121ac7033583eb2875d785c90f683a.dir
+      md5: 7931b585b4f0c73a2d384eb270539363.dir
       size: 17718
       nfiles: 8
   events@la-haine:
@@ -158,7 +158,7 @@ stages:
     outs:
     - path: ../src/events/les-girafes/_data/event/
       hash: md5
-      md5: 370840015a9cb4537ae14992565ba970.dir
+      md5: 049dfe6ade1991ba001a43cdec07fc50.dir
       size: 765
       nfiles: 8
   sustainability:
@@ -199,7 +199,7 @@ stages:
       size: 60710
       nfiles: 8
   dashboards@live:
-    cmd: papermill --no-log-output dashboard.ipynb - -p target '' -p start '2025-01-01'
+    cmd: papermill --no-log-output dashboard.ipynb - -p target '' -p start '2023-01-01'
       -p end '2025-12-31' -p fixed_date 'false'
     deps:
     - path: ../data/published/
@@ -214,19 +214,19 @@ stages:
     outs:
     - path: ../src/insights/dashboard//_data/audience.json
       hash: md5
-      md5: f5c4da53fd95f0e353e0cc50ba425d41
+      md5: a07937d30d887991915b89e2da6b65c4
       size: 8843
     - path: ../src/insights/dashboard//_data/events.json
       hash: md5
-      md5: 21bb16539f58f42f9df34831138edd0f
-      size: 16787
+      md5: fe5087b4ff73dea80eee7cebb0561f4f
+      size: 17970
     - path: ../src/insights/dashboard//_data/participants.json
       hash: md5
-      md5: 51e80280eef98ebebff274412adf6684
-      size: 4158
+      md5: 2cd8cf2c663d5dd967a34e74bb8ff3b5
+      size: 4568
     - path: ../src/insights/dashboard//_data/timestamp.json
       hash: md5
-      md5: c4d1e0911734460fdfa0c6293df2b5f9
+      md5: 433c33e0e5e7f491c6013f8fdbaa43ed
       size: 69
   dashboards@q1:
     cmd: papermill --no-log-output dashboard.ipynb - -p target 'q1' -p start '2025-01-01'
@@ -414,6 +414,6 @@ stages:
     outs:
     - path: ../src/events/the-bradford-progress/_data/event/
       hash: md5
-      md5: 436f7e711e9a7e54d4bc9dcf3dde9b60.dir
+      md5: 14d3cf4dc643504fba6896753291deaf.dir
       size: 498
       nfiles: 5
