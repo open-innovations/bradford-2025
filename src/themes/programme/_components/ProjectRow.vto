@@ -28,6 +28,13 @@ css: |
     }) }}
 </td>
 
+{{# Event Reports #}}
+<td>
+    {{- if audience -}}
+    {{ comp.BigNumber({ number: audience }) }}
+    {{- /if -}}
+</td>
+
 <td>
 {{ comp Controls }}
     {{ comp Popover }}

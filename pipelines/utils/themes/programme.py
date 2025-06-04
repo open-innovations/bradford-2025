@@ -67,7 +67,7 @@ class Programme:
         .addfield('Month', lambda r: r.Date.replace(day=1) if r.Date else None)
         .addfield('Validation', validation)
 
-        .cut('id', 'project_id', 'Project Name', 'Item Type', 'Start Date', 'End Date', 'Programme Category', 'Evaluation Category', 'Producing model', 'Duration', 'Event Count', 'Date', 'Month', 'Validation')
+        .cut('id', 'project_id', 'Project Name', 'Item Type', 'Start Date', 'End Date', 'Programme Category', 'Evaluation Category', 'Producing model', 'Duration', 'Event occurrences', 'Event Count', 'Date', 'Month', 'Validation')
 
         .sort(['Date'])
 
