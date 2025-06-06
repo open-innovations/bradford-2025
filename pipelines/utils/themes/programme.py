@@ -87,6 +87,23 @@ class Programme:
         .cache()
     )
 
+    manual_events = (
+        etl.fromcsv(PUBLISHED / 'manual/manual-events.csv')
+        .selectne('Exclude from events count', 'True')
+        .cutout('Exclude from events count')
+        .replace('Events', '', 1)
+        .replace('Audience', '', 0)
+        .convert('Date', lambda f: datetime.fromisoformat(f).date())
+        .rename({
+            'Project': 'Project Name',
+            'Airtable project ID': 'project_id',
+        })
+        .convert('Project Name', lambda x: x.strip())
+        .convert('Project Name', canonical_project_name)
+        .convertnumbers()
+        .cache()
+    )
+
     venues = (
         etl
         .fromcsv(PUBLISHED / 'programme/venues.csv')
