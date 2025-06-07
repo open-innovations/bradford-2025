@@ -15,27 +15,33 @@ css: |
 </th>
 
 {{# Dates #}}
-<td>
+<td class="centred">
     {{- if earliestDate -}}
         {{ comp.Date({ start: earliestDate, end: latestDate }) }}
     {{- /if -}}
 </td>
 
-{{# Event Reports #}}
-<td>
+{{# Events #}}
+<td class="centred">
+    {{- if events -}}
     {{ comp.BigNumber({
         number: events
     }) }}
-</td>
-
-{{# Event Reports #}}
-<td>
-    {{- if audience -}}
-    {{ comp.BigNumber({ number: audience }) }}
+    {{- else -}}
+    &mdash;
     {{- /if -}}
 </td>
 
-<td>
+{{# Event Reports #}}
+<td class="centred">
+    {{- if audience -}}
+    {{ comp.BigNumber({ number: audience }) }}
+    {{- else -}}
+    &mdash;
+    {{- /if -}}
+</td>
+
+<td class="centred">
 {{ comp Controls }}
     {{ comp Popover }}
         <p>

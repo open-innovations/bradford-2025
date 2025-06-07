@@ -1,4 +1,4 @@
-<h2>Summary of events by month</h2>
+<h2>Summary of events and audiences by month</h2>
 
 {{>
     function makeTooltip(row) {
@@ -16,11 +16,11 @@
     }
     const eventsByMonth = events.total_by_month.map(row => ({
         ...row,
-        projects: Object.entries(events.monthly_breakdown.find(r => row.Month.toISOString() == r.Month.toISOString()))
-            .filter(r => (r[0] !== 'Month') && (r[1] > 0))
+        projects: Object.entries(events.monthly_breakdown.find(r => row.month.toISOString() == r.month.toISOString()))
+            .filter(r => (r[0] !== 'month') && (r[1] > 0))
             .toSorted((a, b) => b[1] - a[1])
             .reduce((a, c) => ({...a, [c[0]]: c[1]}), {}),
-        Month: row.Month.toLocaleDateString(undefined, { month: "long", year: "numeric" })
+        Month: row.month.toLocaleDateString(undefined, { month: "long", year: "numeric" })
     }))
     .map(r => ({
         ...r,
@@ -28,12 +28,28 @@
     }))
 }}
 
+{{ comp dashboard.Frame }}
+{{ comp dashboard.Cell }}
 {{ comp.oi.chart.bar({
     config: {
         data: eventsByMonth,
         category: 'Month',
         series: [
-            { value: 'Events', title: 'Events', colour: oiColour.names.yellow, tooltip: 'tooltip' }
+            { value: 'Events', title: 'Events', colour: oiColour.names.yellow, tooltip: 'tooltip' },
         ],
     },
 }) }}
+{{ /comp }}
+
+{{ comp dashboard.Cell }}
+{{ comp.oi.chart.bar({
+    config: {
+        data: eventsByMonth,
+        category: 'Month',
+        series: [
+            { value: 'Audience', title: 'Audience', colour: oiColour.names.green, },
+        ],
+    },
+}) }}
+{{ /comp }}
+{{ /comp }}

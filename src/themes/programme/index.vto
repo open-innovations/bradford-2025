@@ -18,9 +18,19 @@ description: |
         title: 'Total events',
         classes: 'events'
     } }}
-        {{ comp.BigNumber({number: events.summary.total }) }}
+        {{ comp.BigNumber({number: events.summary.total.events }) }}
         <div class="centred">
             Total events recorded in the <strong>Bradford 2025 Project hub</strong> Event Reports and / or Schedule tables.<br>
+            {{ comp.Date({start:events.summary.date.earliest,end:events.summary.date.latest}) }}
+        </div>
+    {{ /comp }}
+    {{ comp dashboard.Cell {
+        title: 'Total audience',
+        classes: 'audiences'
+    } }}
+        {{ comp.BigNumber({number: events.summary.total.audience }) }}
+        <div class="centred">
+            Total audience recorded in the <strong>Bradford 2025 Project hub</strong> Event Reports and / or Schedule tables.<br>
             {{ comp.Date({start:events.summary.date.earliest,end:events.summary.date.latest}) }}
         </div>
     {{ /comp }}
