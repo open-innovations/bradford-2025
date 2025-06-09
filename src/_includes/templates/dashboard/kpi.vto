@@ -26,6 +26,8 @@ layout: templates/page.vto
 {{ comp InfoCard { id:"events" } }}
 
 	<h2>Events</h2>
+	<p>Event headlines for {{ comp.Date({ ...timestamp }) }}.</p>
+
 	{{ comp grid.Auto {bigfirst:true} }}
 		{{ include './_partials/events/total.vto' }}
 		{{ include './_partials/events/in_person.vto' }}
@@ -48,6 +50,8 @@ layout: templates/page.vto
 {{ comp InfoCard { id:"audiences" } }}
 
 	<h2>Audiences</h2>
+	<p>Audiences headlines for {{ comp.Date({ ...timestamp }) }}.</p>
+
 	{{ comp grid.Auto {bigfirst:true} }}    
 		{{ include "./_partials/audiences/total.vto" }}
 		{{ include "./_partials/audiences/in_person.vto" }}
@@ -67,6 +71,8 @@ layout: templates/page.vto
 {{ comp InfoCard { id:"participants" } }}
 
 	<h2>Participants</h2>
+	<p>Participants headlines for {{ comp.Date({ ...timestamp }) }}.</p>
+
 	{{ comp grid.Auto {bigfirst:true} }} 
 		{{ include "./_partials/participants/total.vto" }}
 		{{ include './_partials/participants/volunteers.vto' }}
