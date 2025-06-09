@@ -12,6 +12,7 @@ css: |
     }
 ---
 <footer data-comp='dashboard-Footer'>
+{{# Removing all dates from individual cells
 {{ if (upTo || dateRange || updated) }}
     <p class='date'>
     {{ if dateRange }}
@@ -24,4 +25,5 @@ css: |
     {{- /if }}
     </p>
 {{ /if }}
+#}}
 </footer>
