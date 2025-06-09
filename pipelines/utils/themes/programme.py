@@ -167,7 +167,7 @@ class ProgrammeSlice:
             self.events_data
             .aggregate([*self.dimensions, 'variable'], sum, 'value')
             .recast([*self.dimensions])
-            .addfield('events', lambda r: (r.manual_events or 0) + (r.event_reports or r.schedule_events or r.projected_events or 0), index=3)
+            .addfield('events', lambda r: (r.manual_events or 0) + (max(r.event_reports or 0, r.schedule_events or 0) or r.projected_events or 0), index=3)
             .addfield('audience', lambda r: (r.event_report_audience or 0) + (r.manual_audience or 0), index=4)
             .cache()
         )

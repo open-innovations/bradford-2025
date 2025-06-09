@@ -68,11 +68,11 @@ css: |
         {{# events = manual_events + (event_reports or schedule_events or projected_events) #}}
         <p>
             We are counting <b>{{ events }} events</b> overall.
-            This is derived from of a combination of
-            <b>{{ (eventReports || 0).toLocaleString() }} event reports</b>,
+            This is derived from adding the larger of 
+            <b>{{ (eventReports || 0).toLocaleString() }} event reports</b> and 
             <b>{{ (scheduledEvents || 0).toLocaleString() }} scheduled events</b>
-            and <b>{{ (projectedEvents || 0).toLocaleString() }} projected events</b> (based on multi-day event schedules)
-            added to <b>{{ (manual_events || 0).toLocaleString() }} manual events</b>.
+            (falling back to <b>{{ (projectedEvents || 0).toLocaleString() }} projected events</b>, derived from multi-day events, if neither are set)
+            to <b>{{ (manual_events || 0).toLocaleString() }} manual events</b>.
         </p>
 
         <table>
@@ -88,9 +88,10 @@ css: |
                 <th>Event reports</th>
                 <td class="centred">{{ (eventReports || 0).toLocaleString() }}</td>
                 <td rowspan=3>
-                The Airtable event count is derived from the first non-zero value provided from Event Reports,
-                Scheduled (i.e. explicitly provided numbers) or Projected (i.e. derived by counting one event per day of a multi-day event)
-                <i>on a per-event basis</i>
+                The Airtable event count is derived
+                from the larger of Event Reports and Scheduled events (i.e. explicitly provided numbers).
+                If neither is set, the Projected count is used (i.e. derived by counting one event per day of a multi-day event).
+                <i>This is calculated separately for each schedule item line</i>.
                 Under some circumstances, the event counts might not be the sum of the individual lines
                 This should be resolved by some forthcoming Airtable developments.
                 This mostly affects projects which have some events with event reports and some without.

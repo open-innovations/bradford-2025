@@ -6,7 +6,9 @@ stages:
     cmd: jupyter execute programme.ipynb
     deps:
       - programme.ipynb
+      - utils/themes/programme.py
       - ${ROOT}/data/published/programme/events.csv
+      - ${ROOT}/data/published/combined/programme.parquet
     outs:
       - ${ROOT}/src/themes/programme/_data/events/:
           cache: false

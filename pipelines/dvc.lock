@@ -341,6 +341,10 @@ stages:
   programme:
     cmd: jupyter execute programme.ipynb
     deps:
+    - path: ../data/published/combined/programme.parquet
+      hash: md5
+      md5: 062fa91989bfd15e4ac76ca853d0e382
+      size: 47150
     - path: ../data/published/programme/events.csv
       hash: md5
       md5: edfecb683f0ce631ec9608d5aa77c5f8
@@ -349,11 +353,15 @@ stages:
       hash: md5
       md5: fbdfb3ad4a044f780fe2a8383b792427
       size: 6533
+    - path: utils/themes/programme.py
+      hash: md5
+      md5: 161051d16d571860a121681a3533b818
+      size: 8690
     outs:
     - path: ../src/themes/programme/_data/events/
       hash: md5
-      md5: 9c51836598063201d4a4d34227a34bc4.dir
-      size: 68708
+      md5: e98212f57509cb6b6e9bf022674eb0af.dir
+      size: 68733
       nfiles: 6
   events@loading-bay:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
