@@ -1,7 +1,8 @@
-from datetime import date, timedelta, datetime
 from ast import literal_eval
+from datetime import date, datetime
 
 import petl as etl
+import pyarrow.parquet as pq
 from utils.paths import PUBLISHED
 
 
@@ -111,3 +112,115 @@ class Programme:
         .replace(['Event Reports'], None, [])
         .cache()
     )
+
+
+class ProgrammeSlice:
+
+    dimensions = ['project_name', 'month']
+
+    canonical_project_name = {
+        'Rise (AKA - Opening Event)': 'RISE',
+        # 'Our Patch (formerly Magic Waiting)': 'Our Patch',
+        'Our Patch (formerly Magic Waiting) MASTER': 'Our Patch',
+        "Fighting to be Heard (British Library)": 'Fighting To Be Heard',
+        "Jungle Book": "Jungle Book ReImagined - Akram Khan Company",
+        "Nationhood: Memory and Hope (Aida Muluneh Photography exhibition)": "Nationhood: Memory and Hope",
+        # "Nationhood: Memory & Hope": "Nationhood: Memory and Hope",
+        "YOU:MATTER (Marshmallow Laser Feast)": "YOU:MATTER",
+    }
+
+    def validation(self, row):
+        if row.project_name is None:
+            return 'unknown_project'
+        if row.month is None:
+            return 'blank_month'
+        if row.date is None:
+            return 'no_date'
+        if row.date < self.start_date:
+            return 'before_requested_date_range'
+        if row.date > self.end_date:
+            return 'after_requested_date_range'
+        return None
+
+    def __init__(self, range=(date.min, date.today())):
+        self.start_date, self.end_date = range
+
+        self.events_data, self.excluded_events_data = (
+            etl
+            .fromdataframe(pq.read_table(PUBLISHED / 'combined/programme.parquet').to_pandas())
+
+            .addfield('validation', self.validation)
+
+            # TODO move to upstream repo
+            .convert('project_name', lambda x: x.strip())
+            .convert('project_name', self.canonical_project_name)
+
+            .convert('start_date', lambda f, r: f or r.date, pass_row=True)
+            .convert('end_date', lambda f, r: f or r.date, pass_row=True)
+
+            .biselect(lambda r: r.validation == None)
+        )
+
+    @property
+    def events(self):
+        return (
+            self.events_data
+            .aggregate([*self.dimensions, 'variable'], sum, 'value')
+            .recast([*self.dimensions])
+            .addfield('events', lambda r: (r.manual_events or 0) + (r.event_reports or r.schedule_events or r.projected_events or 0), index=3)
+            .addfield('audience', lambda r: (r.event_report_audience or 0) + (r.manual_audience or 0), index=4)
+            .cache()
+        )
+
+    @property
+    def project_data(self):
+        return (
+            self.events_data
+            .aggregate(
+                [
+                    'project_id',
+                    'project_name',
+                    # 'programme_category',
+                    'evaluation_category',
+                ],
+                {
+                    'start_date': ('start_date', min),
+                    'end_date': ('end_date', max),
+                }
+            )
+            .cache()
+        )
+
+    @property
+    def project_breakdown(self):
+        return (
+            self.events
+            .melt(variables=['events', 'event_reports', 'schedule_events', 'projected_events', 'manual_events', 'audience', 'event_report_audience', 'manual_audience'])
+            .selectnotnone('value')
+            .aggregate(['project_name', 'variable'], sum, 'value')
+            .recast()
+            .leftjoin(self.project_data)
+        )
+
+    @property
+    def project_details(self):
+        return (
+            self.project_breakdown
+            .addfield('Details', lambda r: {
+                # 'records': r.Records,
+                'events': r.events,
+                'eventReports': r.event_reports,
+                'scheduledEvents': r.schedule_events,
+                'projectedEvents': r.projected_events,
+                'manual_events': r.manual_events,
+                'audience': r.audience,
+                'event_reports_audience': r.event_report_audience,
+                'manual_audience': r.manual_audience,
+                'evaluationCategory': r.evaluation_category,
+                # 'programmeCategory': r['Programme Category'],
+                'earliestDate': r.start_date.isoformat() if r.start_date else r.date.isoformat() if r.date else None,
+                'latestDate': r.end_date.isoformat() if r.end_date else None,
+            })
+            .cut('project_name', 'Details')
+            .sort('project_name')
+        )
