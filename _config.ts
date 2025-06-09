@@ -42,7 +42,7 @@ if (Deno.env.get('LUME_DRAFTS') == 'true') {
   site.use(await bradfordDataPublisher({
     publishedRoot: new URL(await import.meta.resolve('./data/published/')).pathname,
     metadataRoot: new URL(await import.meta.resolve('./data/metadata/')).pathname,
-    exclude: [  
+    exclude: [
       'volunteers/demographics',
     ]
   }))
@@ -50,7 +50,7 @@ if (Deno.env.get('LUME_DRAFTS') == 'true') {
 
 site.use(sheets({
   options: {
-      cellDates: true,
+    cellDates: true,
   }
 }));
 site.loadData(['.geojson', '.hexjson'], jsonLoader);
@@ -185,7 +185,7 @@ site.copy("assets/vendor/");
   try {
     await Deno.lstat(file);
     return site.remoteFile(target, file);
-  } catch(e) {
+  } catch (e) {
     console.error(e.message);
   }
 })
@@ -221,5 +221,9 @@ site.remoteFile(
 );
 
 site.use(filters);
+
+site.remoteFile('/assets/js/oi/oi.csv.js', "https://cdn.jsdelivr.net/gh/open-innovations/oi.csv.js@main/dist/oi.csv.js");
+site.remoteFile('/assets/js/oi/oi.csv.editor.js', "https://cdn.jsdelivr.net/gh/open-innovations/oi.csv.js@main/dist/oi.csv.editor.js");
+site.copy("/assets/js/oi/");
 
 export default site;
