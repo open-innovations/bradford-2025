@@ -17,7 +17,7 @@ css: |
 {{# Dates #}}
 <td class="centred">
     {{- if earliestDate -}}
-        {{ comp.Date({ start: earliestDate, end: latestDate }) }}
+        {{ comp.Date({ start: earliestDate, end: earliestDate != latestDate ? latestDate : undefined }) }}
     {{- /if -}}
 </td>
 
@@ -43,28 +43,77 @@ css: |
 
 <td class="centred">
 {{ comp Controls }}
-    {{ comp Popover }}
+    {{ comp Popover { id } }}
+        <!--
+            {{-
+                {
+                    events,
+                    eventReports,
+                    scheduledEvents,
+                    projectedEvents,
+                    manual_events,
+                    audience,
+                    event_reports_audience,
+                    manual_audience,
+                    evaluationCategory,
+                    earliestDate,
+                    latestDate,
+                } |> JSON.stringify(null, 2)
+            -}}
+        -->
         <p>
-            All about the {{ name }} project.
+            Details of the <b>{{ name }}</b> project.
         </p>
 
+        {{# events = manual_events + (event_reports or schedule_events or projected_events) #}}
         <p>
             We are counting <b>{{ events }} events</b> overall.
-            There are <b>{{ eventReports || 0 }} event reports</b> logged, and <b>{{ scheduledEvents || 0 }} events</b> registered in the schedule table.
+            This is derived from of a combination of
+            <b>{{ (eventReports || 0).toLocaleString() }} event reports</b>,
+            <b>{{ (scheduledEvents || 0).toLocaleString() }} scheduled events</b>
+            and <b>{{ (projectedEvents || 0).toLocaleString() }} projected events</b> (based on multi-day event schedules)
+            added to <b>{{ (manual_events || 0).toLocaleString() }} manual events</b>.
         </p>
 
-        <p>
-            NB The total is not necessarily the sum of these two values, as an effort is being made to avoid double counting by considering the
-            event reports and scheduled events during a month. If event reports are provided, the count of event is derived from the number of event reports.
-            If no event reports are provided for a month, the event count falls back to the number of scheduled events, assuming that for multi-day events there
-            is exactly one event per day.
-
-            This processing will be improved over time.
-        </p>
+        <table>
+            <thead>
+                <tr class="c-yellow">
+                    <th colspan=2>Source</th>
+                    <th>Measure</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tr>
+                <th rowspan=3>Airtable</th>
+                <th>Event reports</th>
+                <td class="centred">{{ (eventReports || 0).toLocaleString() }}</td>
+                <td rowspan=3>
+                The Airtable event count is derived from the first non-zero value provided from Event Reports,
+                Scheduled (i.e. explicitly provided numbers) or Projected (i.e. derived by counting one event per day of a multi-day event)
+                <i>on a per-event basis</i>
+                Under some circumstances, the event counts might not be the sum of the individual lines
+                This should be resolved by some forthcoming Airtable developments.
+                This mostly affects projects which have some events with event reports and some without.
+                </td>
+            </tr>
+            <tr>
+                <th>Scheduled</th>
+                <td class="centred">{{ (scheduledEvents || 0).toLocaleString() }}</td>
+            </tr>
+            <tr>
+                <th>Projected</th>
+                <td class="centred">{{ (projectedEvents || 0).toLocaleString() }}</td>
+            </tr>
+            <tr>
+                <th colspan=2>Manual</th>
+                <td class="centred">{{ (manual_events || 0).toLocaleString() }}</td>
+            </tr>
+        </table>
         
         <p>
-            If is being counted in the {{ evaluationCategory }} evaluation category.
+            This project is being counted in the <b>{{ evaluationCategory }}</b> evaluation category.
         </p>
+
         {{ if programmeCategory }}
         <p>
             It's tagged with the following programme categories:
@@ -79,6 +128,7 @@ css: |
         The earliest date is {{ earliestDate |> date('BD25_YEAR') }}{{ if latestDate != earliestDate }}, and the latest date is {{ latestDate |> date('BD25_YEAR') }}{{ /if }}.
         </p>
         {{ /if }}
+
     {{ /comp }}
 {{ /comp }}
 </td>

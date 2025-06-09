@@ -12,9 +12,9 @@
     </tr>
 </thead>
 <tbody>
-{{ for project of Object.entries(events.by_project).sort((a, b) => (a[1].earliestDate < b[1].earliestDate) ? -1 : 1) }}
+{{ for row, project of Object.entries(events.by_project).sort((a, b) => (a[1].earliestDate < b[1].earliestDate) ? -1 : 1) }}
     {{> const [ name, details ] = project }}
-    {{ comp.ProjectRow({ name, ...details }) }}
+    {{ comp.ProjectRow({ name, ...details, id: `project-info-${row}` }) }}
 {{ /for }}
 <tbody>
 </table>
