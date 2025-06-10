@@ -1,8 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.audiences_positive_experience.title,
-	flash: metrics.audiences_positive_experience.flash,
+	flash: 'Manual',
 	classes: 'audiences'
 } }}
+	{{# TODO get this from data #}}
 	{{ comp.BigNumber({
 		number: metrics.audiences_positive_experience.actual || 0,
 		suffix: '%',
@@ -11,7 +12,7 @@
 		upTo: metrics.audiences_positive_experience.upTo
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'audiences_positive_experience' }}}
 			<h2>{{ metrics.audiences_positive_experience.title }}</h2>
 			{{ comp.dashboard.InfoBoxDescription({
 				"metrics": metrics,

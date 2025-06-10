@@ -1,6 +1,6 @@
 {{ comp dashboard.Cell {
 	title: metrics.audiences_in_person_events.title,
-	flash: metrics.audiences_in_person_events.flash,
+	flash: metrics.audiences_in_person_events.flash || flash,
 	classes: 'audiences'
 } }}
 	{{# TODO add breakdown of in-person vs online audience, somehow #}}
@@ -12,7 +12,7 @@
 		upTo: metrics.audiences_in_person_events.upTo
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'audiences_in_person' } }}
 			<h2>{{ metrics.audiences_in_person_events.title }}</h2>
 			<p>
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for face-to-face events that ran during the timescale.
@@ -34,20 +34,17 @@
 				"header": {
 					"class": "c-green"
 				},
-				"rows":[{
+				"rows":[
+				{
+					"title": "Total",
+					"value": audience.total.toLocaleString()
+				},
+				{
 					"title": "Bradford 2025 ticket sales",
 					"value": audience.ticketed.sold.total.toLocaleString()
-				},{
-					"title": "Other ticket sales and audience numbers from non-ticketed events",
-					"value": audience.unticketed?.total.toLocaleString()
-				},{
-					"title": "Total (please see inclusions and exclusions below)",
-					"value": audience.total.toLocaleString()
-				}]
+				},
+				]
 			}) |> md |> vto(page.data) }}
-
-			<p>This includes audience numbers from Alhambra, Impressions Gallery, Cartright Hall and NSMM Pictureville Cinema but excludes outdoor non-ticketed events.</p>
-
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

@@ -1,9 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.events_community_led.title,
-	flash: metrics.events_community_led.flash,
+	flash: metrics.events_community_led.flash || flash,
 	classes: 'events'
 } }}
-    {{> const total = (events.events.by_project['Our Patch']?.count || 0) + (manual.events.do_your_thing_micro_awards || 0) }}
+    {{> const total = (events.by_project['Our Patch']?.count || 0) + (manual.events.do_your_thing_micro_awards || 0) }}
     {{# TODO update to pull from generated file #}}
 	{{ comp.BigNumber({
 		number: total,
@@ -13,7 +13,7 @@
 		upTo: metrics.events_community_led.upTo
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'events_community_led' } }}
             <h2>{{metrics.events_community_led.title}}</h2>
 			<p>
 				Total count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}
@@ -35,10 +35,10 @@
 
 			{{> const rows = [] }}
 			{{> 
-				 if(events.events.by_project['Our Patch']){
+				 if(events.by_project['Our Patch']){
 					rows.push({
 						"title": "Our Patch events",
-						"value": events.events.by_project['Our Patch']?.count || 0,
+						"value": events.by_project['Our Patch']?.count || 0,
 						"description": "Events run as part of the Our Patch (community engagements) project."
 					});
 				}

@@ -1,6 +1,6 @@
 {{ comp dashboard.Cell {
 	title: metrics.participants_schools_engaged.title,
-	flash: metrics.participants_schools_engaged.flash,
+	flash: metrics.participants_schools_engaged.flash || flash,
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
@@ -11,7 +11,7 @@
 		upTo: metrics.participants_schools_engaged.upTo
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'participants_schools_engaged' }  }}
 			<h2>{{ metrics.participants_schools_engaged.title }}</h2>
 			{{ comp.dashboard.InfoBoxDescription({
                 metrics: metrics,

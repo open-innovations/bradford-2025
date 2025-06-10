@@ -1,6 +1,6 @@
 {{ comp dashboard.Cell {
 	title: metrics.audiences_split_bradford.title,
-	flash: metrics.audiences_split_bradford.flash,
+	flash: 'Partial',
 	classes: 'audiences'
 } }}
 	{{> const audienceSplit = (100 * audience.ticketed.sold.bradford / audience.ticketed.sold.total) }}
@@ -12,7 +12,7 @@
 		upTo: metrics.audiences_split_bradford.upTo
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'audiences_split_bradford' } }}
 			<h2>{{ metrics.audiences_split_bradford.title }}</h2>
 			{{ comp.dashboard.InfoBoxDescription({
 				"metrics": metrics,

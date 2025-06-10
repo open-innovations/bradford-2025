@@ -1,6 +1,6 @@
 {{ comp dashboard.Cell {
 	title: metrics.audiences_total.title,
-	flash: metrics.audiences_total.flash,
+	flash: metrics.audiences_total.flash || flash,
 	classes: 'audiences'
 } }}
 	{{ comp.BigNumber({
@@ -11,7 +11,7 @@
 	}) }}
 	{{ comp Controls }}
 		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'audiences_total' }}}
 			<h2>{{ metrics.audiences_total.title }}</h2>
 			<p>
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events held between
@@ -23,9 +23,10 @@
 				"file": "audiences_total"
 			}) |> md |> vto(page.data) }}
 
-			{{# TODO Add count of tickets scanned (if available)
-			#}}
-
+			<pre>{{
+				Object.entries(audience.by_category).map(([ title, value]) => ({ title, value }))
+				|> JSON.stringify(null, 2)
+			}}</pre>
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

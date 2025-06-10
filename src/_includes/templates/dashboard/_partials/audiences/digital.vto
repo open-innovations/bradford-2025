@@ -1,6 +1,6 @@
 {{ comp dashboard.Cell {
 	title: metrics.audiences_digital.title,
-	flash: metrics.audiences_digital.flash,
+	flash: metrics.audiences_digital.flash || flash,
 	classes: 'audiences'
 } }}
 	{{# TODO get this number from the audience json file when pipeline creates that breakdown #}}
@@ -12,7 +12,7 @@
 		upTo: metrics.audiences_digital.upTo
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'audiences_digital' }}}
 			<h2>{{ metrics.audiences_digital.title }}</h2>
 
 			{{ comp.dashboard.InfoBoxDescription({

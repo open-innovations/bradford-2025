@@ -1,6 +1,6 @@
 {{ comp dashboard.Cell {
 	title: metrics.participants_community.title,
-	flash: metrics.participants_community.flash,
+	flash: metrics.participants_community.flash || flash,
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
@@ -10,7 +10,7 @@
 		upTo: metrics.participants_community.upTo
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'participants_community' } }}
 			<h2>{{ metrics.participants_community.title }}</h2>
 			{{ comp.dashboard.InfoBoxDescription({
                 metrics: metrics,

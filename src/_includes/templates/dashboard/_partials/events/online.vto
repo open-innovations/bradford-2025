@@ -1,17 +1,16 @@
 {{ comp dashboard.Cell {
 	title: metrics.events_online.title,
-	flash: metrics.events_online.flash,
+	flash: metrics.events_online.flash || flash,
 	classes: 'events'
 } }}
 	{{ comp.BigNumber({
-		number: metrics.events_online.actual || 0,
+		number: events.by_category['Online'] || 0,
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
-		upTo: metrics.events_online.upTo
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'events_online' } }}
 			<h2>{{metrics.events_online.title}}</h2>
 			<p>
 				Total count of online {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}

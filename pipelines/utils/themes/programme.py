@@ -125,7 +125,7 @@ class ProgrammeSlice:
         "Fighting to be Heard (British Library)": 'Fighting To Be Heard',
         "Jungle Book": "Jungle Book ReImagined - Akram Khan Company",
         "Nationhood: Memory and Hope (Aida Muluneh Photography exhibition)": "Nationhood: Memory and Hope",
-        # "Nationhood: Memory & Hope": "Nationhood: Memory and Hope",
+        "Nationhood: Memory & Hope": "Nationhood: Memory and Hope",
         "YOU:MATTER (Marshmallow Laser Feast)": "YOU:MATTER",
     }
 

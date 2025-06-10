@@ -1,17 +1,17 @@
 {{ comp dashboard.Cell {
 	title: metrics.events_exhibition_days.title,
-	flash: metrics.events_exhibition_days.flash,
+	flash: metrics.events_exhibition_days.flash || flash,
 	classes: 'events'
 } }}
 	{{ comp.BigNumber({
-		number: events.events.by_category.Exhibition || 0,
+		number: events.by_category.Exhibition || 0,
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({
 		upTo: metrics.events_exhibition_days.upTo
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'events_exhibition_days' } }}
             <h2>{{metrics.events_exhibition_days.title}}</h2>
 			<p>
 				Total count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}
@@ -35,7 +35,7 @@
 			<h3>Breakdown of exhibitions</h3>
 
 			{{> const rows = []; }}
-			{{ for name, value of events.events.by_project }}
+			{{ for name, value of events.by_project }}
 			{{ if value.category === 'Exhibition'}}
 				{{> rows.push({"title":name,"value":value.count}); }}
 			{{ /if }}

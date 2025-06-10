@@ -1,17 +1,16 @@
 {{ comp dashboard.Cell {
 	title: metrics.events_festivals.title,
-	flash: metrics.events_festivals.flash,
+	flash: metrics.events_festivals.flash || flash,
 	classes: 'events'
 } }}
 	{{ comp.BigNumber({
-		number: metrics.events_festivals.actual || 0,
+		number: events.by_category.Festival || 0,
 		suffix: '',
 	}) }}
-        {{ comp.dashboard.Footer({
-		upTo: metrics.events_festivals.upTo
+	{{ comp.dashboard.Footer({
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'events_festivals' } }}
             <h2>{{metrics.events_festivals.title}}</h2>
 			<p>
 				Total count of {{ comp glossary.Ref { slug: 'festival' } }}festivals{{ /comp }}
@@ -31,6 +30,17 @@
 				"collection": title,
 				"file": "events_festivals"
 			}) |> md |> vto(page.data) }}
+
+			{{> const rows = []; }}
+			{{ for name, value of events.by_project }}
+			{{ if value.category === 'Festival' }}
+				{{> rows.push({"title":name,"value":value.count}); }}
+			{{ /if }}
+			{{ /for }}
+
+			<pre>
+			{{- rows |> JSON.stringify(null, 2) -}}
+			</pre>
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

@@ -1,6 +1,6 @@
 {{ comp dashboard.Cell {
     title: metrics.events_total.title,
-    flash: metrics.events_total.flash,
+    flash: metrics.events_total.flash || flash,
 	classes: 'events'
 } }}
 	{{# 
@@ -9,7 +9,7 @@
 		Sum of "in-person" + "online" + "festivals" + "exhibition days"
 	#}}
     {{ comp.BigNumber({
-        number: events.events.total || 0,
+        number: events.total || 0,
         suffix: ''
     }) }}
     {{ comp.dashboard.Footer({
@@ -41,25 +41,36 @@
 				"header": {
 					"class": "c-yellow"
 				},
-				"rows":[{
-					"title": "In-person events",
-					"value": (events.events.by_category['In-person'] || 0),
-					"description": "Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>, Our Patch events and events delivered by partner or commissioned organisations collated separately."
-				},{
-					"title": "Online events",
-					"value": (events.events.by_category['Online'] || 0),
-					"description": "Events run online."
-				},{
-					"title": "Festival days",
-					"value": (events.events.by_category['Festival'] || 0)
-				},{
-					"title": "Exhibition days",
-					"value": (events.events.by_category['Exhibition'] || 0)
-				},{
-					"title": "Total events",
-					"value": (events.events.total || 0),
-					"class": "c-pink"
-				}]
+				"rows":[
+					{
+						"title": "Total events",
+						"value": (events.total || 0),
+						"class": "c-pink",
+						'description': "Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>, with some manual additions for third-party events."
+					},
+					...Object.entries(events.by_category)
+					.map(([title, value]) => ({ title, value })),
+				/*
+					{
+						"title": "In-person events",
+						"value": (events.by_category['In-person'] || 0),
+						"description": "."
+					},
+					{
+						"title": "Online events",
+						"value": (events.by_category['Online'] || 0),
+						"description": "Events run online."
+					},
+					{
+						"title": "Festival days",
+						"value": (events.by_category['Festival'] || 0)
+					},
+					{
+						"title": "Exhibition days",
+						"value": (events.by_category['Exhibition'] || 0)
+					},
+				*/
+				]
 			}) |> md |> vto(page.data) }}
         {{ /comp }}
     {{ /comp }}

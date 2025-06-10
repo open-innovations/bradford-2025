@@ -1,17 +1,17 @@
 {{ comp dashboard.Cell {
 	title: metrics.events_exhibitions.title,
-	flash: metrics.events_exhibitions.flash,
+	flash: metrics.events_exhibitions.flash || flash,
 	classes: 'events'
 } }}
 	{{ comp.BigNumber({
-		number: events.projects.by_category['Exhibition'] || 0,
+		number: projects.by_category['Exhibition'] || 0,
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({
 		upTo: metrics.events_exhibitions.upTo
 	}) }}
 	{{ comp Controls }}
-		{{ comp Popover }}
+		{{ comp Popover { id: 'events_exhibitions' } }}
             <h2>{{metrics.events_exhibitions.title}}</h2>
 			<p>
 				Total count of exhibitions
@@ -44,7 +44,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{ for name, value of events.events.by_project }}
+					{{ for name, value of events.by_project }}
 					{{ if value.category === 'Exhibition'}}
 						<tr>
 							<th scope='row' class='centred'>{{ name }}</th>

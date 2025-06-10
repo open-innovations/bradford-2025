@@ -6,7 +6,7 @@
 
 {{ comp dashboard.Cell {
     title: metrics.participants_volunteers.title,
-    flash: metrics.participants_volunteers.flash,
+    flash: metrics.participants_volunteers.flash || flash,
 	classes: 'participants'
 } }}
     {{# Using the actual number here! #}}
@@ -19,7 +19,7 @@
 	}) }}
     {{ comp Controls }}
         {{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
-        {{ comp Popover }}
+        {{ comp Popover  { id: 'participants_volunteers' } }}
             <h2>{{ metrics.participants_volunteers.title }}</h2>
             {{ comp.dashboard.InfoBoxDescription({
                 metrics: metrics,
