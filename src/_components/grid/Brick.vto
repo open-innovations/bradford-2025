@@ -6,6 +6,11 @@ css: |
         & > * {
             flex-grow: 1;
         }
+        @media print {
+            & {
+                break-inside: avoid-page;
+            }
+        }
     }
 ---
 {{>
