@@ -2,7 +2,7 @@ from ast import literal_eval
 from datetime import date, datetime
 
 import petl as etl
-import pyarrow.parquet as pq
+from rap_utils.petl.io.parquet_view import ParquetView
 from utils.paths import PUBLISHED
 
 
@@ -146,8 +146,7 @@ class ProgrammeSlice:
         self.start_date, self.end_date = range
 
         self.events_data, self.excluded_events_data = (
-            etl
-            .fromdataframe(pq.read_table(PUBLISHED / 'combined/programme.parquet').to_pandas())
+            ParquetView(PUBLISHED / 'combined/programme.parquet')
 
             .addfield('validation', self.validation)
 
