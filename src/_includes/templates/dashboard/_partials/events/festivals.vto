@@ -37,10 +37,19 @@
 				{{> rows.push({"title":name,"value":value.count}); }}
 			{{ /if }}
 			{{ /for }}
-
-			<pre>
-			{{- rows |> JSON.stringify(null, 2) -}}
-			</pre>
+			<h3>Breakdown of festivals</h3>
+			{{ comp.dashboard.InfoBoxTable({
+				"cms": metrics.events_festivasl,
+				"columns": [
+					{ "key": "title", "label": "Title", "header": true },
+					{ "key": "value", "label": "Value", "class":"centred" },
+					{ "key": "description", "label": "Description" }
+				],
+				"header": {
+					"class": "c-yellow"
+				},
+				"rows":rows
+			}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

@@ -23,10 +23,22 @@
 				"file": "audiences_total"
 			}) |> md |> vto(page.data) }}
 
-			<pre>{{
-				Object.entries(audience.by_category).map(([ title, value]) => ({ title, value }))
-				|> JSON.stringify(null, 2)
-			}}</pre>
+			{{> const rows = []; }}
+			{{ for key, value of audience.by_category }}
+				{{> rows.push({"title":key,"value":value}); }}
+			{{ /for }}
+			{{ comp.dashboard.InfoBoxTable({
+				"cms": metrics.events_festivasl,
+				"columns": [
+					{ "key": "title", "label": "Title", "header": true },
+					{ "key": "value", "label": "Value", "class":"centred" },
+					{ "key": "description", "label": "Description" }
+				],
+				"header": {
+					"class": "c-yellow"
+				},
+				"rows":rows
+			}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
