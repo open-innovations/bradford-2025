@@ -32,10 +32,21 @@ css: |
     {{- /if -}}
 </td>
 
-{{# Event Reports #}}
+{{# Audience #}}
 <td class="centred">
     {{- if audience -}}
     {{ comp.BigNumber({ number: audience }) }}
+    {{- else -}}
+    &mdash;
+    {{- /if -}}
+</td>
+
+{{# Participants #}}
+<td class="centred">
+    {{- if participants -}}
+    {{ comp.BigNumber({
+        number: participants
+    }) }}
     {{- else -}}
     &mdash;
     {{- /if -}}
