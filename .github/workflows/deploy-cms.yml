@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Setup deno
         uses: ./.github/actions/setup-deno-environment
       
@@ -27,6 +27,6 @@ jobs:
         run: deno install -gArf jsr:@deno/deployctl
       
       - name: Deploy production CMS
-        run: deployctl deploy --prod
+        run: deployctl deploy --prod --token=${{ secrets.DENO_DEPLOY_TOKEN }}
 
     
