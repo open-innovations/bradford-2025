@@ -15,8 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DENO_DIR: /var/tmp/deno_cache
-      
+
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: Setup deno
         uses: ./.github/actions/setup-deno-environment
       
