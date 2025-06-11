@@ -13,6 +13,9 @@ on:
 jobs:
   deploy-cms:
     runs-on: ubuntu-latest
+    env:
+      DENO_DIR: /var/tmp/deno_cache
+      
     steps:
       - name: Setup deno
         uses: ./.github/actions/setup-deno-environment
