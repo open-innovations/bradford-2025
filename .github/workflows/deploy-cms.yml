@@ -1,0 +1,26 @@
+name: Deploy CMS
+on: 
+  workflow_dispatch: {}
+  push:
+    # Any of the following paths pushed to main will trigger this action 
+    branches: [ main ]
+    paths: 
+      - _cms.ts
+      - cmsConfig.ts
+      - src/insights/dashboard/*/_data/metrics/*.yml
+      - src/insights/dashboard/_data/metrics/*.yml
+      - .github/workflows/deploy-cms.yml
+jobs:
+  deploy-cms:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup deno
+        uses: ./.github/actions/setup-deno-environment
+      
+      - name: Install deployctl
+        run: deno install -gArf jsr:@deno/deployctl
+      
+      - name: Deploy production CMS
+        run: deployctl deploy --prod
+
+    
