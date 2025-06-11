@@ -5,7 +5,7 @@ css: |
         }
     }
 ---
-<details data-comp='Details'>
+<details data-comp='Details'{{ if id }} id='{{ id }}'{{ /if }}>
     {{ if summary }}<summary>{{ summary }}</summary>{{ /if -}}
     {{ content }}
 </details>
