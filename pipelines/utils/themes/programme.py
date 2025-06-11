@@ -1,9 +1,13 @@
+import json
 from ast import literal_eval
 from datetime import date, datetime
 
 import petl as etl
 from rap_utils.petl.io.parquet_view import ParquetView
 from utils.paths import PUBLISHED
+
+with open(PUBLISHED / 'manual/manual-project-name-map.json') as f:
+    canonical_project_name = json.load(f)
 
 
 def validation(row):
@@ -25,11 +29,6 @@ def validation(row):
 
 
 class Programme:
-    canonical_project_name = {
-        'Rise (AKA - Opening Event)': 'RISE',
-        'Our Patch (formerly Magic Waiting)': 'Our Patch',
-    }
-
     projects = (
         etl
         .fromjson(PUBLISHED / 'programme/projects.json')
@@ -44,8 +43,8 @@ class Programme:
         .fromcsv(PUBLISHED / 'programme/events.csv')
 
         .convert(['Start Date', 'End Date'], etl.dateparser('%Y-%m-%d'))
-        .convert('Project Name', lambda x: x.strip())
-        .convert('Project Name', canonical_project_name)
+        # .convert('Project Name', lambda x: x.strip())
+        # .convert('Project Name', canonical_project_name)
         .convert([
             'Programme Category',
             'Producing model',
@@ -82,8 +81,8 @@ class Programme:
         .convert(['audience', 'tickets_pre_sold', 'tickets_on_the_door', 'participants', 'volunteers', 'volunteer_shifts'], int)
         .replace(['audience', 'tickets_pre_sold', 'tickets_on_the_door', 'participants', 'volunteers', 'volunteer_shifts'], None, 0)
         .convert(['Programme Category', 'Project Venue(s)'], literal_eval)
-        .convert('Project Name', lambda x: x.strip())
-        .convert('Project Name', canonical_project_name)
+        # .convert('Project Name', lambda x: x.strip())
+        # .convert('Project Name', canonical_project_name)
         .convertnumbers()
         .cache()
     )
@@ -99,8 +98,8 @@ class Programme:
             'Project': 'Project Name',
             'Airtable project ID': 'project_id',
         })
-        .convert('Project Name', lambda x: x.strip())
-        .convert('Project Name', canonical_project_name)
+        # .convert('Project Name', lambda x: x.strip())
+        # .convert('Project Name', canonical_project_name)
         .convertnumbers()
         .cache()
     )
@@ -117,17 +116,6 @@ class Programme:
 class ProgrammeSlice:
 
     dimensions = ['project_name', 'month']
-
-    canonical_project_name = {
-        'Rise (AKA - Opening Event)': 'RISE',
-        # 'Our Patch (formerly Magic Waiting)': 'Our Patch',
-        'Our Patch (formerly Magic Waiting) MASTER': 'Our Patch',
-        "Fighting to be Heard (British Library)": 'Fighting To Be Heard',
-        "Jungle Book": "Jungle Book ReImagined - Akram Khan Company",
-        "Nationhood: Memory and Hope (Aida Muluneh Photography exhibition)": "Nationhood: Memory and Hope",
-        "Nationhood: Memory & Hope": "Nationhood: Memory and Hope",
-        "YOU:MATTER (Marshmallow Laser Feast)": "YOU:MATTER",
-    }
 
     def validation(self, row):
         if row.project_name is None:
@@ -149,10 +137,6 @@ class ProgrammeSlice:
             ParquetView(PUBLISHED / 'combined/programme.parquet')
 
             .addfield('validation', self.validation)
-
-            # TODO move to upstream repo
-            .convert('project_name', lambda x: x.strip())
-            .convert('project_name', self.canonical_project_name)
 
             .convert('start_date', lambda f, r: f or r.date, pass_row=True)
             .convert('end_date', lambda f, r: f or r.date, pass_row=True)
