@@ -1,7 +1,7 @@
 (function(root){
 
 	const POPOVER_PARAM = 'infobox';
-
+	if(!root.OI) root.OI = {};
 	if(!root.OI.ready){
 		root.OI.ready = function(fn){
 			// Version 1.1
