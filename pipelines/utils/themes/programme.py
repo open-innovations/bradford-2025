@@ -144,14 +144,51 @@ class ProgrammeSlice:
             .biselect(lambda r: r.validation == None)
         )
 
+    @classmethod
+    def calculate_events(cls, row):
+        return sum(
+            filter(None.__ne__, (
+                row.manual_events,
+                max(
+                    filter(None.__ne__, (
+                        0,
+                        row.event_reports,
+                        row.schedule_events
+                    ))
+                ) or row.projected_events
+            )), 0
+        )
+
+    @classmethod
+    def calculate_audience(cls, row):
+        return sum(
+            filter(None.__ne__, (
+                row.event_report_audience,
+                row.manual_audience
+            )), 0
+        )
+
+    @classmethod
+    def calculate_partitipants(cls, row):
+        return sum(
+            filter(None.__ne__, (
+                row.manual_participants_community,
+                row.manual_participants_community,
+                row.event_report_participants,
+                row.event_report_participants_community,
+                row.event_report_participants_schools,
+            )), 0
+        )
+
     @property
     def events(self):
         return (
             self.events_data
             .aggregate([*self.dimensions, 'variable'], sum, 'value')
             .recast([*self.dimensions])
-            .addfield('events', lambda r: (r.manual_events or 0) + (max(r.event_reports or 0, r.schedule_events or 0) or r.projected_events or 0), index=3)
-            .addfield('audience', lambda r: (r.event_report_audience or 0) + (r.manual_audience or 0), index=4)
+            .addfield('events', self.calculate_events, index=3)
+            .addfield('audience', self.calculate_audience, index=4)
+            .addfield('participants', self.calculate_partitipants, index=5)
             .cache()
         )
 
@@ -178,7 +215,12 @@ class ProgrammeSlice:
     def project_breakdown(self):
         return (
             self.events
-            .melt(variables=['events', 'event_reports', 'schedule_events', 'projected_events', 'manual_events', 'audience', 'event_report_audience', 'manual_audience'])
+            .melt(variables=[
+                'events', 'event_reports', 'schedule_events', 'projected_events', 'manual_events',
+                'audience', 'event_report_audience', 'manual_audience',
+                'participants', 'event_report_participants', 'event_report_participants_community', 'event_report_participants_schools', 'manual_participants_community',
+                # 'manual_participants_schools'
+            ])
             .selectnotnone('value')
             .aggregate(['project_name', 'variable'], sum, 'value')
             .recast()
@@ -192,13 +234,23 @@ class ProgrammeSlice:
             .addfield('Details', lambda r: {
                 # 'records': r.Records,
                 'events': r.events,
+                'audience': r.audience,
+                'participants': r.participants,
+
                 'eventReports': r.event_reports,
                 'scheduledEvents': r.schedule_events,
                 'projectedEvents': r.projected_events,
                 'manual_events': r.manual_events,
-                'audience': r.audience,
+
                 'event_reports_audience': r.event_report_audience,
                 'manual_audience': r.manual_audience,
+
+                'event_report_participants': r.event_report_participants,
+                'event_report_participants_community': r.event_report_participants_community,
+                'event_report_participants_schools': r.event_report_participants_schools,
+                'manual_participants_community': r.manual_participants_community,
+                # 'manual_participants_schools': r.manual_participants_schools,
+
                 'evaluationCategory': r.evaluation_category,
                 # 'programmeCategory': r['Programme Category'],
                 'earliestDate': r.start_date.isoformat() if r.start_date else r.date.isoformat() if r.date else None,
