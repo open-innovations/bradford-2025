@@ -66,6 +66,13 @@ console.debug('show',btnHide,btnShow,popover);
 		removeFromLocation(popover.dataset.infoboxId);
 	};
 	
+	popup.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape') {
+			event.preventDefault();
+			hide(); // will call removeFromLocation too
+		}
+	});
+	
 	btnShow?.addEventListener('click', show );
 	btnHide.addEventListener('click', hide );
 
