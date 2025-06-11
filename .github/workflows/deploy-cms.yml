@@ -7,9 +7,10 @@ on:
     paths: 
       - _cms.ts
       - cmsConfig.ts
-      - src/insights/dashboard/*/_data/metrics/*.yml
-      - src/insights/dashboard/_data/metrics/*.yml
+      - src/insights/dashboard/*/index.vto
+      - src/insights/dashboard/index.vto
       - .github/workflows/deploy-cms.yml
+
 jobs:
   deploy-cms:
     runs-on: ubuntu-latest
