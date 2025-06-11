@@ -24,12 +24,11 @@
 				"file": "audiences_in_person_events"
 			}) |> md |> vto(page.data) }}
 
-
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_total,
 				"columns": [
-					{ "key": "title", "label": "Measure", "header": true },
-					{ "key": "value", "label": "Value", "class":"centred" }
+					{ "key": "title", "label": "Project", "header": true },
+					{ "key": "value", "label": "Audience", "class":"centred" }
 				],
 				"header": {
 					"class": "c-green"
@@ -37,12 +36,19 @@
 				"rows":[
 				{
 					"title": "Total",
-					"value": audience.total.toLocaleString()
+					"value": audience.total.toLocaleString(),
+					class: 'c-pink',
 				},
+				...Object.entries(audience.by_project)
+					.filter(p => p[1] > 0)
+					.sort((a, b) => b[1] - a[1])
+					.map(([ title, value ]) => ({ title, value: value.toLocaleString() })),
+				/*
 				{
 					"title": "Bradford 2025 ticket sales",
 					"value": audience.ticketed.sold.total.toLocaleString()
 				},
+				*/
 				]
 			}) |> md |> vto(page.data) }}
 		{{ /comp }}
