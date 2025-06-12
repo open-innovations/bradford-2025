@@ -37,9 +37,9 @@
 		const btnShow = popover.querySelector('button.show');
 		if(btnShow) btnShow.addEventListener('click', function(){ _obj.show(); });
 
-		const clonedContent = document.createElement('div');
-		clonedContent.classList.add('content-area');
-		clonedContent.innerHTML = popover.querySelector('div.popover-content').innerHTML;
+		const popovercontent = popover.querySelector('div.popover-content');
+		const contentArea = document.createElement('div');
+		contentArea.classList.add('content-area');
 
 		this.getID = function(){
 			return popover.getAttribute('data-'+POPOVER_PARAM+'-id');
@@ -50,7 +50,9 @@
 			popup.showModal();
 			popup.innerHTML = "";
 			popup.appendChild(btnHide);
-			popup.appendChild(clonedContent);
+			// Add the popovercontent children to the contentArea
+			contentArea.replaceChildren(...popovercontent.childNodes);
+			popup.appendChild(contentArea);
 			main.active = this;
 			if(popover.dataset.infoboxId){
 				if(!noupdatehistory) addToLocation(popover.dataset.infoboxId);
@@ -60,6 +62,8 @@
 		};
 
 		this.hide = function(noupdatehistory){
+			// Put the content back into popovercontent
+			popovercontent.replaceChildren(...contentArea.childNodes);
 			const popup = main.getPopup();
 			popup.close();
 			if(popup.contains(btnHide)){
