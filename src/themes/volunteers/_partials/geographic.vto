@@ -68,8 +68,9 @@
 				config: {
 					hexjson: hexes.bd_2024,
 					data: wardSignUps,
-					scale: scales.yellow,
+					scale: scales.yellowdark,
 					matchKey: 'code',
+					min: 0,
 					value: 'count',
 					label: 'short_code',
 					tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ countLabel }} volunteers'
@@ -88,8 +89,9 @@
 					geojson: { key: "WD24CD", data: geojson.bd_wards },
 					data: wardSignUps,
 					bounds: bounds.bradford,
+					min: 0,
 					value: 'count', 
-					scale: scales.yellow,
+					scale: scales.yellowdark,
 					key: 'code',
 					label: 'short_code',
 					columns: [
@@ -115,7 +117,8 @@
 					data: postcodeSignUps,
 					bounds: bounds.bradford,
 					value: 'count',
-					scale: scales.yellow,
+					min: 0,
+					scale: scales.yellowdark,
 					key: 'code',
 					label: 'short_code',
 					columns: [
