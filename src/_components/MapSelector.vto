@@ -1,0 +1,57 @@
+{{>
+	if(!type) type = "ward";
+	if(!hex.id) hex.id = type+"-hex";
+	if(!hex.title) hex.title = "Hex map";
+	if(!geo.id) geo.id = type+"-geo";
+	if(!geo.title) geo.title = "Geographic";
+	if(type == "ward"){
+		if(!hex.hexjson) hex.hexjson = hexes.bd_2024;
+		if(!geo.geojson) geo.geojson = { key: "WD24CD", data: geojson.bd_wards };
+	}else if(type == "postcode"){
+		if(!hex.hexjson) hex.hexjson = hexes.bd_pcd_simple;
+		if(!geo.geojson) geo.geojson = { key: "name", data: geojson.postcodes };
+	}
+	geo.bounds = bounds.bradford;
+	if(typeof hex.footer==="undefined") hex.footer = "This is a hex cartogram that shows each " + type + " area with the same-sized hexagon. This allows us to treat areas equally in the visualisation but at the expense of an accurate geographic layout. Switch to the geographic map for accurate geography.";
+	if(tooltip){
+		if(!hex.tooltip) hex.tooltip = tooltip;
+		if(!geo.tooltip) geo.tooltip = tooltip;
+	}
+	if(caption){
+		if(!hex.caption) hex.caption = caption;
+		if(!geo.caption) geo.caption = caption;
+	}
+}}
+
+{{ comp Tab.Set }}
+	{{ comp Tab.Panel { id: hex.id, label: hex.title } }}
+	<figure>
+		{{> config = {
+			data,
+			scale,
+			value,
+			min,
+			...hex,
+		} }}
+		{{ comp.oi.map.hex_cartogram({
+			config: config
+		}) }}
+		{{ if hex.caption }}<figcaption>{{ hex.caption }}</figcaption>{{ /if }}
+		{{ if hex.footer }}<p class="footer">{{ hex.footer }}</p>{{ /if }}
+	</figure>
+	{{ /comp }}
+	{{ comp Tab.Panel { id: geo.id, label: geo.title } }}
+	<figure>
+		{{> config = {
+			data,
+			scale,
+			value,
+			min,
+			...geo,
+		} }}
+		{{ comp.oi.map.svg({ config: config }) }}
+		{{ if geo.caption }}<figcaption>{{ geo.caption }}</figcaption>{{ /if }}
+		{{ if geo.footer }}<p class="footer">{{ geo.footer }}</p>{{ /if }}
+	</figure>
+	{{ /comp }}
+{{ /comp }}

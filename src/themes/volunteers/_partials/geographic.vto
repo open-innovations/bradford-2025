@@ -61,74 +61,45 @@
 
 	<div class="block">
 		<h3>Volunteers by ward</h3>
-		{{ comp Tab.Set }}
-		{{ comp Tab.Panel { id: 'ward-hex', label: 'Hex map' } }}
-		<figure>
-			{{ comp.oi.map.hex_cartogram({
-				config: {
-					hexjson: hexes.bd_2024,
-					data: wardSignUps,
-					scale: scales.yellowdark,
-					matchKey: 'code',
-					min: 0,
-					value: 'count',
-					label: 'short_code',
-					tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ countLabel }} volunteers'
-				}
-			}) }}
-			<figcaption>
-				The <a href="/design/geospatial/#hexmaps"><q>hexmap</q></a> shows the number of
-				volunteers living in each Bradford ward.
-			</figcaption>
-		</figure>
-		{{ /comp }}
-		{{ comp Tab.Panel { id: 'ward-geo', label: 'Geographic map' } }}
-		<figure>
-			{{ comp.oi.map.svg({ 
-				config: {
-					geojson: { key: "WD24CD", data: geojson.bd_wards },
-					data: wardSignUps,
-					bounds: bounds.bradford,
-					min: 0,
-					value: 'count', 
-					scale: scales.yellowdark,
-					key: 'code',
-					label: 'short_code',
-					columns: [
-						{ name: 'tooltip', template: '<b>{{ name }}</b>\n{{ countLabel }} volunteers' },
-					],
-					tooltip: 'tooltip',
-			} }) }}
-			<figcaption>
-				This map shows the volunteers by Bradford ward
-				in a geographic layout.
-			</figcaption>
-		</figure>
-		{{ /comp }}
-		{{ /comp }}
+
+		{{ comp.MapSelector({
+			type: 'ward',
+			data: wardSignUps,
+			scale: scales.yellowdark,
+			value: 'count',
+			tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ countLabel }} volunteers',
+			hex: {
+				caption: 'The "hexmap" shows the number of volunteers living in each Bradford ward.',
+				matchKey:'code',
+				label: 'short_code',
+			},
+			geo: {
+				caption: 'This map shows the volunteers by Bradford ward in a geographic layout.',
+				min: 0,
+				key: 'code',
+			}
+		}) }}
 	</div>
 
 	<div class="block">
 		<h3>Volunteers by postcode district</h3>
-		<figure>
-			{{ comp.oi.map.svg({
-				config: {
-					geojson: { key: "name", data: geojson.postcodes },
-					data: postcodeSignUps,
-					bounds: bounds.bradford,
-					value: 'count',
-					min: 0,
-					scale: scales.yellowdark,
-					key: 'code',
-					label: 'short_code',
-					columns: [
-						{ name: 'tooltip', template: '<b>{{ code }}</b>\n{{ countLabel }} volunteers' },
-					],
-					tooltip: 'tooltip',
-			} }) }}
-			<figcaption>
-				The map displays the number of volunteers by Bradford postcode district.
-			</figcaption>
-		</figure>
+		
+		{{ comp.MapSelector({
+			type: 'postcode',
+			data: postcodeSignUps,
+			scale: scales.yellowdark,
+			value: 'count',
+			min: 0,
+			tooltip: '<b>{{ code }}</b>\n{{ countLabel }} volunteers',
+			caption: 'The number of volunteers by Bradford postcode district.',
+			hex: {
+				matchKey:'code',
+				label: 'n',
+			},
+			geo: {
+				key: 'code',
+			}
+		}) }}
+
 	</div>
 {{ /comp }}
