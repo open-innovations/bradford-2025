@@ -67,16 +67,17 @@
 			data: wardSignUps,
 			scale: scales.yellowdark,
 			value: 'count',
-			tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ countLabel }} volunteers',
 			hex: {
 				caption: 'The "hexmap" shows the number of volunteers living in each Bradford ward.',
 				matchKey:'code',
 				label: 'short_code',
+				tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ countLabel }} volunteers',
 			},
 			geo: {
 				caption: 'This map shows the volunteers by Bradford ward in a geographic layout.',
 				min: 0,
 				key: 'code',
+				tooltip: '<b>{{ name }} ({{ short_code }})</b>:\n{{ countLabel }} volunteers',
 			}
 		}) }}
 	</div>
