@@ -34,18 +34,18 @@
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_total,
 				"columns": [
-					{ "key": "title", "label": "Category", "header": true },
-					{ "key": "value", "label": "Events", "class":"centred" },
-					{ "key": "description", "label": "Description" }
+					{ "name": "title", "label": "Category", "header": true },
+					{ "name": "value", "label": "Events", "class":"centred" },
+					{ "name": "description", "label": "Description" }
 				],
-				"header": {
+				"head": {
 					"class": "c-yellow"
 				},
-				"rows":[
+				"data":[
 					{
 						"title": "Total events",
 						"value": (events.total || 0),
-						"class": "c-pink",
+						"_class": "c-pink",
 						'description': "Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>, with some manual additions for third-party events."
 					},
 					...Object.entries(events.by_category)

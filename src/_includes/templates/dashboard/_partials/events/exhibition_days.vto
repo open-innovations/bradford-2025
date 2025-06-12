@@ -44,14 +44,14 @@
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_total,
 				"columns": [
-					{ "key": "title", "label": "Name", "header": true, "class":"centred" },
-					{ "key": "value", "label": "Days" },
-					{ "key": "description", "label": "Description" }
+					{ "name": "title", "label": "Name", "header": true, "class":"centred" },
+					{ "name": "value", "label": "Days" },
+					{ "name": "description", "label": "Description" }
 				],
-				"header": {
+				"head": {
 					"class": "c-yellow"
 				},
-				"rows":rows
+				"data": rows
 			}) |> md |> vto(page.data) }}
 
 		{{ /comp }}

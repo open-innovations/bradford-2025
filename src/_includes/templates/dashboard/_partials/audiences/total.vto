@@ -30,14 +30,14 @@
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_festivasl,
 				"columns": [
-					{ "key": "title", "label": "Title", "header": true },
-					{ "key": "value", "label": "Value", "class":"centred" },
-					{ "key": "description", "label": "Description" }
+					{ "name": "title", "label": "Title", "header": true },
+					{ "name": "value", "label": "Value", "class":"centred" },
+					{ "name": "description", "label": "Description" }
 				],
-				"header": {
+				"head": {
 					"class": "c-green"
 				},
-				"rows":rows
+				"data": rows
 			}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}

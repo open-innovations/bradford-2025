@@ -27,17 +27,17 @@
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_total,
 				"columns": [
-					{ "key": "title", "label": "Project", "header": true },
-					{ "key": "value", "label": "Audience", "class":"centred" }
+					{ "name": "title", "label": "Project", "header": true },
+					{ "name": "value", "label": "Audience", "class":"centred" }
 				],
-				"header": {
+				"head": {
 					"class": "c-green"
 				},
-				"rows":[
+				"data": [
 				{
 					"title": "Total",
 					"value": audience.total.toLocaleString(),
-					class: 'c-pink',
+					"_class": 'c-pink',
 				},
 				...Object.entries(audience.by_project)
 					.filter(p => p[1] > 0)

@@ -41,7 +41,7 @@
 
 			{{# TODO Review project breakdown #}}
 			{{> const rows = [{
-					"class":"c-pink",
+					"_class":"c-pink",
 					"title": "Total In-person events",
 					"value": eventsCount,
 					"description": "Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded in the <strong>Bradford 2025 Project Hub</strong>."
@@ -59,15 +59,15 @@
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_in_person,
 				"columns": [
-					{ "key": "title", "label": "Project", "header": true },
-					{ "key": "value", "label": "Events", "class":"centred" },
-					{ "key": "venue", "label": "Venues" },
-					{ "key": "description", "label": "Description" }
+					{ "name": "title", "label": "Project", "header": true },
+					{ "name": "value", "label": "Events", "class":"centred" },
+					{ "name": "venue", "label": "Venues" },
+					{ "name": "description", "label": "Description" }
 				],
-				"header": {
+				"head": {
 					"class": "c-yellow"
 				},
-				"rows":rows
+				"data": rows
 			}) |> vto(page.data) }}
 
 		{{ /comp }}

@@ -43,7 +43,7 @@
 					});
 				}
 				rows.push({ "title": "Do Your Thing Micro Awards", "value": manual?.events?.do_your_thing_micro_awards });
-				rows.push({ "title": "Total", "value": total, "description": "Total of above" });
+				rows.push({ "title": "Total", "value": total, "description": "Total of above", "_class": "c-yellow" });
 				//rows.push({ "title": "Ticketed events", "value": tickets.events.count, "description": "Ticketed events that ran between {{ comp.Date({ ...timestamp }) }}" });
 				//rows.push({ "title": "Volunteering shifts", "value": volunteers.shifts.count, "description": "There may be more than one volunteering shift per event, or each volunteering shift might cover multiple events"; });
 			}}
@@ -51,14 +51,14 @@
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_total,
 				"columns": [
-					{ "key": "title", "label": "Measure", "header": true },
-					{ "key": "value", "label": "Value", "class":"centred" },
-					{ "key": "description", "label": "Description" }
+					{ "name": "title", "label": "Measure", "header": true },
+					{ "name": "value", "label": "Value", "class":"centred" },
+					{ "name": "description", "label": "Description" }
 				],
-				"header": {
+				"head": {
 					"class": "c-yellow"
 				},
-				"rows":rows
+				"data": rows
 			}) |> md |> vto(page.data) }}
 
 		{{ /comp }}

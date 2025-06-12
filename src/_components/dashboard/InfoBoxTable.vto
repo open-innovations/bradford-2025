@@ -1,25 +1,23 @@
-<table style="margin-inline: auto; border-spacing: 1rem;">
-<thead>
-	<tr{{ if header && header.class }} class="{{ header.class }}"{{ /if }}>
-	{{ for col of columns }}
-		<th scope="col">{{ col.label }}</th>
-	{{ /for }}
-	</tr>
-</thead>
-<tbody>
-	{{ for row of rows }}
-	<tr{{ if row.class }} class="{{ row.class }}"{{ /if }}>
-		{{ for col of columns }}
-			{{# TODO: parse the description as Vento #}}
-			<{{ col.header ? "th scope=\"row\"":"td" }}{{ if col.class }} class="{{ col.class }}"{{ /if }}>
-				{{ if col.key == "description" }}
-					{{ (cms?.table_descriptions?.find(x => x.row === row.title)?.description || row.description) }}
-				{{ else }}
-					{{ row[col.key] }}
-				{{ /if }}
-			</{{ col.header ? "th":"td" }}>
-		{{ /for }}
-	</tr>
-	{{ /for }}
-</tbody>
-</table>
+{{>
+	if(data.length==0) data.push({});
+
+	// Update columns and rows
+	for(let c = 0; c < columns.length; c++){
+		if(columns[c].key) columns[c].name = columns[c].key;
+		columns[c].sortable = true;
+		if(columns[c].key == "description" && cms){
+			for(let r = 0; r < data.length; r++){
+				data[r].description = (cms?.table_descriptions?.find(x => x.row === data[r].title)?.description || data[r].description);
+			}
+		}
+	}
+}}
+
+{{ comp.oi.table({
+	config: {
+		data: data,
+		columns: columns,
+		head: header||head,
+	}
+}) }}
+

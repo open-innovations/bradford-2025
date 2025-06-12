@@ -23,15 +23,15 @@
 			{{ comp.dashboard.InfoBoxTable({
 							"cms": metrics.participants_total,
 							"columns": [
-								{ "key": "title", "label": "Measure", "header": true },
-								{ "key": "value", "label": "Value", "class":"centred" },
-								{ "key": "description", "label": "Description" }
+								{ "name": "title", "label": "Measure", "header": true },
+								{ "name": "value", "label": "Value", "class":"centred" },
+								{ "name": "description", "label": "Description" }
 							],
-							"header": {
+							"head": {
 								"class": "c-pink"
 							},
-							"rows": [
-								{ title: "Total", value: participants.total.toLocaleString(), class: 'c-yellow' },
+							"data": [
+								{ title: "Total", value: participants.total.toLocaleString(), "_class": 'c-yellow' },
 								{ title: "Volunteers", value: participants.volunteers.total.toLocaleString() },
 								...Object.entries(participants.by_type).map(([ title, value ]) => ({ title: `Airtable: ${title}`, value: value.toLocaleString() })),
 								{ title: 'Cultural Learning', value: participants.cultural_learning.participants.toLocaleString() },
