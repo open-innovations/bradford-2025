@@ -4,11 +4,10 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: manual?.participants?.cultural_learning || '&mdash;',
+		number: participants.participants.cultural_learning.participants || '&mdash;',
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
-		upTo: metrics.participants_cultural_learning.upTo
 	}) }}
 	{{# Estelle - creative health manager. How this data logged. John McMahon #}}
 	{{ comp Controls }}
