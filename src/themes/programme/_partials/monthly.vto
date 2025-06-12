@@ -1,158 +1,62 @@
 <h2>Events and audiences by month</h2>
 
 {{>
-	function decimalYear(p1){
-		if(typeof p1==="string") p1 = new Date(p1);
-		let sy = new Date(p1);
-		// Start of year
-		sy.setUTCMonth(0);
-		sy.setUTCDate(1);
-		sy.setUTCHours(0);
-		sy.setUTCMinutes(0);
-		sy.setUTCSeconds(0);
-		// Start of next year
-		let ey = new Date(sy);
-		ey.setUTCFullYear(sy.getUTCFullYear()+1);
-		p1 = sy.getUTCFullYear() + (p1-sy)/(ey-sy);
-		return p1;
-	}
-	function getTimeTicks(){
-		let ticks = [];
-		for(let y = 2024; y <= 2025; y++){
-			for(i = 0, m = 1; m <= 12 ; i++, m++){
-				let d = y + "-" + (m<10 ? '0':'') + m + '-01';
-				let tick = {value:decimalYear(d),tickSize:4};
-				if(m==1){
-					if(y==2024) tick.grid = true;
-					tick.label = y + '';
-					tick.tickSize = 10;
-				}
-				ticks.push(tick);
-			}
+    const eventsByMonth = events.total_by_month.map(function(row){
+		// Internally the date has been converted into a UTC time, so we fudge it here by applying the timezone offset
+		safemonth = (new Date(row.month.getTime() - row.month.getTimezoneOffset()*60000) ).toISOString().substr(0,10);
+		return {
+			...row,
+			projects: Object.entries(events.monthly_breakdown.find(r => row.month.toISOString() == r.month.toISOString()))
+				.filter(r => (r[0] !== 'month') && (r[1] > 0))
+				.toSorted((a, b) => b[1] - a[1])
+				.reduce((a, c) => ({...a, [c[0]]: c[1]}), {}),
+			safemonth: safemonth,
+			Month: row.month.toLocaleDateString(undefined, { month: "long", year: "numeric" }),
+			iso: safemonth.substr(0,7),
 		}
-		return ticks;
-	}
-	
-	function getYAxis(data,key,scale){
-		if(!scale) scale = {};
-		let min = Infinity,max = -Infinity,range,spacing,lo,hi,axis,i,y,pre = "",post = "",f = 1;
-		// Calculate the min/max in the data and get the pre/post units
-		for(i = 0; i < data.length; i++){
-			if(!isNaN(data[i][key])){
-				min = Math.min(min,data[i][key]);
-				max = Math.max(max,data[i][key]);
-			}
-			if(i==0){ pre = data[i].preunit||""; post = data[i].postunit||""; }
-		}
-		// If the scale minimum is set we'll use that instead (this helps preserve some sensible zero scaling)
-		if(typeof scale.min==="number") min = scale.min;
-		// Find the range
-		range = max - min;
-		// Work out a spacing and then a scale factor
-		if(range > 0){
-			spacing = Math.pow(10,Math.floor(Math.log10(range)));
-			let n = range/spacing;
-			if(n > 6) f = 2;
-		}else{
-			spacing = 1;
-		}
-		// Update the tick spacing
-		spacing *= f;
-		// Find the new minimum/maximum to use for the scale
-		lo = Math.floor(min/spacing)*spacing;
-		hi = Math.floor(max/spacing)*spacing;
-		//axis = {min:lo.toNumber(),max:hi.toNumber(),ticks:[],'grid':{'stroke-width': 0.5}};
-		var ticks = [];
-		for(y = lo; y <= hi ; y += spacing){
-			// Round the number in case of errors
-			y = Math.floor(y/spacing)*spacing;
-			ticks.push({'value':y,'label':(pre+y.toLocaleString()+post),'grid':true});
-		}
-		return ticks;
-	}
-
-
-    function makeTooltip(row,type) {
-        const tooltip = [];
-
-		if(type == "events"){
-			tooltip.push(row.Events.toLocaleString() + " events in " + row.Month);
-		}else if(type == "audience"){
-			tooltip.push(row.Audience.toLocaleString() + " in " + row.Month);
-		}
-		tooltip.push('<br /><a href="#' + row.iso + '">See details below</a>');
-        return tooltip.join('');
-    }
-	function buildEventRows(row){
-		const rows = [];
-		for (const p of Object.entries(row.projects)) {
-			rows.push({'Project': p[0], 'Events': p[1]});
-		}
-		return rows;
-	}
-    const eventsByMonth = events.total_by_month.map(row => ({
-        ...row,
-        projects: Object.entries(events.monthly_breakdown.find(r => row.month.toISOString() == r.month.toISOString()))
-            .filter(r => (r[0] !== 'month') && (r[1] > 0))
-            .toSorted((a, b) => b[1] - a[1])
-            .reduce((a, c) => ({...a, [c[0]]: c[1]}), {}),
-        Month: row.month.toLocaleDateString(undefined, { month: "long", year: "numeric" }),
-        iso: row.month.toISOString().substr(0,7),
-        decimal_year: decimalYear(row.month)
-    }))
-    .map(r => ({
-        ...r,
-        tooltipEvents: makeTooltip(r,"events"),
-        tooltipAudience: makeTooltip(r,"audience"),
-		events: buildEventRows(r),
-    }));
-
+	});
 
 }}
 
 {{ comp dashboard.Frame }}
 	{{ comp dashboard.Cell }}
-		{{ comp.oi.chart.line({
-			config: {
-				height: 300,
-				width: 800,
-				data: eventsByMonth,
-				axis: {
-					y: {
-						min: 0,
-						ticks: getYAxis(eventsByMonth,"Events")
-					},
-					x: {
-						min: 2024,
-						ticks: getTimeTicks()
-					}
-				},
-				series: [
-					{ "y": "Events", "x": "decimal_year", "title": "Events", "colour": oiColour.names.yellow, "tooltip": "tooltipEvents" },
-				],
+		{{ comp.LineChart({
+			data: eventsByMonth,
+			dateField: 'safemonth',
+			prettyDate: '%B %Y',
+			seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: <b>{{ _y }}</b><br /><a href=\"#{{ iso }}\">See details below</a>",
+			series: [{
+				title: 'Events',
+				x: 'decimal_year',
+				y: 'Events',
+				colour: oiColour.names.yellow
+			}],
+			labels: {
+				x: '',
+				y: 'Number of events'
 			},
+			bigTick: 10,
+			smallTick: 4,
 		}) }}
 	{{ /comp }}
 	{{ comp dashboard.Cell }}
-		{{ comp.oi.chart.line({
-			config: {
-				height: 300,
-				width: 800,
-				data: eventsByMonth,
-				axis: {
-					y: {
-						min: 0,
-						ticks: getYAxis(eventsByMonth,"Audience")
-					},
-					x: {
-						min: 2024,
-						ticks: getTimeTicks()
-					}
-				},
-				series: [
-					{ y: 'Audience', x: "decimal_year", title: 'Audience', colour: oiColour.names.green, "tooltip": "tooltipAudience" },
-				],
+		{{ comp.LineChart({
+			data: eventsByMonth,
+			dateField: 'safemonth',
+			prettyDate: '%B %Y',
+			seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: <b>{{ _y }}</b><br /><a href=\"#{{ iso }}\">See details below</a>",
+			series: [{
+				title: 'Audience',
+				x: 'decimal_year',
+				y: 'Audience',
+				colour: oiColour.names.green
+			}],
+			labels: {
+				x: '',
+				y: 'Audience figures'
 			},
+			bigTick: 10,
+			smallTick: 4,
 		}) }}
 	{{ /comp }}
 {{ /comp }}
@@ -163,9 +67,15 @@
 	<h4 class="month">{{ item.Month }}</h4>
 	<p>Audience: {{ item.Audience.toLocaleString() }}, Events: {{ item.Events.toLocaleString() }}</p>
 	{{ comp Details {'summary':'Event details' } }}
+		{{> 
+			let eventlist = [];
+			for(p in item.projects){
+				eventlist.push({Project:p,Events:item.projects[p]});
+			}
+		}}
 		{{ comp.oi.table({
 			config: {
-				data: item.events,
+				data: eventlist,
 				columns: [
 					{name:'Project',sortable:true,th:true},
 					{name:'Events',sortable:true,class:'centred',scale:scales.yellow}
