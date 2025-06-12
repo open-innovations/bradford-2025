@@ -8,7 +8,7 @@
     animate: true,
     roundingOptions: { maximumFractionDigits: 0 },
 }) }}
-<p>Total of audience recorded in event reports</p>
+<p>Total audience attendees recorded in event reports</p>
 {{ /comp }}
 {{ /if }}
 
@@ -20,7 +20,7 @@
     animate: true,
     roundingOptions: { maximumFractionDigits: 0 },
 }) }}
-<p>Total of participants recorded in event reports</p>
+<p>Total of participants (those taking part or contributing) recorded in event reports</p>
 {{ /comp }}
 {{ /if }}
 
@@ -32,8 +32,8 @@
     animate: true,
     roundingOptions: { maximumFractionDigits: 0 },
 }) }}
-<p>Individual volunteers {{ if volunteers?.summary }} contributed 
-    {{ volunteers?.summary.find(x => x.date == 'ALL').hours.toLocaleString() }} hours {{ /if }}.</p>
+<p>Individual volunteers {{- if volunteers?.summary }} contributed 
+    {{ volunteers?.summary.find(x => x.date == 'ALL').hours.toLocaleString() }} hours {{ /if }}</p>
 
 {{ comp Controls }}
 {{ comp Popover }}
