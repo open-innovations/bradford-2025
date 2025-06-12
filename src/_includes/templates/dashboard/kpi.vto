@@ -26,7 +26,7 @@ layout: templates/page.vto
 {{ comp InfoCard { id:"events" } }}
 
 	<h2>Events</h2>
-	<p>Event headlines for {{ comp.Date({ ...timestamp }) }}.</p>
+	<p>Event headlines for {{ comp.Date({ ...timestamp }) }}. An event is an instance with a defined start and end date and time.</p>
 
 	{{ comp grid.Auto {bigfirst:true} }}
 		{{ include './_partials/events/total.vto' }}
@@ -50,7 +50,7 @@ layout: templates/page.vto
 {{ comp InfoCard { id:"audiences" } }}
 
 	<h2>Audiences</h2>
-	<p>Audiences headlines for {{ comp.Date({ ...timestamp }) }}.</p>
+	<p>Audiences headlines for {{ comp.Date({ ...timestamp }) }}. Audience is the number of people attending an event.</p>
 
 	{{ comp grid.Auto {bigfirst:true} }}    
 		{{ include "./_partials/audiences/total.vto" }}
@@ -71,7 +71,7 @@ layout: templates/page.vto
 {{ comp InfoCard { id:"participants" } }}
 
 	<h2>Participants</h2>
-	<p>Participants headlines for {{ comp.Date({ ...timestamp }) }}.</p>
+	<p>Participants headlines for {{ comp.Date({ ...timestamp }) }}. Participants are the people taking part in or contributing to the an event.</p>
 
 	{{ comp grid.Auto {bigfirst:true} }} 
 		{{ include "./_partials/participants/total.vto" }}
