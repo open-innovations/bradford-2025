@@ -17,6 +17,7 @@
                 collection: title,
                 file: "participants_training_and_skills" 
                 }) |> md |> vto(page.data) }}
+<<<<<<< HEAD
 				{{ comp.dashboard.InfoBoxTable({
 					"cms": metrics.participants_training_and_skills,
 					"columns": [
@@ -32,6 +33,25 @@
 						{ title: "Creative health practitioner training/ development activities", value: 27 }
 					]
 				}) |> md |> vto(page.data) }}
+=======
+{{#
+			{{ comp.dashboard.InfoBoxTable({
+							"cms": metrics.participants_training_and_skills,
+							"columns": [
+								{ "key": "title", "label": "Source", "header": true },
+								{ "key": "value", "label": "Value", "class":"centred" },
+								{ "key": "description", "label": "Description" }
+							],
+							"header": {
+								"class": "c-pink"
+							},
+							"rows": [
+								{ title: "Bradford Producing Hub", value: 548 },
+								{ title: "Creative health practitioner training/ development activities", value: 27 }
+							]
+						}) |> md |> vto(page.data) }}
+#}}
+>>>>>>> 53ee233 (Hide training and skills table)
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
