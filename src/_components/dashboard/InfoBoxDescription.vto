@@ -10,7 +10,7 @@ css: |
 <div class="editable">
 <div class="editable-area">
 {{ /if }}
-{{ metrics[file]?.description }}
+{{ (metrics[file]?.description || '') |> md }}
 {{ if build.live == false }}
 	<p><a href="https://cms-bradford-2025.deno.dev/collection/{{ collection }}/edit/{{ file }}.yml" class="edit-link">{{ comp Pill }}Edit description for this info box &rarr;{{ /comp }}</a></p>
 </div>

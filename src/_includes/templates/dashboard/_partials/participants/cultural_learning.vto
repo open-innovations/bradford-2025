@@ -4,7 +4,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: participants.participants.cultural_learning.participants || '&mdash;',
+		number: (participants.cultural_learning.participants + participants.by_type.participants_schools )|| '&mdash;',
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
@@ -17,7 +17,7 @@
                 metrics: metrics,
                 collection: title,
                 file: "participants_cultural_learning" 
-                }) |> md |> vto(page.data) }}
+                }) |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
