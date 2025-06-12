@@ -4,7 +4,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: manual.participants.cultural_learning,
+		number: manual?.participants?.cultural_learning || '&mdash;',
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({

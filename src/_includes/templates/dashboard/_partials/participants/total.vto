@@ -4,11 +4,11 @@
         participants.volunteers.people.checkpoints["3. Fully Inducted Volunteers"];
 
 	const totalParticipants = volunteersSignedUp +
-		(manual.participants.cultural_learning || 0) +
-		(manual.participants.community_participation || 0) +
-		(manual.participants.our_patch||0) +
-		(manual.participants.training_and_development||0) +
-		(manual.participants.creative_health||0);
+		(manual?.participants?.cultural_learning || 0) +
+		(manual?.participants?.community_participation || 0) +
+		(manual?.participants?.our_patch||0) +
+		(manual?.participants?.training_and_development||0) +
+		(manual?.participants?.creative_health||0);
 }}
 
 {{ comp dashboard.Cell {
@@ -45,13 +45,12 @@
 							},
 							"rows": [
 								{ title: "Volunteers", value: volunteersSignedUp.toLocaleString() },
-								{ title: "Cultural Learning", value: manual.participants.cultural_learning.toLocaleString() },
-								{ title: "Community participation", value: manual.participants.community_participation.toLocaleString()},
-								{ title: "Our patch", value: manual.participants.our_patch.toLocaleString()},
-								{ title: "Training and development participants", value: manual.participants.training_and_development.toLocaleString()},
-								{ title: "Creative health participants", value: manual.participants.creative_health.toLocaleString()},
-								{ title: "Total", value: manual.participants.creative_health.toLocaleString() }
-
+								{ title: "Cultural Learning", value: manual?.participants?.cultural_learning.toLocaleString() },
+								{ title: "Community participation", value: manual?.participants?.community_participation.toLocaleString()},
+								{ title: "Our patch", value: manual?.participants?.our_patch.toLocaleString()},
+								{ title: "Training and development participants", value: manual?.participants?.training_and_development.toLocaleString()},
+								{ title: "Creative health participants", value: manual?.participants?.creative_health.toLocaleString()},
+								{ title: "Total", value: manual?.participants?.creative_health.toLocaleString() }
 							]
 						}) |> md |> vto(page.data) }}
 

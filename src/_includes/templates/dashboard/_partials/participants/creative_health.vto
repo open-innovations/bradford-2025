@@ -4,7 +4,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: manual.participants.creative_health,
+		number: manual?.participants?.creative_health || '&mdash;',
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({

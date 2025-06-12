@@ -4,7 +4,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: manual.participants.community_participation,
+		number: manual?.participants?.community_participation || '&mdash;',
 	}) }}
 	{{ comp.dashboard.Footer({
 		upTo: metrics.participants_community.upTo
