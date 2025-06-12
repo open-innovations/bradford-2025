@@ -173,8 +173,7 @@ class ProgrammeSlice:
         return sum(
             filter(None.__ne__, (
                 row.manual_participants_community,
-                row.manual_participants_community,
-                row.event_report_participants,
+                # row.manual_participants_schools,
                 row.event_report_participants_community,
                 row.event_report_participants_schools,
             )), 0

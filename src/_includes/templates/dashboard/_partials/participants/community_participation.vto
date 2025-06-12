@@ -4,7 +4,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: manual?.participants?.community_participation || '&mdash;',
+		number: participants.participants.by_type.participants_community || '&mdash;',
 	}) }}
 	{{ comp.dashboard.Footer({
 		upTo: metrics.participants_community.upTo
@@ -12,11 +12,15 @@
 	{{ comp Controls }}
 		{{ comp Popover { id: 'participants_community' } }}
 			<h2>{{ metrics.participants_community.title }}</h2>
+
+			
 			{{ comp.dashboard.InfoBoxDescription({
                 metrics: metrics,
                 collection: title,
                 file: "participants_community_engagement" 
                 }) |> md |> vto(page.data) }}
+
+			<p>NB This is participants tagged as 'Community' in Airtable event reports.</p>
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

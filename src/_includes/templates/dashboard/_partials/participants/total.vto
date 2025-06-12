@@ -17,7 +17,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: totalParticipants,
+		number: participants.total,
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
@@ -44,13 +44,15 @@
 								"class": "c-pink"
 							},
 							"rows": [
-								{ title: "Volunteers", value: volunteersSignedUp.toLocaleString() },
+								{ title: "Volunteers", value: participants.volunteers.total.toLocaleString() },
+								...Object.entries(participants.participants.by_type).map(([ title, value ]) => ({ title: `Airtable: ${title}`, value: value.toLocaleString() })),
+
+								/*
 								{ title: "Cultural Learning", value: manual?.participants?.cultural_learning.toLocaleString() },
-								{ title: "Community participation", value: manual?.participants?.community_participation.toLocaleString()},
 								{ title: "Our patch", value: manual?.participants?.our_patch.toLocaleString()},
 								{ title: "Training and development participants", value: manual?.participants?.training_and_development.toLocaleString()},
 								{ title: "Creative health participants", value: manual?.participants?.creative_health.toLocaleString()},
-								{ title: "Total", value: manual?.participants?.creative_health.toLocaleString() }
+								*/
 							]
 						}) |> md |> vto(page.data) }}
 
