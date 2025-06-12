@@ -51,8 +51,8 @@
 			popup.innerHTML = "";
 			popup.appendChild(btnHide);
 			popup.appendChild(clonedContent);
+			main.active = this;
 			if(popover.dataset.infoboxId){
-				main.active = this;
 				if(!noupdatehistory) addToLocation(popover.dataset.infoboxId);
 			}
 			btnHide.focus();
