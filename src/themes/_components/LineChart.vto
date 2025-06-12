@@ -83,7 +83,7 @@
 				tick = {value:decimalYear(d)};
 				if(opts.smallTick) tick.tickSize = opts.smallTick;
 				if(i%opts.spacing==0){
-					tick.label = strftime(opts.format || '%b %y',dt);
+					tick.label = strftime(opts.format,dt);
 					if(opts.bigTick) tick.tickSize = opts.bigTick;
 				}
 				ticks.push(tick);
