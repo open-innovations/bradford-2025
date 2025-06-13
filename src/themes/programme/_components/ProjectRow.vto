@@ -64,7 +64,7 @@ css: |
                     projectedEvents,
                     manual_events,
                     audience,
-                    event_reports_audience,
+                    schedule_audience,
                     manual_audience,
                     evaluationCategory,
                     earliestDate,
@@ -85,6 +85,18 @@ css: |
             (falling back to <b>{{ (projectedEvents || 0).toLocaleString() }} projected events</b>, derived from multi-day events, if neither are set)
             to <b>{{ (manual_events || 0).toLocaleString() }} manual events</b>.
         </p>
+
+        {{ if audience }}
+        <p>
+            The audience total of {{ audience }} is comprised of {{ schedule_audience || 0 }} recorded in the Project Hub added to {{ manual_audience || 0 }} collected from other sources.
+        </p>
+        {{ /if }}
+        {{ if participants }}
+        <p>
+            The participants total of {{ participants }} is comprised of {{ schedule_participants_community || 0 }} recorded in the Project Hub added to {{ manual_participants_community || 0 }} collected from other sources.
+        </p>
+        {{ /if }}
+
 
         <table>
             <thead>

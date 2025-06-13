@@ -33,8 +33,8 @@
 							"data": [
 								{ title: "Total", value: participants.total.toLocaleString(), "_class": 'c-yellow' },
 								{ title: "Volunteers", value: participants.volunteers.total.toLocaleString() },
-								...Object.entries(participants.by_type).map(([ title, value ]) => ({ title: `Airtable: ${title}`, value: value.toLocaleString() })),
-								{ title: 'Cultural Learning', value: participants.cultural_learning.participants.toLocaleString() },
+								{ title: 'Community participants', value: participants.by_type.participants_community.toLocaleString() },
+								{ title: 'Cultural Learning participants', value: participants.cultural_learning.participants.toLocaleString() },
 
 								/*
 								{ title: "Cultural Learning", value: manual?.participants?.cultural_learning.toLocaleString() },
