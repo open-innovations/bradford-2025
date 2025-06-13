@@ -32,6 +32,7 @@ class Programme:
                 event_reports_by_programme,
                 event_reports_by_venue
             )
+            .replace(['audience', 'participants', 'volunteers', 'volunteer_shifts'], None, 0)
             .join(_Programme.venues.cut('id','Organisation &/or Venue Name').setheader(['venue_id', 'Venue Name']))
         )
 
@@ -58,13 +59,15 @@ class Programme:
 
         event_reports = dict(
             self.event_reports
+            # TODO PUT HERE?
+            # .replace(['audience', 'participants', 'volunteers'], None, 0)
             .aggregate(None, {
                 'audience': ('audience', sum),
                 'participants': ('participants', sum),
                 'volunteers': ('volunteers', sum),
                 'volunteerShifts': ('volunteer_shifts', sum),
-                'earliestDate': ('event_date', min),
-                'latestDate': ('event_date', max),
+                'earliestDate': ('event_date', lambda dates: min(d for d in dates if d)),
+                'latestDate': ('event_date', lambda dates: max(d for d in dates if d)),
             })
             .convert(['earliestDate', 'latestDate'], lambda f: f.isoformat())
             .transpose()
