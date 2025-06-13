@@ -8,7 +8,6 @@
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
-		upTo: metrics.participants_total.upTo
 	}) }}
 	{{ comp Controls }}
 		{{ comp Popover { id: 'participants_total' } }}
@@ -33,8 +32,11 @@
 							"data": [
 								{ title: "Total", value: participants.total.toLocaleString(), "_class": 'c-yellow' },
 								{ title: "Volunteers", value: participants.volunteers.total.toLocaleString() },
-								{ title: 'Community participants', value: participants.by_type.participants_community.toLocaleString() },
 								{ title: 'Cultural Learning participants', value: participants.cultural_learning.participants.toLocaleString() },
+								...Object.entries(participants.by_type).map(([t, p]) => ({ title: t, value: p.count.toLocaleString() })),
+
+								/*
+								*/
 
 								/*
 								{ title: "Cultural Learning", value: manual?.participants?.cultural_learning.toLocaleString() },

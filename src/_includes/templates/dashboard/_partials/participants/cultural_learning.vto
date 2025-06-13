@@ -4,7 +4,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: (participants.cultural_learning.participants + participants.by_type.participants_schools )|| '&mdash;',
+		number: participants.cultural_learning.participants || '&mdash;',
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
