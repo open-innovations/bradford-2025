@@ -44,7 +44,8 @@ stages:
       hash: md5
       md5: 4955474cba50d331a3efc642bb674fac
       size: 1124
-    - path: ../src/themes/volunteers/_data/shifts/attended_cumulative_by_week.csv
+    - path: 
+        ../src/themes/volunteers/_data/shifts/attended_cumulative_by_week.csv
       hash: md5
       md5: 98fba6b4ca64f236b5d6d2b8b1b35877
       size: 1357
@@ -102,9 +103,10 @@ stages:
       md5: ab19af12c8da80b808fca4aa81d6bd9b
       size: 1006
   events@rise:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids
-      '25890' -p project_ids 'recf4tPyjoXi81NDo' -p venue_ids '' -p slug 'rise'
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
+      spektrix_event_ids '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ' -p venue_postcode 
+      'BD1 1LA' -p rosterfy_event_ids '25890' -p project_ids 'recf4tPyjoXi81NDo'
+      -p venue_ids '' -p slug 'rise'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -122,9 +124,10 @@ stages:
       size: 17673
       nfiles: 8
   events@la-haine:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      '4001APBPRCSHVVMHTCBMSPSJRNDMCHHLV' -p venue_postcode 'BD1 1JT' -p rosterfy_event_ids
-      '26307' -p project_ids 'recYvLfpThEXGXcmn' -p venue_ids '' -p slug 'la-haine'
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
+      spektrix_event_ids '4001APBPRCSHVVMHTCBMSPSJRNDMCHHLV' -p venue_postcode 
+      'BD1 1JT' -p rosterfy_event_ids '26307' -p project_ids 'recYvLfpThEXGXcmn'
+      -p venue_ids '' -p slug 'la-haine'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -142,9 +145,10 @@ stages:
       size: 7192
       nfiles: 8
   events@les-girafes:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      'recu2QievPdxr1dnH' -p venue_postcode 'BD1 1LA' -p rosterfy_event_ids '24438'
-      -p project_ids 'recu2QievPdxr1dnH' -p venue_ids '' -p slug 'les-girafes'
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
+      spektrix_event_ids 'recu2QievPdxr1dnH' -p venue_postcode 'BD1 1LA' -p 
+      rosterfy_event_ids '24438' -p project_ids 'recu2QievPdxr1dnH' -p venue_ids
+      '' -p slug 'les-girafes'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -179,9 +183,10 @@ stages:
       size: 175
       nfiles: 2
   events@grue:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      '7601AHCJPTHNBCVJHLQNKQVKDRKRMLTPC' -p venue_postcode 'None' -p rosterfy_event_ids
-      '26540' -p project_ids 'recoJF8kMXHloBbjt' -p venue_ids '' -p slug 'grue'
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
+      spektrix_event_ids '7601AHCJPTHNBCVJHLQNKQVKDRKRMLTPC' -p venue_postcode 
+      'None' -p rosterfy_event_ids '26540' -p project_ids 'recoJF8kMXHloBbjt' -p
+      venue_ids '' -p slug 'grue'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -199,8 +204,8 @@ stages:
       size: 60711
       nfiles: 8
   dashboards@live:
-    cmd: papermill --no-log-output dashboard.ipynb - -p target '' -p start '2023-01-01'
-      -p end '2025-12-31' -p fixed_date 'false'
+    cmd: papermill --no-log-output dashboard.ipynb - -p target '' -p start 
+      '2023-01-01' -p end '2025-12-31' -p fixed_date 'false'
     deps:
     - path: ../data/published/
       hash: md5
@@ -209,8 +214,8 @@ stages:
       nfiles: 19
     - path: dashboard.ipynb
       hash: md5
-      md5: 1eeda0a98112116e04c79770f01934d3
-      size: 16782
+      md5: 68818c11f38eb9f1723292cd539d66da
+      size: 17795
     - path: utils/themes/programme.py
       hash: md5
       md5: 06ffc7e768c05b3d16300bc599b97151
@@ -218,8 +223,8 @@ stages:
     outs:
     - path: ../src/insights/dashboard//_data/audience.json
       hash: md5
-      md5: 3b0687376d115e75c5d3353bfe5f55bf
-      size: 16188
+      md5: e166ee54ad56ac71c5dab3c8711e3cf4
+      size: 16147
     - path: ../src/insights/dashboard//_data/events.json
       hash: md5
       md5: cb36571369abde57b3e6a1c89c302d05
@@ -241,8 +246,8 @@ stages:
       md5: c8a170538e905ffe06f8f1a892c37024
       size: 69
   dashboards@q1:
-    cmd: papermill --no-log-output dashboard.ipynb - -p target 'q1' -p start '2025-01-01'
-      -p end '2025-03-31' -p fixed_date 'true'
+    cmd: papermill --no-log-output dashboard.ipynb - -p target 'q1' -p start 
+      '2025-01-01' -p end '2025-03-31' -p fixed_date 'true'
     deps:
     - path: ../data/published/
       hash: md5
@@ -251,8 +256,8 @@ stages:
       nfiles: 19
     - path: dashboard.ipynb
       hash: md5
-      md5: 1eeda0a98112116e04c79770f01934d3
-      size: 16782
+      md5: 68818c11f38eb9f1723292cd539d66da
+      size: 17795
     - path: utils/themes/programme.py
       hash: md5
       md5: 06ffc7e768c05b3d16300bc599b97151
@@ -260,8 +265,8 @@ stages:
     outs:
     - path: ../src/insights/dashboard/q1/_data/audience.json
       hash: md5
-      md5: 1ca67a132d0b3eeed774027c8e709222
-      size: 7026
+      md5: e13801891f5385684b194bdf3b7b520c
+      size: 5833
     - path: ../src/insights/dashboard/q1/_data/events.json
       hash: md5
       md5: a4e67a1691b4c0e9efc290fb6c6e4581
@@ -283,9 +288,10 @@ stages:
       md5: e27559a33c41d684431cde6df77cf569
       size: 69
   events@dracula:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      '9001AGHDBMPJDRPSRMKLRCJGBJJMTQGDH' -p venue_postcode 'None' -p rosterfy_event_ids
-      'None' -p project_ids 'recjdRJvjmX67plPM' -p venue_ids '' -p slug 'dracula'
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
+      spektrix_event_ids '9001AGHDBMPJDRPSRMKLRCJGBJJMTQGDH' -p venue_postcode 
+      'None' -p rosterfy_event_ids 'None' -p project_ids 'recjdRJvjmX67plPM' -p 
+      venue_ids '' -p slug 'dracula'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -303,8 +309,8 @@ stages:
       size: 11491
       nfiles: 7
   dashboards@q2:
-    cmd: papermill --no-log-output dashboard.ipynb - -p target 'q2' -p start '2025-04-01'
-      -p end '2025-06-30' -p fixed_date 'true'
+    cmd: papermill --no-log-output dashboard.ipynb - -p target 'q2' -p start 
+      '2025-04-01' -p end '2025-06-30' -p fixed_date 'true'
     deps:
     - path: ../data/published/
       hash: md5
@@ -313,8 +319,8 @@ stages:
       nfiles: 19
     - path: dashboard.ipynb
       hash: md5
-      md5: 1eeda0a98112116e04c79770f01934d3
-      size: 16782
+      md5: 68818c11f38eb9f1723292cd539d66da
+      size: 17795
     - path: utils/themes/programme.py
       hash: md5
       md5: 06ffc7e768c05b3d16300bc599b97151
@@ -322,8 +328,8 @@ stages:
     outs:
     - path: ../src/insights/dashboard/q2/_data/audience.json
       hash: md5
-      md5: 92af29ba2212979b6dd65e0e94f408c2
-      size: 14915
+      md5: 315177e265616e25e57b5bef30ce4e97
+      size: 14800
     - path: ../src/insights/dashboard/q2/_data/events.json
       hash: md5
       md5: 64e3d67e9f70de4503fd4afd522c0206
@@ -345,8 +351,8 @@ stages:
       md5: 35c1913b57a73e7ea510406b776cd500
       size: 69
   dashboards@all:
-    cmd: papermill --no-log-output dashboard.ipynb - -p target 'all' -p start '2024-01-01'
-      -p end '2025-12-31' -p fixed_date 'false'
+    cmd: papermill --no-log-output dashboard.ipynb - -p target 'all' -p start 
+      '2024-01-01' -p end '2025-12-31' -p fixed_date 'false'
     deps:
     - path: ../data/published/
       hash: md5
@@ -400,10 +406,11 @@ stages:
       size: 106690
       nfiles: 8
   events@loading-bay:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      '' -p venue_postcode 'None' -p rosterfy_event_ids '' -p project_ids '' -p venue_ids
-      'rec4maUwKspPcDxNl recFYiOZvNnYDgbfk recInFDrcQ4KutUcL recIrQ1v64zKajXU1 recalzwrAJkBYOz8w'
-      -p slug 'loading-bay'
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
+      spektrix_event_ids '' -p venue_postcode 'None' -p rosterfy_event_ids '' -p
+      project_ids '' -p venue_ids 'rec4maUwKspPcDxNl recFYiOZvNnYDgbfk 
+      recInFDrcQ4KutUcL recIrQ1v64zKajXU1 recalzwrAJkBYOz8w' -p slug 
+      'loading-bay'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -421,10 +428,10 @@ stages:
       size: 4657
       nfiles: 2
   events@beacon:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      '' -p venue_postcode 'None' -p rosterfy_event_ids '' -p project_ids '' -p venue_ids
-      'rec7tn1K6r85N72yc recW1DV5uXWsrUShy recea0GEE29eKCtxu recx817GdO7wmJDf6' -p
-      slug 'beacon'
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
+      spektrix_event_ids '' -p venue_postcode 'None' -p rosterfy_event_ids '' -p
+      project_ids '' -p venue_ids 'rec7tn1K6r85N72yc recW1DV5uXWsrUShy 
+      recea0GEE29eKCtxu recx817GdO7wmJDf6' -p slug 'beacon'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
@@ -442,9 +449,10 @@ stages:
       size: 10255
       nfiles: 2
   events@the-bradford-progress:
-    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p spektrix_event_ids
-      '' -p venue_postcode 'None' -p rosterfy_event_ids '29424' -p project_ids 'recSACUvnIn3yCW2S'
-      -p venue_ids '' -p slug 'the-bradford-progress'
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
+      spektrix_event_ids '' -p venue_postcode 'None' -p rosterfy_event_ids 
+      '29424' -p project_ids 'recSACUvnIn3yCW2S' -p venue_ids '' -p slug 
+      'the-bradford-progress'
     deps:
     - path: ../data/published/ticketing/
       hash: md5
