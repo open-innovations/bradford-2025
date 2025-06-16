@@ -20,22 +20,32 @@
                 metrics: metrics,
                 collection: title,
                 file: "participants_total" 
-                }) |> md |> vto(page.data) }}
+                }) |> vto(page.data) }}
+
+			{{> const categoryTitleMapper = {
+					community_participants: 'Community participants',
+					training_and_skills_development_participants: 'Training and Skills Development participants',
+					cultural_learning_participants: 'Cultural learning participants',
+				};
+			}}
 			{{ comp.dashboard.InfoBoxTable({
 							"cms": metrics.participants_total,
 							"columns": [
 								{ "name": "title", "label": "Measure", "header": true },
 								{ "name": "value", "label": "Value", "class":"centred" },
-								{ "name": "description", "label": "Description" }
+								{ "name": "description", "label": "Description", key: "description" }
 							],
 							"head": {
 								"class": "c-pink"
 							},
 							"data": [
 								{ title: "Total", value: participants.total.toLocaleString(), "_class": 'c-yellow' },
-								{ title: "Volunteers", value: participants.volunteers.total.toLocaleString() },
-								{ title: 'Cultural Learning participants', value: participants.cultural_learning.participants.toLocaleString() },
-								...Object.entries(participants.by_type).map(([t, p]) => ({ title: t !== '' ? t  : 'UNKNOWN', value: p.count.toLocaleString() })),
+								...[
+									['Volunteers', { count: participants.volunteers.total }],
+									...Object.entries(participants.by_type),
+								]							
+								.sort((a, b) => b[1].count - a[1].count)
+								.map(([t, p]) => ({ title: t !== '' ? (categoryTitleMapper[t] || t) : 'UNKNOWN', value: p.count.toLocaleString() })),
 
 								/*
 								*/

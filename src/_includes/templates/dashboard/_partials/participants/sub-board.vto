@@ -1,0 +1,18 @@
+<h2>Participants</h2>
+<p>Participants headlines for {{ comp.Date({ ...timestamp }) }}. Participants are the people taking part in or contributing to the an event.</p>
+
+{{ comp grid.Auto {bigfirst:true} }} 
+    {{ include "./total.vto" }}
+    {{ include './volunteers.vto' }}
+    {{ include './cultural_learning.vto' }}
+    {{ include './community_participation.vto' }}
+    {{ include "./training_and_skills.vto" }}
+    {{ include "./creative_health.vto" }}
+{{ /comp }}
+
+<h3>Other figures of interest</h3>
+{{ comp grid.Auto {} }}
+    {{ include './our_patch.vto' }}
+    {{ include "./schools_engaged.vto" }}
+{{ /comp }}
+
