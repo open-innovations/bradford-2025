@@ -195,12 +195,12 @@ class ProgrammeSlice:
             self.events_data
             .aggregate(
                 [
-                    'project_id',
                     'project_name',
                     # 'programme_category',
                     'evaluation_category',
                 ],
                 {
+                    'project_id': ('project_id', list),
                     'start_date': ('start_date', min),
                     'end_date': ('end_date', max),
                 }
@@ -221,7 +221,10 @@ class ProgrammeSlice:
             .selectnotnone('value')
             .aggregate(['project_name', 'variable'], sum, 'value')
             .recast()
-            .leftjoin(self.project_data)
+            .leftjoin(
+                self.project_data
+                    .distinct('project_name', 'evaluation_category').distinct()
+            )
         )
 
     @property
