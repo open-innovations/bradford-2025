@@ -1,0 +1,17 @@
+<h2>Events</h2>
+<p>Event headlines for {{ comp.Date({ ...timestamp }) }}. An event is an instance with a defined start and end date and time.</p>
+
+{{ comp grid.Auto {bigfirst:true} }}
+    {{ include './total.vto' }}
+    {{ include './in_person.vto' }}
+    {{ include './online.vto' }}
+    {{ include './festivals.vto' }}
+    {{ include './exhibition_days.vto' }}
+{{ /comp }}
+
+<h3>Other figures of interest</h3>
+{{ comp grid.Auto {} }}
+    {{ include './community_led.vto' }}
+    {{ include './free_activities.vto' }}
+    {{ include './exhibitions.vto' }}
+{{ /comp }}

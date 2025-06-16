@@ -24,25 +24,7 @@ layout: templates/page.vto
 <hr>
 
 {{ comp InfoCard { id:"events" } }}
-
-	<h2>Events</h2>
-	<p>Event headlines for {{ comp.Date({ ...timestamp }) }}. An event is an instance with a defined start and end date and time.</p>
-
-	{{ comp grid.Auto {bigfirst:true} }}
-		{{ include './_partials/events/total.vto' }}
-		{{ include './_partials/events/in_person.vto' }}
-		{{ include './_partials/events/online.vto' }}
-		{{ include './_partials/events/festivals.vto' }}
-		{{ include './_partials/events/exhibition_days.vto' }}
-	{{ /comp }}
-
-	<h3>Other figures of interest</h3>
-	{{ comp grid.Auto {} }}
-		{{ include './_partials/events/community_led.vto' }}
-		{{ include './_partials/events/free_activities.vto' }}
-		{{ include './_partials/events/exhibitions.vto' }}
-	{{ /comp }}
-
+	{{ include './_partials/audiences/sub-board.vto' }}
 {{ /comp }}
 
 <hr>
