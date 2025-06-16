@@ -7,9 +7,9 @@
 	{{ comp.BigNumber({
 		number: participants.by_type.community_participants.count || '&mdash;',
 	}) }}
-	{{ comp.dashboard.Footer({
-		upTo: metrics.participants_community.upTo
-	}) }}
+	{{ comp dashboard.Footer }}
+	<p>NB Not unique individuals</p>
+	{{ /comp }}
 	{{ comp Controls }}
 		{{ comp Popover { id: 'participants_community' } }}
 			<h2>{{ metrics.participants_community.title }}</h2>

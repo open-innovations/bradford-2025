@@ -7,8 +7,9 @@
 		number: participants.total,
 		suffix: '',
 	}) }}
-	{{ comp.dashboard.Footer({
-	}) }}
+	{{ comp dashboard.Footer }}
+	<p>NB contains mixture of unique individuals and attendance counts.</p>
+	{{ /comp }}
 	{{ comp Controls }}
 		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
 		{{ comp Popover { id: 'participants_total' } }}
