@@ -10,6 +10,7 @@
 	{{ comp.dashboard.Footer({
 	}) }}
 	{{ comp Controls }}
+		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
 		{{ comp Popover { id: 'participants_total' } }}
 			{{# TODO Add count of volunteer shifts completed
 			#}}
@@ -33,7 +34,7 @@
 								{ title: "Total", value: participants.total.toLocaleString(), "_class": 'c-yellow' },
 								{ title: "Volunteers", value: participants.volunteers.total.toLocaleString() },
 								{ title: 'Cultural Learning participants', value: participants.cultural_learning.participants.toLocaleString() },
-								...Object.entries(participants.by_type).map(([t, p]) => ({ title: t, value: p.count.toLocaleString() })),
+								...Object.entries(participants.by_type).map(([t, p]) => ({ title: t !== '' ? t  : 'UNKNOWN', value: p.count.toLocaleString() })),
 
 								/*
 								*/

@@ -49,7 +49,8 @@
 						'description': "Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>, with some manual additions for third-party events."
 					},
 					...Object.entries(events.by_category)
-					.map(([title, value]) => ({ title, value })),
+					.sort((a, b) => b[1] - a[1])
+					.map(([title, value]) => ({ title: title || '(Missing category)', value: value.toLocaleString() })),
 				/*
 					{
 						"title": "In-person events",
