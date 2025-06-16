@@ -1,6 +1,5 @@
 const dashboardFields = [ 
     { name: "title", type: "text", attributes: { required: true }, description: 'The title of the dashboard panel', view: 'admin' },
-    { name: "flash", type: "text", description: 'The text displayed in the the ribbon across the top-right of the panel', view: 'admin' },
     { name: "description", description: "This will be displayed as narrative on the site", type: "markdown", upload: false },
     // { name: "upTo", type: "date", description: 'The date shown on the dashboard panel' },
     { name: "notes", description: "Internal notes, not for public display", type: "markdown", upload: false },

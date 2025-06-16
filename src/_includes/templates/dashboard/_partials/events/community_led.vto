@@ -1,6 +1,6 @@
 {{ comp dashboard.Cell {
 	title: metrics.events_community_led.title,
-	flash: metrics.events_community_led.flash || flash,
+	flash: flash.events_community_led,
 	classes: 'events'
 } }}
     {{> const total = (events.by_project['Our Patch']?.count || 0) + (manual?.events?.do_your_thing_micro_awards || 0) }}
