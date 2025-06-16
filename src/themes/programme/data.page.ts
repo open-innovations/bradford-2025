@@ -4,12 +4,10 @@ export default function* ({ url, page }) {
   const columns = [
     "name",
     "events",
-    "eventReports",
     "scheduledEvents",
     "projectedEvents",
     "manual_events",
     "audience",
-    "event_reports_audience",
     "manual_audience",
     "evaluationCategory",
     "earliestDate",

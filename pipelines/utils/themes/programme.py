@@ -213,7 +213,7 @@ class ProgrammeSlice:
         return (
             self.events
             .melt(variables=[
-                'events', 'event_reports', 'schedule_events', 'projected_events', 'manual_events',
+                'events', 'schedule_events', 'projected_events', 'manual_events',
                 'audience', 'schedule_audience', 'manual_audience',
                 'participants', 'schedule_participants_community', 'manual_participants_community',
                 # 'manual_participants_schools'
@@ -234,18 +234,13 @@ class ProgrammeSlice:
                 'audience': r.audience,
                 'participants': r.participants,
 
-                'eventReports': None,
                 'scheduledEvents': r.schedule_events,
                 'projectedEvents': r.projected_events,
                 'manual_events': r.manual_events,
 
-                'event_reports_audience': None,
                 'schedule_audience': r.schedule_audience,
                 'manual_audience': r.manual_audience,
 
-                'event_report_participants': None,
-                'event_report_participants_community': None,
-                'event_report_participants_schools': None,
                 'schedule_participants_community': r.schedule_participants_community,
                 'manual_participants_community': r.manual_participants_community,
                 # 'manual_participants_schools': r.manual_participants_schools,

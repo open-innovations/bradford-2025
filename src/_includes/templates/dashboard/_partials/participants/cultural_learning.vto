@@ -18,6 +18,13 @@
                 collection: title,
                 file: "participants_cultural_learning" 
                 }) |> vto(page.data) }}
+
+			{{# TODO convert to table #}}
+			<pre>{{ Object.entries(participants.by_type.cultural_learning_participants.by_project)
+			.sort((a, b) => b[1] - a[1])
+			.map(x => ({ title: x[0], value: x[1].toLocaleString() }))
+			|> JSON.stringify(null, 2) }}</pre>
+
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

@@ -7,7 +7,6 @@
 		number: otherFigures.training_and_skills_development_participants || '&mdash;',
 	}) }}
 	{{ comp.dashboard.Footer({
-		upTo: metrics.participants_training_and_skills.upTo
 	}) }}
 	{{ comp Controls }}
 		{{ comp Popover { id: 'participants_training_and_skills' } }}
@@ -17,7 +16,8 @@
                 collection: title,
                 file: "participants_training_and_skills" 
                 }) |> md |> vto(page.data) }}
-				{{# comp.dashboard.InfoBoxTable({
+
+				{{ comp.dashboard.InfoBoxTable({
 					"cms": metrics.participants_training_and_skills,
 					"columns": [
 						{ "name": "title", "label": "Source", "header": true },
@@ -28,10 +28,17 @@
 						"class": "c-pink"
 					},
 					"data": [
-						{ title: "Bradford Producing Hub", value: 548 },
-						{ title: "Creative health practitioner training/ development activities", value: 27 }
+					{
+						title: 'Total',
+						value: (otherFigures.training_and_skills_development_participants || 0).toLocaleString(),
+					/*
+						class: 'c-yellow',
+					*/
+					},
+					...Object.entries(participants.by_type.training_and_skills_development_participants.by_project)
+						.map(([k, v]) => ({ title: k, value: v.toLocaleString() }))
 					]
-				}) |> md |> vto(page.data) #}}
+				}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}

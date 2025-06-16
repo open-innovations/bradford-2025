@@ -59,7 +59,6 @@ css: |
             {{-
                 {
                     events,
-                    eventReports,
                     scheduledEvents,
                     projectedEvents,
                     manual_events,
@@ -79,61 +78,29 @@ css: |
         {{# events = manual_events + (event_reports or schedule_events or projected_events) #}}
         <p>
             We are counting <b>{{ events }} events</b> overall.
-            This is derived from adding the larger of 
-            <b>{{ (eventReports || 0).toLocaleString() }} event reports</b> and 
-            <b>{{ (scheduledEvents || 0).toLocaleString() }} scheduled events</b>
-            (falling back to <b>{{ (projectedEvents || 0).toLocaleString() }} projected events</b>, derived from multi-day events, if neither are set)
-            to <b>{{ (manual_events || 0).toLocaleString() }} manual events</b>.
+            This is derived from adding the
+            <b>{{ (scheduledEvents || 0).toLocaleString() }} events records in the Project Hub schedule table</b>
+            to <b>{{ (manual_events || 0).toLocaleString() }} events collected from other sources</b>
+            (such as third-party organisations or Bradford 2025 activity not yet tracked in the Project Hub).
         </p>
 
         {{ if audience }}
         <p>
-            The audience total of {{ audience }} is comprised of {{ schedule_audience || 0 }} recorded in the Project Hub added to {{ manual_audience || 0 }} collected from other sources.
+            The audience total of <b>{{ audience }}</b> is comprised of
+            <b>{{ (schedule_audience || 0).toLocaleString() }} recorded in the Project Hub</b>
+            added to <b>{{ (manual_audience || 0).toLocaleString() }} collected from other sources</b>.
         </p>
         {{ /if }}
         {{ if participants }}
         <p>
-            The participants total of {{ participants }} is comprised of {{ schedule_participants_community || 0 }} recorded in the Project Hub added to {{ manual_participants_community || 0 }} collected from other sources.
+            The participants total of <b>{{ participants }}</b> is comprised of
+            <b>{{ schedule_participants_community || 0 }} recorded in the Project Hub</b>
+            added to <b>{{ manual_participants_community || 0 }} collected from other sources</b>.
+            NB the number of participants does not currently show a count of individuals for all sources. At present some are better termed participant instances -
+            one person who attended three events would be counted three times. Efforts are being made to count unique individuals where this is possible.
         </p>
         {{ /if }}
 
-
-        <table>
-            <thead>
-                <tr class="c-yellow">
-                    <th colspan=2>Source</th>
-                    <th>Measure</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tr>
-                <th rowspan=3>Airtable</th>
-                <th>Event reports</th>
-                <td class="centred">{{ (eventReports || 0).toLocaleString() }}</td>
-                <td rowspan=3>
-                The Airtable event count is derived
-                from the larger of Event Reports and Scheduled events (i.e. explicitly provided numbers).
-                If neither is set, the Projected count is used (i.e. derived by counting one event per day of a multi-day event).
-                <i>This is calculated separately for each schedule item line</i>.
-                Under some circumstances, the event counts might not be the sum of the individual lines
-                This should be resolved by some forthcoming Airtable developments.
-                This mostly affects projects which have some events with event reports and some without.
-                </td>
-            </tr>
-            <tr>
-                <th>Scheduled</th>
-                <td class="centred">{{ (scheduledEvents || 0).toLocaleString() }}</td>
-            </tr>
-            <tr>
-                <th>Projected</th>
-                <td class="centred">{{ (projectedEvents || 0).toLocaleString() }}</td>
-            </tr>
-            <tr>
-                <th colspan=2>Manual</th>
-                <td class="centred">{{ (manual_events || 0).toLocaleString() }}</td>
-            </tr>
-        </table>
-        
         <p>
             This project is being counted in the <b>{{ evaluationCategory }}</b> evaluation category.
         </p>
