@@ -21,7 +21,9 @@
 				"metrics": metrics,
 				"collection": title,
 				"file": "audiences_total"
-			}) |> md |> vto(page.data) }}
+			}) |> vto(page.data) }}
+
+			{{ include './calculations.md' |> md }}
 
 			{{> const rows = []; }}
 			{{ for key, value of audience.by_category }}

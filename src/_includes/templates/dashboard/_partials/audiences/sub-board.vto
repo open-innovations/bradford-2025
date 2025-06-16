@@ -1,0 +1,15 @@
+<h2>Audiences</h2>
+<p>Audiences headlines for {{ comp.Date({ ...timestamp }) }}. Audience is the number of people attending an event.
+This is distinct from the participants taking part in or contributing to an event.</p>
+
+{{ comp grid.Auto {bigfirst:true} }}    
+    {{ include "./total.vto" }}
+    {{ include "./in_person.vto" }}
+    {{ include "./digital.vto" }}
+{{ /comp }}
+
+<h3>Other figures of interest</h3>
+{{ comp grid.Auto {} }}
+    {{ include "./split_bradford.vto" }}
+    {{ include "./positive_experience.vto" }}
+{{ /comp }}

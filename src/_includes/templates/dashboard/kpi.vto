@@ -48,22 +48,7 @@ layout: templates/page.vto
 <hr>
 
 {{ comp InfoCard { id:"audiences" } }}
-
-	<h2>Audiences</h2>
-	<p>Audiences headlines for {{ comp.Date({ ...timestamp }) }}. Audience is the number of people attending an event.</p>
-
-	{{ comp grid.Auto {bigfirst:true} }}    
-		{{ include "./_partials/audiences/total.vto" }}
-		{{ include "./_partials/audiences/in_person.vto" }}
-		{{ include "./_partials/audiences/digital.vto" }}
-	{{ /comp }}
-
-	<h3>Other figures of interest</h3>
-	{{ comp grid.Auto {} }}
-		{{ include "./_partials/audiences/split_bradford.vto" }}
-		{{ include "./_partials/audiences/positive_experience.vto" }}
-	{{ /comp }}
-
+	{{ include './_partials/audiences/sub-board.vto' }}
 {{ /comp }}
 
 <hr>

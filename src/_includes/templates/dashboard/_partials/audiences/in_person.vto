@@ -24,6 +24,8 @@
 				"file": "audiences_in_person_events"
 			}) |> md |> vto(page.data) }}
 
+			{{ include './calculations.md' |> md }}
+
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.events_total,
 				"columns": [
