@@ -24,6 +24,7 @@ css: |
             gap: 0.5em;
             font-size: 0.875em;
             color: var(--color-grey);
+            line-height: 1.5em;
             &.justified {
                 justify-content: space-between;
             }
@@ -31,6 +32,9 @@ css: |
         p {
             margin-block: 0;
         }
+    }
+    @media only screen and (max-width: 70rem) {
+        .comp-site-footer .secondary.justified { display: block; }
     }
     .feedback { display: block; padding: var(--site-padding); background:var(--color-yellow); color: var(--color-black); text-decoration: none; }
     .feedback > *:first-child { margin-top: 0; }
