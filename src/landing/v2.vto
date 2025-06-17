@@ -1,79 +1,55 @@
 ---
 title: Home
-layout: templates/base.vto
+layout: templates/page.vto
 headerExtra: |
     <style>
     .river {
         display:flex;
         flex-direction:column;
         max-width: 90rem;
-        margin-inline: auto;
     }
     .river.centred {
         align-items:center;
     }
     .river h2 { margin: 0; }
+    .river * + * { margin-top: 0; }
     </style>
+sort_order: url
 ---
 <main class="site-wrapper">
 
-<section class="river centred">
-    <h1>{{ metas.site }}</h1>
-    <img src="/assets/images/logo.svg" alt="Bradford 2025 logo" class="full-width" style="width: 60vw; max-width: 15rem;">
-    <p>
-    Welcome to the <strong>Bradford 2025</strong> Data Dashboard.
-    Use the sections below to explore the data available on the site.
-    </p>
-    <p>
-    You can also take a look at our 
-    <a class="c-green" href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf">Evaluation strategy</a>,
-    and the <a class="c-green" href="/strategy/">Open Data Strategy</a>
-    which sets out what we hope to achieve by being open and transparent with our data.
-    </p>
+<section class="river">
+	<p>This website has been developed to visualise data captured from multiple sources about, Bradford 2025, the UK City of Culture 2025. It acts as a live monitoring tool, it is not a final evaluation report. The data, figures and visualisations represented within are a work-in-progress and do not present a full and complete picture of all activity and engagement. Data is drawn daily from key operational pipelines to provide a view of delivery. The data covers the period from the commencement of the project January 1st 2025 to the current date.</p>
+	<p>You can also take a look at our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf" class="c-green">Evaluation strategy</a>, and the <a href="http://localhost:3000/strategy/" class="c-green">Open Data Strategy</a> which sets out what we hope to achieve by being open and transparent with our data.</p>
 </section>
 
-{{ if (search.pages('insight layout!=templates/index.vto').length > 0) || (displayEmpty || false) }}
-<section class="block c-yellow-light">
-    <div class="river">
-        <a href="{{ '~/insights/index.yml' |> url }}">
-            <h2>Insights</h2>
-            <p>{{ search.data('/insights/').description }}</p>
-            <p>
-                {{ comp Pill }}Explore the insights &rarr;{{ /comp }}
-            </p>
-        </a>
-    </div>
-</section>
-{{ /if }}
+{{>
+	let items = [
+		{'url':'/insights/dashboard/','pill':'View the main dashboard','colour':'yellow'},
+		//{'url':'/insights/dashboard/q1/','pill':'Visit','colour':'yellow'},
+		//{'url':'/insights/dashboard/q2/','pill':'Visit','colour':'yellow'},
+		{'url':'/themes/programme/','pill':'View the programme dashboard','colour':'green'},
+		{'url':'/themes/volunteering/','pill':'View the volunteering dashboard','colour':'green'},
+		{'url':'/themes/ticketing/','pill':'View the ticketing dashboard','colour':'green'},
+		{'url':'/themes/sustainability/','pill':'View the sustainability dashboard','colour':'green'},
+	];
+}}
 
+<section>
+    {{ comp grid.Auto { tag: 'ul' } }}
+		{{ for item of items }}
+			{{ set pg = search.pages(`url=${item.url}`)[0] }}
 
-{{ if (search.pages('theme monitoring-data layout!=templates/index.vto').length > 0) || (displayEmpty || false) }}
-<section class="block c-green-light">
-    <div class="river">
-        <a href="{{ '~/themes/index.yml' |> url }}">
-            <h2>Monitoring data</h2>
-            <p>{{ search.data('/themes/').description }}</p>
-            <p>
-                {{ comp Pill }}Explore the monitoring data &rarr;{{ /comp }}
-            </p>
-        </a>
-    </div>
-</section>
+			{{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;" } }}
+			<a class="block{{ if item.colour }} c-{{ item.colour }}-light{{ /if }}" href="{{ pg.url }}">
+				<h2>{{ pg.title }}</h2>
+				{{ pg.description |> md }}
+				{{ comp Pill }}{{ if item.pill }}{{ item.pill }}{{ else }}Visit{{ /if }}{{ /comp }}
+			</a>
+			{{ /comp }}
 
-{{ if (search.pages('experiment layout!=templates/index.vto').length > 0) || (displayEmpty || false) }}
-<section class="block c-pink-light">
-    <div class="river">
-        <a href="{{ '~/experiments/index.yml' |> url }}">
-            <h2>Experiments</h2>
-            <p>{{ search.data('/experiments/').description }}</p>
-            <p>
-                {{ comp Pill }}Explore the experiments &rarr;{{ /comp }}
-            </p>
-        </a>
-    </div>
+		{{ /for }}
+    {{ /comp }}
 </section>
-{{ /if }}
 
 </main>
-
-{{ comp.SiteFooter() }}

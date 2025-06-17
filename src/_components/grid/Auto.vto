@@ -20,6 +20,6 @@ css: |
     if (bigfirst) classList.push('big-first');
     if (classes) classList.push(...classes.split());
 }}
-<{{ tag || 'div' }} data-comp="grid-Auto" {{ if classList }}class="{{ classList.join(" ") }}"{{ /if }}>
+<{{ tag || 'div' }} data-comp="grid-Auto" {{ if classList.length > 0 }}class="{{ classList.join(" ") }}"{{ /if }}>
 {{ content }}
 </{{ tag || 'div' }}>
