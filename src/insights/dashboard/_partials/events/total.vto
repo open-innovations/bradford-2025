@@ -36,7 +36,7 @@
 				"columns": [
 					{ "name": "title", "label": "Category", "header": true },
 					{ "name": "value", "label": "Events", "class":"centred" },
-					{ "name": "description", "label": "Description" }
+					{ "name": "description", "label": "Description", key: 'description' }
 				],
 				"head": {
 					"class": "c-yellow"
@@ -50,7 +50,7 @@
 					},
 					...Object.entries(events.by_category)
 					.sort((a, b) => b[1] - a[1])
-					.map(([title, value]) => ({ title: title || '(Missing category)', value: value.toLocaleString() })),
+					.map(([title, value]) => ({ title: title || 'UNKNOWN', value: value.toLocaleString() })),
 				/*
 					{
 						"title": "In-person events",

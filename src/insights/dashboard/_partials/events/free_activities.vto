@@ -4,8 +4,9 @@
 	classes: 'events'
 } }}
 	{{# TODO discuss this with BD25 - currently updated in yaml #}}
+	{{# TODO extract this from Airtable #}}
 	{{ comp.BigNumber({
-		number: metrics.events_free_activities.actual || 0,
+		number: '&mdash;',
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({

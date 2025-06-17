@@ -3,7 +3,7 @@
 	flash: flash.events_community_led,
 	classes: 'events'
 } }}
-    {{> const total = (events.by_project['Our Patch']?.count || 0) + (manual?.events?.do_your_thing_micro_awards || 0) }}
+    {{> const total = (events.by_project['Our Patch']?.count || 0) + (events.by_category["Community-led arts event"] || 0) }}
     {{# TODO update to pull from generated file #}}
 	{{ comp.BigNumber({
 		number: total,
@@ -42,7 +42,7 @@
 						"description": "Events run as part of the Our Patch (community engagements) project."
 					});
 				}
-				rows.push({ "title": "Do Your Thing Micro Awards", "value": manual?.events?.do_your_thing_micro_awards });
+				rows.push({ "title": "Community-led arts events", "value": events.by_category["Community-led arts event"] });
 				rows.push({ "title": "Total", "value": total, "description": "Total of above", "_class": "c-yellow" });
 				//rows.push({ "title": "Ticketed events", "value": tickets.events.count, "description": "Ticketed events that ran between {{ comp.Date({ ...timestamp }) }}" });
 				//rows.push({ "title": "Volunteering shifts", "value": volunteers.shifts.count, "description": "There may be more than one volunteering shift per event, or each volunteering shift might cover multiple events"; });

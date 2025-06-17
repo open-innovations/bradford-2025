@@ -30,11 +30,11 @@
 				{{> rows.push({"title":key,"value":value}); }}
 			{{ /for }}
 			{{ comp.dashboard.InfoBoxTable({
-				"cms": metrics.events_festivasl,
+				"cms": metrics.audiences_total,
 				"columns": [
 					{ "name": "title", "label": "Title", "header": true },
 					{ "name": "value", "label": "Value", "class":"centred" },
-					{ "name": "description", "label": "Description" }
+					{ "name": "description", "label": "Description", key: 'description' }
 				],
 				"head": {
 					"class": "c-green"
