@@ -38,16 +38,16 @@ sort_order: url
 <section>
     {{ comp grid.Auto { tag: 'ul' } }}
 		{{ for item of items }}
-			{{ set pg = search.pages(`url=${item.url}`)[0] }}
-
-			{{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;" } }}
-			<a class="block{{ if item.colour }} c-{{ item.colour }}-light{{ /if }}" href="{{ pg.url }}">
-				<h2>{{ pg.title }}</h2>
-				{{ pg.description |> md }}
-				{{ comp Pill }}{{ if item.pill }}{{ item.pill }}{{ else }}Visit{{ /if }}{{ /comp }}
-			</a>
-			{{ /comp }}
-
+			{{ set pgs = search.pages(`url=${item.url}`) }}
+			{{ if pgs.length==1 }}
+				{{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;" } }}
+				<a class="block{{ if item.colour }} c-{{ item.colour }}-light{{ /if }}" href="{{ item.url }}">
+					<h2>{{ pgs[0].title }}</h2>
+					{{ pgs[0].description |> md }}
+					{{ comp Pill }}{{ if item.pill }}{{ item.pill }}{{ else }}Visit{{ /if }}{{ /comp }}
+				</a>
+				{{ /comp }}
+			{{ /if }}
 		{{ /for }}
     {{ /comp }}
 </section>
