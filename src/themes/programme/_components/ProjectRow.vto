@@ -15,14 +15,14 @@ css: |
 </th>
 
 {{# Dates #}}
-<td class="centred">
+<td>
     {{- if earliestDate -}}
         {{ comp.Date({ start: earliestDate, end: earliestDate != latestDate ? latestDate : undefined }) }}
     {{- /if -}}
 </td>
 
 {{# Events #}}
-<td class="centred">
+<td>
     {{- if events -}}
     {{ comp.BigNumber({
         number: events
@@ -33,7 +33,7 @@ css: |
 </td>
 
 {{# Audience #}}
-<td class="centred">
+<td>
     {{- if audience -}}
     {{ comp.BigNumber({ number: audience }) }}
     {{- else -}}
@@ -42,7 +42,7 @@ css: |
 </td>
 
 {{# Participants #}}
-<td class="centred">
+<td>
     {{- if participants -}}
     {{ comp.BigNumber({
         number: participants
@@ -52,7 +52,7 @@ css: |
     {{- /if -}}
 </td>
 
-<td class="centred">
+<td>
 {{ comp Controls }}
     {{ comp Popover { id } }}
         <!--
