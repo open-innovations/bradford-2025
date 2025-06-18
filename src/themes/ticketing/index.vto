@@ -118,6 +118,36 @@ seriesConfig:
 			</figcaption>
 		</figure>
 	</div>
+	{{ comp grid.Brick }}
+	<p>The table below shows the breakdown of ticket sales by large geographic area:</p>
+	{{ comp.dashboard.InfoBoxTable({
+		head: {
+			class: 'c-pink',
+		},
+		columns: [
+			{ key: 'area', label: 'Geographic area', class: "" },
+			{ key: 'count', label: 'Count', class: "right" },
+			{ key: 'percentage', label: 'Percentage', class: "right" },
+		],
+		data: ['Bradford', 'Other West Yorkshire', 'Other areas', 'Unknown'].map(t => ({
+			area: t,
+			count: operational.summary.geo.by_area[t].toLocaleString() || '&mdash;',
+			percentage: (
+				100 * 
+				operational.summary.geo.by_area[t] /
+				operational.summary.tickets
+			).toLocaleString(undefined, { maximumFractionDigits: 1, style: 'unit', unit: 'percent' }) || '&mdash;',
+		}))
+	}) }}
+	<p>The total sales for all of West Yorkshire is {{ 
+		(
+			100 *
+			['Bradford', 'Other West Yorkshire']
+			.reduce((a, c) => operational.summary.geo.by_area[c] + a, 0) /
+			operational.summary.tickets
+		).toLocaleString(undefined, { maximumFractionDigits: 1, style: 'unit', unit: 'percent' })
+	}}.</p>
+	{{ /comp }}
 </section>
 
 {{ set tickets_by_ticket_type = operational.type |> wafflify( 'Ticket type', 'Number of tickets sold', { seriesConfig, minValue: 0.4 }) }}
