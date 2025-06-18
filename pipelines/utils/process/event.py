@@ -2,81 +2,87 @@ import petl as etl
 
 from ..paths import PUBLISHED, SITE
 from ..themes.programme import Programme as _Programme
+from ..themes.programme_slice import ProgrammeSlice
 
 
 class Programme:
     def __init__(self, project_ids, venue_ids):
         self.project_ids = project_ids
 
-        self.projects = _Programme.projects.selectin('id', project_ids)
-
-        event_reports_by_programme = (
-            _Programme.event_reports
-            .selectin('project_id', project_ids)
-            
-        )
-
-        def row_per_event_report(r):
-            for e in r['Event Reports']:
-                yield (e, r['id'])
-
-        event_reports_by_venue = (
+        venues = (
             _Programme.venues
-            .selectin('id', venue_ids)
-            .rowmapmany(row_per_event_report, header=('id', 'venue_id'))
-            .leftjoin(_Programme.event_reports)
+            .rename({ 'id': 'venue', 'Organisation &/or Venue Name': 'venue_name' })
+            .cut('venue', 'venue_name')
         )
 
-        self.event_reports = (
+        all_events = (
+            ProgrammeSlice().events_data
+            .recast(samplesize=1_000_000)
+            .convert('venue', lambda f: f[0])
+            .replace(['schedule_audience', 'schedule_participants_community'], None, 0)
+            .leftjoin(venues)
+        )
+
+        # self.projects = _Programme.projects.selectin('id', project_ids)
+
+        event_by_programme = (
+            all_events
+            .selectin('project_id', project_ids)
+        )
+
+        event_by_venue = (
+            all_events
+            .selectin('venue', venue_ids)
+        )
+
+        self.events = (
             etl.cat(
-                event_reports_by_programme,
-                event_reports_by_venue
+                event_by_programme,
+                event_by_venue
             )
-            .replace(['audience', 'participants', 'volunteers', 'volunteer_shifts'], None, 0)
-            .join(_Programme.venues.cut('id','Organisation &/or Venue Name').setheader(['venue_id', 'Venue Name']))
         )
 
     def summarise(self):
         counts = dict(
             zip(
-                ('projects', 'event_reports', ),
+                ('projects', 'events', ),
                 (
-                    self.projects.nrows(),
-                    self.event_reports.nrows(),
+                    self.events.distinct('project_name').nrows(),
+                    self.events.nrows(),
                 ),
             )
         )
         categories = dict(
-            self.projects
+            self.events
             .aggregate(None, {
-                'evaluation': ('Evaluation Category', set),
-                'programme': ('Programme Category', list),
+                'evaluation': ('evaluation_category', set),
+                'programme': ('programme_category', list),
             })
             .convert('evaluation', list)
             .convert('programme', lambda l: list({e for s in l for e in s}))
             .transpose()
-        ) if self.projects.nrows() > 0 else None
+        ) if self.events.nrows() > 0 else None
 
-        event_reports = dict(
-            self.event_reports
+        events_summary = dict(
+            self.events
             # TODO PUT HERE?
             # .replace(['audience', 'participants', 'volunteers'], None, 0)
             .aggregate(None, {
-                'audience': ('audience', sum),
-                'participants': ('participants', sum),
-                'volunteers': ('volunteers', sum),
-                'volunteerShifts': ('volunteer_shifts', sum),
-                'earliestDate': ('event_date', lambda dates: min(d for d in dates if d)),
-                'latestDate': ('event_date', lambda dates: max(d for d in dates if d)),
+                'audience': ('schedule_audience', sum),
+                'participants': ('schedule_participants_community', sum),
+                # 'volunteers': ('volunteers', sum),
+                # 'volunteerShifts': ('volunteer_shifts', sum),
+                'earliestDate': ('date', lambda dates: min(d for d in dates if d)),
+                'latestDate': ('date', lambda dates: max(d for d in dates if d)),
             })
             .convert(['earliestDate', 'latestDate'], lambda f: f.isoformat())
             .transpose()
-        ) if self.event_reports.nrows() > 0 else None
+        ) if self.events.nrows() > 0 else None
 
         return {
             'count': counts,
             'categories': categories,
-            'event_report': event_reports,
+            'events': events_summary,
         }
 
 
