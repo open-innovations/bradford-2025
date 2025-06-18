@@ -1,3 +1,8 @@
+---
+css: |
+    [data-comp=link-list] li { display: flex; }
+    [data-comp=link-list] li a { width: 100%; }
+---
 {{ set links = search.pages(
     `${ predicate } !url=${ url }`,
     `${ sortBy || 'title' }`)
@@ -6,9 +11,7 @@
 {{ if links.length -}}
 <ul data-comp="link-list" class="grid {{ classes || ''}}">
 {{ for link of links }}
-    <li class="block">
-    {{ (displayComponent || comp.link.DefaultCard)(link) }}
-    </li>
+    <li style="--block-bg:var(--color-lightgrey);--block-fg:var(--color-offblack);">{{- (displayComponent || comp.link.DefaultCard)(link) -}}</li>
 {{ /for }}
 </ul>
 {{ else }}

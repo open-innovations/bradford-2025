@@ -1,16 +1,18 @@
 ---
 css: |
     [data-comp=link-event-card] {
-        * h2 {
+        *:first-child {
             margin-block-start: 0;
         }
+        *:last-child {
+            margin-block-end: 0;
+        }
+        display: block;
     }
 ---
-<div data-comp='link-event-card'>
-<a href="{{ url }}">
+<a href="{{ url }}" data-comp='link-event-card' class="block">
     <h2>{{ title }}</h2>
     <p>{{ date |> date('BD25_LONG_DATE') }}</p>
     {{ description |> md }}
+	{{ comp.Pill({ content: 'Event' } ) }}
 </a>
-{{ comp.Pill({ content: 'Event' } ) }}
-</div>
