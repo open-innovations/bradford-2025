@@ -5,25 +5,23 @@
 
 html, body { scroll-behavior: smooth }
 
-[data-flash] {
-  overflow: hidden;
-  position: relative;
-}
-[data-flash]:before {
-  content: attr(data-flash);
-  font-size: var(--flash-font-size, 1rem);
-  font-weight: initial;
-  display: block;
-  color: var(--flash-fg,black);
-  background: var(--flash-bg,var(--color-yellow));
-  text-align: center;
-  opacity: 90%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding-block: 0.3rem;
-  padding-inline: 6rem;
-  transform: translate(50%, -50%) rotate(45deg) translate(0, var(--flash-offset, 3rem));
+[data-flash=true] { overflow: hidden; }
+[data-flash=true] .flash {
+	font-size: var(--flash-font-size, 1rem);
+	font-weight: initial;
+	display: block;
+	color: var(--flash-fg,black);
+	background: var(--flash-bg,var(--color-yellow));
+	text-align: center;
+	opacity: 90%;
+	position: absolute;
+	top: 0;
+	left: 100%;
+	padding-block: 0.3rem;
+	padding-inline: 6rem;
+	transform: translate3d(-50%,0,0) rotate(45deg) translateY(var(--flash-offset, 1.5rem));
+	transform-origin: center top;
+	clip-path: polygon(50% -1.5em,calc(50% + 6em) 4.5em,calc(50% - 6em) 4.5em);
 }
 
 .centred {

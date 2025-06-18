@@ -2,6 +2,7 @@
 css: |
     [data-comp=dashboard-Cell] {
         display: flex !important;
+        position: relative;
         flex-direction: column;
         height: 100%;
         & .title {
@@ -16,9 +17,20 @@ css: |
             margin: 0;
         }
     }
+
 ---
+
+{{ set flashes = {
+	WIP: "Work in progress",
+	Manual: "Data not directly derived from operational systems",
+	Partial: "Data which is currently only derived from one source"
+} }}
+
 {{ comp grid.Brick { style: 'min-width: min(20rem, 100%);' } }}
-<div data-comp='dashboard-Cell' class="block{{ if classes }} {{ classes }}{{ /if }}"{{ if flash }} data-flash="{{ flash }}"{{ /if }}>
+<div data-comp='dashboard-Cell' class="block{{ if classes }} {{ classes }}{{ /if }}"{{ if flash }} data-flash="true"{{ /if }}>
+{{ if flash }}
+	<div title="{{ flashes[flash] }}" class="flash">{{ flash }}</div>
+{{ /if }}
 <{{ heading_level || 'h3' }} class="title">{{ title }}</{{ heading_level || 'h3' }}>
 {{ content }}
 
