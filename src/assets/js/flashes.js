@@ -13,13 +13,15 @@
 	function addTooltip(el){
 		var tt = document.createElement('div');
 		var flash = el.querySelector('.flash');
+		var txt = flash.getAttribute('title');
+		var vis = false;
 		tt.classList.add('tooltip');
-		tt.innerHTML = '<div class="inner">' + flash.getAttribute('title') + '</div><div class="arrow"></div>'
+		tt.innerHTML = '<div class="inner">' + txt + '</div><div class="arrow"></div>'
 		el.parentNode.append(tt);
 		el.parentNode.style.position = "relative";
-		function tt_close(){ tt.style.display = 'none'; }
-		function tt_open(){ tt.style.display = 'block'; }
-		function tt_toggle(){ tt.style.display = (tt.style.display=="block" ? "none":"block"); }
+		function tt_close(){ tt.style.display = 'none'; vis = false; flash.setAttribute('title',txt); }
+		function tt_open(){ tt.style.display = 'block'; vis = true; flash.removeAttribute('title'); }
+		function tt_toggle(){ if(vis){ tt_close(); }else{ tt_open(); } }
 		flash.addEventListener('click',tt_toggle);
 		flash.addEventListener('mouseover',tt_open);
 		flash.addEventListener('mouseout',tt_close);
