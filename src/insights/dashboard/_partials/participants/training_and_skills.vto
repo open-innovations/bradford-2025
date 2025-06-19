@@ -36,6 +36,7 @@
 					*/
 					},
 					...Object.entries(participants.by_type.training_and_skills_development_participants.by_project)
+						.sort((a, b) => b[1] - a[1])
 						.map(([k, v]) => ({ title: k, value: v.toLocaleString() }))
 					]
 				}) |> md |> vto(page.data) }}

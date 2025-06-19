@@ -20,13 +20,27 @@
                 file: "participants_community_engagement" 
                 }) |> md |> vto(page.data) }}
 
-			{{# TODO convert to table #}}
-			<pre>{{ Object.entries(participants.by_type.community_participants.by_project)
-			.sort((a, b) => b[1] - a[1])
-			.map(x => ({ title: x[0], value: x[1].toLocaleString() }))
-			|> JSON.stringify(null, 2) }}</pre>
-			
 
+			{{ comp.dashboard.InfoBoxTable({
+					"cms": metrics.participants_community_engagement,
+					"columns": [
+						{ "name": "title", "label": "Source", "header": true },
+						{ "name": "value", "label": "Value", "class":"" },
+						{ "name": "description", "label": "Description", key: 'description' }
+					],
+					"head": {
+						"class": "c-pink"
+					},
+					"data": [
+					{
+						title: 'Total',
+						value: (participants.by_type.community_participants.count || 0).toLocaleString(),
+					},
+					...Object.entries(participants.by_type.community_participants.by_project)
+						.sort((a, b) => b[1] - a[1])
+						.map(([k, v]) => ({ title: k, value: v.toLocaleString() }))
+					]
+				}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 {{ /comp }}
