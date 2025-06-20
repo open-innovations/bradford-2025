@@ -9,10 +9,17 @@
     columns: [
         { key: 'venue_name', label: 'Venue Name', class: "" },
         { key: 'project_name', label: 'Project Name' },
-        { key: 'audience', label: 'Audience', class: "", scale: scales.pink },
-        { key: 'participants', label: 'Participants', class: "", scale: scales.pink },
+        { key: 'date', label: 'Date', class: 'right' },
+        { key: 'audience', label: 'Audience', class: "right", scale: scales.pink },
+        { key: 'participants', label: 'Participants', class: "right", scale: scales.pink },
     ],
-    data: programme.total_by_venue.sort((a, b) => a.start_date < b.start_date)
+    data: programme.total_by_venue.sort((a, b) => a.start_date < b.start_date).map(x => ({
+        ...x,
+        date: (new Date(x.start_date)).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", }),
+        // TODO Work out why this is not working
+        // audience: x.audience.toLocaleString(),
+        // participants: parseInt(x.participants).toLocaleString(),
+    }))
 }) }}
 </section>
 {{ /if }}
