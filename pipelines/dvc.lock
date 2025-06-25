@@ -120,7 +120,7 @@ stages:
     outs:
     - path: ../src/events/rise/_data/event/
       hash: md5
-      md5: 921c91d07bedbf13134f5ffceab92df4.dir
+      md5: 2e12f305d49f2c266de2b1af2a269427.dir
       size: 18818
       nfiles: 8
   events@la-haine:
@@ -141,7 +141,7 @@ stages:
     outs:
     - path: ../src/events/la-haine/_data/event/
       hash: md5
-      md5: 9fe05298433c40bf7f2716b2eee59282.dir
+      md5: de98bcf5ca2edf1e1c577e1f96de01ad.dir
       size: 7451
       nfiles: 8
   events@les-girafes:
@@ -424,7 +424,7 @@ stages:
     outs:
     - path: ../src/events/loading-bay/_data/event/
       hash: md5
-      md5: ae1137006847b49cbaccb6e4494035fa.dir
+      md5: de2ada36970ac49b25a5103cd6cc8742.dir
       size: 5699
       nfiles: 2
   events@beacon:
@@ -446,7 +446,7 @@ stages:
     outs:
     - path: ../src/events/beacon/_data/event/
       hash: md5
-      md5: 0b00c67399d0345e1cb26f24a7c6699b.dir
+      md5: d3ebe23eef12824a06a37f6daab334f2.dir
       size: 13017
       nfiles: 2
   events@the-bradford-progress:
@@ -467,6 +467,27 @@ stages:
     outs:
     - path: ../src/events/the-bradford-progress/_data/event/
       hash: md5
-      md5: 905e7fb195e0c57edeb19dfe77d6459f.dir
+      md5: 60f13aed8033fc3e83f50239af3075e8.dir
       size: 1844
       nfiles: 5
+  events@woodland-tribe:
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
+      spektrix_event_ids '13201ACQQNNPSNRJMNQRQRCSJCCGPQLHJ' -p venue_postcode 
+      '' -p rosterfy_event_ids '' -p project_ids 'rec6linWPrAEi0gwr' -p 
+      venue_ids '' -p slug 'woodland-tribe'
+    deps:
+    - path: ../data/published/ticketing/
+      hash: md5
+      md5: ccdc8581e6281c175a4bbb8950a2eed0.dir
+      size: 4861952
+      nfiles: 3
+    - path: events.ipynb
+      hash: md5
+      md5: 9e31472f88466e0de30da1f06b633d82
+      size: 4833
+    outs:
+    - path: ../src/events/woodland-tribe/_data/event/
+      hash: md5
+      md5: 1f3ff840954565d900a205856a981117.dir
+      size: 12280
+      nfiles: 7
