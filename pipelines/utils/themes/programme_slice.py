@@ -5,6 +5,18 @@ from rap_utils.petl.io.parquet_view import ParquetView
 from ..paths import PUBLISHED
 
 
+deprecated_variables = [
+    'event_report_tickets_on_the_door',
+    'event_report_tickets_pre_sold',
+    'event_report_participants_community',
+    'event_report_participants_schools',
+    'event_report_volunteer_shifts',
+    'event_report_volunteers',
+    'event_report_audience',
+    'event_report_participants',
+    'event_reports',
+]
+
 class ProgrammeSlice:
 
     dimensions = ['project_name', 'evaluation_category', 'month']
@@ -27,11 +39,13 @@ class ProgrammeSlice:
 
         self.events_data, self.excluded_events_data = (
             ParquetView(PUBLISHED / 'combined/programme.parquet')
+            .selectnotin('variable', deprecated_variables)
 
             .addfield('validation', self.validation)
 
             .convert('start_date', lambda f, r: f or r.date, pass_row=True)
             .convert('end_date', lambda f, r: f or r.date, pass_row=True)
+            .cache()
 
             .biselect(lambda r: r.validation == None)
         )
@@ -41,13 +55,7 @@ class ProgrammeSlice:
         return sum(
             filter(None.__ne__, (
                 row.manual_events,
-                max(
-                    filter(None.__ne__, (
-                        0,
-                        row.event_reports,
-                        row.schedule_events
-                    ))
-                ) or row.projected_events
+                row.schedule_events
             )), 0
         )
 
