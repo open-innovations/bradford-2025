@@ -17,6 +17,7 @@ class Programme:
 
         all_events = (
             ProgrammeSlice().events_data
+            .selectin('variable', ['schedule_audience', 'schedule_events', 'schedule_participants_community'])
             .recast(samplesize=1_000_000)
             .convert('venue', lambda f: f[0])
             .replace(['schedule_audience', 'schedule_participants_community'], None, 0)
