@@ -2,6 +2,8 @@
 <section>
 <h2>Events breakdown</h2>
 
+<p>The table below summarises the events by venue, showing the .</p>
+
 {{ comp.dashboard.InfoBoxTable({
     head: {
         class: 'c-pink',
@@ -9,13 +11,16 @@
     columns: [
         { key: 'venue_name', label: 'Venue Name', class: "" },
         { key: 'project_name', label: 'Project Name' },
-        { key: 'date', label: 'Date', class: 'right' },
+        { key: 'date', label: 'Dates', class: 'right' },
+        { key: 'event_count', label: 'Events', class: 'right' },
         { key: 'audience', label: 'Audience', class: "right", scale: scales.pink },
         { key: 'participants', label: 'Participants', class: "right", scale: scales.pink },
     ],
     data: programme.total_by_venue.sort((a, b) => a.start_date < b.start_date).map(x => ({
         ...x,
-        date: (new Date(x.start_date)).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", }),
+        date: `${
+            (new Date(x.start_date)).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })
+        } &mdash; ${(new Date(x.end_date)).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })}`,
         // TODO Work out why this is not working
         // audience: x.audience.toLocaleString(),
         // participants: parseInt(x.participants).toLocaleString(),
