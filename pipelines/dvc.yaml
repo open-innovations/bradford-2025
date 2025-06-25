@@ -75,6 +75,7 @@ stages:
           -p slug '${key}'
       deps:
         - events.ipynb
+        - ${ROOT}/data/published/
         - ${ROOT}/data/published/ticketing/
       outs:
         - ${ROOT}/src/events/${key}/_data/event/:
