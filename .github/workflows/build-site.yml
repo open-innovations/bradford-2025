@@ -49,12 +49,12 @@ jobs:
 
           echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
           ssh-add deploy-key
-          pipenv run dvc pull data/published.dvc data/metadata.dvc data/status.json.dvc data/reports.dvc 
+          pipenv run dvc update data/published.dvc data/metadata.dvc data/status.json.dvc data/reports.dvc 
           ssh-add -D
 
           echo "${{ secrets.DEPLOY_KEY_HUQ }}" > deploy-key-huq
           ssh-add deploy-key-huq          
-          pipenv run dvc pull data/huq.dvc
+          pipenv run dvc update data/huq.dvc
           ssh-add -D
 
       - name: Run pipelines
