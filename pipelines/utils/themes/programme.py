@@ -73,19 +73,6 @@ class Programme:
         .biselect(lambda r: r.Validation == None)
     )
 
-    event_reports = (
-        etl
-        .fromcsv(PUBLISHED / 'programme/event-reports.csv')
-        .convert(['report_date', 'event_date', 'start_time', 'end_time'], lambda f: datetime.fromisoformat(f).date())
-        .convert(['audience', 'tickets_pre_sold', 'tickets_on_the_door', 'participants', 'volunteers', 'volunteer_shifts'], int)
-        .replace(['audience', 'tickets_pre_sold', 'tickets_on_the_door', 'participants', 'volunteers', 'volunteer_shifts'], None, 0)
-        .convert(['Programme Category', 'Project Venue(s)'], literal_eval)
-        # .convert('Project Name', lambda x: x.strip())
-        # .convert('Project Name', canonical_project_name)
-        .convertnumbers()
-        .cache()
-    )
-
     manual_events = (
         etl.fromcsv(PUBLISHED / 'manual/manual-events.csv')
         .selectne('Exclude from events count', 'True')
