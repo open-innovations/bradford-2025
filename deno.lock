@@ -5,7 +5,7 @@
     "jsr:@davidbonnet/astring@1.8.6": "1.8.6",
     "jsr:@std/cli@1.0.14": "1.0.14",
     "jsr:@std/cli@^1.0.12": "1.0.14",
-    "jsr:@std/collections@^1.0.9": "1.1.1",
+    "jsr:@std/collections@^1.0.9": "1.1.2",
     "jsr:@std/crypto@1.0.4": "1.0.4",
     "jsr:@std/csv@1.0.6": "1.0.6",
     "jsr:@std/encoding@1.0.7": "1.0.7",
@@ -14,11 +14,13 @@
     "jsr:@std/fmt@^1.0.5": "1.0.6",
     "jsr:@std/front-matter@1.0.7": "1.0.7",
     "jsr:@std/fs@1.0.14": "1.0.14",
+    "jsr:@std/fs@1.0.19": "1.0.19",
     "jsr:@std/fs@1.0.5": "1.0.5",
-    "jsr:@std/fs@^1.0.11": "1.0.14",
+    "jsr:@std/fs@^1.0.11": "1.0.19",
     "jsr:@std/html@1.0.3": "1.0.3",
     "jsr:@std/html@^1.0.3": "1.0.3",
     "jsr:@std/http@1.0.13": "1.0.13",
+    "jsr:@std/internal@^1.0.9": "1.0.9",
     "jsr:@std/io@~0.225.2": "0.225.2",
     "jsr:@std/json@1": "1.0.2",
     "jsr:@std/jsonc@1.0.1": "1.0.1",
@@ -26,17 +28,22 @@
     "jsr:@std/media-types@^1.1.0": "1.1.0",
     "jsr:@std/net@^1.0.4": "1.0.4",
     "jsr:@std/path@1.0.8": "1.0.8",
-    "jsr:@std/path@^1.0.7": "1.0.8",
-    "jsr:@std/path@^1.0.8": "1.0.8",
-    "jsr:@std/streams@^1.0.9": "1.0.9",
+    "jsr:@std/path@^1.0.7": "1.1.1",
+    "jsr:@std/path@^1.0.8": "1.1.1",
+    "jsr:@std/path@^1.1.1": "1.1.1",
+    "jsr:@std/streams@^1.0.9": "1.0.10",
     "jsr:@std/toml@1.0.2": "1.0.2",
     "jsr:@std/toml@^1.0.2": "1.0.2",
     "jsr:@std/yaml@1.0.5": "1.0.5",
     "jsr:@std/yaml@^1.0.5": "1.0.5",
     "jsr:@tbela99/css-parser@0.7.2": "0.7.2",
+    "npm:@imagemagick/magick-wasm@0.0.34": "0.0.34",
     "npm:@js-temporal/polyfill@0.4.4": "0.4.4",
     "npm:@octokit/auth-app@7.2.1": "7.2.1",
     "npm:@types/estree@1.0.6": "1.0.6",
+    "npm:@types/node@*": "22.15.15",
+    "npm:@types/react-dom@18.3.1": "18.3.1",
+    "npm:@types/react@18.3.12": "18.3.12",
     "npm:autoprefixer@10.4.21": "10.4.21_postcss@8.5.3",
     "npm:cssnano@7.0.6": "7.0.6_postcss@8.5.3",
     "npm:cssnano@7.0.7": "7.0.7_postcss@8.5.6",
@@ -59,7 +66,9 @@
     "npm:postcss-import@16.1.0": "16.1.0_postcss@8.5.3",
     "npm:postcss-nesting@13.0.1": "13.0.1_postcss@8.5.6_postcss-selector-parser@7.1.0",
     "npm:postcss@8.5.3": "8.5.3",
+    "npm:react-dom@18.3.1": "18.3.1_react@18.2.0",
     "npm:react@18.2.0": "18.2.0",
+    "npm:react@18.3.1": "18.3.1",
     "npm:remove-markdown@0.6.0": "0.6.0",
     "npm:reveal.js@5.2.1": "5.2.1",
     "npm:sass@1.89.2": "1.89.2",
@@ -81,6 +90,9 @@
     },
     "@std/collections@1.1.1": {
       "integrity": "eff6443fbd9d5a6697018fb39c5d13d5f662f0045f21392d640693d0008ab2af"
+    },
+    "@std/collections@1.1.2": {
+      "integrity": "f1685dd45c3ec27c39d0e8a642ccf810f391ec8a6cb5e7355926e6dacc64c43e"
     },
     "@std/crypto@1.0.4": {
       "integrity": "cee245c453bd5366207f4d8aa25ea3e9c86cecad2be3fefcaa6cb17203d79340"
@@ -116,6 +128,13 @@
         "jsr:@std/path@^1.0.8"
       ]
     },
+    "@std/fs@1.0.19": {
+      "integrity": "051968c2b1eae4d2ea9f79a08a3845740ef6af10356aff43d3e2ef11ed09fb06",
+      "dependencies": [
+        "jsr:@std/internal",
+        "jsr:@std/path@^1.1.1"
+      ]
+    },
     "@std/html@1.0.3": {
       "integrity": "7a0ac35e050431fb49d44e61c8b8aac1ebd55937e0dc9ec6409aa4bab39a7988"
     },
@@ -131,6 +150,9 @@
         "jsr:@std/path@^1.0.8",
         "jsr:@std/streams"
       ]
+    },
+    "@std/internal@1.0.9": {
+      "integrity": "bdfb97f83e4db7a13e8faab26fb1958d1b80cc64366501af78a0aee151696eb8"
     },
     "@std/io@0.225.2": {
       "integrity": "3c740cd4ee4c082e6cfc86458f47e2ab7cb353dc6234d5e9b1f91a2de5f4d6c7"
@@ -161,8 +183,17 @@
     "@std/path@1.0.8": {
       "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
     },
+    "@std/path@1.1.1": {
+      "integrity": "fe00026bd3a7e6a27f73709b83c607798be40e20c81dde655ce34052fd82ec76",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
     "@std/streams@1.0.9": {
       "integrity": "a9d26b1988cdd7aa7b1f4b51e1c36c1557f3f252880fa6cc5b9f37078b1a5035"
+    },
+    "@std/streams@1.0.10": {
+      "integrity": "75c0b1431873cd0d8b3d679015220204d36d3c7420d93b60acfc379eb0dc30af"
     },
     "@std/toml@1.0.2": {
       "integrity": "5892ba489c5b512265a384238a8fe8dddbbb9498b4b210ef1b9f0336a423a39b",
@@ -195,6 +226,9 @@
       "dependencies": [
         "tslib"
       ]
+    },
+    "@imagemagick/magick-wasm@0.0.34": {
+      "integrity": "sha512-vSTe4cfR8U8r2Ityo6s3iRFVK903W4fhur3t/ixc6vLSAJXmqXC9cKXz2NkkDBUVU7ssJTYMiTKAb1S9RY+ZdQ=="
     },
     "@img/sharp-darwin-arm64@0.33.5": {
       "integrity": "sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==",
@@ -623,6 +657,28 @@
     "@types/estree@1.0.6": {
       "integrity": "sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw=="
     },
+    "@types/node@22.15.15": {
+      "integrity": "sha512-R5muMcZob3/Jjchn5LcO8jdKwSCbzqmPB6ruBxMcf9kbxtniZHP327s6C37iOfuw8mbKK3cAQa7sEl7afLrQ8A==",
+      "dependencies": [
+        "undici-types"
+      ]
+    },
+    "@types/prop-types@15.7.15": {
+      "integrity": "sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw=="
+    },
+    "@types/react-dom@18.3.1": {
+      "integrity": "sha512-qW1Mfv8taImTthu4KoXgDfLuk4bydU6Q/TkADnDWWHwi4NX4BR+LWfTp2sVmTqRrsHvyDDTelgelxJ+SsejKKQ==",
+      "dependencies": [
+        "@types/react"
+      ]
+    },
+    "@types/react@18.3.12": {
+      "integrity": "sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==",
+      "dependencies": [
+        "@types/prop-types",
+        "csstype"
+      ]
+    },
     "argparse@2.0.1": {
       "integrity": "sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q=="
     },
@@ -888,6 +944,9 @@
     },
     "cssom@0.5.0": {
       "integrity": "sha512-iKuQcq+NdHqlAcwUY0o/HL69XQrUaQdMjmStJ8JFmUaiiQErlhrmuigkg/CU4E2J0IyUKUrMAgl36TvN67MqTw=="
+    },
+    "csstype@3.1.3": {
+      "integrity": "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="
     },
     "d3-array@3.2.4": {
       "integrity": "sha512-tdQAmyA18i4J7wprpYq8ClcxZy3SC31QMeByyCFyRt7BVHdREQZ5lpzoe5mFEYZUWe+oq8HBvk9JjpibyEV4Jg==",
@@ -1875,8 +1934,22 @@
     "punycode.js@2.3.1": {
       "integrity": "sha512-uxFIHU0YlHYhDQtV4R9J6a52SLx28BCjT+4ieh7IGbgwVJWO+km431c4yRlREUAsAmt/uMjQUyQHNEPf0M39CA=="
     },
+    "react-dom@18.3.1_react@18.2.0": {
+      "integrity": "sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==",
+      "dependencies": [
+        "loose-envify",
+        "react@18.2.0",
+        "scheduler"
+      ]
+    },
     "react@18.2.0": {
       "integrity": "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==",
+      "dependencies": [
+        "loose-envify"
+      ]
+    },
+    "react@18.3.1": {
+      "integrity": "sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==",
       "dependencies": [
         "loose-envify"
       ]
@@ -1940,6 +2013,12 @@
         "parse-css-color",
         "postcss-value-parser",
         "yoga-wasm-web"
+      ]
+    },
+    "scheduler@0.23.2": {
+      "integrity": "sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==",
+      "dependencies": [
+        "loose-envify"
       ]
     },
     "semver@7.7.2": {
@@ -2043,6 +2122,9 @@
     },
     "uhyphen@0.2.0": {
       "integrity": "sha512-qz3o9CHXmJJPGBdqzab7qAYuW8kQGKNEuoHFYrBwV6hWIMcpAmxDLXojcHfFr9US1Pe6zUswEIJIbLI610fuqA=="
+    },
+    "undici-types@6.21.0": {
+      "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="
     },
     "unicode-trie@2.0.0": {
       "integrity": "sha512-x7bc76x0bm4prf1VLg79uhAzKw8DVboClSN5VxJuQ+LKDOVEW9CdH+VY7SP+vX7xCYQqzzgQpFqz15zeLvAtZQ==",
@@ -2362,6 +2444,7 @@
     "https://deno.land/x/lume@v2.5.3/deps/markdown_it.ts": "24c1c0fd18c99b9067d9ff5d051f934cb7c3446e6afbad934f6268af8d1ceb4d",
     "https://deno.land/x/lume@v2.5.3/deps/path.ts": "2cb9b457032c687de61df71a5855a97d7de18386bfe3048c03377c733e96b3ab",
     "https://deno.land/x/lume@v2.5.3/deps/postcss.ts": "972eb6980a561adec43917a6815c9a5977f2b2b19150e906aaad0b85135cde9d",
+    "https://deno.land/x/lume@v2.5.3/deps/react.ts": "5289586588ac3e38c4e8f329fac760fde5b1bf489a33e40102eeffe0e17c5e67",
     "https://deno.land/x/lume@v2.5.3/deps/remove-markdown.ts": "c975349bb4b0a325384b8171b1648d5b79366efc8814413c8e93bfeded3280e3",
     "https://deno.land/x/lume@v2.5.3/deps/satori.ts": "4ed807a234a0abe729e4e583775501332c788750bf934d03ea5ed4dccaeb8320",
     "https://deno.land/x/lume@v2.5.3/deps/sharp.ts": "b0692f7293a33a6b191ef672420e3eb37c308ccbe5cf55d15231254e2972a8e0",
@@ -2418,6 +2501,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/bar.ts#1750850603772": "14c7a842aa90340a0e81d52b2f1bedeeab93b6aa92477e707e6760211b14043c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/bar.ts#1750852539201": "14c7a842aa90340a0e81d52b2f1bedeeab93b6aa92477e707e6760211b14043c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/bar.ts#1751455659134": "14c7a842aa90340a0e81d52b2f1bedeeab93b6aa92477e707e6760211b14043c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/bar.ts#1751543404664": "14c7a842aa90340a0e81d52b2f1bedeeab93b6aa92477e707e6760211b14043c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/bar.ts#1751544002113": "14c7a842aa90340a0e81d52b2f1bedeeab93b6aa92477e707e6760211b14043c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/bar.ts#1751547236195": "14c7a842aa90340a0e81d52b2f1bedeeab93b6aa92477e707e6760211b14043c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/bar.ts#1751547247478": "14c7a842aa90340a0e81d52b2f1bedeeab93b6aa92477e707e6760211b14043c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/bar.ts#1751547260596": "14c7a842aa90340a0e81d52b2f1bedeeab93b6aa92477e707e6760211b14043c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1750176716227": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1750176727064": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1750258600048": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
@@ -2430,6 +2518,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1750850603887": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1750852539279": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1751455659273": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1751543404743": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1751544002192": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1751547236272": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1751547247554": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/calendar.ts#1751547260673": "1168665eb5925f31feeab0993c48e3e8f1b89f342453971f46c144b67dc22517",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/helpers.ts": "2282a7dda141b9f7aae5d8939f87404647990b1d7d78f899ec4d488120800a7d",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/legacy/animate.js": "b68bb144ba48ea33fa7ec688af2f55a48925fd73aa1149e599a74bdb7e32bab8",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/legacy/axis.js": "5eb097a16e4fc55aab182220bd685cf7eb2a494ed4acd1ddb27e5660a9869b05",
@@ -2455,6 +2548,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/line.ts#1750850603892": "fb719a7e8709eb16fd6aecf9407a4dc5eccff693308b9480e41d5a204a7abf4d",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/line.ts#1750852539283": "fb719a7e8709eb16fd6aecf9407a4dc5eccff693308b9480e41d5a204a7abf4d",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/line.ts#1751455659282": "fb719a7e8709eb16fd6aecf9407a4dc5eccff693308b9480e41d5a204a7abf4d",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/line.ts#1751543404747": "fb719a7e8709eb16fd6aecf9407a4dc5eccff693308b9480e41d5a204a7abf4d",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/line.ts#1751544002195": "fb719a7e8709eb16fd6aecf9407a4dc5eccff693308b9480e41d5a204a7abf4d",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/line.ts#1751547236276": "fb719a7e8709eb16fd6aecf9407a4dc5eccff693308b9480e41d5a204a7abf4d",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/line.ts#1751547247557": "fb719a7e8709eb16fd6aecf9407a4dc5eccff693308b9480e41d5a204a7abf4d",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/line.ts#1751547260676": "fb719a7e8709eb16fd6aecf9407a4dc5eccff693308b9480e41d5a204a7abf4d",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1750176716235": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1750176727071": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1750258600057": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
@@ -2467,6 +2565,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1750850603897": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1750852539289": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1751455659288": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1751543404752": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1751544002200": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1751547236281": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1751547247562": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ranking.ts#1751547260681": "ecc031fba318166eb7407395c4bf506b25966739b080aac54edeb190317cc5eb",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1750176716233": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1750176727069": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1750258600055": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
@@ -2479,6 +2582,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1750850603894": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1750852539287": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1751455659285": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1751543404750": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1751544002198": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1751547236278": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1751547247560": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/ridgeline.ts#1751547260679": "4431d7ef35ea45dc985a523dcfdb66630650599d878dff9bc280eeab4954c36e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1750176716239": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1750176727075": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1750258600062": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
@@ -2491,6 +2599,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1750850603902": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1750852539294": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1751455659307": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1751543404757": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1751544002204": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1751547236284": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1751547247565": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/scatter.ts#1751547260685": "44c8212ff2a84c5eb3ec1c260403ac8e63bf1c466a0c6ca0afbfed4c3dc5516e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1750176716242": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1750176727077": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1750258600065": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
@@ -2503,6 +2616,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1750850603905": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1750852539298": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1751455659314": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1751543404760": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1751544002206": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1751547236286": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1751547247567": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/chart/waffle.ts#1751547260687": "27b97bb9f59f638914d7c01abcfb793d78b60568c1e5a9bc7291f114c1ba1fd2",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1750176716244": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1750176727080": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1750258600068": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
@@ -2515,6 +2633,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1750850603908": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1750852539301": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1751455659319": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1751543404763": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1751544002209": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1751547236289": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1751547247570": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/dashboard.ts#1751547260690": "e28dde06eda1099615f64ae4421e67b2a5ff79400b537c7b7a4502a10aee174c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/lib/hierarchy-visualisation.ts": "fd10fe6660b213f33d4faabbaa6ac6d43adb75b5095bc3f22073a7d3140759c3",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/lib/tree-map.ts": "398cfff0833594903d11d448b4811025ca63a9f56866b3ce91bcd4a9a255c195",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/treemap.ts#1750176716250": "233deb065b9b56bed0e58e8f7cb6048744545b92b7d6887f4d6a5b90e1f52f2c",
@@ -2529,6 +2652,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/treemap.ts#1750850603915": "233deb065b9b56bed0e58e8f7cb6048744545b92b7d6887f4d6a5b90e1f52f2c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/treemap.ts#1750852539309": "233deb065b9b56bed0e58e8f7cb6048744545b92b7d6887f4d6a5b90e1f52f2c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/treemap.ts#1751455659364": "233deb065b9b56bed0e58e8f7cb6048744545b92b7d6887f4d6a5b90e1f52f2c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/treemap.ts#1751543404769": "233deb065b9b56bed0e58e8f7cb6048744545b92b7d6887f4d6a5b90e1f52f2c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/treemap.ts#1751544002214": "233deb065b9b56bed0e58e8f7cb6048744545b92b7d6887f4d6a5b90e1f52f2c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/treemap.ts#1751547236295": "233deb065b9b56bed0e58e8f7cb6048744545b92b7d6887f4d6a5b90e1f52f2c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/treemap.ts#1751547247575": "233deb065b9b56bed0e58e8f7cb6048744545b92b7d6887f4d6a5b90e1f52f2c",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/hierarchy/treemap.ts#1751547260695": "233deb065b9b56bed0e58e8f7cb6048744545b92b7d6887f4d6a5b90e1f52f2c",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1750176716392": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1750176727147": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1750258600143": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
@@ -2541,6 +2669,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1750850605382": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1750852539374": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1751455660885": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1751543404842": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1751544002280": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1751547236351": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1751547247632": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/hex_cartogram.ts#1751547260753": "9198867f602a6411792af217c4a581d07983a3df5c5d2e65bf817d40304774a8",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/legacy/layers.ts": "cafaea90901a442bb52bd07253babf227a38902827560e8a80c9f079d52aa9e9",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/legacy/map.js": "87add35f9c5068110cd4fc6074380b2db35f5d6b54cb01451f12e85d8a55c38e",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/svg.ts#1750176716399": "584fee0f1b68657962db9a0ebf70929d45cbeafebddaeaddcd727ca7dc19e292",
@@ -2555,6 +2688,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/svg.ts#1750850605388": "584fee0f1b68657962db9a0ebf70929d45cbeafebddaeaddcd727ca7dc19e292",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/svg.ts#1750852539382": "584fee0f1b68657962db9a0ebf70929d45cbeafebddaeaddcd727ca7dc19e292",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/svg.ts#1751455660894": "584fee0f1b68657962db9a0ebf70929d45cbeafebddaeaddcd727ca7dc19e292",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/svg.ts#1751543404849": "584fee0f1b68657962db9a0ebf70929d45cbeafebddaeaddcd727ca7dc19e292",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/svg.ts#1751544002287": "584fee0f1b68657962db9a0ebf70929d45cbeafebddaeaddcd727ca7dc19e292",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/svg.ts#1751547236359": "584fee0f1b68657962db9a0ebf70929d45cbeafebddaeaddcd727ca7dc19e292",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/svg.ts#1751547247640": "584fee0f1b68657962db9a0ebf70929d45cbeafebddaeaddcd727ca7dc19e292",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/svg.ts#1751547260761": "584fee0f1b68657962db9a0ebf70929d45cbeafebddaeaddcd727ca7dc19e292",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/types.ts": "fdd07bbb26fdd5069232d31c14bbf90a04133479e0521c2edf6cf4f4b5e003b2",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/zoomable.ts#1750176716404": "eb51f450cd04b594628ae65e51b52d9245e35e76ce209cb74c156c0f1bdb3dab",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/zoomable.ts#1750176727158": "eb51f450cd04b594628ae65e51b52d9245e35e76ce209cb74c156c0f1bdb3dab",
@@ -2568,6 +2706,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/zoomable.ts#1750850605397": "eb51f450cd04b594628ae65e51b52d9245e35e76ce209cb74c156c0f1bdb3dab",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/zoomable.ts#1750852539388": "eb51f450cd04b594628ae65e51b52d9245e35e76ce209cb74c156c0f1bdb3dab",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/zoomable.ts#1751455660908": "eb51f450cd04b594628ae65e51b52d9245e35e76ce209cb74c156c0f1bdb3dab",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/zoomable.ts#1751543404854": "eb51f450cd04b594628ae65e51b52d9245e35e76ce209cb74c156c0f1bdb3dab",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/zoomable.ts#1751544002291": "eb51f450cd04b594628ae65e51b52d9245e35e76ce209cb74c156c0f1bdb3dab",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/zoomable.ts#1751547236363": "eb51f450cd04b594628ae65e51b52d9245e35e76ce209cb74c156c0f1bdb3dab",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/zoomable.ts#1751547247645": "eb51f450cd04b594628ae65e51b52d9245e35e76ce209cb74c156c0f1bdb3dab",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/map/zoomable.ts#1751547260766": "eb51f450cd04b594628ae65e51b52d9245e35e76ce209cb74c156c0f1bdb3dab",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1750176716247": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1750176727082": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1750258600071": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
@@ -2580,6 +2723,11 @@
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1750850603912": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1750852539305": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
     "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1751455659358": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1751543404766": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1751544002212": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1751547236292": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1751547247573": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
+    "https://deno.land/x/oi_lume_viz@v0.17.4/components/table.ts#1751547260693": "061e1044d572250e107bb7fd52197e4360584d1fbbff7a208286537a17cda45f",
     "https://deno.land/x/oi_lume_viz@v0.17.4/config.ts": "4830e358c62fa9d76e5a22169f3077a396d4dd358d9b4eff1fea3d026c9ce657",
     "https://deno.land/x/oi_lume_viz@v0.17.4/deps.ts": "5a7b5d65dd4208bfaf9ad5a8ebeaa3d44033d9a59f7df6be2bce7500bfc56d9b",
     "https://deno.land/x/oi_lume_viz@v0.17.4/lib/chart-parts/legend.js": "75e38ef8c6620fa9d28672046df74be808d5cc245a5441ab9bfe96f129ddef11",
@@ -2645,6 +2793,7 @@
     "https://deno.land/x/vento@v1.12.15/src/loader.ts": "c05add67f582e937ee611852075ce2cc038b5e80e3e609eef96fa5ed74a5086c",
     "https://deno.land/x/vento@v1.12.15/src/tokenizer.ts": "127ddad02054f63b8b646e4dfbf555e1e34e9b8dcbd58d86b3729a4de95abd27",
     "https://deno.land/x/vento@v1.12.15/src/transformer.ts": "a3f4bce5d500267bdbc1f945765bdd5430ec3dbfea4fe963a9289159dde230bd",
+    "https://deno.land/x/xml@6.0.4/_types.ts": "a7435282a7a775d80f8528aeec49996192c47fef8a8f616a1b216792424dc125",
     "https://deno.land/x/xml@6.0.4/mod.ts": "b59e5c0dd9fe7ed597c21c39aacf089aa82fe5c5eaad3f411a43a9c104359f4e",
     "https://deno.land/x/xml@6.0.4/parse.ts": "1302c75d8fd40df39310bb8ae6716302f0b77c61c607437dc023d3d792a0df54",
     "https://deno.land/x/xml@6.0.4/stringify.ts": "0e2f79798d413c5386bf5de90bbe9901f99951ceae484050a8ef89e2b4da9dd0",

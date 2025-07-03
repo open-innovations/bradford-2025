@@ -1,3 +1,5 @@
+import { expandGlob } from "jsr:@std/fs@1.0.19";
+
 import jsonLoader from "lume/core/loaders/json.ts";
 import lume from "lume/mod.ts";
 import base_path from "lume/plugins/base_path.ts";
@@ -227,5 +229,10 @@ site.remoteFile('/assets/js/oi/oi.csv.editor.js', "https://cdn.jsdelivr.net/gh/o
 site.copy("/assets/js/popover.js");
 site.copy("/assets/js/flashes.js");
 site.copy("/assets/js/oi/");
+
+// Map over the data quality report files
+for await (const report of expandGlob('./data/reports/**/*.csv')) {
+  site.remoteFile(`/data-quality/_data/reports/${report.name}`, report.path);
+}
 
 export default site;

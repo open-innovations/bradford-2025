@@ -1,0 +1,65 @@
+---
+title: Tickets not matched to Airtable project
+description: This page shows the tickets not matched to an Airtable project.
+---
+
+<p>
+    In some cases is it possible to link a Spektrix event to an Airtable project.
+    This matching is done based on the name within each system, and is subject to the decisions made
+    by Bradford 2025 team members registering the events / projects (or changing them after the fact!).
+    Fuzzy matching techniques can match where the names are not exactly the same, but these break down
+    at some point, creating a large number of 'false negatives' (i.e. incorrect matches).
+</p>
+<p>
+    This report shows the Spektrix events which cannot be reliably matched to Airtable events by name alone.
+</p>
+<p>
+    In an ideal world, a concrete cross reference would be added to either Spektrix or Airtable to definitively link
+    Airtable projects (or schedule items) to Spektrix events (or event instances).
+    This would, however, place a significant burden on the project teams, so this report exists to assess the size of the 
+    gap that might be missed.
+</p>
+<p>
+    Please note, that these figures would only be used if the relevant Airtable schedule item has no record of audience figures,
+    so the likely gap is smaller than it may otherwise appear.
+</p>
+
+{{ comp dashboard.Cell {
+    title: 'Spektrix events not matched to a project',
+    classes: 'centred c-yellow-light',
+} }}
+	{{ comp.BigNumber({
+		number: reports.unmatched_tickets.length || '&mdash;',
+        animate: false,
+        roundingOptions: { maximumFractionDigits: 0 },
+	}) }}
+{{ /comp }}
+{{ comp dashboard.Cell {
+    title: 'tickets not matched to a project',
+    classes: 'centred c-green-light',
+} }}
+	{{ comp.BigNumber({
+		number: reports.unmatched_tickets.reduce((a, c) => a + c.tickets, 0) || '&mdash;',
+        animate: false,
+        roundingOptions: { maximumFractionDigits: 0 },
+	}) }}
+{{ /comp }}
+
+<p>Click on the header to sort</p>
+
+<table class="sticky-head table-sort" data-dependencies="/assets/js/table-sort.js">
+    <thead class="c-yellow"><tr>
+        <th scope="col">Spektrix event name</th>
+        <th scope="col">Earliest date</th>
+        <th scope="col">Tickets</th>
+    </tr></thead>
+    <tbody>
+    {{ for row of reports.unmatched_tickets }}
+    <tr>
+        <th scope="row">{{ row.event_name }}</th>
+        <td class="right">{{ row.earliest.toLocaleString() }}</td>
+        <td class="right">{{ row.tickets.toLocaleString() }}</td>
+    </tr>
+    {{ /for }}
+    </tbody>
+</table>

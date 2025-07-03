@@ -1,0 +1,11 @@
+---
+title: Data quality tracking
+description: The data quality tracking page
+draft: true
+layout: templates/page.vto
+---
+
+{{ for report of search.pages('quality report', 'title') }}
+    <h2><a href="{{ report.url }}">{{ report.title }}</a></h2>
+    {{ report.description |> md }}
+{{ /for }}
