@@ -35,7 +35,7 @@
 				"cms": metrics.events_total,
 				"columns": [
 					{ "name": "title", "label": "Category", "header": true },
-					{ "name": "value", "label": "Events", "class":"" },
+					{ "name": "value", "label": "Events", "class": "right" },
 					{ "name": "description", "label": "Description", key: 'description' }
 				],
 				"head": {
@@ -44,7 +44,7 @@
 				"data":[
 					{
 						"title": "Total events",
-						"value": (events.total || 0),
+						"value": (events.total || 0).toLocaleString(),
 						"_class": "c-pink",
 						'description': "Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded as type <em>Public-facing activity</em> in the <strong>Bradford 2025 Project Hub</strong>, with some manual additions for third-party events."
 					},
