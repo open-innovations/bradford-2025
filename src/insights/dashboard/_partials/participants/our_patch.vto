@@ -4,7 +4,7 @@
 	classes: 'participants'
 } }}
 	{{ comp.BigNumber({
-		number: participants.by_type.community_participants.by_project['Our Patch'] || '&mdash;',
+		number: participants.by_type.community_participants.by_project['Our Patch'].count || '&mdash;',
 	}) }}
 	{{ comp dashboard.Footer }}
 	<p>Not unique individuals</p>

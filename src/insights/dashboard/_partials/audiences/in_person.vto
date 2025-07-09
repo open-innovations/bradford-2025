@@ -1,3 +1,13 @@
+{{>
+	const excludedCategories = [
+		'Digital'
+	];
+
+	const audienceCount = Object.entries(audience.by_category)
+		.filter(c => !excludedCategories.includes(c[0]))
+		.reduce((a, c) => a + c[1], 0)
+}}
+
 {{ comp dashboard.Cell {
 	title: metrics.audiences_in_person_events.title,
 	flash: flash.audiences_in_person_events,
@@ -5,7 +15,7 @@
 } }}
 	{{# TODO add breakdown of in-person vs online audience, somehow #}}
 	{{ comp.BigNumber({
-		number: audience.total,
+		number: audienceCount,
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({
@@ -30,7 +40,8 @@
 				"cms": metrics.events_total,
 				"columns": [
 					{ "name": "title", "label": "Project", "header": true },
-					{ "name": "value", "label": "Audience", "class":"" }
+					{ name: "category", label: "Category" },
+					{ "name": "value", "label": "Audience", "class": "left" }
 				],
 				"head": {
 					"class": "c-green"
@@ -38,13 +49,13 @@
 				"data": [
 				{
 					"title": "Total",
-					"value": audience.total.toLocaleString(),
+					"value": audienceCount.toLocaleString(),
 					"_class": 'c-pink',
 				},
 				...Object.entries(audience.by_project)
-					.filter(p => p[1] > 0)
-					.sort((a, b) => b[1] - a[1])
-					.map(([ title, value ]) => ({ title, value: value.toLocaleString() })),
+					.filter(p => (p[1].count > 0) && !excludedCategories.includes(p[1].category))
+					.sort((a, b) => b[1].count - a[1].count)
+					.map(([ title, props ]) => ({ title, value: props.count.toLocaleString(), category: props.category })),
 				/*
 				{
 					"title": "Bradford 2025 ticket sales",

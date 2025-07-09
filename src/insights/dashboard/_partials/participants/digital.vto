@@ -1,0 +1,62 @@
+{{>
+    const id = 'participants_digital'
+    const digitalProjects =
+        Object.entries(participants.by_type)
+        .map(([type, v]) => Object.entries(v.by_project)
+            .map(([project, props]) => ({ project, ...props, type }))
+        )
+        .flat()
+        .filter(x => x.category === 'Digital')
+
+    const digitalProjectsParticipants = digitalProjects.reduce((a, c) => a + c.count, 0);
+}}
+{{ comp dashboard.Cell {
+	title: metrics[id].title,
+	flash: flash[id],
+	classes: 'participants'
+} }}
+	{{ comp.BigNumber({
+		number: digitalProjectsParticipants || '&mdash;',
+	}) }}
+	{{ comp dashboard.Footer }}
+	<p>Not unique individuals</p>
+	{{ /comp }}
+	{{ comp Controls }}
+		{{ comp Popover { id } }}
+			<h2>{{ metrics[id].title }}</h2>
+			{{ comp.dashboard.InfoBoxDescription({
+                metrics: metrics,
+                collection: title,
+                file: id,
+                }) |> md |> vto(page.data) }}
+
+			{{ comp.dashboard.InfoBoxTable({
+					"cms": metrics[id],
+					"columns": [
+						{ "name": "title", "label": "Project", "header": true },
+						{ "name": "category", "label": "Category" },
+						{ "name": "value", "label": "Participants", "class": "right" },
+						//{ "name": "description", "label": "Description", key: 'description' }
+					],
+					"head": {
+						"class": "c-pink"
+					},
+					"data": [
+					{
+						title: 'Total',
+						value: (digitalProjectsParticipants || 0).toLocaleString(),
+						_class: 'c-yellow',
+					},
+					...digitalProjects
+						.filter(p => p.count > 0)
+						.sort((a, b) => b.count - a.count)
+                        .map(p => ({
+                            ...p,
+                            title: p.project,
+                            value: p.count.toLocaleString(),
+                        }))
+					]
+				}) |> md |> vto(page.data) }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}

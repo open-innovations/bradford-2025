@@ -4,7 +4,7 @@
 	classes: 'audiences'
 } }}
 	{{ comp.BigNumber({
-		number: audience.by_category.Online || '&mdash;',
+		number: audience.by_category.Digital || '&mdash;',
 		suffix: '',
 	}) }}
         {{ comp.dashboard.Footer({
@@ -19,6 +19,35 @@
 				"collection": title,
 				"file": "audiences_digital"
 			}) |> md |> vto(page.data) }}
-		{{ /comp }}
+			{{ comp.dashboard.InfoBoxTable({
+				"cms": metrics.events_total,
+				"columns": [
+					{ "name": "title", "label": "Project", "header": true },
+					{ name: "category", label: "Category" },
+					{ "name": "value", "label": "Audience", "class": "left" }
+				],
+				"head": {
+					"class": "c-green"
+				},
+				"data": [
+				{
+					"title": "Total",
+					"value": audience.by_category.Digital,
+					"_class": 'c-pink',
+				},
+				...Object.entries(audience.by_project)
+					.filter(p => (p[1].count > 0) && p[1].category === 'Digital')
+					.sort((a, b) => b[1].count - a[1].count)
+					.map(([ title, props ]) => ({ title, value: props.count.toLocaleString(), category: props.category })),
+				/*
+				{
+					"title": "Bradford 2025 ticket sales",
+					"value": audience.ticketed.sold.total.toLocaleString()
+				},
+				*/
+				]
+			}) |> md |> vto(page.data) }}
+
+		{{ /comp }}		
 	{{ /comp }}
 {{ /comp }}

@@ -25,7 +25,8 @@
 					"cms": metrics.participants_community_engagement,
 					"columns": [
 						{ "name": "title", "label": "Project", "header": true },
-						{ "name": "value", "label": "Value", "class":"" },
+						{ "name": "category", "label": "Category" },
+						{ "name": "value", "label": "Value", "class": "right" },
 						//{ "name": "description", "label": "Description", key: 'description' }
 					],
 					"head": {
@@ -35,10 +36,12 @@
 					{
 						title: 'Total',
 						value: (participants.by_type.community_participants.count || 0).toLocaleString(),
+						_class: 'c-yellow',
 					},
 					...Object.entries(participants.by_type.community_participants.by_project)
-						.sort((a, b) => b[1] - a[1])
-						.map(([k, v]) => ({ title: k, value: v.toLocaleString() }))
+						.filter(p => p[1].count > 0)
+						.sort((a, b) => b[1].count - a[1].count)
+						.map(([project, props]) => ({ title: project, value: props.count.toLocaleString(), category: props.category }))
 					]
 				}) |> md |> vto(page.data) }}
 		{{ /comp }}

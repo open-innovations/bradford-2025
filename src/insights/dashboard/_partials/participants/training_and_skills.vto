@@ -20,9 +20,10 @@
 				{{ comp.dashboard.InfoBoxTable({
 					"cms": metrics.participants_training_and_skills,
 					"columns": [
-						{ "name": "title", "label": "Source", "header": true },
-						{ "name": "value", "label": "Value", "class":"" },
-						{ "name": "description", "label": "Description", key: 'description' }
+						{ "name": "title", "label": "Project", "header": true },
+						{ "name": "category", "label": "Category" },
+						{ "name": "value", "label": "Participants", "class": "right" },
+						//{ "name": "description", "label": "Description", key: 'description' }
 					],
 					"head": {
 						"class": "c-pink"
@@ -31,13 +32,12 @@
 					{
 						title: 'Total',
 						value: (otherFigures.training_and_skills_development_participants || 0).toLocaleString(),
-					/*
-						class: 'c-yellow',
-					*/
+						_class: 'c-yellow',
 					},
 					...Object.entries(participants.by_type.training_and_skills_development_participants.by_project)
-						.sort((a, b) => b[1] - a[1])
-						.map(([k, v]) => ({ title: k, value: v.toLocaleString() }))
+						.filter(r => r[1].count > 0)
+						.sort((a, b) => b[1].count - a[1].count)
+						.map(([k, v]) => ({ title: k, value: v.count.toLocaleString(), category: v.category }))
 					]
 				}) |> md |> vto(page.data) }}
 		{{ /comp }}
