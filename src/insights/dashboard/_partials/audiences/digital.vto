@@ -24,7 +24,7 @@
 				"columns": [
 					{ "name": "title", "label": "Project", "header": true },
 					{ name: "category", label: "Category" },
-					{ "name": "value", "label": "Audience", "class": "left" }
+					{ "name": "value", "label": "Audience", "class": "right" }
 				],
 				"head": {
 					"class": "c-green"
@@ -32,7 +32,7 @@
 				"data": [
 				{
 					"title": "Total",
-					"value": audience.by_category.Digital,
+					"value": (audience.by_category.Digital || 0).toLocaleString(),
 					"_class": 'c-pink',
 				},
 				...Object.entries(audience.by_project)
