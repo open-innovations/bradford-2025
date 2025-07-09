@@ -63,8 +63,6 @@ css: |
                     projectedEvents,
                     manual_events,
                     audience,
-                    schedule_audience,
-                    manual_audience,
                     evaluationCategory,
                     earliestDate,
                     latestDate,
@@ -84,16 +82,17 @@ css: |
             (such as third-party organisations or Bradford 2025 activity not yet tracked in the Project Hub).
         </p>
 
-        {{ if audience }}
+        {{ if audience && False }}
+        {{# TODO add back breakdown by source #}}
         <p>
-            The audience total of <b>{{ audience }}</b> is comprised of
+            The audience total of <b>{{ audience.toLocaleString() }}</b> is comprised of
             <b>{{ (schedule_audience || 0).toLocaleString() }} recorded in the Project Hub</b>
             added to <b>{{ (manual_audience || 0).toLocaleString() }} collected from other sources</b>.
         </p>
         {{ /if }}
         {{ if participants }}
         <p>
-            The participants total of <b>{{ participants }}</b> is comprised of
+            The participants total of <b>{{ participants.toLocaleString() }}</b> is comprised of
             <b>{{ schedule_participants_community || 0 }} recorded in the Project Hub</b>
             added to <b>{{ manual_participants_community || 0 }} collected from other sources</b>.
             NB the number of participants does not currently show a count of individuals for all sources. At present some are better termed participant instances -

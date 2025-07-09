@@ -19,7 +19,7 @@ class Programme:
             ProgrammeSlice().events_data
             .recast(samplesize=1_000_000)
             .convert('venue', lambda f: f[0])
-            .replace(['schedule_audience', 'schedule_participants_community'], None, 0)
+            .replace(['audience', 'schedule_participants_community'], None, 0)
             .leftjoin(venues)
         )
 
@@ -68,7 +68,7 @@ class Programme:
             # TODO PUT HERE?
             # .replace(['audience', 'participants', 'volunteers'], None, 0)
             .aggregate(None, {
-                'audience': ('schedule_audience', sum),
+                'audience': ('audience', sum),
                 'participants': ('schedule_participants_community', sum),
                 # 'volunteers': ('volunteers', sum),
                 # 'volunteerShifts': ('volunteer_shifts', sum),

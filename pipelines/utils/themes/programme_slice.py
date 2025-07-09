@@ -60,15 +60,6 @@ class ProgrammeSlice:
         )
 
     @classmethod
-    def calculate_audience(cls, row):
-        return sum(
-            filter(None.__ne__, (
-                row.schedule_audience,
-                row.manual_audience
-            )), 0
-        )
-
-    @classmethod
     def calculate_partitipants(cls, row):
         return sum(
             filter(None.__ne__, (
@@ -84,8 +75,8 @@ class ProgrammeSlice:
             .aggregate([*self.dimensions, 'variable'], sum, 'value')
             .recast([*self.dimensions], samplesize=1_000_000)
             .addfield('events', self.calculate_events, index=3)
-            .addfield('audience', self.calculate_audience, index=4)
             .addfield('participants', self.calculate_partitipants, index=5)
+            .replace(['events', 'audience', 'participants'], None, 0)
             .cache()
         )
 
@@ -114,7 +105,7 @@ class ProgrammeSlice:
             self.events
             .melt(variables=[
                 'events', 'schedule_events', 'projected_events', 'manual_events',
-                'audience', 'schedule_audience', 'manual_audience',
+                'audience',
                 'participants', 'schedule_participants_community', 'manual_participants_community',
             ])
             .selectnotnone('value')
@@ -141,9 +132,6 @@ class ProgrammeSlice:
                 'scheduledEvents': r.schedule_events,
                 'projectedEvents': r.projected_events,
                 'manual_events': r.manual_events,
-
-                'schedule_audience': r.schedule_audience,
-                'manual_audience': r.manual_audience,
 
                 'schedule_participants_community': r.schedule_participants_community,
                 'manual_participants_community': r.manual_participants_community,
