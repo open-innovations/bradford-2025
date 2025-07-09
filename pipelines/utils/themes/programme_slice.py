@@ -18,10 +18,14 @@ deprecated_variables = [
 ]
 
 class ProgrammeSlice:
+    '''
+    Slice of the programme data
+    '''
 
-    dimensions = ['project_name', 'evaluation_category', 'month']
+    dimensions = ['project_name', 'evaluation_category', 'month', 'source']
 
     def validation(self, row):
+        '''Validate a project row for inclusion'''
         if row.project_name is None:
             return 'unknown_project'
         if row.month is None:
@@ -34,8 +38,8 @@ class ProgrammeSlice:
             return 'after_requested_date_range'
         return None
 
-    def __init__(self, range=(date.min, date.today())):
-        self.start_date, self.end_date = range
+    def __init__(self, date_range=(date.min, date.today())):
+        self.start_date, self.end_date = date_range
 
         self.events_data, self.excluded_events_data = (
             ParquetView(PUBLISHED / 'combined/programme.parquet')
@@ -43,15 +47,15 @@ class ProgrammeSlice:
 
             .addfield('validation', self.validation)
 
-            .convert('start_date', lambda f, r: f or r.date, pass_row=True)
-            .convert('end_date', lambda f, r: f or r.date, pass_row=True)
+            .convert(['start_date', 'end_date'], lambda f, r: f or r.date, pass_row=True)
             .cache()
 
-            .biselect(lambda r: r.validation == None)
+            .biselect(lambda r: r.validation is None)
         )
 
-    @classmethod
-    def calculate_events(cls, row):
+    @staticmethod
+    def calculate_events(row):
+        '''Add the manual and schedule events together'''
         return sum(
             filter(None.__ne__, (
                 row.manual_events,
@@ -59,8 +63,9 @@ class ProgrammeSlice:
             )), 0
         )
 
-    @classmethod
-    def calculate_partitipants(cls, row):
+    @staticmethod
+    def calculate_partitipants(row):
+        '''Calculate the participants by adding the schedule and manual participants'''
         return sum(
             filter(None.__ne__, (
                 row.schedule_participants_community,
@@ -70,12 +75,13 @@ class ProgrammeSlice:
 
     @property
     def events(self):
+        '''Get the events in the slice'''
         return (
             self.events_data
             .aggregate([*self.dimensions, 'variable'], sum, 'value')
             .recast([*self.dimensions], samplesize=1_000_000)
             .addfield('events', self.calculate_events, index=3)
-            .addfield('participants', self.calculate_partitipants, index=5)
+            .addfield('participants', self.calculate_partitipants, index=4)
             .replace(['events', 'audience', 'participants'], None, 0)
             .cache()
         )
