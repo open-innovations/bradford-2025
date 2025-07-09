@@ -25,15 +25,16 @@
 
 			{{ include './calculations.md' |> md }}
 
-			{{> const rows = []; }}
-			{{ for key, value of audience.by_category }}
-				{{> rows.push({"title":key,"value":value}); }}
-			{{ /for }}
+			{{>
+				const rows = Object.entries(audience.by_category)
+					.sort((a, b) => b[1] - a[1])
+					.map(([key, value]) => ({ "title":key, "value": value.toLocaleString() }));
+			}}
 			{{ comp.dashboard.InfoBoxTable({
 				"cms": metrics.audiences_total,
 				"columns": [
-					{ "name": "title", "label": "Title", "header": true },
-					{ "name": "value", "label": "Value", "class":"" },
+					{ "name": "title", "label": "Category", "header": true },
+					{ "name": "value", "label": "Audience", "class": "right" },
 					{ "name": "description", "label": "Description", key: 'description' }
 				],
 				"head": {
