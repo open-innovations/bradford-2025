@@ -16,21 +16,21 @@ draft: true
 {{
     comp.oi.chart.calendar({
         config: {
-            data: footfall.map(add_date),
-            value: 'estimated_actual_footfall',
+            data: footfall.met_office_bradford.map(add_date),
+            value: 'value',
             key: 'date',
             min: 0,
-            max: 1100000,
+            //max: 1100000,
             legend: {
                 show: true,
                 position: 'top',
                 items: [
                     { value: 0, label: '0' },
-                    { value: 1100000, label: '1,500,000' },
+                //    { value: 1100000, label: '1,500,000' },
                 ]
             },
             //startofweek: 1,
-            tooltip: '{{ date | strftime("%e %B %Y") }} <br />Footfall {{ estimated_actual_footfall }}',
+            tooltip: '{{ date | strftime("%e %B %Y") }} <br />Footfall {{ value }}',
         }
     })
 }}
