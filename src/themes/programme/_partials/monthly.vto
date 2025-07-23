@@ -62,33 +62,54 @@
 		}) }}
 	{{ /comp }}
 {{ /comp }}
-
+<style>
+.monthGrid {
+	display: grid;grid-template-columns:repeat(3, 1fr);grid-gap:1rem;
+}
+</style>
 <h3>Monthly breakdown</h3>
+{{# Get the first month based on the data #}}
+{{ set prevYear = eventsByMonth[0].iso.substr(0,4) }}
+<h4>{{ prevYear }}</h4>
+{{# Create the grid #}}
+<div class="monthGrid">
 {{ for item of eventsByMonth }}
-<div id="{{ item.iso }}">
-	<h4 class="month">{{ item.Month }}</h4>
-	<p>Audience: {{ item.Audience.toLocaleString() }}, Events: {{ item.Events.toLocaleString() }}</p>
-	{{ comp Details {'summary':'Event details' } }}
-		{{> 
-			let eventlist = [];
-			for(p in item.projects){
-				eventlist.push({Project:p,Events:item.projects[p]});
-			}
-		}}
-		{{ comp.oi.table({
-			config: {
-				data: eventlist,
-				columns: [
-					{name:'Project',sortable:true,header:true},
-					{name:'Events',sortable:true,class:'',scale:scales.yellow}
-				],
-				head: { class: 'c-yellow' }
-			}
-		}) }}
-	{{ /comp }}
-</div>
+	{{ set currentYear = item.iso.substr(0,4) }}
+	{{# If year has changed, end the grid, add a new title, then add a new grid #}}
+	{{ if currentYear != prevYear }}
+		</div>
+		<h4>{{currentYear}}</h4>
+		<div class="monthGrid">
+	{{ /if }}
+	{{# Create a block #}}
+	<div id="{{ item.iso }}">
+		<div class="block">
+			<h4 class="month">{{ item.Month }}</h4>
+			<p>Audience: {{ item.Audience.toLocaleString() }}, Events: {{ item.Events.toLocaleString() }}</p>
+			{{ comp Details {'summary':'Event details' } }}
+				{{>
+					let eventlist = [];
+					for(p in item.projects){
+						eventlist.push({Project:p,Events:item.projects[p]});
+					}
+				}}
+				{{ comp.oi.table({
+					config: {
+						data: eventlist,
+						columns: [
+							{name:'Project',sortable:true,header:true},
+							{name:'Events',sortable:true,class:'',scale:scales.yellow}
+						],
+						head: { class: 'c-yellow' }
+					}
+				}) }}
+			{{ /comp }}
+		</div>
+	</div>
+	{{# Update the current year #}}
+	{{ set prevYear = currentYear }}
 {{ /for }}
-
+</div>
 <style>
 h4.month { margin-bottom: 0; }
 h4.month + p { margin-block: 0.25rem; }
