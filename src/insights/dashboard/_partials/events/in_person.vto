@@ -20,6 +20,7 @@
 	{{ comp.dashboard.Footer({
 	}) }}
 	{{ comp Controls }}
+		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
 		{{ comp Popover { id: 'events_in_person' }}}
 			<h2>{{metrics.events_in_person.title}}</h2>
 			<p>

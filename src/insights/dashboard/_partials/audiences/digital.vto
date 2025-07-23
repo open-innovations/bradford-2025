@@ -11,6 +11,7 @@
 		upTo: metrics.audiences_digital.upTo
 	}) }}
 	{{ comp Controls }}
+		 {{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
 		{{ comp Popover { id: 'audiences_digital' }}}
 			<h2>{{ metrics.audiences_digital.title }}</h2>
 

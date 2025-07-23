@@ -22,6 +22,7 @@
 		upTo: metrics.audiences_in_person_events.upTo
 	}) }}
 	{{ comp Controls }}
+		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
 		{{ comp Popover { id: 'audiences_in_person' } }}
 			<h2>{{ metrics.audiences_in_person_events.title }}</h2>
 			<p>

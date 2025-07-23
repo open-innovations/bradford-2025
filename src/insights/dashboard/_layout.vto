@@ -13,9 +13,10 @@ layout: templates/page.vto
 	</p>
 
 	{{ comp dashboard.Frame }}
-		{{ include './_partials/events/total.vto' { navLink: '#events' } }}
-		{{ include "./_partials/audiences/total.vto" { navLink: '#audiences' } }}
+		{{ include "./_partials/audiences/in_person.vto" { navLink: '#audiences' } }}
+		{{ include "./_partials/audiences/digital.vto" { navLink: '#audiences' } }}
 		{{ include "./_partials/participants/total.vto" { navLink: '#participants' } }}
+		{{ include "./_partials/participants/volunteers.vto" { navLink: '#participants' } }}
 	{{ /comp }}
 	
 	{{ content }}
