@@ -87,8 +87,8 @@ stages:
     deps:
     - path: ../data/huq/mastercard.csv
       hash: md5
-      md5: 3353b26bfb7477f416094651a1430b93
-      size: 10747
+      md5: 4647332a36ade30ea95d7a40f6da3480
+      size: 35067
     - path: huq.ipynb
       hash: md5
       md5: 47ecacfae48587bb33a1bf3f8e0b2fae
@@ -96,12 +96,12 @@ stages:
     outs:
     - path: ../src/experiments/huq/_data/footfall_proxy.csv
       hash: md5
-      md5: 897df6583ce34c190494dd084f4c6117
-      size: 1008
+      md5: 7735ffda66824729267ead420eac0380
+      size: 3648
     - path: ../src/experiments/huq/_data/spend_index.csv
       hash: md5
-      md5: ab19af12c8da80b808fca4aa81d6bd9b
-      size: 1006
+      md5: fe271709590cbe0ab3ecf6d32eaffe32
+      size: 3632
   events@rise:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
       spektrix_event_ids '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ' -p venue_postcode 
@@ -125,7 +125,7 @@ stages:
     outs:
     - path: ../src/events/rise/_data/event/
       hash: md5
-      md5: 41cff6e9b2b6d2e5ebf7c8bc2363d4e4.dir
+      md5: 83ee2b0118aee812c097d1a0111a8786.dir
       size: 19184
       nfiles: 8
   events@la-haine:
@@ -151,7 +151,7 @@ stages:
     outs:
     - path: ../src/events/la-haine/_data/event/
       hash: md5
-      md5: 4791c39fb42dc685620674d21272f9f5.dir
+      md5: cb73ae325ff3fa5eb5eeef67582d1c0e.dir
       size: 7503
       nfiles: 8
   events@les-girafes:
@@ -177,7 +177,7 @@ stages:
     outs:
     - path: ../src/events/les-girafes/_data/event/
       hash: md5
-      md5: 2b72aa09f308c6a557e7d65ad1f55d11.dir
+      md5: e1dd4da59fbf77c9996cb018a2f2e26a.dir
       size: 2079
       nfiles: 8
   sustainability:
@@ -454,7 +454,7 @@ stages:
     outs:
     - path: ../src/events/loading-bay/_data/event/
       hash: md5
-      md5: cde430b6ff3f1e64689bed6cb3befa1e.dir
+      md5: fd2ebc001253c1370af32c8e57efc848.dir
       size: 11227
       nfiles: 2
   events@beacon:
@@ -480,7 +480,7 @@ stages:
     outs:
     - path: ../src/events/beacon/_data/event/
       hash: md5
-      md5: 686269cbe368292694b3410eb2307527.dir
+      md5: 52cf71a25aa452dc4908a8c302fae522.dir
       size: 23083
       nfiles: 2
   events@the-bradford-progress:
@@ -506,7 +506,7 @@ stages:
     outs:
     - path: ../src/events/the-bradford-progress/_data/event/
       hash: md5
-      md5: 163ab2819d106137a508d96bec4a642f.dir
+      md5: 880658d13b9c8205e2540c183d1cd5d8.dir
       size: 6292
       nfiles: 5
   events@woodland-tribe:
@@ -532,6 +532,6 @@ stages:
     outs:
     - path: ../src/events/woodland-tribe/_data/event/
       hash: md5
-      md5: b4c7a39e13596b8d0db46c8f7e086c16.dir
+      md5: 8e8c771752cc300c2cb77deadb39675b.dir
       size: 12066
       nfiles: 7
