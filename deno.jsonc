@@ -1,11 +1,12 @@
 {
   "imports": {
-    "lume/": "https://deno.land/x/lume@v2.5.3/",
-    "lume/plugins/sheets.ts": "./patch/sheets.ts",
-    "lume/cms/": "https://cdn.jsdelivr.net/gh/lumeland/cms@0.11.5/",
+    "lume/": "https://deno.land/x/lume@v3.0.5/",
+    // "lume/plugins/sheets.ts": "./patch/sheets.ts",
+    "lume/cms/": "https://cdn.jsdelivr.net/gh/lumeland/cms@0.12.5/",
     "oi_lume_viz/": "https://deno.land/x/oi_lume_viz@v0.17.5/",
     "oi_lume_utils/": "https://deno.land/x/oi_lume_utils@v0.5.0/",
-    "lume/jsx-runtime": "https://deno.land/x/ssx@v0.1.8/jsx-runtime.ts"
+    "lume/jsx-runtime": "https://deno.land/x/ssx@v0.1.11/jsx-runtime.ts",
+    "reveal.js": "npm:reveal.js@^5.2.1"
   },
   "tasks": {
     "lume": "echo \"import 'lume/cli.ts'\" | deno run -A -",
@@ -29,12 +30,15 @@
     "jsx": "react-jsx",
     "jsxImportSource": "lume"
   },
-  "nodeModulesDir": "auto",
+  "nodeModulesDir": "manual",
   "lint": {
     "exclude": [
       "vendor/",
       "temp/",
       "_site/"
+    ],
+    "plugins": [
+      "https://deno.land/x/lume@v3.0.5/lint.ts"
     ]
   },
   "fmt": {
@@ -45,7 +49,8 @@
     ]
   },
   "unstable": [
-    "temporal"
+    "temporal",
+    "fmt-component"
   ],
   "deploy": {
     "project": "cms-bradford-2025",

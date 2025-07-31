@@ -33,6 +33,7 @@ const site = lume({
   location: new URL("https://data.bradford2025.co.uk/"),
   components: {
     jsFile: 'assets/js/components.js',
+    cssFile: "/components.css",
   }
 });
 
@@ -83,16 +84,26 @@ site.use(esbuild({
     treeShaking: true,
   },
 }));
+// Add only the entry points to optimize
+site.add('assets/js/cookie-control.ts');
+site.add('assets/js/inclusive.ts');
+site.add('assets/js/reveal.ts');
+site.add('assets/js/setup-gtm.ts');
+site.add('assets/js/spring-graph.ts');
+
 site.use(postcss(postcssConfig));
+site.add(['.css']);
+
 site.use(redirects());
 site.use(favicon());
 
 site.use(svgo());
 site.use(transformImages());
+site.add("/assets/images")
 
 // SEO
 site.use(openGraphImages({
-  satori: {
+  options: {
     width: 1200,
     height: 630,
     fonts: [
@@ -156,22 +167,10 @@ site.copy("assets/fonts/");
 [
   "dist/reveal.css",
 ].forEach((f) =>
-  site.remoteFile(`assets/vendor/reveal/${f}`, `node_modules/reveal.js/${f}`)
+  site.remoteFile(`assets/vendor/reveal/${f}`, import.meta.resolve(`npm:reveal.js/${f}`))
 );
 
 site.copy("assets/vendor/");
-
-[
-  "mixins.scss",
-  "exposer.scss",
-  "settings.scss",
-  "theme.scss",
-].forEach((c) =>
-  site.remoteFile(
-    `_includes/scss/${c}`,
-    `node_modules/reveal.js/css/theme/template/${c}`,
-  )
-);
 
 /**
  * The list below maps a series of source files stored in the top-level `data` directory into the
@@ -206,16 +205,16 @@ site.data('build', {
 });
 
 // Kludge to strip height and width from in line svg
-site.process(['.html'], (pages) => pages.forEach(page => {
-  page.document!.querySelectorAll<SVGElement>('.oi-viz svg').forEach(svg => {
-    // Remove all inline styles!
-    svg.removeAttribute('style');
-    svg.removeAttribute('width');
-    svg.removeAttribute('height');
-  })
-  // Another kludge to avoid memory leaks on large pages
-  page.content;
-}));
+// site.process(['.html'], (pages) => pages.forEach(page => {
+//   page.document!.querySelectorAll<SVGElement>('.oi-viz svg').forEach(svg => {
+//     // Remove all inline styles!
+//     svg.removeAttribute('style');
+//     svg.removeAttribute('width');
+//     svg.removeAttribute('height');
+//   })
+//   // Another kludge to avoid memory leaks on large pages
+//   page.content;
+// }));
 
 site.remoteFile(
   'healthcheck/_data/status.json',

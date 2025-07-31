@@ -2,7 +2,7 @@
 
 {{# TODO unpick event reports from this #}}
 {{ if programme.summary.events?.audience }}
-{{ comp dashboard.Cell { classes: 'centred c-yellow' }}}
+{{ comp dashboard.Cell { classes: 'centred c-yellow' } }}
 {{ comp.BigNumber({
     label: 'Audience',
     number: programme.summary.events.audience,
@@ -14,7 +14,7 @@
 {{ /if }}
 
 {{ if programme.summary.events?.participants }}
-{{ comp dashboard.Cell { classes: 'centred c-yellow' }}}
+{{ comp dashboard.Cell { classes: 'centred c-yellow' } }}
 {{ comp.BigNumber({
     label: 'Participants',
     number: programme.summary.events.participants,
@@ -27,7 +27,7 @@
 
 {{# TODO replace with volunteers from rosterfy #}}
 {{ if programme?.summary?.event_report }}
-{{ comp dashboard.Cell { classes: 'centred c-yellow' }}}
+{{ comp dashboard.Cell { classes: 'centred c-yellow' } }}
 {{ comp.BigNumber({
     label: 'Volunteers',
     number: programme.summary.event_report.volunteers,
@@ -49,7 +49,7 @@
 {{ /if }}
 
 {{ if programme.summary.count.events > 1 }}
-{{ comp dashboard.Cell { classes: 'centred c-pink' }}}
+{{ comp dashboard.Cell { classes: 'centred c-pink' } }}
 {{ comp.BigNumber({
     label: 'Events',
     number: programme.summary.count.events,
@@ -63,7 +63,7 @@
 
 
 {{ if (tickets?.summary && tickets.summary.length > 0) }}
-{{ comp dashboard.Cell { classes: 'centred c-pink' }}}
+{{ comp dashboard.Cell { classes: 'centred c-pink' } }}
 {{ comp.BigNumber( {
     label: 'Tickets sold',
     number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets,

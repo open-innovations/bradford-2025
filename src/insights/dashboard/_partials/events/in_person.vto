@@ -21,7 +21,7 @@
 	}) }}
 	{{ comp Controls }}
 		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
-		{{ comp Popover { id: 'events_in_person' }}}
+		{{ comp Popover { id: 'events_in_person' } }}
 			<h2>{{metrics.events_in_person.title}}</h2>
 			<p>
 				Total count of in-person {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }}

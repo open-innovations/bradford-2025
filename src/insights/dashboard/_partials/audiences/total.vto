@@ -11,7 +11,7 @@
 	}) }}
 	{{ comp Controls }}
 		{{ if navLink }}{{ comp.controlActions.InPageLink({ link: navLink }) }}{{ /if }}
-		{{ comp Popover { id: 'audiences_total' }}}
+		{{ comp Popover { id: 'audiences_total' } }}
 			<h2>{{ metrics.audiences_total.title }}</h2>
 			<p>
 				The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for all events held between
