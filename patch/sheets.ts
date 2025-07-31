@@ -1,12 +1,13 @@
 import { ParsingOptions, read, utils } from "lume/deps/sheetjs.ts";
 import { merge } from "lume/core/utils/object.ts";
-import loadFile from "lume/core/loaders/binary.ts";
+import loadText from "lume/core/loaders/text.ts";
+import loadBinary from "lume/core/loaders/binary.ts";
 
 import type Site from "lume/core/site.ts";
 import type { RawData } from "lume/core/file.ts";
 
 export interface Options {
-  /** Extensions processed by this plugin */
+  /** File extensions to load */
   extensions?: string[];
 
   /** Return the first sheet only or all sheets if the document have more */
@@ -30,8 +31,15 @@ export function sheets(userOptions?: Options) {
   const options = merge(defaults, userOptions);
 
   async function loader(path: string): Promise<RawData> {
-    const { content } = await loadFile(path);
-    const wb = read(content, options.options);
+    const type = path.endsWith(".csv") ? "string" : "array";
+    const { content } = type === "string"
+      ? await loadText(path)
+      : await loadBinary(path);
+
+    const wb = read(content, {
+      ...options.options,
+      type,
+    });
 
     // Return only the first sheet
     if (options.sheets === "first" || wb.SheetNames.length === 1) {
