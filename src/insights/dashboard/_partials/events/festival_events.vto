@@ -1,5 +1,5 @@
 {{ comp dashboard.Cell {
-	title: metrics.events_festivals.title,
+	title: metrics.events_festival_events.title,
 	flash: flash.events_festivals,
 	classes: 'events'
 } }}
@@ -11,16 +11,16 @@
 	{{ /for }}
 
 	{{ comp.BigNumber({
-		number: rows.length || 0,
+		number: events.by_category.Festival || 0,
 		suffix: '',
 	}) }}
 	{{ comp.dashboard.Footer({
 	}) }}
 	{{ comp Controls }}
 		{{ comp Popover { id: 'events_festivals' } }}
-            <h2>{{metrics.events_festivals.title}}</h2>
+            <h2>{{metrics.events_festival_events.title}}</h2>
 			<p>
-				Total count of {{ comp glossary.Ref { slug: 'festival' } }}festivals{{ /comp }}
+				Total count of {{ comp glossary.Ref { slug: 'festival' } }}festival events{{ /comp }}
 				that were active during the timescale covered by the dashboard.
 			</p>
 			<p>
