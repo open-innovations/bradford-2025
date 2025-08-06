@@ -63,7 +63,7 @@ jobs:
 
       - name: Build the site
         run: | 
-          deno install
+          deno task install_deps
           deno task build
 
       - uses: actions/upload-pages-artifact@v3

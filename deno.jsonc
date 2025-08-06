@@ -21,7 +21,8 @@
     "data:pull": "pipenv run dvc pull data/*.dvc",
     "data:update": "pipenv run dvc update data/*.dvc",
     "data:pipeline": "pipenv run dvc repro pipelines/dvc.yaml",
-    "build:full": "deno task data:update && deno task data:pipeline && deno task build"
+    "build:full": "deno task data:update && deno task data:pipeline && deno task build",
+    "install_deps": "deno install --allow-import --allow-scripts"
   },
   "compilerOptions": {
     "types": [
