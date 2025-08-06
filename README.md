@@ -28,10 +28,19 @@ The dev site is built from the `main` branch, but generates all pages with
 deno task dev
 ```
 
-## Troubleshooting build
+## Troubleshooting
 
 Make sure you've installed all the required libraries
 
 ```
 pipenv sync
 ```
+
+### Deno issues
+
+If you experience errors such as 
+
+> [ERROR] Could not resolve "d3-zoom" [plugin deno-loader]
+
+run `deno install` to make sure Deno installs various dependencies. If that doesn't work, try editing `deno.jsonc` and change `"nodeModulesDir": "manual"` to `"nodeModulesDir": "auto"`.
+
