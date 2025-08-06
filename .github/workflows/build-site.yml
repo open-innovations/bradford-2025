@@ -62,7 +62,9 @@ jobs:
           pipenv run dvc repro pipelines/dvc.yaml
 
       - name: Build the site
-        run: deno task build
+        run: | 
+          deno install
+          deno task build
 
       - uses: actions/upload-pages-artifact@v3
         with:

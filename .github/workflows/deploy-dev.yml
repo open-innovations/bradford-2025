@@ -69,7 +69,9 @@ jobs:
           pipenv run dvc repro pipelines/dvc.yaml
 
       - name: Build the dev site
-        run: deno task build:dev
+        run: | 
+          deno install
+          deno task build:dev
 
       - name: Deploy the dev site to bytemark
         run: |
