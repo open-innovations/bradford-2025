@@ -41,7 +41,7 @@
 	<div>{{ comp.LineChart({
 		data: shifts.hours_cumulative_by_week,
 		dateField: 'week_ending',
-		seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: <b>{{ _y }} hours</b>",
+		seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: <b>{{ _y | toFixed(2) | parseFloat }} hours</b>",
 		series: [
 			{
 				title: 'Bradford 2025 events',
@@ -75,12 +75,12 @@
 			</tr>
 		<thead>
 		<tbody>
-			<tr><th scope="row">Bradford 2025 event</th><td>{{ sLatest['BD25 Event']}}</td><td>{{ hLatest['BD25 Event']}}</td></tr>
-			<tr><th scope="row">Third Party Event</th><td>{{ sLatest['Third Party Event']}}</td><td>{{ hLatest['Third Party Event']}}</td></tr>
-			<tr><th scope="row">Induction</th><td>{{ sLatest['Induction']}}</td><td>{{ hLatest['Induction']}}</td></tr>
-			<tr><th scope="row">Education</th><td>{{ sLatest['Education']}}</td><td>{{ hLatest['Education']}}</td></tr>
-			<tr><th scope="row">Evaluation</th><td>{{ sLatest['Evaluation']}}</td><td>{{ hLatest['Evaluation']}}</td></tr>
-			<tr class="c-pink"><th scope="row">Total</th><td>{{sLatest['BD25 Event'] + sLatest['Third Party Event'] + sLatest['Induction'] + sLatest['Education'] + sLatest['Evaluation'] }}</td><td>{{hLatest['BD25 Event'] + hLatest['Third Party Event'] + hLatest['Induction'] + hLatest['Education'] + hLatest['Evaluation'] }}</td></tr>
+			<tr><th scope="row">Bradford 2025 event</th><td>{{ sLatest['BD25 Event']}}</td><td>{{ hLatest['BD25 Event'] |> toFixed(2) |> parseFloat }}</td></tr>
+			<tr><th scope="row">Third Party Event</th><td>{{ sLatest['Third Party Event']}}</td><td>{{ hLatest['Third Party Event'] |> toFixed(2) |> parseFloat }}</td></tr>
+			<tr><th scope="row">Induction</th><td>{{ sLatest['Induction']}}</td><td>{{ hLatest['Induction'] |> toFixed(2) |> parseFloat }}</td></tr>
+			<tr><th scope="row">Education</th><td>{{ sLatest['Education']}}</td><td>{{ hLatest['Education'] |> toFixed(2) |> parseFloat }}</td></tr>
+			<tr><th scope="row">Evaluation</th><td>{{ sLatest['Evaluation']}}</td><td>{{ hLatest['Evaluation'] |> toFixed(2) |> parseFloat }}</td></tr>
+			<tr class="c-pink"><th scope="row">Total</th><td>{{sLatest['BD25 Event'] + sLatest['Third Party Event'] + sLatest['Induction'] + sLatest['Education'] + sLatest['Evaluation'] }}</td><td>{{hLatest['BD25 Event'] + hLatest['Third Party Event'] + hLatest['Induction'] + hLatest['Education'] + hLatest['Evaluation'] |> toFixed(2) |> parseFloat }}</td></tr>
 		</tbody>
 	</table>
 	</div>
@@ -111,7 +111,7 @@
 	<div>{{ comp.LineChart({
 		data: shifts.hours_by_week,
 		dateField: 'week_ending',
-		seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: <b>{{ _y }} hours</b>",
+		seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: <b>{{ _y | toFixed(2) | parseFloat }} hours</b>",
 		series: [
 			{
 				title: 'Bradford 2025 events',
