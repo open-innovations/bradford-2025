@@ -1,5 +1,3 @@
-## About the data
-
 ### Daily data files
 
 The following files are published and uploaded daily to a Google Cloud storage bucket.

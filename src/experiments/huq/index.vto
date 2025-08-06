@@ -7,26 +7,38 @@ draft: true
 ---
 
 <section>
+<h2>About the data</h2>
+<details>
 {{ include './_partials/about.md' |> md }}
+</details>
 </section>
 
 <section>
 <h2>Footfall</h2>
 
+{{ for huqArea of ['met_office_bradford', 'bradford_bid', 'bradford_city_centre', 'bradford_penistone_hill'] }}
+<h3>{{ huqArea }}</h3>
+
+{{ set max = footfall[huqArea].reduce((a, c) => Math.max(a, c.value), 0) }}
+
+Maximum: {{ max }}
 {{
     comp.oi.chart.calendar({
         config: {
-            data: footfall.met_office_bradford.map(add_date),
+            data: footfall[huqArea].filter(x => x.datestamp >= new Date('2024-01-01')).map(add_date),
             value: 'value',
             key: 'date',
             min: 0,
-            //max: 1100000,
+            max: max,
             legend: {
                 show: true,
                 position: 'top',
                 items: [
                     { value: 0, label: '0' },
-                //    { value: 1100000, label: '1,500,000' },
+                    { value: max / 4, label: (max / 4).toLocaleString() },
+                    { value: max / 2, label: (max / 2).toLocaleString() },
+                    { value: max * 3 / 4, label: (max * 3 / 4).toLocaleString() },
+                    { value: max, label: max.toLocaleString() },
                 ]
             },
             //startofweek: 1,
@@ -34,10 +46,8 @@ draft: true
         }
     })
 }}
+{{ /for }}
 </section>
-
-
-
 
 <section>
 <h2>Active Mastercard accounts</h2>
