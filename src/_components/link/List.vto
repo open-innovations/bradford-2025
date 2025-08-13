@@ -11,7 +11,7 @@ css: |
 {{ if links.length -}}
 <ul data-comp="link-list" class="grid {{ classes || ''}}">
 {{ for link of links }}
-    <li style="--block-bg:var(--color-lightgrey);--block-fg:var(--color-offblack);">{{- (displayComponent || comp.link.DefaultCard)(link) -}}</li>
+    <li style="--block-bg:var(--color-lightgrey);--block-fg:var(--color-offblack);">{{- await (displayComponent || comp.link.DefaultCard)(link) -}}</li>
 {{ /for }}
 </ul>
 {{ else }}
