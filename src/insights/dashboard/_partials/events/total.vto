@@ -3,7 +3,7 @@
     flash: flash.events_total,
 	classes: 'events',
 	progress: 100 * events.total / metrics.events_total.target,
-	progresslabel: "Target (illustrative only): " + (metrics.events_total.target||0).toLocaleString()
+	progresstarget: metrics.events_total.target
 } }}
 	{{# 
 		2025-04-09: This is a manual fudge of the total manual count until we automate the 3rd party events

@@ -34,5 +34,11 @@ css: |
 	<{{ heading_level || 'h3' }} class="title">{{ title }}</{{ heading_level || 'h3' }}>
 	{{ content }}
 	</div>
-	{{ if typeof progress==="number" && !isNaN(progress) }}{{ comp.ProgressBar({ classes: classes||"", label: progresslabel||"", percent: progress||0 }) }}{{ /if }}
+	{{ if typeof progress==="number" && !isNaN(progress) }}
+		{{ if !progresslabel }}
+			{{ if progresstarget }}
+				{{ set progresslabel = "Target: " + progresstarget.toLocaleString() + " (" + Math.round(progress) + "%)" }}
+			{{ /if }}
+		{{ /if }}
+	{{ comp.ProgressBar({ classes: classes||"", label: progresslabel||"", percent: progress||0 }) }}{{ /if }}
 {{ /comp }}
