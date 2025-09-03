@@ -29,7 +29,7 @@ description: This page shows the tickets not matched to an Airtable project.
     classes: 'centred c-yellow-light',
 } }}
 	{{ comp.BigNumber({
-		number: reports.unmatched_tickets.length || '&mdash;',
+		number: reports.spektrix_instance_with_no_airtable_event.length || '&mdash;',
         animate: false,
         roundingOptions: { maximumFractionDigits: 0 },
 	}) }}
@@ -39,7 +39,7 @@ description: This page shows the tickets not matched to an Airtable project.
     classes: 'centred c-green-light',
 } }}
 	{{ comp.BigNumber({
-		number: reports.unmatched_tickets.reduce((a, c) => a + c.tickets, 0) || '&mdash;',
+		number: reports.spektrix_instance_with_no_airtable_event.reduce((a, c) => a + c.tickets, 0) || '&mdash;',
         animate: false,
         roundingOptions: { maximumFractionDigits: 0 },
 	}) }}
@@ -54,7 +54,7 @@ description: This page shows the tickets not matched to an Airtable project.
         <th scope="col">Tickets</th>
     </tr></thead>
     <tbody>
-    {{ for row of reports.unmatched_tickets }}
+    {{ for row of reports.spektrix_instance_with_no_airtable_event }}
     <tr>
         <th scope="row">{{ row.event_name }}</th>
         <td class="right">{{ row.earliest.toLocaleString() }}</td>
