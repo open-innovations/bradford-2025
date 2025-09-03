@@ -24,7 +24,7 @@ description: This page shows the tickets not matched to an Airtable project.
     so the likely gap is smaller than it may otherwise appear.
 </p>
 
-{{ comp dashboard.Cell {
+{{ if reports.spektrix_instance_with_no_airtable_event }}{{ comp dashboard.Cell {
     title: 'Spektrix events not matched to a project',
     classes: 'centred c-yellow-light',
 } }}
@@ -43,7 +43,7 @@ description: This page shows the tickets not matched to an Airtable project.
         animate: false,
         roundingOptions: { maximumFractionDigits: 0 },
 	}) }}
-{{ /comp }}
+{{ /comp }}{{ /if }}
 
 <p>Click on the header to sort</p>
 
