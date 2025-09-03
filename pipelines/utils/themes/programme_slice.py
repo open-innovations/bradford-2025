@@ -68,8 +68,8 @@ class ProgrammeSlice:
         '''Calculate the participants by adding the schedule and manual participants'''
         return sum(
             filter(None.__ne__, (
-                row.schedule_participants_community,
-                row.manual_participants_community,
+                row.get('schedule_participants_community'),
+                row.get('manual_participants_community'),
             )), 0
         )
 
@@ -109,11 +109,11 @@ class ProgrammeSlice:
     def project_breakdown(self):
         return (
             self.events
-            .melt(variables=[
+            .melt(variables=[f for f in [
                 'events', 'schedule_events', 'projected_events', 'manual_events',
                 'audience',
                 'participants', 'schedule_participants_community', 'manual_participants_community',
-            ])
+            ] if f in self.events.header()])
             .selectnotnone('value')
             .aggregate(['project_name', 'evaluation_category', 'variable'], sum, 'value')
             .recast()
@@ -140,7 +140,7 @@ class ProgrammeSlice:
                 'manual_events': r.manual_events,
 
                 'schedule_participants_community': r.schedule_participants_community,
-                'manual_participants_community': r.manual_participants_community,
+                'manual_participants_community': r.get('manual_participants_community') or 0,
                 # 'manual_participants_schools': r.manual_participants_schools,
 
                 'evaluationCategory': r.evaluation_category,

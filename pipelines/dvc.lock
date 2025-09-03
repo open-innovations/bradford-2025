@@ -238,8 +238,8 @@ stages:
       nfiles: 22
     - path: dashboard.ipynb
       hash: md5
-      md5: e0ca1c9056701700970937fcc3d84c10
-      size: 20004
+      md5: bc52e201b1bbb8d48fbee9115745cb2a
+      size: 20054
     - path: utils/themes/programme.py
       hash: md5
       md5: 995b823126d07e571078b0523b98a22f
@@ -280,8 +280,8 @@ stages:
       nfiles: 22
     - path: dashboard.ipynb
       hash: md5
-      md5: e0ca1c9056701700970937fcc3d84c10
-      size: 20004
+      md5: bc52e201b1bbb8d48fbee9115745cb2a
+      size: 20054
     - path: utils/themes/programme.py
       hash: md5
       md5: 995b823126d07e571078b0523b98a22f
@@ -348,8 +348,8 @@ stages:
       nfiles: 22
     - path: dashboard.ipynb
       hash: md5
-      md5: e0ca1c9056701700970937fcc3d84c10
-      size: 20004
+      md5: bc52e201b1bbb8d48fbee9115745cb2a
+      size: 20054
     - path: utils/themes/programme.py
       hash: md5
       md5: 995b823126d07e571078b0523b98a22f
@@ -539,3 +539,45 @@ stages:
       md5: cdf5bbb06f2152700d27b14d5f5e954b.dir
       size: 12070
       nfiles: 7
+  dashboards@q3:
+    cmd: papermill --no-log-output dashboard.ipynb - -p target 'q3' -p start 
+      '2025-07-01' -p end '2025-09-30' -p fixed_date 'true'
+    deps:
+    - path: ../data/published/
+      hash: md5
+      md5: 1a91ef5cd3386ffd8feeaa71c5771379.dir
+      size: 10815531
+      nfiles: 22
+    - path: dashboard.ipynb
+      hash: md5
+      md5: bc52e201b1bbb8d48fbee9115745cb2a
+      size: 20054
+    - path: utils/themes/programme.py
+      hash: md5
+      md5: 995b823126d07e571078b0523b98a22f
+      size: 3717
+    outs:
+    - path: ../src/insights/dashboard/q3/_data/audience.json
+      hash: md5
+      md5: 6b0c56c2f673f18b143bf716f11d2126
+      size: 25245
+    - path: ../src/insights/dashboard/q3/_data/events.json
+      hash: md5
+      md5: 7c535b0e4142c56ef3c9e41dadd1051e
+      size: 13541
+    - path: ../src/insights/dashboard/q3/_data/otherFigures.json
+      hash: md5
+      md5: 99914b932bd37a50b983c5e7c90ae93b
+      size: 2
+    - path: ../src/insights/dashboard/q3/_data/participants.json
+      hash: md5
+      md5: 77d0c396d4973dac1222c7a9fd826f47
+      size: 6262
+    - path: ../src/insights/dashboard/q3/_data/projects.json
+      hash: md5
+      md5: bd6c6b95ef77f4855197d7a221136b6e
+      size: 5388
+    - path: ../src/insights/dashboard/q3/_data/timestamp.json
+      hash: md5
+      md5: 32ea57c70d3206198f2a4112682d963a
+      size: 69
