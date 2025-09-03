@@ -3,6 +3,12 @@ layout: templates/page.vto
 ---
 {{ comp.event.Headlines({ ...event }) }}
 
+{{ if content }}
+<section>
+{{ content |> md }}
+</section>
+{{ /if }}
+
 {{ comp.event.EventSummary({ ...event }) }}
 
 {{ comp.event.Tickets({ tickets: event.tickets }) }}
