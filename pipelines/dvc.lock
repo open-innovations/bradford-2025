@@ -110,7 +110,7 @@ stages:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
       spektrix_event_ids '4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ' -p venue_postcode 
       'BD1 1LA' -p rosterfy_event_ids '25890' -p project_ids 'recf4tPyjoXi81NDo'
-      -p venue_ids '' -p slug 'rise'
+      -p project_names '' -p venue_ids '' -p slug 'rise'
     deps:
     - path: ../data/published/
       hash: md5
@@ -124,19 +124,19 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: fa368306ac353ec978689eb56877bc81
-      size: 4794
+      md5: bd57203ae2d3128f5d5a3113161c84e7
+      size: 12076
     outs:
     - path: ../src/events/rise/_data/event/
       hash: md5
-      md5: 4cee4a8d6f21ee8c743022526cf49ead.dir
+      md5: e64eb6f63a57102d252b9ced11eed553.dir
       size: 19184
       nfiles: 8
   events@la-haine:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
       spektrix_event_ids '4001APBPRCSHVVMHTCBMSPSJRNDMCHHLV' -p venue_postcode 
       'BD1 1JT' -p rosterfy_event_ids '26307' -p project_ids 'recYvLfpThEXGXcmn'
-      -p venue_ids '' -p slug 'la-haine'
+      -p project_names '' -p venue_ids '' -p slug 'la-haine'
     deps:
     - path: ../data/published/
       hash: md5
@@ -150,19 +150,19 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: fa368306ac353ec978689eb56877bc81
-      size: 4794
+      md5: bd57203ae2d3128f5d5a3113161c84e7
+      size: 12076
     outs:
     - path: ../src/events/la-haine/_data/event/
       hash: md5
-      md5: cb73ae325ff3fa5eb5eeef67582d1c0e.dir
+      md5: 4791c39fb42dc685620674d21272f9f5.dir
       size: 7503
       nfiles: 8
   events@les-girafes:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
       spektrix_event_ids 'recu2QievPdxr1dnH' -p venue_postcode 'BD1 1LA' -p 
-      rosterfy_event_ids '24438' -p project_ids 'recu2QievPdxr1dnH' -p venue_ids
-      '' -p slug 'les-girafes'
+      rosterfy_event_ids '24438' -p project_ids 'recu2QievPdxr1dnH' -p 
+      project_names '' -p venue_ids '' -p slug 'les-girafes'
     deps:
     - path: ../data/published/
       hash: md5
@@ -176,12 +176,12 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: fa368306ac353ec978689eb56877bc81
-      size: 4794
+      md5: bd57203ae2d3128f5d5a3113161c84e7
+      size: 12076
     outs:
     - path: ../src/events/les-girafes/_data/event/
       hash: md5
-      md5: 0882ea860bc914f1e0f2b031e04c1c5e.dir
+      md5: 9d78e1166e045918ed367af67b5a46bd.dir
       size: 2075
       nfiles: 8
   sustainability:
@@ -205,7 +205,7 @@ stages:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
       spektrix_event_ids '7601AHCJPTHNBCVJHLQNKQVKDRKRMLTPC' -p venue_postcode 
       'None' -p rosterfy_event_ids '26540' -p project_ids 'recoJF8kMXHloBbjt' -p
-      venue_ids '' -p slug 'grue'
+      project_names '' -p venue_ids '' -p slug 'grue'
     deps:
     - path: ../data/published/
       hash: md5
@@ -219,12 +219,12 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: fa368306ac353ec978689eb56877bc81
-      size: 4794
+      md5: bd57203ae2d3128f5d5a3113161c84e7
+      size: 12076
     outs:
     - path: ../src/events/grue/_data/event/
       hash: md5
-      md5: b2e87b42629d13dd6235ee0856ac8579.dir
+      md5: 34fb8659c906c06a0eb58eea26a5ea37.dir
       size: 63573
       nfiles: 8
   dashboards@live:
@@ -315,7 +315,7 @@ stages:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
       spektrix_event_ids '9001AGHDBMPJDRPSRMKLRCJGBJJMTQGDH' -p venue_postcode 
       'None' -p rosterfy_event_ids 'None' -p project_ids 'recjdRJvjmX67plPM' -p 
-      venue_ids '' -p slug 'dracula'
+      project_names '' -p venue_ids '' -p slug 'dracula'
     deps:
     - path: ../data/published/
       hash: md5
@@ -329,8 +329,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: fa368306ac353ec978689eb56877bc81
-      size: 4794
+      md5: bd57203ae2d3128f5d5a3113161c84e7
+      size: 12076
     outs:
     - path: ../src/events/dracula/_data/event/
       hash: md5
@@ -437,9 +437,9 @@ stages:
   events@loading-bay:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
       spektrix_event_ids '' -p venue_postcode 'None' -p rosterfy_event_ids '' -p
-      project_ids '' -p venue_ids 'rec4maUwKspPcDxNl recCTkADG9VERRhxt 
-      recFYiOZvNnYDgbfk recInFDrcQ4KutUcL recIrQ1v64zKajXU1 recalzwrAJkBYOz8w' 
-      -p slug 'loading-bay'
+      project_ids '' -p project_names '' -p venue_ids 'rec4maUwKspPcDxNl 
+      recCTkADG9VERRhxt recFYiOZvNnYDgbfk recInFDrcQ4KutUcL recIrQ1v64zKajXU1 
+      recalzwrAJkBYOz8w' -p slug 'loading-bay'
     deps:
     - path: ../data/published/
       hash: md5
@@ -453,19 +453,19 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: fa368306ac353ec978689eb56877bc81
-      size: 4794
+      md5: bd57203ae2d3128f5d5a3113161c84e7
+      size: 12076
     outs:
     - path: ../src/events/loading-bay/_data/event/
       hash: md5
-      md5: e1aae702f56780c2461819e807bbd5ad.dir
+      md5: 0c7f736a4a3d256b1aa2d3fc079bd623.dir
       size: 12992
       nfiles: 2
   events@beacon:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
       spektrix_event_ids '' -p venue_postcode 'None' -p rosterfy_event_ids '' -p
-      project_ids '' -p venue_ids 'recx817GdO7wmJDf6 rec7tn1K6r85N72yc 
-      recea0GEE29eKCtxu recW1DV5uXWsrUShy' -p slug 'beacon'
+      project_ids '' -p project_names '' -p venue_ids 'recx817GdO7wmJDf6 
+      rec7tn1K6r85N72yc recea0GEE29eKCtxu recW1DV5uXWsrUShy' -p slug 'beacon'
     deps:
     - path: ../data/published/
       hash: md5
@@ -479,19 +479,19 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: fa368306ac353ec978689eb56877bc81
-      size: 4794
+      md5: bd57203ae2d3128f5d5a3113161c84e7
+      size: 12076
     outs:
     - path: ../src/events/beacon/_data/event/
       hash: md5
-      md5: 524eabf274ace2d3a2c24c247012a7da.dir
+      md5: 153ba21736cfa40bc1db789ef1d93090.dir
       size: 29322
       nfiles: 2
   events@the-bradford-progress:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
       spektrix_event_ids '' -p venue_postcode 'None' -p rosterfy_event_ids 
-      '29424' -p project_ids 'recSACUvnIn3yCW2S' -p venue_ids '' -p slug 
-      'the-bradford-progress'
+      '29424' -p project_ids 'recSACUvnIn3yCW2S' -p project_names '' -p 
+      venue_ids '' -p slug 'the-bradford-progress'
     deps:
     - path: ../data/published/
       hash: md5
@@ -505,19 +505,19 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: fa368306ac353ec978689eb56877bc81
-      size: 4794
+      md5: 8294fa4777575f3fdc45695367693671
+      size: 5274
     outs:
     - path: ../src/events/the-bradford-progress/_data/event/
       hash: md5
-      md5: 163ab2819d106137a508d96bec4a642f.dir
+      md5: 880658d13b9c8205e2540c183d1cd5d8.dir
       size: 6292
       nfiles: 5
   events@woodland-tribe:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
       spektrix_event_ids '13201ACQQNNPSNRJMNQRQRCSJCCGPQLHJ' -p venue_postcode 
       '' -p rosterfy_event_ids '' -p project_ids 'rec6linWPrAEi0gwr' -p 
-      venue_ids '' -p slug 'woodland-tribe'
+      project_names '' -p venue_ids '' -p slug 'woodland-tribe'
     deps:
     - path: ../data/published/
       hash: md5
@@ -531,8 +531,8 @@ stages:
       nfiles: 3
     - path: events.ipynb
       hash: md5
-      md5: fa368306ac353ec978689eb56877bc81
-      size: 4794
+      md5: 8294fa4777575f3fdc45695367693671
+      size: 5274
     outs:
     - path: ../src/events/woodland-tribe/_data/event/
       hash: md5
@@ -581,3 +581,29 @@ stages:
       hash: md5
       md5: 32ea57c70d3206198f2a4112682d963a
       size: 69
+  events@film:
+    cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
+      spektrix_event_ids '' -p venue_postcode '' -p rosterfy_event_ids '' -p 
+      project_ids '' -p project_names 'Pictureville Screenings' -p venue_ids '' 
+      -p slug 'film'
+    deps:
+    - path: ../data/published/
+      hash: md5
+      md5: 1a91ef5cd3386ffd8feeaa71c5771379.dir
+      size: 10815531
+      nfiles: 22
+    - path: ../data/published/ticketing/
+      hash: md5
+      md5: c20c10c27142da05dea3b5f130cd8f94.dir
+      size: 8548154
+      nfiles: 3
+    - path: events.ipynb
+      hash: md5
+      md5: 8294fa4777575f3fdc45695367693671
+      size: 5274
+    outs:
+    - path: ../src/events/film/_data/event/
+      hash: md5
+      md5: 0e213dbd9dc72838e242c54827ad32fe.dir
+      size: 483
+      nfiles: 2
