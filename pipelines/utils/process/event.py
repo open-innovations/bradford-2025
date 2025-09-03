@@ -6,7 +6,7 @@ from ..themes.programme_slice import ProgrammeSlice
 
 
 class Programme:
-    def __init__(self, project_ids: list[str], venue_ids: list[str], project_names: list[str]):
+    def __init__(self, project_ids: list[str], venue_ids: list[str], evaluation_categories: list[str]):
         self.project_ids = project_ids
 
         venues = (
@@ -35,16 +35,16 @@ class Programme:
             .selectin('venue', venue_ids)
         )
 
-        events_by_project_name = (
+        events_by_evaluation_category = (
             all_events
-            .selectin('project_name', project_names)
+            .selectin('evaluation_category', evaluation_categories)
         )
 
         self.events = (
             etl.cat(
                 event_by_programme,
                 event_by_venue,
-                events_by_project_name,
+                events_by_evaluation_category,
             )
         )
 
