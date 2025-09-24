@@ -11,7 +11,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.events_in_person.title,
 	flash: flash.events_in_person,
-	classes: 'events'
+	classes: 'events',
+	progress: 100 * eventsCount / targets.events_in_person,
+	progresstarget: targets.events_in_person,
 } }}
 	{{ comp.BigNumber({
 		number: eventsCount,

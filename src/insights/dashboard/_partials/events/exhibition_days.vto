@@ -1,7 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.events_exhibition_days.title,
 	flash: flash.events_exhibition_days,
-	classes: 'events'
+	classes: 'events',
+	progress: 100 * events.by_category.Exhibition / targets.events_exhibition_days,
+	progresstarget: targets.events_exhibition_days,
 } }}
 	{{ comp.BigNumber({
 		number: events.by_category.Exhibition || 0,

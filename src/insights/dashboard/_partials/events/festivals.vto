@@ -1,14 +1,17 @@
+{{> const rows = []; }}
+{{ for name, value of events.by_project }}
+{{ if value.category === 'Festival' }}
+	{{> rows.push({"title":name,"value":value.count}); }}
+{{ /if }}
+{{ /for }}
 {{ comp dashboard.Cell {
 	title: metrics.events_festivals.title,
 	flash: flash.events_festivals,
-	classes: 'events'
+	classes: 'events',
+	progress: 100 * rows.length / targets.events_festivals,
+	progresstarget: targets.events_festivals,
+
 } }}
-	{{> const rows = []; }}
-	{{ for name, value of events.by_project }}
-	{{ if value.category === 'Festival' }}
-		{{> rows.push({"title":name,"value":value.count}); }}
-	{{ /if }}
-	{{ /for }}
 
 	{{ comp.BigNumber({
 		number: rows.length || 0,

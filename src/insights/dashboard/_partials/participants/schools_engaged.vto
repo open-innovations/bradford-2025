@@ -1,7 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.participants_schools_engaged.title,
 	flash: flash.participants_schools_engaged,
-	classes: 'participants'
+	classes: 'participants',
+	progress: 100 * participants.cultural_learning.schools_engaged / targets.participants_schools_engaged,
+	progresstarget: targets.participants_schools_engaged,
 } }}
 	{{ comp.BigNumber({
 		number: participants.cultural_learning.schools_engaged || '&mdash;',
