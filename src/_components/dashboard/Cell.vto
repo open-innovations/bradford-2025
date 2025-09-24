@@ -36,9 +36,11 @@ css: |
 	</div>
 	{{ if typeof progress==="number" && !isNaN(progress) }}
 		{{ if !progresslabel }}
-			{{ if progresstarget }}
-				{{ set progresslabel = "Target: " + progresstarget.toLocaleString() + " (" + Math.round(progress) + "%)" }}
-			{{ /if }}
+			{{ if progresstarget }}{{ set progresslabel }}
+                {{ (progress / 100).toLocaleString(undefined, { style: "percent" }) }}
+                towards
+                {{ progresstarget.toLocaleString(undefined, ) }} target
+            {{ /set }}{{ /if }}
 		{{ /if }}
 	{{ comp.ProgressBar({ classes: classes||"", label: progresslabel||"", percent: progress||0 }) }}{{ /if }}
 {{ /comp }}

@@ -1,7 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.participants_creative_health.title,
 	flash: flash.participants_creative_health,
-	classes: 'participants'
+	classes: 'participants',
+	progress: 100 * manual?.participants?.creative_health / targets.participants_creative_health,
+	progresstarget: targets.participants_creative_health,
 } }}
 	{{ comp.BigNumber({
 		number: manual?.participants?.creative_health || '&mdash;',

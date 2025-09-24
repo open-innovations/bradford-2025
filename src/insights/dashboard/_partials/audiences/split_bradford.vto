@@ -1,9 +1,11 @@
+{{> const audienceSplit = (100 * audience.ticketed.sold.bradford / audience.ticketed.sold.total) }}
 {{ comp dashboard.Cell {
 	title: metrics.audiences_split_bradford.title,
 	flash: flash.audiences_split_bradford,
-	classes: 'audiences'
+	classes: 'audiences',
+	progress: 100 * audienceSplit / targets.audiences_split_bradford,
+	progresstarget: targets.audiences_split_bradford,
 } }}
-	{{> const audienceSplit = (100 * audience.ticketed.sold.bradford / audience.ticketed.sold.total) }}
 	{{ comp.BigNumber({
 		number: audienceSplit.toLocaleString(undefined, { maximumFractionDigits: 0 }),
 		suffix: '%',

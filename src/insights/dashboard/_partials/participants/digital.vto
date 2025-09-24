@@ -13,7 +13,9 @@
 {{ comp dashboard.Cell {
 	title: metrics[id].title,
 	flash: flash[id],
-	classes: 'participants'
+	classes: 'participants',
+	progress: 100 * digitalProjectsParticipants / targets.participants_digital,
+	progresstarget: targets.participants_digital,
 } }}
 	{{ comp.BigNumber({
 		number: digitalProjectsParticipants || '&mdash;',

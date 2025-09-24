@@ -1,7 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.participants_our_patch.title,
 	flash: flash.participants_our_patch,
-	classes: 'participants'
+	classes: 'participants',
+	progress: 100 * participants.by_type.community_participants.by_project['Our Patch'].count / targets.participants_our_patch,
+	progresstarget: targets.participants_our_patch,
 } }}
 	{{ comp.BigNumber({
 		number: participants.by_type.community_participants.by_project['Our Patch'].count || '&mdash;',

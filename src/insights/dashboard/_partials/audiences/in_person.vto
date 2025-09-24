@@ -11,7 +11,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.audiences_in_person_events.title,
 	flash: flash.audiences_in_person_events,
-	classes: 'audiences'
+	classes: 'audiences',
+	progress: 100 * audienceCount / targets.audiences_in_person_events,
+	progresstarget: targets.audiences_in_person_events,
 } }}
 	{{# TODO add breakdown of in-person vs online audience, somehow #}}
 	{{ comp.BigNumber({

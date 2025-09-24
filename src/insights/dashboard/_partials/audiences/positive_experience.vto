@@ -1,7 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.audiences_positive_experience.title,
 	flash: flash.audiences_positive_experience,
-	classes: 'audiences'
+	classes: 'audiences',
+	progress: 100 * otherFigures.rating_excellent_or_good_pct / targets.audiences_positive_experience,
+	progresstarget: targets.audiences_positive_experience,
 } }}
 	{{# TODO get this from data #}}
 	{{ comp.BigNumber({

@@ -1,7 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.audiences_total.title,
 	flash: flash.audiences_total,
-	classes: 'audiences'
+	classes: 'audiences',
+	progress: 100 * audience.total / targets.audiences_total,
+	progresstarget: targets.audiences_total,
 } }}
 	{{ comp.BigNumber({
 		number: audience.total || 0,

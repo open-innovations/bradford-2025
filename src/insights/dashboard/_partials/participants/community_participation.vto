@@ -1,7 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.participants_community.title,
 	flash: flash.participants_community,
-	classes: 'participants'
+	classes: 'participants',
+	progress: 100 * participants.by_type.community_participants.count / targets.participants_community,
+	progresstarget: targets.participants_community,
 } }}
 	{{ comp.BigNumber({
 		number: participants.by_type.community_participants.count || '&mdash;',

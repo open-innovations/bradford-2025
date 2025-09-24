@@ -1,7 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.audiences_digital.title,
 	flash: flash.audiences_digital,
-	classes: 'audiences'
+	classes: 'audiences',
+	progress: 100 * audience.by_category.Digital / targets.audiences_digital,
+	progresstarget: targets.audiences_digital,
 } }}
 	{{ comp.BigNumber({
 		number: audience.by_category.Digital || '&mdash;',

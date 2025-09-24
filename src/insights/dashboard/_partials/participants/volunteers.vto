@@ -7,7 +7,9 @@
 {{ comp dashboard.Cell {
     title: metrics.participants_volunteers.title,
     flash: flash.participants_volunteers,
-	classes: 'participants'
+	classes: 'participants',
+	progress: 100 * volunteersSignedUp / targets.participants_volunteers,
+	progresstarget: targets.participants_volunteers,
 } }}
     {{# Using the actual number here! #}}
     {{ comp.BigNumber({

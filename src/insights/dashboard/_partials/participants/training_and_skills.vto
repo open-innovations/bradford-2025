@@ -1,7 +1,9 @@
 {{ comp dashboard.Cell {
 	title: metrics.participants_training_and_skills.title,
 	flash: flash.participants_training_and_skills,
-	classes: 'participants'
+	classes: 'participants',
+	progress: 100 * otherFigures.training_and_skills_development_participants / targets.participants_training_and_skills,
+	progresstarget: targets.participants_training_and_skills,
 } }}
 	{{ comp.BigNumber({
 		number: otherFigures.training_and_skills_development_participants || '&mdash;',
