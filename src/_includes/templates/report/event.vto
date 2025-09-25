@@ -17,4 +17,6 @@ layout: templates/page.vto
 
 {{ comp.event.EventSummary({ ...event }) }}
 
+{{ if event && event.tickets }}
 {{ comp.event.Tickets({ tickets: event.tickets }) }}
+{{ /if }}
