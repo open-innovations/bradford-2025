@@ -65,7 +65,7 @@ layout: templates/page.vto
 		while (start <= end) {
 			// compensate for zero-based months in display
 			const displayMonth = start.getUTCMonth() + 1;
-			d = (months[displayMonth-1]||"") + (displayMonth==1 ? " " + start.getUTCFullYear() : "");
+			d = (months[displayMonth-1]||"") + (displayMonth==1 ? "\n" + start.getUTCFullYear() : "");
 			axis.ticks.push({'value':decimalYear(start.toISOString().substr(0,7)),'label':(pre+d+post),'tickSize':10});
 			// progress the start date by one month
 			start = new Date(start.setUTCMonth(displayMonth));
@@ -104,6 +104,7 @@ layout: templates/page.vto
 		spacing = spacing*f;
 		// Find the new minimum/maximum to use for the scale
 		lo = (Math.floor(min/spacing)*spacing);
+		lo = 0;
 		hi = (Math.ceil(max/spacing)*spacing);
 		axis = {min:lo,max:hi,ticks:[],'grid':{'stroke-width': 0.5}};
 		// Create tick marks
@@ -181,6 +182,17 @@ layout: templates/page.vto
 				number: events.total || 0,
 				classes: 'big'
 			}) }}
+			{{ set data = [
+				{'Date':'2025-01','value':300},
+				{'Date':'2025-02','value':267},
+				{'Date':'2025-03','value':189},
+				{'Date':'2025-04','value':345},
+				{'Date':'2025-05','value':467},
+				{'Date':'2025-06','value':432},
+				{'Date':'2025-07','value':689},
+				{'Date':'2025-08','value':718},
+				{'Date':'2025-09','value':450}
+				] }}
 			{{
 				comp.oi.chart.line({
 					config: {
@@ -215,6 +227,17 @@ layout: templates/page.vto
 				number: participants.total || 0,
 				classes: 'big'
 			}) }}
+			{{ set data = [
+				{'Date':'2025-01','value':12000},
+				{'Date':'2025-02','value':8900},
+				{'Date':'2025-03','value':5100},
+				{'Date':'2025-04','value':7829},
+				{'Date':'2025-05','value':6543},
+				{'Date':'2025-06','value':8976},
+				{'Date':'2025-07','value':7891},
+				{'Date':'2025-08','value':9120},
+				{'Date':'2025-09','value':8560}
+				] }}
 			{{
 				comp.oi.chart.line({
 					config: {
