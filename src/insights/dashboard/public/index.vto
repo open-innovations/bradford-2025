@@ -4,7 +4,8 @@ title: Public dashboard
 layout: templates/page.vto
 ---
 <style>
-.dashboard h2 { margin-bottom: 0; }
+h2 { font-size: 60px; margin-block: 0; }
+.dashboard h3 { font-size: 2em; margin-bottom: 0; }
 .dashboard .big[data-comp="big-number"] { align-items: start; }
 .dashboard .big[data-comp="big-number"] .number { line-height: 1em; }
 .dashboard .block { padding: 2rem; }
@@ -123,9 +124,10 @@ layout: templates/page.vto
 	</section>
 
 	<section>
+		<h2>Headlines</h2>
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ comp grid.Brick { tag: 'li', classes: 'audiences block', style: "flex-basis: 30ch;" } }}
-			<h2>{{ metrics.audiences_total.title }}</h2>
+			<h3>{{ metrics.audiences_total.title }}</h3>
 			{{ comp.BigNumber({
 				number: audience.total || 0,
 				classes: 'big'
@@ -174,7 +176,7 @@ layout: templates/page.vto
 			{{#<a class="block" href="audience">{{ comp Pill }}See more &rarr;{{ /comp }}</a>#}}
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', classes: 'events block', style: "flex-basis: 30ch;" } }}
-			<h2>{{ metrics.events_total.title }}</h2>
+			<h3>{{ metrics.events_total.title }}</h3>
 			{{ comp.BigNumber({
 				number: events.total || 0,
 				classes: 'big'
@@ -219,7 +221,7 @@ layout: templates/page.vto
 			<p>An event is an instance with a defined start and end date and time. Note that the graph shows placeholder data - it isn't real.</p>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', classes: 'participants block', style: "flex-basis: 30ch;" } }}
-			<h2>{{ metrics.participants_total.title }}</h2>
+			<h3>{{ metrics.participants_total.title }}</h3>
 			{{ comp.BigNumber({
 				number: participants.total || 0,
 				classes: 'big'
