@@ -202,7 +202,7 @@ layout: templates/page.vto
 							x: 'decimal_year',
 							y: 'value',
 							colour: 'yellow',
-							tooltip: '{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}<br />Audience: <strong>{{ value | toLocaleString() }}</strong>'
+							tooltip: '{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}<br />Events: <strong>{{ value | toLocaleString() }}</strong>'
 						}]
 					}
 				})
@@ -236,7 +236,7 @@ layout: templates/page.vto
 							x: 'decimal_year',
 							y: 'value',
 							colour: 'pink',
-							tooltip: '{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}<br />Audience: <strong>{{ value | toLocaleString() }}</strong>'
+							tooltip: '{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}<br />Participants: <strong>{{ value | toLocaleString() }}</strong>'
 						}]
 					}
 				})
