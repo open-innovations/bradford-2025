@@ -1,0 +1,249 @@
+---
+draft: true
+title: Public dashboard
+layout: templates/page.vto
+---
+<style>
+.dashboard h2 { margin-bottom: 0; }
+.dashboard .big[data-comp="big-number"] { align-items: start; }
+.dashboard .big[data-comp="big-number"] .number { line-height: 1em; }
+.dashboard .block { padding: 2rem; }
+.oi-viz.oi-chart { margin-block: 1rem; margin-top: 2rem; }
+.updated { margin-block: 0; }
+.dashboard :is(.oi-viz .axis-grid-x) g[data] text { dominant-baseline: unset; }
+</style>
+
+{{> 
+	function decimalYear(date){
+	console.log('decimalYear',date);
+		// If it is of the form blah→YYYY we return midway through the year
+		let match = date.match(/→([0-9]{4})/);
+		// If it is of the form YYYY/YY we return midway through the year
+		if(!match) match = date.match(/^([0-9]{4})\/([0-9]{1,2})$/);
+		if(match) return parseInt(match[1])+0.5;
+
+		// If it is of the form YYYY-MM-DD
+		match = date.match(/^([0-9]{4})-?([0-9]{2})?-?([0-9]{2})?$/);
+		let y,m,d,sy,ey;
+		if(!match) return 0;
+		y = parseInt(match[1]);
+		m = parseInt(match[2]);
+		d = parseInt(match[3]);
+
+		if(isNaN(y)) return 0;
+		if(isNaN(m)) return y;
+		if(isNaN(d)) d = 1;
+
+		let p1 = new Date();
+		p1.setUTCFullYear(y);
+		p1.setUTCMonth(m-1);
+		p1.setUTCDate(d);
+		p1.setUTCHours(0);
+		p1.setUTCMinutes(0);
+		p1.setUTCSeconds(0);
+
+		// Set start of year
+		sy = new Date(p1);
+		sy.setUTCMonth(0);
+		sy.setUTCDate(1);
+		sy.setUTCHours(0);
+		sy.setUTCMinutes(0);
+		sy.setUTCSeconds(0);
+
+		// Start of next year
+		ey = new Date(sy);
+		ey.setUTCFullYear(sy.getUTCFullYear()+1);
+		return sy.getUTCFullYear() + (p1-sy)/(ey-sy);
+	}
+
+	// Get the x-axis structure
+	function getXAxis(s,e){
+		let start = new Date(s);
+		let end = new Date(e);
+		let axis = {min:decimalYear(s),max:decimalYear(e),ticks:[],'grid':{'stroke-width': 0.5}};
+		let pre = "",post="",d,months=['Jan','','','Apr','','','Jul','','','Oct','',''];
+		while (start <= end) {
+			// compensate for zero-based months in display
+			const displayMonth = start.getUTCMonth() + 1;
+			d = (months[displayMonth-1]||"") + (displayMonth==1 ? " " + start.getUTCFullYear() : "");
+			axis.ticks.push({'value':decimalYear(start.toISOString().substr(0,7)),'label':(pre+d+post),'tickSize':10});
+			// progress the start date by one month
+			start = new Date(start.setUTCMonth(displayMonth));
+		}
+		return axis;
+	}
+
+	// Function to return a yaxis object suitable for OI Lume Viz adjusted to the range of the data
+	function getYAxis(data,scale){
+		if(!scale) scale = {};
+		let min = Infinity,max = -Infinity,range,spacing,lo,hi,axis,i,y,pre = "",post = "",f = 1;
+		// Calculate the min/max in the data and get the pre/post units
+		for(i = 0; i < data.length; i++){
+			if(!isNaN(data[i].value)){
+				min = Math.min(min,data[i].value);
+				max = Math.max(max,data[i].value);
+			}
+			if(i==0){ pre = data[i].preunit||""; post = data[i].postunit||""; }
+		}
+		// If the scale minimum is set we'll use that instead (this helps preserve some sensible zero scaling)
+		if(typeof scale.min==="number") min = scale.min;
+		// Find the range
+		range = max - min;
+		// Work out a spacing and then a scale factor
+		if(range > 0){
+			spacing = Math.pow(10,Math.floor(Math.log10(range)));
+			let n = range/spacing;
+			if(n > 3) f = 2;
+			if(n > 6) f = 5;
+		}else{
+			spacing = 1;
+			if(min==Infinity) min = 0;
+			if(max==-Infinity || (max==0 && min==0)) max = 1;
+		}
+		// Update the tick spacing
+		spacing = spacing*f;
+		// Find the new minimum/maximum to use for the scale
+		lo = (Math.floor(min/spacing)*spacing);
+		hi = (Math.ceil(max/spacing)*spacing);
+		axis = {min:lo,max:hi,ticks:[],'grid':{'stroke-width': 0.5}};
+		// Create tick marks
+		//axis.ticks.push({'value':lo,'label':(pre+lo.toLocaleString()+post),'grid':true});
+		//axis.ticks.push({'value':hi,'label':(pre+hi.toLocaleString()+post),'grid':true});
+		for(y = lo; y <= hi ; y += spacing){
+			axis.ticks.push({'value':y,'label':(pre+y.toLocaleString()+post),'grid':true});
+		}
+		return axis;
+	}
+}}
+
+<main class="site-wrapper">
+
+	<section>
+		<p>This website has been developed to visualise data captured from multiple sources about Bradford 2025, the UK City of Culture 2025. It acts as a live monitoring tool and is not a final evaluation report. The data, figures, and visualisations represented within are a work-in-progress and do not present a full and complete picture of all activity and engagement. Data is drawn daily from key operational pipelines to provide a view of delivery. The data covers the period from the commencement of the project on 1 Jan 2023.</p>
+		<p>You can also take a look at our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf" class="c-green">Evaluation strategy</a>, and the <a href="/strategy/" class="c-green">Open Data Strategy</a> which sets out what we hope to achieve by being open and transparent with our data.</p>
+		<p>The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}. The graphs show the data for 2025.</p>
+	</section>
+
+	<section>
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp grid.Brick { tag: 'li', classes: 'audiences block', style: "flex-basis: 30ch;" } }}
+			<h2>{{ metrics.audiences_total.title }}</h2>
+			{{ comp.BigNumber({
+				number: audience.total || 0,
+				classes: 'big'
+			}) }}
+			
+			{{ set data = [
+				{'Date':'2025-01','value':20123},
+				{'Date':'2025-02','value':9876},
+				{'Date':'2025-03','value':8745},
+				{'Date':'2025-04','value':9971},
+				{'Date':'2025-05','value':6245},
+				{'Date':'2025-06','value':12165},
+				{'Date':'2025-07','value':16478},
+				{'Date':'2025-08','value':26789},
+				{'Date':'2025-09','value':21987}
+				] }}
+			
+			{{
+				comp.oi.chart.line({
+					config: {
+						debug: true,
+						data: data,
+						columns: [{
+							name: 'decimal_year',
+							template: '{{ Date | strptime("%Y-%m") | decimalYear() }}'
+						}],
+						legend: { show: false },
+						height: 300,
+						width: 800,
+						axis: {
+							x: getXAxis('2025-01','2026-01'),
+							y: getYAxis(data)
+						},
+						series: [{
+							title: 'Audience',
+							x: 'decimal_year',
+							y: 'value',
+							colour: 'green',
+							tooltip: '{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}<br />Audience: <strong>{{ value | toLocaleString() }}</strong>'
+						}]
+					}
+				})
+			}}
+
+			<p>Contains a mixture of unique individuals and attendance counts. Note that the graph shows placeholder data - it isn't real.</p>
+			{{#<a class="block" href="audience">{{ comp Pill }}See more &rarr;{{ /comp }}</a>#}}
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', classes: 'events block', style: "flex-basis: 30ch;" } }}
+			<h2>{{ metrics.events_total.title }}</h2>
+			{{ comp.BigNumber({
+				number: events.total || 0,
+				classes: 'big'
+			}) }}
+			{{
+				comp.oi.chart.line({
+					config: {
+						debug: true,
+						data: data,
+						columns: [{
+							name: 'decimal_year',
+							template: '{{ Date | strptime("%Y-%m") | decimalYear() }}'
+						}],
+						legend: { show: false },
+						height: 300,
+						width: 800,
+						axis: {
+							x: getXAxis('2025-01','2026-01'),
+							y: getYAxis(data)
+						},
+						series: [{
+							title: 'Audience',
+							x: 'decimal_year',
+							y: 'value',
+							colour: 'yellow',
+							tooltip: '{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}<br />Audience: <strong>{{ value | toLocaleString() }}</strong>'
+						}]
+					}
+				})
+			}}
+			<p>An event is an instance with a defined start and end date and time. Note that the graph shows placeholder data - it isn't real.</p>
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', classes: 'participants block', style: "flex-basis: 30ch;" } }}
+			<h2>{{ metrics.participants_total.title }}</h2>
+			{{ comp.BigNumber({
+				number: participants.total || 0,
+				classes: 'big'
+			}) }}
+			{{
+				comp.oi.chart.line({
+					config: {
+						debug: true,
+						data: data,
+						columns: [{
+							name: 'decimal_year',
+							template: '{{ Date | strptime("%Y-%m") | decimalYear() }}'
+						}],
+						legend: { show: false },
+						height: 300,
+						width: 800,
+						axis: {
+							x: getXAxis('2025-01','2026-01'),
+							y: getYAxis(data)
+						},
+						series: [{
+							title: 'Audience',
+							x: 'decimal_year',
+							y: 'value',
+							colour: 'pink',
+							tooltip: '{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}<br />Audience: <strong>{{ value | toLocaleString() }}</strong>'
+						}]
+					}
+				})
+			}}
+			<p>Contains mixture of unique individuals and attendance counts. Note that the graph shows placeholder data - it isn't real.</p>
+		{{ /comp }}
+	{{ /comp }}
+	</section>
+
+</main>
