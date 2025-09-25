@@ -34,24 +34,25 @@ js: |
         const numericEl = numberBlock.querySelector('span.numeric');
         const target = +(numberBlock.dataset.number);
         const roundingOptions = JSON.parse(numberBlock.dataset?.roundingOptions || '{}');
-
+        // Set the duration in seconds
+        const duration = (numberBlock.dataset && numberBlock.dataset.duration ? parseFloat(numberBlock.dataset?.duration) : 1);
         const setValue = (n) => {
             numericEl.innerHTML = n.toLocaleString(undefined, roundingOptions);
         };
 
         function animate() {
-            let value = 0;
-            const increment = (target - value) / 25;
-            let timer;
+            let start = new Date();
+            let t,value;
             const updateNumber = () => {
-                value += increment;
+                t = (new Date() - start)/1000;
+                value = target*(t/duration);
                 setValue(value);
                 if (Math.abs(value) >= Math.abs(target)) {
                     clearInterval(timer);
                     setValue(target);
                 }
             }
-            timer = setInterval(updateNumber, 40);
+            let timer = setInterval(updateNumber, 40);
         }
         numericEl.animate = animate;
         observer.observe(numericEl);
@@ -63,6 +64,7 @@ js: |
     {{ if animate -}}
     data-animate data-number="{{ number }}"
     {{- if roundingOptions }} data-rounding-options={{ JSON.stringify(roundingOptions) }}{{ /if -}}
+    {{- if duration }} data-duration="{{ duration }}"{{ /if -}}
     {{ /if -}}
 >
 {{ if label }}<p class="label">{{ label }}</p>{{ /if -}}

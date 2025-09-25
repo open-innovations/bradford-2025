@@ -130,7 +130,9 @@ h2 { font-size: 60px; margin-block: 0; }
 			<h3>{{ metrics.audiences_total.title }}</h3>
 			{{ comp.BigNumber({
 				number: audience.total || 0,
-				classes: 'big'
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumSignificantDigits: 4 }
 			}) }}
 			
 			{{ set data = [
@@ -179,7 +181,9 @@ h2 { font-size: 60px; margin-block: 0; }
 			<h3>{{ metrics.events_total.title }}</h3>
 			{{ comp.BigNumber({
 				number: events.total || 0,
-				classes: 'big'
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumSignificantDigits: 4 }
 			}) }}
 			{{ set data = [
 				{'Date':'2025-01','value':300},
@@ -224,7 +228,9 @@ h2 { font-size: 60px; margin-block: 0; }
 			<h3>{{ metrics.participants_total.title }}</h3>
 			{{ comp.BigNumber({
 				number: participants.total || 0,
-				classes: 'big'
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumSignificantDigits: 4 }
 			}) }}
 			{{ set data = [
 				{'Date':'2025-01','value':12000},
