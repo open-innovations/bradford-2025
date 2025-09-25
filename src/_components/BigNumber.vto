@@ -36,8 +36,8 @@ js: |
         const roundingOptions = JSON.parse(numberBlock.dataset?.roundingOptions || '{}');
         // Set the duration in seconds
         const duration = (numberBlock.dataset && numberBlock.dataset.duration ? parseFloat(numberBlock.dataset?.duration) : 1);
-        const setValue = (n) => {
-            numericEl.innerHTML = n.toLocaleString(undefined, roundingOptions);
+        const setValue = (n,opt) => {
+            numericEl.innerHTML = n.toLocaleString(undefined, opt);
         };
 
         function animate() {
@@ -46,7 +46,7 @@ js: |
             const updateNumber = () => {
                 t = (new Date() - start)/1000;
                 value = target*(t/duration);
-                setValue(value);
+                setValue(value,roundingOptions);
                 if (Math.abs(value) >= Math.abs(target)) {
                     clearInterval(timer);
                     setValue(target);
