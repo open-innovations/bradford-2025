@@ -15,16 +15,21 @@ description: |
 <tr>
 <th>Ward</th>
 <th>Proportion of tickets sold</th>
+<th>Proportion of surveys returned</th>
 </tr>
 </thead>
 <tbody>
 {{ for ward of by_ward }}
-{{ set p = ward.tickets_prop * 200 }}
+{{ set tickets = ward.tickets_prop * 200 }}
+{{ set surveys = ward.surveys_prop * 200 }}
 <tr>
 <td>{{ ward.name }}</td>
 <td class="right"
-    style="background: linear-gradient(90deg, grey {{ p }}%, rgba(0, 0, 0, 0) {{ p }}%)"
+    style="background: linear-gradient(90deg, var(--color-yellow) {{ tickets }}%, transparent {{ tickets }}%)"
 >{{ ward.tickets_prop |> toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } )}}</td>
+<td class="right"
+    style="background: linear-gradient(90deg, var(--color-yellow) {{ surveys }}%, transparent {{ surveys }}%)"
+>{{ ward.surveys_prop |> toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } )}}</td>
 </tr>
 {{ /for }}
 </tbody>
