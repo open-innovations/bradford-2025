@@ -1,14 +1,27 @@
-{{> const audienceSplit = (100 * audience.ticketed.sold.bradford / audience.ticketed.sold.total) }}
+{{>
+	// TODO Update this
+	const audienceSplit = audience.ticketed.sold.bradford / audience.ticketed.sold.total;
+
+	const excludedCategories = [
+		'Digital'
+	];
+
+	const audienceCount = Object.entries(audience.by_category)
+		.filter(c => !excludedCategories.includes(c[0]))
+		.reduce((a, c) => a + c[1], 0)
+
+	const bradfordAudiences = audienceCount * audienceSplit;
+	console.log({ audienceCount, audienceSplit, bradfordAudiences });
+}}
 {{ comp dashboard.Cell {
 	title: metrics.audiences_split_bradford.title,
 	flash: flash.audiences_split_bradford,
 	classes: 'audiences',
-	progress: 100 * audienceSplit / targets.audiences_split_bradford,
+	progress: 100 * (audienceCount * audienceSplit) / targets.audiences_split_bradford,
 	progresstarget: targets.audiences_split_bradford,
 } }}
 	{{ comp.BigNumber({
-		number: audienceSplit.toLocaleString(undefined, { maximumFractionDigits: 0 }),
-		suffix: '%',
+		number: bradfordAudiences.toLocaleString(undefined, { maximumFractionDigits: 0 }),
 	}) }}
         {{ comp.dashboard.Footer({
 		upTo: metrics.audiences_split_bradford.upTo
@@ -24,7 +37,7 @@
 
 			{{# TODO Turn this into a table, perhaps? #}}
 			<p>
-				{{ audienceSplit.toLocaleString(undefined, { maximumFractionDigits: 0 }) }}% of ticket were bought by residents of Bradford.
+				{{ audienceSplit.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' }) }} of ticket were bought by residents of Bradford.
 			</p>
 		{{ /comp }}
 	{{ /comp }}
