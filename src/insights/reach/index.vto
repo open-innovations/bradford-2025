@@ -1,0 +1,32 @@
+---
+title: Geographic reach
+description: |
+    The Bradford 2025 story of change commits to reach the whole district.
+    This page presents data showing the reach of the events.
+---
+
+{{# TODO update this with better visualisations! #}}
+
+{{ description |> md }}
+
+<section>
+<table>
+<thead>
+<tr>
+<th>Ward</th>
+<th>Proportion of tickets sold</th>
+</tr>
+</thead>
+<tbody>
+{{ for ward of by_ward }}
+{{ set p = ward.tickets_prop * 200 }}
+<tr>
+<td>{{ ward.name }}</td>
+<td class="right"
+    style="background: linear-gradient(90deg, grey {{ p }}%, rgba(0, 0, 0, 0) {{ p }}%)"
+>{{ ward.tickets_prop |> toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } )}}</td>
+</tr>
+{{ /for }}
+</tbody>
+</table>
+</section>
