@@ -91,11 +91,14 @@ css: |
         </p>
         {{ /if }}
         {{ if participants }}
+        {{# TODO add back in breakdown #}}
         <p>
-            The participants total of <b>{{ participants.toLocaleString() }}</b> is comprised of
+            NB The participants total of <b>{{ participants.toLocaleString() }}</b>
+            {{# is comprised of
             <b>{{ schedule_participants_community || 0 }} recorded in the Project Hub</b>
             added to <b>{{ manual_participants_community || 0 }} collected from other sources</b>.
-            NB the number of participants does not currently show a count of individuals for all sources. At present some are better termed participant instances -
+            NB the number of participants #}}
+            does not currently show a count of individuals for all sources. At present some are better termed participant instances -
             one person who attended three events would be counted three times. Efforts are being made to count unique individuals where this is possible.
         </p>
         {{ /if }}

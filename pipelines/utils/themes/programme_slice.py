@@ -54,22 +54,12 @@ class ProgrammeSlice:
         )
 
     @staticmethod
-    def calculate_events(row):
-        '''Add the manual and schedule events together'''
-        return sum(
-            filter(None.__ne__, (
-                row.manual_events,
-                row.schedule_events
-            )), 0
-        )
-
-    @staticmethod
     def calculate_partitipants(row):
-        '''Calculate the participants by adding the schedule and manual participants'''
+        '''Calculate the participants by adding the community and school participants'''
         return sum(
             filter(None.__ne__, (
-                row.get('schedule_participants_community'),
-                row.get('manual_participants_community'),
+                row.get('participants_community'),
+                row.get('participants_school'),
             )), 0
         )
 
@@ -80,7 +70,7 @@ class ProgrammeSlice:
             self.events_data
             .aggregate([*self.dimensions, 'variable'], sum, 'value')
             .recast([*self.dimensions], samplesize=1_000_000)
-            .addfield('events', self.calculate_events, index=3)
+            # .addfield('events', self.calculate_events, index=3)
             .addfield('participants', self.calculate_partitipants, index=4)
             .replace(['events', 'audience', 'participants'], None, 0)
             .cache()
@@ -107,47 +97,15 @@ class ProgrammeSlice:
 
     @property
     def project_breakdown(self):
+        '''Create a summary by project'''
         return (
             self.events
             .melt(variables=[f for f in [
-                'events', 'schedule_events', 'projected_events', 'manual_events',
+                'events', 'projected_events',
                 'audience',
-                'participants', 'schedule_participants_community', 'manual_participants_community',
+                'participants', 'participants_community', 'participants_school',
             ] if f in self.events.header()])
             .selectnotnone('value')
             .aggregate(['project_name', 'evaluation_category', 'variable'], sum, 'value')
             .recast()
-        )
-
-    @property
-    def project_details(self):
-        return (
-            self.project_breakdown
-            .leftjoin(
-                self.project_data.aggregate('project_name', {
-                    'start_date': ('start_date', min),
-                    'end_date': ('end_date', max),
-                })
-            )
-            .addfield('Details', lambda r: {
-                # 'records': r.Records,
-                'events': r.events,
-                'audience': r.audience,
-                'participants': r.participants,
-
-                'scheduledEvents': r.schedule_events,
-                'projectedEvents': r.projected_events,
-                'manual_events': r.manual_events,
-
-                'schedule_participants_community': r.schedule_participants_community,
-                'manual_participants_community': r.get('manual_participants_community') or 0,
-                # 'manual_participants_schools': r.manual_participants_schools,
-
-                'evaluationCategory': r.evaluation_category,
-                # 'programmeCategory': r['Programme Category'],
-                'earliestDate': r.start_date.isoformat() if r.start_date else r.date.isoformat() if r.date else None,
-                'latestDate': r.end_date.isoformat() if r.end_date else None,
-            })
-            .cut('project_name', 'Details')
-            .sort('project_name')
         )
