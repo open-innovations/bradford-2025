@@ -607,3 +607,28 @@ stages:
       md5: a46c19f7723f664f763787fc20e600a4.dir
       size: 6521
       nfiles: 2
+  public-dashboard:
+    cmd: jupyter execute public-dashboard.ipynb
+    deps:
+    - path: ../data/published/combined/
+      hash: md5
+      md5: 45749d22f153acd166f284b2105fdfec.dir
+      size: 167872
+      nfiles: 1
+    - path: public-dashboard.ipynb
+      hash: md5
+      md5: 809a5c1a588751efc1d51160acc5fdcb
+      size: 2736
+    outs:
+    - path: ../src/insights/dashboard/public/_data/graph/audiences/total.json
+      hash: md5
+      md5: fbad7992da419b430f29010216a1ef24
+      size: 514
+    - path: ../src/insights/dashboard/public/_data/graph/events/total.json
+      hash: md5
+      md5: 1a9c300c5de6d3f97b517d6041fac752
+      size: 493
+    - path: ../src/insights/dashboard/public/_data/graph/participants/total.json
+      hash: md5
+      md5: 81901f532299bf9fabb66db686f37a5f
+      size: 504
