@@ -9,8 +9,6 @@ name: Build site
     branches: [ main ]
     paths:
       - src/**
-      - data/**/*.dvc
-      - pipelines/**
       - _config.ts
       - deno.json
       - .github/workflows/build-site.yml
@@ -36,30 +34,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup python
-        uses: ./.github/actions/setup-python-environment
-
       - name: Setup deno
         uses: ./.github/actions/setup-deno-environment
-
-      - name: Get current data
-        run: |
-          umask 077
-          eval $(ssh-agent -s)
-
-          echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
-          ssh-add deploy-key
-          pipenv run dvc update data/published.dvc data/metadata.dvc data/status.json.dvc data/reports.dvc 
-          ssh-add -D
-
-          echo "${{ secrets.DEPLOY_KEY_HUQ }}" > deploy-key-huq
-          ssh-add deploy-key-huq          
-          pipenv run dvc update data/huq.dvc
-          ssh-add -D
-
-      - name: Run pipelines
-        run: |
-          pipenv run dvc repro pipelines/dvc.yaml
 
       - name: Build the site
         run: | 

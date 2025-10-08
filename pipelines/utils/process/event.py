@@ -66,6 +66,7 @@ class Programme:
             })
             .convert('evaluation', list)
             .convert('programme', lambda l: list({e for s in l for e in s}))
+            .convert(['evaluation', 'programme'], sorted)
             .transpose()
         ) if self.events.nrows() > 0 else None
 
