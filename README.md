@@ -1,7 +1,7 @@
 # Bradford 2025 data dashboard
 
-_TL;DR:_ This site depends on data which is not checked in to git.
-Assuming you have a working `deno` and `pipenv` environment, the task `deno task daily` will prepare the site for build.
+_TL;DR:_ This site depends on data which is updated by a Github Action overnight.
+Assuming you have a working `deno` environment, the task `deno task daily` will prepare the site for build.
 For running the local version you probably want `deno task dev`.
 
 ## Pre-requisites
@@ -18,7 +18,10 @@ Prepare the build using this - probably once a day.
 
 1. Run `git pull --rebase`
 2. Run `pipenv shell`
-3. RUn `deno task data:pull`
+
+If you want to run the pipelines for any reason (maybe having changed some of the code), run the following:
+
+3. Run `deno task data:pull`
 4. Run `deno task data:pipeline`
 
 The dev site is built from the `main` branch, but generates all pages with
