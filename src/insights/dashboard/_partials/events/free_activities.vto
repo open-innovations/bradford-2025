@@ -1,20 +1,22 @@
+{{ set key = 'events_free_activities' }}
+
 {{ comp dashboard.Cell {
-	title: metrics.events_free_activities.title,
-	flash: flash.events_free_activities,
-	classes: 'events'
+	title: metrics[key].title,
+	flash: flash[key],
+	classes: 'events',
+	progress: 100 * events.free / targets[key],
+	progresstarget: targets[key],
 } }}
 	{{# TODO discuss this with BD25 - currently updated in yaml #}}
 	{{# TODO extract this from Airtable #}}
 	{{ comp.BigNumber({
-		number: '&mdash;',
+		number: events.free || '&mdash;',
 		suffix: '',
 	}) }}
-        {{ comp.dashboard.Footer({
-		upTo: metrics.events_free_activities.upTo
-	}) }}
+	{{ comp.dashboard.Footer({}) }}
 	{{ comp Controls }}
-		{{ comp Popover { id: 'events_free_activities' } }}
-		    <h2>{{metrics.events_free_activities.title}}</h2>
+		{{ comp Popover { id: key } }}
+		    <h2>{{metrics[key].title}}</h2>
 			<p>
 				Total count of free-to-access {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} that occurred during the timescale covered by the dashboard. This does not include exhibition days (each exhibition day = an event).
 			</p>
@@ -22,7 +24,18 @@
 			{{ comp.dashboard.InfoBoxDescription({
 				"metrics": metrics,
 				"collection": title,
-				"file": "events_free_activities"
+				"file": key
+			}) |> md |> vto(page.data) }}
+
+			{{ comp.dashboard.InfoBoxTable({
+				cms: metrics[key],
+				data: events.by_ticketed,
+				columns: [
+					{ name: 'ticketed', label: 'Ticket type', header: true },
+					{ name: 'count', label: 'Count of events', sortable: true, scale: scales.yellow },
+					{ name: 'Description' }
+				],
+				head: { class: 'c-yellow' }
 			}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
