@@ -1,9 +1,20 @@
+{{>
+	let label = "";
+	let t = targets.audiences_positive_experience;
+	let v = otherFigures.rating_excellent_or_good_pct
+	if(v > t) label = "Better than the ";
+	else if(v == t) label = "Meets the ";
+	else label = "Below the ";
+	label += Math.round(targets.audiences_positive_experience) + "% target";
+}}
+
 {{ comp dashboard.Cell {
 	title: metrics.audiences_positive_experience.title,
 	flash: flash.audiences_positive_experience,
 	classes: 'audiences',
-	progress: 100 * otherFigures.rating_excellent_or_good_pct / targets.audiences_positive_experience,
+	progress: otherFigures.rating_excellent_or_good_pct,
 	progresstarget: targets.audiences_positive_experience,
+	progresslabel: label,
 } }}
 	{{# TODO get this from data #}}
 	{{ comp.BigNumber({
