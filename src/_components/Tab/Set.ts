@@ -1,10 +1,12 @@
+import { asyncWrapProviders } from "node:async_hooks";
 import { DOMParser } from '../../../deps/dom.ts';
 
 interface TabSetOptions {
   content: string;
+  wrapperClass?: string;
 }
 
-export default function ({ content }: TabSetOptions) {
+export default function ({ content, wrapperClass }: TabSetOptions) {
   const fragment = new DOMParser().parseFromString(content, 'text/html');
   const panels = Array.from(fragment.querySelectorAll('[data-tab-label]'));
 
@@ -19,7 +21,7 @@ export default function ({ content }: TabSetOptions) {
   
   return `<tab-set data-dependencies="/assets/js/inclusive.js">${
     tabList.outerHTML
-  }${
+  }<div${ wrapperClass ? ` class="${ wrapperClass }"`: "" }>${
     panels.map(p => p.outerHTML).join('')
-  }</tab-set>`;
+  }</div></tab-set>`;
 }
