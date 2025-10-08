@@ -4,7 +4,7 @@ layout: templates/base.vto
 
 {{ comp.SiteHeader({ title }) }}
 
-{{ comp.Breadcrumbs({ breadcrumbs, title, url }) }}
+{{ comp.Breadcrumbs({ breadcrumbs: breadcrumbs_full || breadcrumbs, title, url }) }}
 
 <main class="site-wrapper">
 {{ content }}
