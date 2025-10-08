@@ -45,6 +45,19 @@ jobs:
       - name: Setup deno
         uses: ./.github/actions/setup-deno-environment
 
+      - name: Setup python
+        uses: ./.github/actions/setup-python-environment
+
+      - name: Get status and report data
+        run: |
+          umask 077
+          eval $(ssh-agent -s)
+
+          echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
+          ssh-add deploy-key
+          pipenv run dvc update data/status.json.dvc data/reports.dvc 
+          ssh-add -D
+
       - name: Build the dev site
         run: | 
           # deno task install_deps
