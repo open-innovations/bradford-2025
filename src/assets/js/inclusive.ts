@@ -110,9 +110,7 @@ function TabSets(listOfTabbed){
 		if(hash in idcontroller){
 			idcontroller[hash].TabSet.selectTab(idcontroller[hash].index)
 		}else{
-			// If there is no hash we go to the first tab in each TabSet
-			if(!hash) i = 0;
-			if(typeof i==="number"){
+			if(typeof i==="number" || !hash){
 				// Loop over each TabSet and set the first tab
 				for(let l = 0; l < list.length; l++) list[l].selectTab(i);
 			}
@@ -125,13 +123,14 @@ function TabSets(listOfTabbed){
 
 	addEventListener('popstate', handleDeepLink);
 
-	handleDeepLink(0);
+	handleDeepLink();
 
 	return this;
 }
 function TabSet(tabbed,idcontroller) {
 
 	let tabId = -1;
+	let _default = tabbed.getAttribute('data-default')||0;
 
 	// Get the tablist
 	const tablist = tabbed.querySelector('ul');
@@ -222,6 +221,7 @@ function TabSet(tabbed,idcontroller) {
 	});
 
 	this.selectTab = function(t){
+		if(typeof t!=="number") t = _default;
 		switchTab((tabId < 0 ? null : tabs[tabId]),tabs[t]);
 		if(tabs[t]) tabs[t].scrollTo();
 		return this;
