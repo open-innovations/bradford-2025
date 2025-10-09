@@ -10,6 +10,8 @@ description: |
 {{ description |> md }}
 
 <section>
+
+{{#
 <table>
 <thead>
 <tr>
@@ -34,4 +36,123 @@ description: |
 {{ /for }}
 </tbody>
 </table>
+#}}
+
+<style>
+.oi-table {
+	padding: 2px;
+}
+tab-set table tbody tr:hover {
+	outline: 2px dashed black;
+}
+tab-set [role=tablist] {
+	display: grid;
+	grid-gap: 1rem;
+	grid-template-columns: repeat(var(--tab-count, 3), minmax(100px, 1fr));
+	overflow-x: auto;
+}
+tab-set li {
+	display: flex;
+}
+tab-set [role=tab] {
+	display: block;
+	font-weight: bold;
+	padding: 2rem;
+	border-radius: 0 2rem 0 0;
+	text-decoration: none;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px -1rem 0.5rem -0.5rem inset;
+	background-color: var(--post-it-bg);
+	color: var(--color-black);
+}
+[aria-selected="true"]:is(tab-set [role="tab"]){
+	box-shadow: unset;
+}
+tab-set > div {
+	background-color: var(--selected-background);
+	padding: 2rem;
+}
+[data-comp="dashboard-InfoBoxTable"] {
+	padding-block: 0;
+}
+tab-set section > *:first-child {
+	margin-top: 0;
+}
+@media (max-width: 768px) {
+	.wide-only { display: none; }
+	tab-set [role=tablist] { grid-gap: 0.5rem; }
+	tab-set [role=tab], tab-set > div { padding: 1rem; border-radius: 0; box-shadow: none; border-bottom: 1px solid var(--color-midgrey); }
+	[aria-selected="true"]:is(tab-set [role="tab"]){ border-bottom: 0; }
+	tab-set [role="tablist"] { display: block; }
+	tab-set [role="tablist"] li, tab-set [role="tablist"] a {
+		display: block;
+		position: static;
+	}
+	tab-set [role="tablist"] [aria-selected]::after {
+		content: '\0020⬅';
+	}
+}
+</style>
+
+{{>
+	const ward_data = by_ward.map(x => ({
+		...x,
+		ticket_proportion: parseFloat((x.tickets_prop*100).toFixed(1)),
+		ticket_percent: x.tickets_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
+		response_proportion: parseFloat((x.surveys_prop*100).toFixed(1)),
+		response_percent: x.surveys_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
+	}))
+}}
+
+{{ comp Tab.Set }}
+	{{ comp Tab.Panel { id: 'hex-tickets', label: 'Map: tickets sold' } }}
+		<p>The proportion of all tickets sold in Bradford. Unlike a geographic map, this cartogram presents each ward as the same-sized hexagon. This allows us to make sure the impression of the data isn't skewed by the area of each ward.</p>
+		{{ comp.oi.map.hex_cartogram({
+			config: {
+				debug: true,
+				hexjson: hexes.bd_2024,
+				data: ward_data,
+				matchKey: 'geography_code',
+				value: 'ticket_proportion',
+				min: 0,
+				scale: scales.green,
+				label: '{{ n | slice(0,3) }}',
+				width: 500,
+				tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford'
+			}
+		}) }}
+	{{ /comp }}
+
+	{{ comp Tab.Panel { id: 'hex-tickets', label: 'Map: survey responses' } }}
+		<p>The proportion of all survey responses in Bradford. Unlike a geographic map, this cartogram presents each ward as the same-sized hexagon. This allows us to make sure the impression of the data isn't skewed by the area of each ward.</p>
+		{{ comp.oi.map.hex_cartogram({
+			config: {
+				hexjson: hexes.bd_2024,
+				data: ward_data,
+				matchKey: 'geography_code',
+				value: 'surveys_prop',
+				min: 0,
+				scale: scales.green,
+				label: '{{ n | slice(0,3) }}',
+				width: 500,
+				tooltip: '{{ name }}\n<strong>{{ response_percent }}</strong> of all survey responses across Bradford'
+			}
+		}) }}
+	{{ /comp }}
+
+	{{ comp Tab.Panel { id: 'table', label: 'Table' } }}
+		{{ comp.dashboard.InfoBoxTable({
+			head: {
+				class: 'c-green',
+			},
+			columns: [
+				{ name: 'name', label: 'Ward' },
+				{ name: 'ticket_proportion', value: 'ticket_proportion', label: 'Proportion of tickets sold', class: 'right', scale: scales.green, min: 0 },
+				{ name: 'response_proportion', value: 'response_proportion', label: 'Proportion of survey responses', class: 'right', scale: scales.green, min: 0 },
+			],
+			data: ward_data,
+			width: "100%",
+			sort: "name"
+		}) }}
+	{{ /comp }}
+{{ /comp }}
 </section>
