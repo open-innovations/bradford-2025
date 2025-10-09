@@ -170,8 +170,13 @@ function TabSet(tabbed,idcontroller) {
 
 	// Add semantics are remove user focusability for each tab
 	tabs.forEach((tab, i) => {
-		// Update our controller
-		idcontroller[tab.getAttribute('href')] = {'tab':tab,'TabSet': this,'index':i};
+		let hash = tab.getAttribute('href');
+		if(hash in idcontroller){
+			console.warn("There is already a tab with the ID "+hash);
+		}else{
+			// Update our controller
+			idcontroller[hash] = {'tab':tab,'TabSet': this,'index':i};
+		}
 
 		tab.setAttribute('role', 'tab');
 		tab.setAttribute('id', 'tab' + i);
