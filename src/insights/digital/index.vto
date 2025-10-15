@@ -3,3 +3,48 @@ title: Digital engagement
 description: Figures outlining digital engagement across the Bradford 2025 programme.
 ---
 
+<section>
+<h2>Digital events and experiences</h2>
+
+</section>
+
+<section>
+<h2>Website and social media</h2>
+
+<section>
+<h3>Followers</h3>
+
+<p>
+Total followers:
+
+{{ followers.latest["Total Audience"].count |> toLocaleString }}
+
+(Updated on
+
+{{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') -}}
+
+).</p>
+
+{{ comp.oi.chart.line({ config: {
+    data: followers.by_date,
+    columns: [
+        { name: "decimal_year", template: "{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}" }
+    ],
+    axis: {
+		x: { grid: { show: true }, tick: { spacing: 3/12 } },
+        y: { min: 0, max: 35_000 },
+	},
+    series: [
+        // { title: 'Total Audience', x: 'decimal_year', y: 'Total Audience' },
+        { title: 'TikTok', x: 'decimal_year', y: 'TikTok Followers' },
+        { title: 'Instagram', x: 'decimal_year', y: 'Instagram Followers' },
+        { title: 'Facebook', x: 'decimal_year', y: 'Facebook Followers' },
+        { title: 'LinkedIn', x: 'decimal_year', y: 'LinkedIn Followers' },
+        { title: 'Email', x: 'decimal_year', y: 'Email Subscribers' },
+        // etc
+    ]
+}}) }}
+
+</section>
+
+</section>
