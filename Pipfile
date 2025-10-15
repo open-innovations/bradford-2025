@@ -18,6 +18,7 @@ ipython = "*"
 rap-utils = "==0.0.8"
 thefuzz = "*"
 petl-addons = "*"
+nbconvert = "*"
 
 [dev-packages]
 ipykernel = "*"
@@ -27,3 +28,6 @@ vulture = "*"
 
 [requires]
 python_version = "3.12"
+
+[scripts]
+clear_nb = "jupyter nbconvert --clear-output --inplace"

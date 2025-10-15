@@ -141,3 +141,14 @@ stages:
       - ${ROOT}/src/insights/dashboard/public/_data/graph/participants/total.json:
           cache: false
           persist: false
+
+  digital:
+    cmd: jupyter execute digital.ipynb
+    deps:
+      - public-dashboard.ipynb
+      - ${ROOT}/data/published/digital/
+    outs:
+      - ${ROOT}/src/insights/digital/_data/followers/by_month.json:
+          cache: false
+      - ${ROOT}/src/insights/digital/_data/followers/latest.json:
+          cache: false
