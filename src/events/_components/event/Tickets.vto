@@ -79,7 +79,7 @@ This list contains any Local Authority with a count of more than 20 tickets:
 {{ if missing }}
 There were
 <b>{{ oslauaTickets.find(x => x.geography_code === 'MISSING').count_of_tickets.toLocaleString() }} tickets</b>
-orders missing a postcode which cannot be mapped to a geographic area.
+orders either missing a postcode or associated with a postcode which cannot be mapped to a geographic area.
 {{ /if }}
 {{ if unmatched }} There were also
 <b>{{ unmatched.count_of_tickets.toLocaleString() }} tickets</b>
@@ -93,12 +93,16 @@ or the ticket holder's postcode was invalid.
 
 <section class="grid regular">
 <div class="block">
-<figure>
-{{ comp.oi.chart.waffle({
-    config: {
-        data: [tickets.by_type.reduce(( a, c ) => ({ ...a, [c.type]: c.percentage }), {})],
-        size: [20, 15],
-        series: [
+ 
+{{>
+    function ticketReducer(a, c) {
+        const key = c.type;
+        return { ...a, [key]: c.percentage + (a[key] || 0)};
+    }
+
+    const ticketsByType = tickets.by_type.reduce(ticketReducer, {});
+
+    const series = [
             {
                 value: 'Full Price', title: 'Full price', colour: '#F4ACCD',
                 tooltip: 'Full price tickets <b>{{ Full Price }}%</b>',
@@ -123,7 +127,19 @@ or the ticket holder's postcode was invalid.
                 value: 'Accessible Ticket', title: 'Accessible', colour: '#be9006',
                 tooltip: 'Accessible tickets <b>{{ Accessible Ticket }}%</b>',
             },
-        ],
+            {
+                value: 'Other', title: 'Other', colour: '#F8D9E7',
+                tooltip: 'Other tickets <b>{{ Other }}%</b>',
+            },
+        ].filter(x => Object.keys(ticketsByType).includes(x.value));
+}}
+
+<figure>
+{{ comp.oi.chart.waffle({
+    config: {
+        data: [tickets.by_type.reduce(ticketReducer, {})],
+        size: [20, 15],
+        series: series,
         legend: {
             show: true,
             position: 'bottom',
@@ -152,6 +168,40 @@ or the ticket holder's postcode was invalid.
 </li>
 </ul>
 </div>
+</section>
+
+<section>
+<h3>Tickets by event</h3>
+
+{{# {{ comp.oi.table({ config: {
+    data: tickets.by_event,
+    columns: [
+        { name: 'event_name', label: 'Event name' },
+        { name: 'event_start', label: 'Start time', template: '{{ start | strftime("%Y-%m-%d") }}' },
+        { name: 'tickets', label: 'Tickets', align: 'right' },
+    ]
+}}) }} #}}
+
+<table>
+<thead>
+<tr class="c-yellow">
+<th scope="col">Event name</th>
+<th scope="col">Event start time</th>
+<th scope="col">Tickets sold</th>
+</tr>
+</thead>
+<tbody>
+{{ for r of tickets.by_event }}
+<tr>
+    <th scope="row">{{ r.event_name }}</th>
+    <td>{{ r.start |> date('BD25_LONG_DATETIME') }}</td>
+    <td class="right">{{ r.tickets |> toLocaleString }}</td>
+</tr>
+{{ /for }}
+</tbody>
+
+</table>
+
 </section>
 
 </section>

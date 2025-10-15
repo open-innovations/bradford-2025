@@ -205,16 +205,16 @@ site.data('build', {
 });
 
 // Kludge to strip height and width from in line svg
-// site.process(['.html'], (pages) => pages.forEach(page => {
-//   page.document!.querySelectorAll<SVGElement>('.oi-viz svg').forEach(svg => {
-//     // Remove all inline styles!
-//     svg.removeAttribute('style');
-//     svg.removeAttribute('width');
-//     svg.removeAttribute('height');
-//   })
-//   // Another kludge to avoid memory leaks on large pages
-//   page.content;
-// }));
+site.process(['.html'], (pages) => pages.forEach(page => {
+  page.document!.querySelectorAll<SVGElement>('.oi-viz svg').forEach(svg => {
+    // Remove all inline styles!
+    svg.removeAttribute('style');
+    svg.removeAttribute('width');
+    svg.removeAttribute('height');
+  })
+  // Another kludge to avoid memory leaks on large pages
+  page.content;
+}));
 
 site.remoteFile(
   'healthcheck/_data/status.json',

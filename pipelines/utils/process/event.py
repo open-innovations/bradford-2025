@@ -157,6 +157,16 @@ class Tickets:
                     'Guest Ticket': 'Full Price',
                     'Z Community Ticket': 'Community Ticket',
                     'Under 16': 'Child Ticket',
+
+                    'Adult': 'Full Price',
+                    'Child': 'Child Ticket',
+
+                    'Z Guest Artist': 'Other',
+                    'Z Guest Ticket': 'Other',
+                    'Z Development Ticket': 'Other',
+
+                    'Females Only': 'Full Price',
+                    'Babes in Arms': 'Other',
                 },
             )
             .aggregate('type', sum, 'count_of_tickets', field='count')
