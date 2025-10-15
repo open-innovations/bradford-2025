@@ -140,11 +140,13 @@ h2 { font-size: 60px; margin-block: 0; }
 				animate: true,
 				roundingOptions: { maximumSignificantDigits: 4 }
 			}) }}
+			
+			{{ set audience_data = graph.audiences.total }}
 
 			{{
 				comp.oi.chart.line({
 					config: {
-						data: graph.audiences.total,
+						data: audience_data,
 						columns: [{
 							name: 'decimal_year',
 							template: '{{ Date | strptime("%Y-%m") | decimalYear() }}'
@@ -154,7 +156,7 @@ h2 { font-size: 60px; margin-block: 0; }
 						width: 800,
 						axis: {
 							x: getXAxis('2025-01','2026-01'),
-							y: getYAxis(graph.audiences.total)
+							y: getYAxis(audience_data)
 						},
 						series: [{
 							title: 'Audience',
