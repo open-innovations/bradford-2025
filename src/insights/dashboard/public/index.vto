@@ -1,6 +1,6 @@
 ---
 draft: true
-title: Public dashboard
+title: Headlines
 layout: templates/page.vto
 # url: /dashboard/
 breadcrumbs_full:
@@ -10,11 +10,13 @@ breadcrumbs_full:
     url: /insights/
 ---
 <style>
-h2 { font-size: 60px; margin-block: 0; }
+h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
 .dashboard h3 { font-size: 2em; margin-bottom: 0; }
 .dashboard .big[data-comp="big-number"] { align-items: start; }
 .dashboard .big[data-comp="big-number"] .number { line-height: 1em; }
-.dashboard .block { padding: 2rem; }
+.dashboard li { position: relative; }
+.dashboard .block { padding: 2rem; position: relative; }
+.dashboard .block h3 { padding-top: 0; margin-top: 0; }
 .oi-viz.oi-chart { margin-block: 1rem; margin-top: 2rem; }
 .updated { margin-block: 0; }
 .dashboard :is(.oi-viz .axis-grid-x) g[data] text { dominant-baseline: unset; }
@@ -122,20 +124,15 @@ h2 { font-size: 60px; margin-block: 0; }
 		return axis;
 	}
 }}
-
-<main class="site-wrapper">
-
-	<section>
-		<p>This website has been developed to visualise data captured from multiple sources about Bradford 2025, the UK City of Culture 2025. It acts as a live monitoring tool and is not a final evaluation report. The data, figures, and visualisations represented within are a work-in-progress and do not present a full and complete picture of all activity and engagement. Data is drawn daily from key operational pipelines to provide a view of delivery. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}. The graphs show the data for 2025.</p>
-	</section>
-
-	<section>
-		<h2>Headlines</h2>
-	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', classes: 'audiences block', style: "flex-basis: 30ch;" } }}
+{{ set non_digital = audience.total - audience.by_category.Digital }}
+<section>
+	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.</p>
+{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+	{{ comp grid.Brick { tag: 'li', classes: 'audiences', style: "flex-basis: 30ch;" } }}
+		<div class="block">
 			<h3>{{ metrics.audiences_total.title }}</h3>
 			{{ comp.BigNumber({
-				number: audience.total || 0,
+				number: non_digital || 0,
 				classes: 'big',
 				animate: true,
 				roundingOptions: { maximumSignificantDigits: 4 }
@@ -168,11 +165,11 @@ h2 { font-size: 60px; margin-block: 0; }
 					}
 				})
 			}}
-
-			<p>Contains a mixture of unique individuals and attendance counts. Note that the data are updated overnight.</p>
 			{{#<a class="block" href="audience">{{ comp Pill }}See more &rarr;{{ /comp }}</a>#}}
-		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events block', style: "flex-basis: 30ch;" } }}
+		</div>
+	{{ /comp }}
+	{{ comp grid.Brick { tag: 'li', classes: 'events', style: "flex-basis: 30ch;" } }}
+		<div class="block">
 			<h3>{{ metrics.events_total.title }}</h3>
 			{{ comp.BigNumber({
 				number: events.total || 0,
@@ -206,9 +203,10 @@ h2 { font-size: 60px; margin-block: 0; }
 					}
 				})
 			}}
-			<p>An event is an instance with a defined start and end date and time. Note that the data are updated overnight.</p>
-		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'participants block', style: "flex-basis: 30ch;" } }}
+		</div>
+	{{ /comp }}
+	{{ comp grid.Brick { tag: 'li', classes: 'participants', style: "flex-basis: 30ch;" } }}
+		<div class="block">
 			<h3>{{ metrics.participants_total.title }}</h3>
 			{{ comp.BigNumber({
 				number: participants.total || 0,
@@ -242,13 +240,13 @@ h2 { font-size: 60px; margin-block: 0; }
 					}
 				})
 			}}
-			<p>Contains mixture of unique individuals and attendance counts. Note that the data are updated overnight.</p>
-		{{ /comp }}
+			<p>People taking part in or contributing e.g. taking part in a workshop, performing in a community show, joining a class, or taking part in a digital activity.</p>
+		</div>
 	{{ /comp }}
-	</section>
+{{ /comp }}
+</section>
 
-	<section>
-		<p>You can also take a look at our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf" class="c-green">Evaluation strategy</a>, and the <a href="/strategy/" class="c-green">Open Data Strategy</a> which sets out what we hope to achieve by being open and transparent with our data.</p>
-	</section>
-
-</main>
+<section>
+	<h2>About</h2>
+	<p>This site has been developed to visualise data captured from multiple sources about Bradford 2025, the UK City of Culture 2025. You can also take a look at our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf" class="c-green">Evaluation strategy</a>, and the <a href="/strategy/" class="c-green">Open Data Strategy</a> which sets out what we hope to achieve by being open and transparent with our data.</p>
+</section>
