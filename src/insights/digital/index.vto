@@ -11,6 +11,35 @@ description: Figures outlining digital engagement across the Bradford 2025 progr
 <section>
 <h2>Website and social media</h2>
 
+<h3>Website audience</h3>
+
+<p>
+Total website audience:
+
+{{ website.total_users[website.total_users.length - 1].cumulative |> toLocaleString }}
+</p>
+
+{{ comp.oi.chart.line({ config: {
+    data: website.total_users,
+    columns: [
+        { name: "decimal_year", template: "{{ month | strptime(\"%Y-%m-%d\") | decimalYear() }}" }
+    ],
+    axis: {
+		x: { min: 2024.75, max: 2026.25, grid: { show: true }, tick: { spacing: 3/12 } },
+        y: { min: 0, max: 3_000_000 },
+	},
+    series: [
+        { title: 'Website audience', x: 'decimal_year', y: 'cumulative' },
+        // { title: 'TikTok', x: 'decimal_year', y: 'TikTok Followers' },
+        // { title: 'Instagram', x: 'decimal_year', y: 'Instagram Followers' },
+        // { title: 'Facebook', x: 'decimal_year', y: 'Facebook Followers' },
+        // { title: 'LinkedIn', x: 'decimal_year', y: 'LinkedIn Followers' },
+        // { title: 'Email', x: 'decimal_year', y: 'Email Subscribers' },
+        // etc
+    ]
+}}) }}
+
+
 <section>
 <h3>Followers</h3>
 
@@ -31,7 +60,7 @@ Total followers:
         { name: "decimal_year", template: "{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}" }
     ],
     axis: {
-		x: { grid: { show: true }, tick: { spacing: 3/12 } },
+		x: { min: 2024.75, max: 2026.25, grid: { show: true }, tick: { spacing: 3/12 } },
         y: { min: 0, max: 35_000 },
 	},
     series: [
