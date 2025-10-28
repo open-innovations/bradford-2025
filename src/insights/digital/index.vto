@@ -11,69 +11,193 @@ description: Figures outlining digital engagement across the Bradford 2025 progr
 <section>
 <h2>Website and social media</h2>
 
-<h3>Website audience</h3>
+<style>
+h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
+.dashboard h3 { font-size: 2em; margin-bottom: 0; }
+.dashboard .big[data-comp="big-number"] { align-items: start; }
+.dashboard .big[data-comp="big-number"] .number { line-height: 1em; }
+.dashboard li { position: relative; }
+.dashboard .block { padding: 2rem; position: relative; }
+.dashboard .block h3 { padding-top: 0; margin-top: 0; }
+.oi-viz.oi-chart { margin-block: 1rem; margin-top: 2rem; }
+.updated { margin-block: 0; }
+.dashboard :is(.oi-viz .axis-grid-x) g[data] text { dominant-baseline: unset; }
+</style>
 
-<p>
-Total website audience:
+{{> 
+	function decimalYear(date){
+		// If it is of the form blah→YYYY we return midway through the year
+		let match = date.match(/→([0-9]{4})/);
+		// If it is of the form YYYY/YY we return midway through the year
+		if(!match) match = date.match(/^([0-9]{4})\/([0-9]{1,2})$/);
+		if(match) return parseInt(match[1])+0.5;
 
-{{ website.total_users[website.total_users.length - 1].cumulative |> toLocaleString }}
-</p>
+		// If it is of the form YYYY-MM-DD
+		match = date.match(/^([0-9]{4})-?([0-9]{2})?-?([0-9]{2})?$/);
+		let y,m,d,sy,ey;
+		if(!match) return 0;
+		y = parseInt(match[1]);
+		m = parseInt(match[2]);
+		d = parseInt(match[3]);
 
-{{ comp.oi.chart.line({ config: {
-    data: website.total_users,
-    columns: [
-        { name: "decimal_year", template: "{{ month | strptime(\"%Y-%m-%d\") | decimalYear() }}" }
-    ],
-    axis: {
-		x: { min: 2024.75, max: 2026.25, grid: { show: true }, tick: { spacing: 3/12 } },
-        y: { min: 0, max: 3_000_000 },
-	},
-    series: [
-        { title: 'Website audience', x: 'decimal_year', y: 'cumulative' },
-        // { title: 'TikTok', x: 'decimal_year', y: 'TikTok Followers' },
-        // { title: 'Instagram', x: 'decimal_year', y: 'Instagram Followers' },
-        // { title: 'Facebook', x: 'decimal_year', y: 'Facebook Followers' },
-        // { title: 'LinkedIn', x: 'decimal_year', y: 'LinkedIn Followers' },
-        // { title: 'Email', x: 'decimal_year', y: 'Email Subscribers' },
-        // etc
-    ]
-}}) }}
+		if(isNaN(y)) return 0;
+		if(isNaN(m)) return y;
+		if(isNaN(d)) d = 1;
+
+		let p1 = new Date();
+		p1.setUTCFullYear(y);
+		p1.setUTCMonth(m-1);
+		p1.setUTCDate(d);
+		p1.setUTCHours(0);
+		p1.setUTCMinutes(0);
+		p1.setUTCSeconds(0);
+
+		// Set start of year
+		sy = new Date(p1);
+		sy.setUTCMonth(0);
+		sy.setUTCDate(1);
+		sy.setUTCHours(0);
+		sy.setUTCMinutes(0);
+		sy.setUTCSeconds(0);
+
+		// Start of next year
+		ey = new Date(sy);
+		ey.setUTCFullYear(sy.getUTCFullYear()+1);
+		return sy.getUTCFullYear() + (p1-sy)/(ey-sy);
+	}
+
+	// Get the x-axis structure
+	function getXAxis(s,e,axis){
+		let start = new Date(s);
+		let end = new Date(e);
+		axis.min = decimalYear(s);
+		axis.max = decimalYear(e);
+		axis.ticks = [];
+		let pre = "",post="",d,months=axis.months||['Jan','','','Apr','','','Jul','','','Oct','',''];
+		while (start <= end) {
+			// compensate for zero-based months in display
+			const displayMonth = start.getUTCMonth() + 1;
+			d = (months[displayMonth-1]||"") + (displayMonth==1 ? "\n" + start.getUTCFullYear() : "");
+			axis.ticks.push({'value':decimalYear(start.toISOString().substr(0,7)),'label':(pre+d+post),'tickSize':10,'grid':(d ? true : false)});
+			// progress the start date by one month
+			start = new Date(start.setUTCMonth(displayMonth));
+		}
+		return axis;
+	}
+
+	// Function to return a yaxis object suitable for OI Lume Viz adjusted to the range of the data
+	function getYAxis(data,keys,scale){
+		if(!scale) scale = {};
+		let min = Infinity,max = -Infinity,range,spacing,lo,hi,axis,i,k,y,pre = "",post = "",f = 1;
+		if(!keys) keys = ["value"];
+		if(typeof keys==="string") keys = [keys];
+		// Calculate the min/max in the data and get the pre/post units
+		for(i = 0; i < data.length; i++){
+			for(k = 0; k < keys.length; k++){
+				if(!isNaN(data[i][keys[k]])){
+					min = Math.min(min,data[i][keys[k]]);
+					max = Math.max(max,data[i][keys[k]]);
+				}
+			}
+			if(i==0){ pre = data[i].preunit||""; post = data[i].postunit||""; }
+		}
+		// If the scale minimum is set we'll use that instead (this helps preserve some sensible zero scaling)
+		if(typeof scale.min==="number") min = scale.min;
+		// Find the range
+		range = max - min;
+		// Work out a spacing and then a scale factor
+		if(range > 0){
+			spacing = Math.pow(10,Math.floor(Math.log10(range)));
+			let n = range/spacing;
+			if(n > 3) f = 1;
+			if(n > 6) f = 2;
+		}else{
+			spacing = 1;
+			if(min==Infinity) min = 0;
+			if(max==-Infinity || (max==0 && min==0)) max = 1;
+		}
+		// Update the tick spacing
+		spacing = spacing*f;
+		// Find the new minimum/maximum to use for the scale
+		lo = (Math.floor(min/spacing)*spacing);
+		lo = 0;
+		hi = (Math.ceil(max/spacing)*spacing);
+		axis = {min:lo,max:hi,ticks:[],'grid':{'stroke-width': 0.5}};
+		// Create tick marks
+		//axis.ticks.push({'value':lo,'label':(pre+lo.toLocaleString()+post),'grid':true});
+		//axis.ticks.push({'value':hi,'label':(pre+hi.toLocaleString()+post),'grid':true});
+		for(y = lo; y <= hi ; y += spacing){
+			axis.ticks.push({'value':y,'label':(pre+y.toLocaleString()+post),'grid':true});
+		}
+		return axis;
+	}
+}}
 
 
-<section>
-<h3>Followers</h3>
+{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+	{{ comp grid.Brick { tag: 'li', classes: 'audiences', style: "flex-basis: 40ch;" } }}
+		<div class="block">
+			<h3>Website audience</h3>
 
-<p>
-Total followers:
+			{{ comp.BigNumber({
+				number: website.total_users[website.total_users.length - 1].cumulative || 0,
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumSignificantDigits: 4 }
+			}) }}
+			
+			{{ comp.oi.chart.line({ config: {
+				data: website.total_users,
+				columns: [
+					{ name: "decimal_year", template: "{{ month | strptime(\"%Y-%m-%d\") | decimalYear() }}" }
+				],
+				axis: {
+					x: getXAxis('2024-10', '2026-04', { grid: { 'stroke-width': 0.5 }, months: ['Jan','','','Apr','','','Jul','','','Oct','',''] }),
+					y: getYAxis(website.total_users,'cumulative',{min:0}),
+				},
+				series: [
+					{ title: 'Website audience', x: 'decimal_year', y: 'cumulative', 'colour': 'green', tooltip: '{{ _title }}\n{{ month | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+				]
+			}}) }}
 
-{{ followers.latest["Total Audience"].count |> toLocaleString }}
+		</div>
+	{{ /comp }}
+	{{ comp grid.Brick { tag: 'li', classes: 'audiences', style: "flex-basis: 40ch;" } }}
+		<div class="block">
+			<h3>Followers</h3>
 
-(Updated on
+			{{ comp.BigNumber({
+				number: followers.latest["Total Audience"].count || 0,
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumSignificantDigits: 4 }
+			}) }}
 
-{{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') -}}
+			{{ comp.oi.chart.line({ config: {
+				data: followers.by_date,
+				columns: [
+					{ name: "decimal_year", template: "{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}" }
+				],
+				axis: {
+					x: getXAxis('2024-10', '2026-04', { grid: { 'stroke-width': 0.5 }, months: ['Jan','','','Apr','','','Jul','','','Oct','',''] }),
+					y: getYAxis(followers.by_date,['TikTok Followers','Instagram Followers','Facebook Followers','LinkedIn Followers','Email Subscribers'],{min:0}),
+				},
+				series: [
+					// { title: 'Total Audience', x: 'decimal_year', y: 'Total Audience' },
+					{ title: 'TikTok', x: 'decimal_year', y: 'TikTok Followers', colour: 'green', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Instagram', x: 'decimal_year', y: 'Instagram Followers', colour: 'yellow', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Facebook', x: 'decimal_year', y: 'Facebook Followers', colour: 'pink', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'LinkedIn', x: 'decimal_year', y: 'LinkedIn Followers', colour: 'darkgreen', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Email', x: 'decimal_year', y: 'Email Subscribers', colour: 'deepyellow', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					// etc
+				]
+			}}) }}
+			<p>Updated on {{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') -}}</p>
+		
+		</div>
+	{{ /comp }}
 
-).</p>
+{{ /comp }}
 
-{{ comp.oi.chart.line({ config: {
-    data: followers.by_date,
-    columns: [
-        { name: "decimal_year", template: "{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}" }
-    ],
-    axis: {
-		x: { min: 2024.75, max: 2026.25, grid: { show: true }, tick: { spacing: 3/12 } },
-        y: { min: 0, max: 35_000 },
-	},
-    series: [
-        // { title: 'Total Audience', x: 'decimal_year', y: 'Total Audience' },
-        { title: 'TikTok', x: 'decimal_year', y: 'TikTok Followers' },
-        { title: 'Instagram', x: 'decimal_year', y: 'Instagram Followers' },
-        { title: 'Facebook', x: 'decimal_year', y: 'Facebook Followers' },
-        { title: 'LinkedIn', x: 'decimal_year', y: 'LinkedIn Followers' },
-        { title: 'Email', x: 'decimal_year', y: 'Email Subscribers' },
-        // etc
-    ]
-}}) }}
-
-</section>
 
 </section>

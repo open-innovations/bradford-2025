@@ -2,9 +2,7 @@
 layout: templates/page.vto
 ---
 <section>
-{{ description |> md }}
-
-<p>See <a href="{{ mainPage }}">the {{ title }} page on the main Bradford 2025 website</a> for more information.</p>
+<p>{{ description }}. See <a href="{{ mainPage }}">the {{ title }} page on the main Bradford 2025 website</a> for more information.</p>
 </section>
 
 {{ comp.event.Headlines({ ...event }) }}

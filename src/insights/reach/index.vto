@@ -38,61 +38,6 @@ description: |
 </table>
 #}}
 
-<style>
-.oi-table {
-	padding: 2px;
-}
-tab-set table tbody tr:hover {
-	outline: 2px dashed black;
-}
-tab-set [role=tablist] {
-	display: grid;
-	grid-gap: 1rem;
-	grid-template-columns: repeat(var(--tab-count, 3), minmax(100px, 1fr));
-	overflow-x: auto;
-}
-tab-set li {
-	display: flex;
-}
-tab-set [role=tab] {
-	display: block;
-	font-weight: bold;
-	padding: 2rem;
-	border-radius: 0 2rem 0 0;
-	text-decoration: none;
-	box-shadow: rgba(0, 0, 0, 0.05) 0px -1rem 0.5rem -0.5rem inset;
-	background-color: var(--post-it-bg);
-	color: var(--color-black);
-}
-[aria-selected="true"]:is(tab-set [role="tab"]){
-	box-shadow: unset;
-}
-tab-set > div {
-	background-color: var(--selected-background);
-	padding: 2rem;
-}
-[data-comp="dashboard-InfoBoxTable"] {
-	padding-block: 0;
-}
-tab-set section > *:first-child {
-	margin-top: 0;
-}
-@media (max-width: 768px) {
-	.wide-only { display: none; }
-	tab-set [role=tablist] { grid-gap: 0.5rem; }
-	tab-set [role=tab], tab-set > div { padding: 1rem; border-radius: 0; box-shadow: none; border-bottom: 1px solid var(--color-midgrey); }
-	[aria-selected="true"]:is(tab-set [role="tab"]){ border-bottom: 0; }
-	tab-set [role="tablist"] { display: block; }
-	tab-set [role="tablist"] li, tab-set [role="tablist"] a {
-		display: block;
-		position: static;
-	}
-	tab-set [role="tablist"] [aria-selected]::after {
-		content: '\0020⬅';
-	}
-}
-</style>
-
 {{>
 	const ward_data = by_ward.map(x => ({
 		...x,
@@ -103,12 +48,11 @@ tab-set section > *:first-child {
 	}))
 }}
 
-{{ comp Tab.Set }}
+{{ comp Tab.Set { classes: 'big'} }}
 	{{ comp Tab.Panel { id: 'hex-tickets', label: 'Map: tickets sold' } }}
 		<p>The proportion of all tickets sold in Bradford. Unlike a geographic map, this cartogram presents each ward as the same-sized hexagon. This allows us to make sure the impression of the data isn't skewed by the area of each ward.</p>
 		{{ comp.oi.map.hex_cartogram({
 			config: {
-				debug: true,
 				hexjson: hexes.bd_2024,
 				data: ward_data,
 				matchKey: 'geography_code',

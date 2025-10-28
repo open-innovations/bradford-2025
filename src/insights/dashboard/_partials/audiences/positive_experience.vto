@@ -5,7 +5,7 @@
 	if(v > t) label = "Better than the ";
 	else if(v == t) label = "Meets the ";
 	else label = "Below the ";
-	label += Math.round(targets.audiences_positive_experience) + "% target";
+	label += (typeof targets.audiences_positive_experience==="number" ? Math.round(targets.audiences_positive_experience)+"% " : "") + "target";
 }}
 
 {{ comp dashboard.Cell {

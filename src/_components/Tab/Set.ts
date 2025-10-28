@@ -7,7 +7,7 @@ interface TabSetOptions {
   selected: number;
 }
 
-export default function ({ content, wrapperClass, selected }: TabSetOptions) {
+export default function ({ content, wrapperClass, selected, classes }: TabSetOptions) {
   const fragment = new DOMParser().parseFromString(content, 'text/html');
   const panels = Array.from(fragment.querySelectorAll('[data-tab-label]'));
 
@@ -19,7 +19,7 @@ export default function ({ content, wrapperClass, selected }: TabSetOptions) {
     tab.innerHTML = `<a href="#${ panel.id }">${ panel.dataset.tabLabel }</a>`;
 	tabList.append(tab);
   }
-  return `<tab-set data-dependencies="/assets/js/inclusive.js"` + (selected ? ' data-default="'+selected+'"' : '') + `>${
+  return `<tab-set data-dependencies="/assets/js/inclusive.js"` + (selected ? ' data-default="'+selected+'"' : '') + (classes ? ' class="'+classes+'"' : '') +`>${
     tabList.outerHTML
   }<div${ wrapperClass ? ` class="${ wrapperClass }"`: "" }>${
     panels.map(p => p.outerHTML).join('')

@@ -1,99 +1,107 @@
+{{ if tickets.by_geography || tickets.by_type || tickets.by_event }}
+<h2>Tickets</h2>
+{{ /if }}
+
+
 {{ if tickets?.by_geography && (tickets?.by_geography.length > 0) }}
 <section>
-<h2>Tickets</h2>
 
-<h3>Geographic ticket allocation</h3>
-{{> const by_ward = tickets.by_geography
-        .filter(x => x.start == 'ALL' && x.geography_type == 'osward' && x.geography_code !== 'OTHER')
-        .map(w => ({
-            ...w,
-            ...geojson.bd_wards.features.map(x => x.properties).find(x => x.WD24CD === w.geography_code)
-        }))
-}}
+	<h3>Geographic ticket allocation</h3>
+	{{> const by_ward = tickets.by_geography
+			.filter(x => x.start == 'ALL' && x.geography_type == 'osward' && x.geography_code !== 'OTHER')
+			.map(w => ({
+				...w,
+				...geojson.bd_wards.features.map(x => x.properties).find(x => x.WD24CD === w.geography_code)
+			}))
+	}}
+	{{> const minTickets = 20; }}
+	{{>
+		let oslauaTickets = tickets.by_geography
+		.map(x => ({ geography_code: "UNKNOWN", ...x }))
+		.filter(
+			x => x.start === 'ALL' && x.geography_type === 'oslaua' && x.count_of_tickets > minTickets
+		)
+		.sort((a, b) => b.count_of_tickets - a.count_of_tickets)
+		.map(x => ({ ...x, name: codes.la[x.geography_code]?.name || x.geography_code }));
 
-<section class="grid regular">
-<div class="block fix-svg-ratio-bd">
+		const unmatched = oslauaTickets.find(x => x.geography_code === 'UNMATCHED');
+		const missing = oslauaTickets.find(x => x.geography_code === 'MISSING');
 
-{{ comp.MapSelector({
-	type: 'ward',
-	data: by_ward,
-	scale: scales.yellow,
-	value: 'count_of_tickets',
-	tooltip: '<b>{{ WD24NM }}</b>:\n{{ count_of_tickets }} tickets sold',
-	caption: 'Schematic presentation of tickets sold by Bradford Ward.',
-	hex: {
-		id: 'tickets-hex',
-		matchKey:'geography_code',
-		label: 'short_code',
-	},
-	geo: {
-		id: 'tickets-geo',
-		key: 'geography_code',
-	}
-}) }}
+		oslauaTickets = oslauaTickets.filter(obj => obj.geography_code !== 'UNMATCHED').filter(obj => obj.geography_code !== 'MISSING');
+		
+	}}
 
-</div>
+	{{ comp Tab.Set { classes: 'big'} }}
+		{{ comp Tab.Panel { id: 'hex-tickets', label: 'Wards: hexes' } }}
+			<p>Tickets sold across the wards of Bradford.</p>
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					data: by_ward,
+					scale: scales.yellow,
+					value: 'count_of_tickets',
+					tooltip: '<b>{{ WD24NM }}</b>:\n{{ count_of_tickets }} tickets sold',
+					hexjson: hexes.bd_2024,
+					matchKey: 'geography_code',
+					label: 'short_code',
+				}
+			}) }}
+			<figcaption>Schematic presentation of tickets sold by Bradford Ward.</figcaption>
+			<p class="footer">This is a hex cartogram that shows each ward area with the same-sized hexagon. This allows us to treat areas equally in the visualisation but at the expense of an accurate geographic layout. Switch to the geographic map for accurate geography.</p>
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'geo-tickets', label: 'Wards: geographic' } }}
+			<p>Tickets sold across the wards of Bradford.</p>
+			{{ comp.oi.map.svg({
+				config: {
+					data: by_ward,
+					scale: scales.yellow,
+					value: 'count_of_tickets',
+					tooltip: '<b>{{ WD24NM }}</b>:\n{{ count_of_tickets }} tickets sold',
+					geojson: { key: "WD24CD", data: geojson.bd_wards },
+					key: 'geography_code',
+					label: 'short_code',
+				}
 
-<div>
-<p>
-The maps show tickets sold across the wards of Bradford.
-</p>
-<p>
-Tickets were issued to attendees from the following Local Authorities.
-This list contains any Local Authority with a count of more than 20 tickets:
-</p>
+			}) }}
+			<figcaption>Schematic presentation of tickets sold by Bradford Ward.</figcaption>
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'tab-tickets', label: 'Local authorities' } }}
+			<p>Tickets were issued to attendees from the following Local Authorities.
+			This list contains any Local Authority with a count of more than {{ minTickets }} tickets:</p>
 
-{{>
-    const oslauaTickets = tickets.by_geography
-    .map(x => ({ geography_code: "UNKNOWN", ...x }))
-    .filter(
-        x => x.start === 'ALL' && x.geography_type === 'oslaua' && x.count_of_tickets > 20
-    )
-    .sort((a, b) => b.count_of_tickets - a.count_of_tickets)
-    .map(x => ({ ...x, name: codes.la[x.geography_code]?.name || x.geography_code }))
-}}
+			{{ comp.dashboard.InfoBoxTable({
+				head: {
+					class: 'c-yellow',
+				},
+				columns: [
+					{ label: 'Local Authority', name: 'name' },
+					{ label: 'Count of tickets', name: 'lad', template: '{{ count_of_tickets | toLocaleString() }}', value: 'count_of_tickets', class: 'right', scale: scales.yellow, min: 0 }
+				],
+				data: oslauaTickets,
+				width: "100%",
+				sort: "name"
+			}) }}
 
-<table style="margin-inline: auto;">
-<thead>
-<tr>
-    <th scope="col">Local Authority</th>
-    <th scope="col">Count of tickets</th></tr>
-</thead>
-<tbody>
-{{ for area of oslauaTickets }}
-{{ if !['MISSING', 'UNMATCHED'].includes(area.geography_code) }}
-    <tr>
-    <th scope="row">{{ area.name }}</th>
-    <td style="text-align: center;">{{ area.count_of_tickets.toLocaleString() }}</td>
-    </tr>
-{{ /if }}
-{{ /for }}
-</tbody>
-</table>
+			<p>
+			{{ if missing }}
+			There were
+			<b>{{ missing.count_of_tickets.toLocaleString() }} tickets</b>
+			orders either missing a postcode or associated with a postcode which cannot be mapped to a local authority.
+			{{ /if }}
+			{{ if unmatched }} There were also
+			<b>{{ unmatched.count_of_tickets.toLocaleString() }} tickets</b>
+			that could not be assigned to a local authority, either as they were outside the UK,
+			or the ticket holder's postcode was invalid.
+			{{ /if }}
+			</p>
 
-<p>
-{{>
-    const unmatched = oslauaTickets.find(x => x.geography_code === 'UNMATCHED');
-    const missing = oslauaTickets.find(x => x.geography_code === 'MISSING');
-}}
-{{ if missing }}
-There were
-<b>{{ oslauaTickets.find(x => x.geography_code === 'MISSING').count_of_tickets.toLocaleString() }} tickets</b>
-orders either missing a postcode or associated with a postcode which cannot be mapped to a geographic area.
-{{ /if }}
-{{ if unmatched }} There were also
-<b>{{ unmatched.count_of_tickets.toLocaleString() }} tickets</b>
-that could not be assigned to a local authority, either as they were outside the UK,
-or the ticket holder's postcode was invalid.
-{{ /if }}
-</p>
+		{{ /comp }}
+	{{ /comp }}
+
 </section>
+{{ /if }}
 
-<h3>Ticket types</h3>
 
-<section class="grid regular">
-<div class="block">
- 
+{{ if tickets?.by_type && (tickets?.by_type.length > 0) }}
 {{>
     function ticketReducer(a, c) {
         const key = c.type;
@@ -134,75 +142,63 @@ or the ticket holder's postcode was invalid.
         ].filter(x => Object.keys(ticketsByType).includes(x.value));
 }}
 
-<figure>
-{{ comp.oi.chart.waffle({
-    config: {
-        data: [tickets.by_type.reduce(ticketReducer, {})],
-        size: [20, 15],
-        series: series,
-        legend: {
-            show: true,
-            position: 'bottom',
-        },
-    }
-}) }}
-<figcaption>
-    Proportion of ticket types sold by type of ticket.
-</figcaption>
-</figure>
-</div>
-<div>
-<p>The graph to shows the percentage of tickets by type of ticket.</p>
-<p>Tickets types are as described below</p>
-<ul>
-<li>
-    <b>Child Tickets</b> and <b>Senior Tickets</b> are concessionary tickets based on age.
-    These might differ from event to event.
-</li>
-<li>
-{{# TODO update description based on feedback from Richard Dunbar #}}
-    <b>Community Tickets</b> are distributed to specific communities by the Bradford 2025 team.
-</li>
-<li>
-    <b>Accessible Tickets</b> includes <b>BSL Interpreted</b>, <b>Audio Description</b>, <b>Wheelchair User</b> and <b>Essential Companion</b> tickets
-</li>
-</ul>
-</div>
+<h3>Ticket types</h3>
+<section class="grid regular">
+	<div class="block">
+ 
+		<figure>
+		{{ comp.oi.chart.waffle({
+			config: {
+				data: [tickets.by_type.reduce(ticketReducer, {})],
+				size: [20, 15],
+				series: series,
+				legend: {
+					show: true,
+					position: 'bottom',
+				},
+			}
+		}) }}
+		<figcaption>
+			Proportion of ticket types sold by type of ticket.
+		</figcaption>
+		</figure>
+	</div>
+	<div>
+		<p>The graph to shows the percentage of tickets by type of ticket.</p>
+		<p>Tickets types are as described below</p>
+		<ul>
+		<li>
+			<b>Child Tickets</b> and <b>Senior Tickets</b> are concessionary tickets based on age.
+			These might differ from event to event.
+		</li>
+		<li>
+		{{# TODO update description based on feedback from Richard Dunbar #}}
+			<b>Community Tickets</b> are distributed to specific communities by the Bradford 2025 team.
+		</li>
+		<li>
+			<b>Accessible Tickets</b> includes <b>BSL Interpreted</b>, <b>Audio Description</b>, <b>Wheelchair User</b> and <b>Essential Companion</b> tickets
+		</li>
+		</ul>
+	</div>
 </section>
+{{ /if }}
 
+
+{{ if tickets.by_event && (tickets?.by_event.length > 0) }}
 <section>
-<h3>Tickets by event</h3>
-
-{{# {{ comp.oi.table({ config: {
-    data: tickets.by_event,
-    columns: [
-        { name: 'event_name', label: 'Event name' },
-        { name: 'event_start', label: 'Start time', template: '{{ start | strftime("%Y-%m-%d") }}' },
-        { name: 'tickets', label: 'Tickets', align: 'right' },
-    ]
-}}) }} #}}
-
-<table>
-<thead>
-<tr class="c-yellow">
-<th scope="col">Event name</th>
-<th scope="col">Event start time</th>
-<th scope="col">Tickets sold</th>
-</tr>
-</thead>
-<tbody>
-{{ for r of tickets.by_event }}
-<tr>
-    <th scope="row">{{ r.event_name }}</th>
-    <td>{{ r.start |> date('BD25_LONG_DATETIME') }}</td>
-    <td class="right">{{ r.tickets |> toLocaleString }}</td>
-</tr>
-{{ /for }}
-</tbody>
-
-</table>
-
+	<h3>Tickets by event</h3>
+	{{ comp.dashboard.InfoBoxTable({
+		head: {
+			class: 'c-yellow',
+		},
+		columns: [
+			{ label: 'Event name', name: 'event_name' },
+			{ label: 'Event start time', name: 'start_date', template: '{{ start | strptime("%Y-%m-%dT%H:%M") | strftime("%e %B %Y %H:%M") }}',value: 'start' },
+			{ label: 'Tickets sold', name: 'tickets_sold', template: '{{ tickets | toLocaleString() }}', value: 'tickets', class: 'right', scale: scales.yellow, min: 0 }
+		],
+		data: tickets.by_event,
+		width: "100%"
+	}) }}
 </section>
 
-</section>
 {{ /if }}

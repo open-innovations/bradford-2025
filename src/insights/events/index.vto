@@ -7,15 +7,16 @@ description: |
     <p>
         This set of reports automatically collates numbers from a wide variety of sources.
         Each shows the ticketing, volunteering or sustainability measurements for a single event or event series.
+		Events are sorted with the most recent first.
     </p>
     <p>
-        Please note, not every type of measurement is available for every event.
+        Please note, not every type of measurement is available for every event. 
     </p>
 </section>
 <section>
 {{ comp.link.List({
     predicate: 'event report',
-    sortBy: 'date',
+    sortBy: 'date=desc',
     classes: 'regular',
     displayComponent: comp.link.EventCard,
 }) }}
