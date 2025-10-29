@@ -124,7 +124,7 @@ h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
 		return axis;
 	}
 }}
-{{ set non_digital = audience.total - audience.by_category.Digital }}
+{{ set audience_figure = audience.total }}{{# - audience.by_category.Digital #}}
 <section>
 	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.</p>
 {{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
@@ -132,13 +132,13 @@ h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
 		<div class="block">
 			<h3>{{ metrics.audiences_total.title }}</h3>
 			{{ comp.BigNumber({
-				number: non_digital || 0,
+				number: audience_figure || 0,
 				classes: 'big',
 				animate: true,
 				roundingOptions: { maximumSignificantDigits: 4 }
 			}) }}
 			
-			{{ set audience_data = graph.audiences.in_person }}
+			{{ set audience_data = graph.audiences.total }}
 
 			{{
 				comp.oi.chart.line({
@@ -165,7 +165,7 @@ h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
 					}
 				})
 			}}
-			<p>The size of the audience for in-person events.</p>
+			<p>Includes includes in-person events, digital, and online.</p>
 			{{#<a class="block" href="audience">{{ comp Pill }}See more &rarr;{{ /comp }}</a>#}}
 		</div>
 	{{ /comp }}
