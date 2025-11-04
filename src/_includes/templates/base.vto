@@ -8,6 +8,11 @@ base_stylesheets:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{{# Disable indexing until ready to go live #}}
+{{# TODO Re-enable indexing #}}
+  <meta name="robots" content="noindex, nofollow" />
+
   <title>{{ title || "TITLE" }} &ndash; {{ metas?.site || "SITE TITLE" }}</title>
   <link rel="stylesheet" href="/components.css">
   {{ for stylesheet of [...base_stylesheets, ...(stylesheets || [])] }}
