@@ -3,11 +3,9 @@ draft: true
 title: Headlines
 layout: templates/page.vto
 # url: /dashboard/
-breadcrumbs_full:
-  - title: Home
-    url: /
-  - title: Insights
-    url: /insights/
+#breadcrumbs_full:
+#  - title: Home
+#    url: /
 ---
 <style>
 h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
@@ -15,12 +13,17 @@ h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
 .dashboard .big[data-comp="big-number"] { align-items: start; }
 .dashboard .big[data-comp="big-number"] .number { line-height: 1em; }
 .dashboard li { position: relative; }
-.dashboard .block { padding: 2rem; position: relative; }
+.dashboard li > .block { padding: 2rem; position: relative; }
 .dashboard .block h3 { padding-top: 0; margin-top: 0; }
+.dashboard .more { display: inline-block; }
 .oi-viz.oi-chart { margin-block: 1rem; margin-top: 2rem; }
 .updated { margin-block: 0; }
 .dashboard :is(.oi-viz .axis-grid-x) g[data] text { dominant-baseline: unset; }
 </style>
+
+{{>
+	const { audience, events, participants, metrics, timestamp } = search.data("insights/dashboard");
+}}
 
 {{> 
 	function decimalYear(date){
@@ -166,7 +169,7 @@ h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
 				})
 			}}
 			<p>Includes in-person &amp; digital events and online audience.</p>
-			{{#<a class="block" href="audience">{{ comp Pill }}See more &rarr;{{ /comp }}</a>#}}
+			<p><a href="/audiences/" class="more">{{ comp Pill }}See more &rarr;{{ /comp }}</a></p>
 		</div>
 	{{ /comp }}
 	{{ comp grid.Brick { tag: 'li', classes: 'events', style: "flex-basis: 30ch;" } }}
@@ -205,6 +208,7 @@ h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
 				})
 			}}
 			<p>An instance with a defined start and end date &amp; time.</p>
+			<p><a href="/events/" class="more">{{ comp Pill }}See more &rarr;{{ /comp }}</a></p>
 		</div>
 	{{ /comp }}
 	{{ comp grid.Brick { tag: 'li', classes: 'participants', style: "flex-basis: 30ch;" } }}
@@ -243,6 +247,7 @@ h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
 				})
 			}}
 			<p>People taking part in or contributing e.g. taking part in a workshop, performing in a community show, joining a class, or taking part in a digital activity.</p>
+			<p><a href="/participants/" class="more">{{ comp Pill }}See more &rarr;{{ /comp }}</a></p>
 		</div>
 	{{ /comp }}
 {{ /comp }}
