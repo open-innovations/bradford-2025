@@ -8,6 +8,15 @@ layout: templates/page.vto
 #    url: /
 ---
 <style>
+.river {
+	display:flex;
+	flex-direction:column;
+	max-width: 90rem;
+	padding-top: var(--site-padding);
+}
+.river h2 { margin: 0; }
+.river > *:first-child { margin-top: 0; }
+.river * + * { margin-top: 0; }
 h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
 .dashboard h3 { font-size: 2em; margin-bottom: 0; }
 .dashboard .big[data-comp="big-number"] { align-items: start; }
@@ -129,8 +138,10 @@ h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
 	}
 }}
 {{ set audience_figure = audience.total }}{{# - audience.by_category.Digital #}}
-<section>
+<section class="river">
 	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.</p>
+</section>
+<section>
 {{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 	{{ comp grid.Brick { tag: 'li', classes: 'audiences', style: "flex-basis: 30ch;" } }}
 		<div class="block">
