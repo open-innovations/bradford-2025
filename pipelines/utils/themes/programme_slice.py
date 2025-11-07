@@ -103,7 +103,9 @@ class ProgrammeSlice:
             .melt(variables=[f for f in [
                 'events', 'projected_events',
                 'audience',
-                'participants', 'participants_community', 'participants_school',
+                'participants',
+                'participants_community', 'participants_community_attendance', 'participants_community_instances',
+                'participants_school',
             ] if f in self.events.header()])
             .selectnotnone('value')
             .aggregate(['project_name', 'evaluation_category', 'variable'], sum, 'value')
