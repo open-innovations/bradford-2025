@@ -17,7 +17,12 @@ class Programme:
 
         all_events = (
             ProgrammeSlice().events_data
-            .recast(samplesize=1_000_000)
+            .recast(samplesize=1_000_000, reducers={
+                'audience': sum,
+                'audience_eval': sum,
+                'events': sum,
+                'participants_community': sum,
+            })
             .convert('venue', lambda f: f[0])
             .replace(['audience', 'participants_community'], None, 0)
             .leftjoin(venues)
