@@ -22,13 +22,28 @@
                 file: "participants_community_engagement" 
                 }) |> md |> vto(page.data) }}
 
+			<p>
+			Overall there were
+			<strong>{{ participants.by_type.community_participants.count |> toLocaleString }} individual communinity participants</strong>. This is a count of the unique people involved in a project, regardless of how many sessions they attended. <em>NB</em> this will double count if a person is involved in two separate projects.
+			</p>
+			{{# Participant attendances = the total count of people at all events in a project - this will include some participants who come to more than one event, so should be a larger number #}}
+			<p>
+			Participant engagement is counted using <q>Instances of participation</q>. This represents a 2-hour block of time available for participatory activity. If a participant were to attend a 4 hour session, that would count as 2 instances of participation. To date, <strong>{{ participants.by_type.community_participants.instances |> toLocaleString }} instances of participation</strong> have been recorded.
+			</p>
+
+			<p>
+			We have also been recording the total attendances - counting participants at events regardless of duration.
+			These values are included in the table below, although data is missing.
+			</p>
 
 			{{ comp.dashboard.InfoBoxTable({
 					"cms": metrics.participants_community_engagement,
 					"columns": [
 						{ "name": "title", "label": "Project", "header": true },
 						{ "name": "category", "label": "Category" },
-						{ "name": "value", "label": "Value", "class": "right" },
+						{ "name": "count", "label": "Participants", "class": "right" },
+						{ "name": "attendances", "label": "Attendances", "class": "right" },
+						{ "name": "instances", "label": "Instances", "class": "right" },
 						//{ "name": "description", "label": "Description", key: 'description' }
 					],
 					"head": {
@@ -37,13 +52,21 @@
 					"data": [
 					{
 						title: 'Total',
-						value: (participants.by_type.community_participants.count || 0).toLocaleString(),
+						count: (participants.by_type.community_participants.count || 0).toLocaleString(),
+						attendances: (participants.by_type.community_participants.attendances || 0).toLocaleString(),
+						instances: (participants.by_type.community_participants.instances || 0).toLocaleString(),
 						_class: 'c-yellow',
 					},
 					...Object.entries(participants.by_type.community_participants.by_project)
 						.filter(p => p[1].count > 0)
 						.sort((a, b) => b[1].count - a[1].count)
-						.map(([project, props]) => ({ title: project, value: props.count.toLocaleString(), category: props.category }))
+						.map(([project, props]) => ({
+							title: project,
+							count: props.count.toLocaleString(),
+							attendances: (props.attendances || 0).toLocaleString() || '-',
+							instances: (props.instances || 0).toLocaleString() || '-',
+							category: props.category
+						}))
 					]
 				}) |> md |> vto(page.data) }}
 		{{ /comp }}
