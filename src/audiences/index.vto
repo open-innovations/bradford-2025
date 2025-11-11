@@ -121,7 +121,8 @@ breadcrumbs_full:
 				}}
 				
 				{{ comp Tab.Set { classes: 'big'} }}
-					{{ comp Tab.Panel { id: 'tickets-hex', label: 'Hex map' } }}
+					{{ comp Tab.Panel { id: 'tickets-hex', label: 'Cartogram' } }}
+						<p>Unlike a geographic map, this cartogram presents each ward as a hexagon. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
 						{{ comp.oi.map.hex_cartogram({
 							config: {
 								hexjson: hexes.bd_2024,
@@ -135,7 +136,6 @@ breadcrumbs_full:
 								tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford'
 							}
 						}) }}
-						<p>This hexagonal cartogram allows us to make sure the impression of the data isn't skewed by the area of each ward.</p>
 					{{ /comp }}
 
 					{{ comp Tab.Panel { id: 'tickets-table', label: 'Table' } }}

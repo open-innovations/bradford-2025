@@ -45,6 +45,12 @@ tab-set.big [role="tab"] {
 tab-set.big [aria-selected="true"]:is([role="tab"]) {
 	color: var(--color-black);
 }
+tab-set.big [role="tab"]:focus {
+	outline: .15em dashed currentColor;
+}
+tab-set.big table tbody tr:hover { outline: 0; }
+tab-set.big table tbody tr:hover td { background: var(--color-offblack)!important; color: var(--color-white) !important; }
+
 .hex path, .oi-chart-line .axis-grid line { stroke: rgba(0,0,0,0.4); stroke-width: 0.5px; }
 .oi-series-on:is(.oi-legend-inner .oi-legend-item):hover { background: var(--color-offblack) !important; color: var(--color-white) !important; }
 .series[data-series="0"] { display: none; }
