@@ -12,6 +12,7 @@ css: |
             }
         }
     }
+    [data-comp=grid-Brick].full-width { flex-basis: 100%; }
 ---
 {{>
     let extraStyle = style || '';
@@ -21,7 +22,8 @@ css: |
 }}
 <{{ tag || 'div' }} data-comp="grid-Brick"
     {{ if extraStyle }} style="{{ extraStyle }}"{{ /if }}
-    {{ if classes }} class="{{ classes }}"{{ /if }}
+    {{ if classes || full }} class="{{ classes }}{{ if full }} full-width{{ /if }}"{{ /if }}
+    {{ if id }} id="{{ id }}"{{ /if }}
 >
 {{ content }}
 </{{ tag || 'div'}}>

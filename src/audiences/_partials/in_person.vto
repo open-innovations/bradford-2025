@@ -1,0 +1,30 @@
+{{>
+	const { audience, metrics } = search.data("insights/dashboard");
+	const { graph } = search.data("landing");
+}}
+
+{{ comp grid.Brick { tag: 'li', classes: 'audiences', style: "flex-basis: 30ch;" } }}
+	<div class="block">
+		<h3>{{ metrics.audiences_in_person_events.title }}</h3>
+		{{ comp.BigNumber({
+			number: Object.entries(audience.by_category)
+				.filter(c => !['Digital'].includes(c[0]))
+				.reduce((a, c) => a + c[1], 0) || 0,
+			classes: 'big',
+			animate: true,
+			roundingOptions: { maximumSignificantDigits: 4 }
+		}) }}
+
+		{{ comp.graph.monthly({
+			data: graph.audiences.in_person,
+			series: {
+				title: 'Audience',
+				x: 'Date',
+				y: 'value',
+				colour: 'green'
+			}
+		}) }}
+
+		<p>The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for face-to-face events.</p>
+	</div>
+{{ /comp }}

@@ -1,0 +1,28 @@
+{{>
+	const { participants, metrics, timestamp } = search.data("insights/dashboard");
+	const { graph } = search.data("landing");
+}}
+{{ comp grid.Brick { tag: 'li', classes: 'participants', style: "flex-basis: 30ch;" } }}
+	<div class="block">
+		<h3>{{ metrics.participants_total.title }}</h3>
+		{{ comp.BigNumber({
+			number: participants.total || 0,
+			classes: 'big',
+			animate: true,
+			roundingOptions: { maximumSignificantDigits: 4 }
+		}) }}
+
+		{{ comp.graph.monthly({
+			data: graph.participants.total,
+			series: {
+				title: 'Participants',
+				x: 'Date',
+				y: 'value',
+				colour: 'pink'
+			}
+		}) }}
+
+		<p>People taking part in or contributing e.g. taking part in a workshop, performing in a community show, joining a class, or taking part in a digital activity.</p>
+		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill }}See more &rarr;{{ /comp }}</a></p>{{ /if }}
+	</div>
+{{ /comp }}

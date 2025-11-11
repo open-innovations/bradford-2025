@@ -1,0 +1,28 @@
+{{>
+	const { audience, metrics, timestamp } = search.data("insights/dashboard");
+	const { graph } = search.data("landing");
+}}
+{{ comp grid.Brick { tag: 'li', id: id, classes: 'audiences', full } }}
+	<div class="block">
+		<h3>{{ metrics.audiences_total.title }}</h3>
+		{{ comp.BigNumber({
+			number: audience.total || 0,
+			classes: 'big',
+			animate: true,
+			roundingOptions: { maximumSignificantDigits: 4 }
+		}) }}
+
+		{{ comp.graph.monthly({
+			data: graph.audiences.total,
+			series: {
+				title: 'Audience',
+				x: 'Date',
+				y: 'value',
+				colour: 'green'
+			}
+		}) }}
+
+		<p>Includes in-person &amp; digital events and online audience.</p>
+		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill }}See more &rarr;{{ /comp }}</a></p>{{ /if }}
+	</div>
+{{ /comp }}

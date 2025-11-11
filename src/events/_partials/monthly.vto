@@ -1,0 +1,28 @@
+{{>
+	const { events, metrics, timestamp } = search.data("insights/dashboard");
+	const { graph } = search.data("landing");
+}}
+{{ comp grid.Brick { tag: 'li', classes: 'events', style: "flex-basis: 30ch;" } }}
+	<div class="block">
+		<h3>{{ metrics.events_total.title }}</h3>
+		{{ comp.BigNumber({
+			number: events.total || 0,
+			classes: 'big',
+			animate: true,
+			roundingOptions: { maximumSignificantDigits: 4 }
+		}) }}
+
+		{{ comp.graph.monthly({
+			data: graph.events.total,
+			series: {
+				title: 'Events',
+				x: 'Date',
+				y: 'value',
+				colour: 'yellow'
+			}
+		}) }}
+
+		<p>An instance with a defined start and end date &amp; time.</p>
+		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill }}See more &rarr;{{ /comp }}</a></p>{{ /if }}
+	</div>
+{{ /comp }}
