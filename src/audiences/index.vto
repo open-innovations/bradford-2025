@@ -146,7 +146,7 @@ breadcrumbs_full:
 				},
 				columns: [
 					{ name: 'name', label: 'Ward' },
-					{ name: 'ticket_proportion', value: 'ticket_proportion', label: 'Proportion of tickets sold across Bradford', class: 'right', scale: scale.green, min: 0 }
+					{ name: 'ticket_proportion_nice', template: '{{ ticket_proportion }}%', value: 'ticket_proportion', label: 'Proportion of tickets sold across Bradford', class: 'right', scale: scale.green, min: 0, sortable: true }
 				],
 				data: ward_data,
 				width: "100%",
