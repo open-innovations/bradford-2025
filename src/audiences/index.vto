@@ -153,8 +153,6 @@ breadcrumbs_full:
 
 				{{ comp.graph.monthly({
 					data: followers.by_date,
-					start: '2024-11',
-					end: '2026-01',
 					series: [
 						{ title: 'TikTok', x: 'Date', y: 'TikTok Followers', colour: 'green', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
 						{ title: 'Instagram', x: 'Date', y: 'Instagram Followers', colour: 'yellow', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
@@ -174,7 +172,6 @@ breadcrumbs_full:
 		{{ /comp }}
 
 	{{ /comp }}
-#}}
 </section>
 
 <section>
