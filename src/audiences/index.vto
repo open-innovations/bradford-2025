@@ -20,3 +20,105 @@ breadcrumbs_full:
 		{{ include "./_partials/digital.vto" { id: 'digital' } }}
 	{{ /comp }}
 </section>
+
+<section>
+	<h2>Tickets sold</h2>
+	
+	
+	{{>
+		const { operational } = search.data("../themes/ticketing");
+	}}
+	
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp grid.Brick { tag: 'li', id: id, classes: 'audiences', full } }}
+			<div class="block">
+				<h3>Total tickets</h3>
+				{{ comp.BigNumber({
+					number: operational.summary.tickets || 0,
+					classes: 'big',
+					animate: true,
+					roundingOptions: { maximumSignificantDigits: 4 }
+				}) }}
+
+{{#
+				{{ comp.graph.monthly({
+					data: graph.audiences.total,
+					series: {
+						title: 'Audience',
+						x: 'Date',
+						y: 'value',
+						colour: 'green'
+					}
+				}) }}
+#}}
+
+
+				{{ comp comingSoon }}Graph of ticket sales{{ /comp }}
+			</div>
+		{{ /comp }}
+
+	{{ /comp }}
+
+
+{{>
+	const scale = {
+		'green': '#ace892 0%, #45d108 100%',
+	};
+	const { by_ward } = search.data("insights/reach");
+	const ward_data = by_ward.map(x => ({
+		...x,
+		ticket_proportion: parseFloat((x.tickets_prop*100).toFixed(1)),
+		ticket_percent: x.tickets_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
+		response_proportion: parseFloat((x.surveys_prop*100).toFixed(1)),
+		response_percent: x.surveys_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
+	}))
+}}
+	{{ comp Tab.Set { classes: 'big audiences'} }}
+		{{ comp Tab.Panel { id: 'hex-tickets', label: 'Hex map' } }}
+			<p>The proportion of all tickets sold in Bradford. Unlike a geographic map, this cartogram presents each ward as the same-sized hexagon. This allows us to make sure the impression of the data isn't skewed by the area of each ward.</p>
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_2024,
+					data: ward_data,
+					matchKey: 'geography_code',
+					value: 'ticket_proportion',
+					min: 0,
+					scale: scale.green,
+					label: '{{ n | slice(0,3) }}',
+					width: 500,
+					tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford'
+				}
+			}) }}
+		{{ /comp }}
+
+		{{ comp Tab.Panel { id: 'table', label: 'Table' } }}
+			{{ comp.dashboard.InfoBoxTable({
+				head: {
+					class: 'head',
+				},
+				columns: [
+					{ name: 'name', label: 'Ward' },
+					{ name: 'ticket_proportion', value: 'ticket_proportion', label: 'Proportion of tickets sold across Bradford', class: 'right', scale: scale.green, min: 0 }
+				],
+				data: ward_data,
+				width: "100%",
+				sort: "name"
+			}) }}
+		{{ /comp }}
+	{{ /comp }}
+</section>
+
+<section>
+	<h2>Website and social media</h2>
+	
+</section>
+
+<section>
+	<h2>Positive experience</h2>
+	
+</section>
+
+<section>
+	<h2>Net promoter score</h2>
+	
+</section>
