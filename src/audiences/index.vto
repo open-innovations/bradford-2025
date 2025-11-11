@@ -6,7 +6,6 @@ breadcrumbs_full:
   - title: Home
     url: /
 ---
-
 {{>
 	const { timestamp } = search.data("insights/dashboard");
 	const scale = {'green': '#ffffff 0%, #45d108 100%'};
@@ -113,14 +112,26 @@ breadcrumbs_full:
 			<div class="block">
 				<h3>Tickets sold across the UK</h3>
 				{{>
-					let total = 0;
+					let total_la = 0;
+					let bad_la = 0;
 					let by_la = operational.geography.filter((entry) => {
-						total += entry.value;
-						return entry.geography_type == "oslaua";
+						let ok = entry.geography_type == "oslaua";
+						if(ok && (entry.geography_code == "MISSING" || entry.geography_code == "UNMATCHED")){
+							bad_la += entry.value;
+						}
+						if(ok) total_la += entry.value;
+						return ok;
 					});
-					for(let i = 0; i < by_la.length; i++) by_la[i].percent = 100*by_la[i].value/total;
+					for(let i = 0; i < by_la.length; i++){
+						by_la[i].percent = 100*by_la[i].value/total_la;
+						if(by_la[i].geography_code in hexes.uk_lads_2023.hexes) {
+							by_la[i].name = hexes.uk_lads_2023.hexes[by_la[i].geography_code].n;
+						}else{
+							by_la[i].name = by_la[i].geography_code;
+						}
+					}
 				}}
-				
+
 				{{ comp Tab.Set { classes: 'big'} }}
 					{{ comp Tab.Panel { id: 'tickets-uk-hex', label: 'Cartogram' } }}
 						<p>Unlike a geographic map, this cartogram presents each local authority as a hexagon. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
@@ -131,37 +142,41 @@ breadcrumbs_full:
 								matchKey: 'geography_code',
 								value: 'percent',
 								min: 0,
-								max: 3,
+								max: 10,
 								scale: scale.green,
 								label: '{{ n | slice(0,3) }}',
 								width: 500,
 								legend: {
 									continuous: true,
 									position: 'top right',
-									items: [{'value':3,'label':'>3%'},{'value':2,'label':'2%'},{'value':1,'label':'1%'},{'value':0,'label':'0%'}]
+									items: [{'value':10,'label':'>10%'},{'value':5,'label':'5%'},{'value':0,'label':'0%'}]
 								},
-								tooltip: '{{ n }}\n<strong>{{ percent | toFixed(2) }}%</strong> of all tickets sold across the UK'
+								tooltip: '{{ n }}\n<strong>{{ percent | toFixed(1) }}%</strong> of all tickets sold across the UK',
+								tools: {
+									filter: {
+										label: 'n',
+										position: 'top left'
+									}
+								}
 							}
 						}) }}
 					{{ /comp }}
-{{#
-					{{ comp Tab.Panel { id: 'tickets-table', label: 'Table' } }}
+					{{ comp Tab.Panel { id: 'tickets-uk-table', label: 'Table' } }}
 						{{ comp.dashboard.InfoBoxTable({
 							head: {
 								class: 'head',
 							},
 							columns: [
-								{ name: 'name', label: 'Ward' },
-								{ name: 'ticket_proportion_nice', template: '{{ ticket_proportion }}%', value: 'ticket_proportion', label: 'Proportion of tickets sold across Bradford', class: 'right', scale: scale.green, min: 0, sortable: true }
+								{ name: 'name', value: 'name', label: 'Local authority' },
+								{ name: 'ticket_proportion_nice', template: '{{ percent | toFixed(1) }}%', value: 'percent', label: 'Proportion of tickets sold across the UK', class: 'right', scale: scale.green, min: 0, sortable: true }
 							],
-							data: ward_data,
+							data: by_la,
 							width: "100%",
 							sort: "name"
 						}) }}
 					{{ /comp }}
-#}}
 				{{ /comp }}
-				<p>The proportion of all tickets sold based on residence of lead booker.</p>
+				<p>The proportion of all tickets sold across the UK based on residence of lead booker. We haven't been able to match {{ ((bad_la / total_la)*100).toFixed(1) }}% of tickets to a valid UK local authority.</p>
 			</div>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', id: 'tickets-bradford', classes: 'audiences' } }}
@@ -196,7 +211,13 @@ breadcrumbs_full:
 									position: 'top right',
 									items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
 								},
-								tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford'
+								tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford',
+								tools: {
+									filter: {
+										label: 'n',
+										position: 'top left'
+									}
+								}
 							}
 						}) }}
 					{{ /comp }}
@@ -216,7 +237,7 @@ breadcrumbs_full:
 						}) }}
 					{{ /comp }}
 				{{ /comp }}
-				<p>The proportion of all tickets sold based on residence of lead booker.</p>
+				<p>The proportion of all tickets sold across Bradford based on residence of lead booker.</p>
 			</div>
 		{{ /comp }}
 	{{ /comp }}
