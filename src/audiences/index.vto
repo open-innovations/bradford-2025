@@ -9,7 +9,7 @@ breadcrumbs_full:
 
 {{>
 	const { timestamp } = search.data("insights/dashboard");
-	const scale = {'green': '#ace892 0%, #45d108 100%'};
+	const scale = {'green': '#ffffff 0%, #45d108 100%'};
 }}
 
 <section>
@@ -131,9 +131,15 @@ breadcrumbs_full:
 								matchKey: 'geography_code',
 								value: 'percent',
 								min: 0,
+								max: 3,
 								scale: scale.green,
 								label: '{{ n | slice(0,3) }}',
 								width: 500,
+								legend: {
+									continuous: true,
+									position: 'top right',
+									items: [{'value':3,'label':'>3%'},{'value':2,'label':'2%'},{'value':1,'label':'1%'},{'value':0,'label':'0%'}]
+								},
 								tooltip: '{{ n }}\n<strong>{{ percent | toFixed(2) }}%</strong> of all tickets sold across the UK'
 							}
 						}) }}
@@ -185,6 +191,11 @@ breadcrumbs_full:
 								scale: scale.green,
 								label: '{{ n | slice(0,3) }}',
 								width: 500,
+								legend: {
+									continuous: true,
+									position: 'top right',
+									items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
+								},
 								tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford'
 							}
 						}) }}
