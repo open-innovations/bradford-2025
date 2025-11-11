@@ -108,11 +108,11 @@ function TabSets(listOfTabbed){
 		var hash = window.location.hash;
 		// If we've found the tab we switch to it
 		if(hash in idcontroller){
-			idcontroller[hash].TabSet.selectTab(idcontroller[hash].index)
+			idcontroller[hash].TabSet.selectTab(idcontroller[hash].index,true)
 		}else{
 			if(typeof i==="number" || !hash){
 				// Loop over each TabSet and set the first tab
-				for(let l = 0; l < list.length; l++) list[l].selectTab(i);
+				for(let l = 0; l < list.length; l++) list[l].selectTab(i,false);
 			}
 		}
 	}
@@ -146,9 +146,9 @@ function TabSet(tabbed,idcontroller) {
 	const panels = tabbed.querySelectorAll<HTMLElement>('section[data-tab-label]');
 
 	// The tab switching function
-	const switchTab = (oldTab: HTMLElement, newTab: HTMLElement) => {
+	const switchTab = (oldTab: HTMLElement, newTab: HTMLElement, focusIt) => {
 		if(newTab){
-			newTab.focus();
+			if(focusIt) newTab.focus();
 			// Make the active tab focusable by the user (Tab key)
 			newTab.removeAttribute('tabindex');
 			// Set the selected state
@@ -220,9 +220,9 @@ function TabSet(tabbed,idcontroller) {
 		panel.hidden = true;
 	});
 
-	this.selectTab = function(t){
+	this.selectTab = function(t,focusIt){
 		if(typeof t!=="number") t = _default;
-		switchTab((tabId < 0 ? null : tabs[tabId]),tabs[t]);
+		switchTab((tabId < 0 ? null : tabs[tabId]),tabs[t],focusIt);
 		if(tabs[t]) tabs[t].scrollTo();
 		return this;
 	};
