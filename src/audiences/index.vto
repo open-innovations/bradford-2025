@@ -9,6 +9,7 @@ breadcrumbs_full:
 
 {{>
 	const { timestamp } = search.data("insights/dashboard");
+	const scale = {'green': '#ace892 0%, #45d108 100%'};
 }}
 
 <section>
@@ -23,8 +24,6 @@ breadcrumbs_full:
 
 <section>
 	<h2>Tickets sold</h2>
-	
-	
 	{{>
 		const { operational } = search.data("../themes/ticketing");
 	}}
@@ -40,30 +39,13 @@ breadcrumbs_full:
 					roundingOptions: { maximumSignificantDigits: 4 }
 				}) }}
 
-{{#
-				{{ comp.graph.monthly({
-					data: graph.audiences.total,
-					series: {
-						title: 'Audience',
-						x: 'Date',
-						y: 'value',
-						colour: 'green'
-					}
-				}) }}
-#}}
-
-
-				{{ comp comingSoon }}Graph of ticket sales{{ /comp }}
+				{{ comp comingSoon }}graph of ticket sales{{ /comp }}
 			</div>
 		{{ /comp }}
 
 	{{ /comp }}
 
-
 	{{>
-		const scale = {
-			'green': '#ace892 0%, #45d108 100%',
-		};
 		const { by_ward } = search.data("insights/reach");
 		const ward_data = by_ward.map(x => ({
 			...x,
@@ -176,11 +158,27 @@ breadcrumbs_full:
 </section>
 
 <section>
-	<h2>Positive experience</h2>
-	
-</section>
-
-<section>
-	<h2>Net promoter score</h2>
-	
+	<h2>Other statistics</h2>
+	{{>
+		const { otherFigures,metrics } = search.data("insights/dashboard");
+	}}
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp grid.Brick { tag: 'li', classes: 'audiences', style: "flex-basis: 40ch;" } }}
+			<div class="block">
+				<h3>Positive experience</h3>
+				{{ comp.BigNumber({
+					number: otherFigures.rating_excellent_or_good_pct || 0,
+					classes: 'big',
+					animate: true,
+					suffix: '%',
+					roundingOptions: { maximumSignificantDigits: 4 }
+				}) }}
+			</div>
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', classes: 'audiences', style: "flex-basis: 40ch;" } }}
+			<div class="block">
+				<h3>Net promoter score</h3>
+			</div>
+		{{ /comp }}
+	{{ /comp }}
 </section>
