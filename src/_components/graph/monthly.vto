@@ -125,7 +125,7 @@ layout: templates/none.vto
 				name: 'decimal_year',
 				template: '{{ '+x+' | strptime("%Y-%m") | decimalYear() }}'
 			}],
-			legend: { show: false },
+			legend: legend||{ show: false },
 			height: height||300,
 			width: width||800,
 			axis: {

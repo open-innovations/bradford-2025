@@ -47,8 +47,5 @@ tab-set.big [role="tab"] {
 	color: var(--color-black,var(--color-white));
 	*/
 }
-.hex path { stroke: rgba(0,0,0,0.4); }
-@media only screen and (max-width: 60rem) {
-	.oi-viz tspan { display: none; }
-	.dashboard li > .block { padding: 1rem; }
-}
+.hex path, .oi-chart-line .axis-grid line { stroke: rgba(0,0,0,0.3); stroke-width: 0.5px; }
+.oi-series-on:is(.oi-legend-inner .oi-legend-item):hover { background: var(--color-offblack) !important; color: var(--color-white) !important; }

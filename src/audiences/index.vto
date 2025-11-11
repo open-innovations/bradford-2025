@@ -163,7 +163,8 @@ breadcrumbs_full:
 					columns: [{
 						name: 'decimal_year',
 						template: '{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}'
-					}]
+					}],
+					legend: { show: true, position: 'bottom' }
 				}) }}
 
 				<p>The cumulative total number of followers. Updated {{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') -}}</p>
