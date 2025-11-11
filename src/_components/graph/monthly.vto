@@ -62,14 +62,18 @@ layout: templates/none.vto
 	}
 
 	// Function to return a yaxis object suitable for OI Lume Viz adjusted to the range of the data
-	function getYAxis(data,scale){
+	function getYAxis(data,keys,scale){
 		if(!scale) scale = {};
 		let min = Infinity,max = -Infinity,range,spacing,lo,hi,axis,i,y,pre = "",post = "",f = 1;
+		if(!keys) keys = ["value"];
+		if(typeof keys==="string") keys = [keys];
 		// Calculate the min/max in the data and get the pre/post units
 		for(i = 0; i < data.length; i++){
-			if(!isNaN(data[i].value)){
-				min = Math.min(min,data[i].value);
-				max = Math.max(max,data[i].value);
+			for(k = 0; k < keys.length; k++){
+				if(!isNaN(data[i][keys[k]])){
+					min = Math.min(min,data[i][keys[k]]);
+					max = Math.max(max,data[i][keys[k]]);
+				}
 			}
 			if(i==0){ pre = data[i].preunit||""; post = data[i].postunit||""; }
 		}
@@ -103,27 +107,32 @@ layout: templates/none.vto
 		}
 		return axis;
 	}
-	x = series.x;
-	series.x = 'decimal_year';
-	if(!series.tooltip) series.tooltip = '{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}<br />{{ _title }}: <strong>{{ value | toLocaleString() }}</strong>';
+	if(!("length" in series)) series = [series];
+	x = x||series[0].x;
+	y = [];
+	for(let s = 0; s < series.length; s++){
+		if(!series[s].tooltip) series[s].tooltip = '{{ '+(series[0].x||x)+' | strptime("%Y-%m") | strftime("%B %Y") }}<br />{{ _title }}: <strong>{{ _y | toLocaleString() }}</strong>';
+		// Update x-value to the decimal year
+		series[s].x = 'decimal_year';
+		y.push(series[s].y);
+	}
 }}
-
 {{
 	comp.oi.chart.line({
 		config: {
 			data: data,
-			columns: [{
+			columns: columns||[{
 				name: 'decimal_year',
 				template: '{{ '+x+' | strptime("%Y-%m") | decimalYear() }}'
 			}],
 			legend: { show: false },
-			height: 300,
-			width: 800,
+			height: height||300,
+			width: width||800,
 			axis: {
 				x: getXAxis(start||'2025-01',end||'2026-01'),
-				y: getYAxis(data)
+				y: getYAxis(data,y)
 			},
-			series: [series]
+			series: series
 		}
 	})
 }}

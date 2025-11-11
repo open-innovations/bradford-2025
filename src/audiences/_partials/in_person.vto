@@ -17,12 +17,12 @@
 
 		{{ comp.graph.monthly({
 			data: graph.audiences.in_person,
-			series: {
+			series: [{
 				title: 'Audience',
 				x: 'Date',
 				y: 'value',
 				colour: 'green'
-			}
+			}]
 		}) }}
 
 		<p>The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for face-to-face events.</p>

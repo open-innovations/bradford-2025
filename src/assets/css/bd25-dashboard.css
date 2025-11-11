@@ -8,7 +8,8 @@
 .river > *:first-child{ margin-top: 0; }
 .river * + * { margin-top: 0; }
 h2 { font-size: 32px; margin-block: 0; margin-top: 2rem; }
-.dashboard h3, tab-set.big [role="tab"] { font-size: 2em; margin-bottom: 0; }
+h3 { font-size: 1.5em; }
+.dashboard h3 { font-size: 2em; margin-bottom: 0; }
 .dashboard .big[data-comp="big-number"] { align-items: start; }
 .dashboard .big[data-comp="big-number"] .number { line-height: 1em; }
 .dashboard li { position: relative; }
@@ -37,6 +38,9 @@ tab-set.big > div, tab-set.big [aria-selected="true"]:is([role="tab"]), tab-set.
 	color: var(--block-fg,var(--color-white));
 }
 tab-set.big [role="tab"] {
+	font-size: 1.5em;
+	margin-bottom: 0; 
+	line-height: 1em;
 	box-shadow: inset 0 -1rem 1rem -.5rem rgba(0,0,0,.1);
 	/*
 	background: var(--color-midgrey,var(--color-offblack));

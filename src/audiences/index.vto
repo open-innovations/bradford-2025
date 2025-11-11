@@ -60,22 +60,24 @@ breadcrumbs_full:
 	{{ /comp }}
 
 
-{{>
-	const scale = {
-		'green': '#ace892 0%, #45d108 100%',
-	};
-	const { by_ward } = search.data("insights/reach");
-	const ward_data = by_ward.map(x => ({
-		...x,
-		ticket_proportion: parseFloat((x.tickets_prop*100).toFixed(1)),
-		ticket_percent: x.tickets_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
-		response_proportion: parseFloat((x.surveys_prop*100).toFixed(1)),
-		response_percent: x.surveys_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
-	}))
-}}
+	{{>
+		const scale = {
+			'green': '#ace892 0%, #45d108 100%',
+		};
+		const { by_ward } = search.data("insights/reach");
+		const ward_data = by_ward.map(x => ({
+			...x,
+			ticket_proportion: parseFloat((x.tickets_prop*100).toFixed(1)),
+			ticket_percent: x.tickets_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
+			response_proportion: parseFloat((x.surveys_prop*100).toFixed(1)),
+			response_percent: x.surveys_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
+		}))
+	}}
+
+	<h3>Tickets sold across Bradford</h3>
 	{{ comp Tab.Set { classes: 'big audiences'} }}
-		{{ comp Tab.Panel { id: 'hex-tickets', label: 'Hex map' } }}
-			<p>The proportion of all tickets sold in Bradford. Unlike a geographic map, this cartogram presents each ward as the same-sized hexagon. This allows us to make sure the impression of the data isn't skewed by the area of each ward.</p>
+		{{ comp Tab.Panel { id: 'tickets-hex', label: 'Hex map' } }}
+			<p>The proportion of all tickets sold in Bradford (based on residence of lead booker). Unlike a geographic map, this cartogram presents each ward as the same-sized hexagon. This allows us to make sure the impression of the data isn't skewed by the area of each ward.</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_2024,
@@ -91,7 +93,7 @@ breadcrumbs_full:
 			}) }}
 		{{ /comp }}
 
-		{{ comp Tab.Panel { id: 'table', label: 'Table' } }}
+		{{ comp Tab.Panel { id: 'tickets-table', label: 'Table' } }}
 			{{ comp.dashboard.InfoBoxTable({
 				head: {
 					class: 'head',
@@ -110,7 +112,69 @@ breadcrumbs_full:
 
 <section>
 	<h2>Website and social media</h2>
+	{{>
+		const { website, followers } = search.data("insights/digital");
+	}}
 	
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp grid.Brick { tag: 'li', classes: 'audiences', style: "flex-basis: 40ch;" } }}
+			<div class="block">
+				<h3>Website audience</h3>
+
+				{{ comp.BigNumber({
+					number: website.total_users[website.total_users.length - 1].cumulative || 0,
+					classes: 'big',
+					animate: true,
+					roundingOptions: { maximumSignificantDigits: 4 }
+				}) }}
+				
+				{{ comp.graph.monthly({
+					data: website.total_users,
+					series: [{
+						title: 'Website audience',
+						x: 'month',
+						y: 'count',
+						colour: 'green'
+					}],
+				}) }}
+
+			</div>
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', classes: 'audiences', style: "flex-basis: 40ch;" } }}
+			<div class="block">
+				<h3>Followers</h3>
+
+				{{ comp.BigNumber({
+					number: followers.latest["Total Audience"].count || 0,
+					classes: 'big',
+					animate: true,
+					roundingOptions: { maximumSignificantDigits: 4 }
+				}) }}
+
+				{{ comp.graph.monthly({
+					data: followers.by_date,
+					start: '2024-11',
+					end: '2026-01',
+					series: [
+						{ title: 'TikTok', x: 'Date', y: 'TikTok Followers', colour: 'green', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: 'Instagram', x: 'Date', y: 'Instagram Followers', colour: 'yellow', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: 'Facebook', x: 'Date', y: 'Facebook Followers', colour: 'pink', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: 'LinkedIn', x: 'Date', y: 'LinkedIn Followers', colour: 'darkgreen', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: 'Email', x: 'Date', y: 'Email Subscribers', colour: 'deepyellow', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					],
+					columns: [{
+						name: 'decimal_year',
+						template: '{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}'
+					}]
+				}) }}
+
+				<p>The cumulative total number of followers. Updated {{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') -}}</p>
+			
+			</div>
+		{{ /comp }}
+
+	{{ /comp }}
+#}}
 </section>
 
 <section>
