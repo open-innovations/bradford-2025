@@ -2,7 +2,7 @@
 	const { audience, metrics } = search.data("insights/dashboard");
 }}
 
-{{ comp grid.Brick { tag: 'li', classes: 'audiences', style: "flex-basis: 30ch;" } }}
+{{ comp grid.Brick { tag: 'li', classes: 'audiences' } }}
 	<div class="block">
 		<h3>{{ metrics.audiences_digital.title }}</h3>
 		{{ comp.BigNumber({

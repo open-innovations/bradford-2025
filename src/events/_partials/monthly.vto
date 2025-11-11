@@ -2,7 +2,7 @@
 	const { events, metrics, timestamp } = search.data("insights/dashboard");
 	const { graph } = search.data("landing");
 }}
-{{ comp grid.Brick { tag: 'li', classes: 'events', style: "flex-basis: 30ch;" } }}
+{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
 	<div class="block">
 		<h3>{{ metrics.events_total.title }}</h3>
 		{{ comp.BigNumber({

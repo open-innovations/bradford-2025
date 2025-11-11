@@ -12,16 +12,19 @@ export default function ({ content, wrapperClass, selected, classes }: TabSetOpt
   const panels = Array.from(fragment.querySelectorAll('[data-tab-label]'));
 
   const tabList = document.createElement('ul');
+  tabList.setAttribute('role','tablist');
+  tabList.setAttribute('aria-label','Visualisations');
 
   for (const [idx, panel] of panels.entries()) {
     if (!panel.id) panel.setAttribute('id', `section${idx + 1}`);
     const tab = document.createElement('li');
-    tab.innerHTML = `<a href="#${ panel.id }">${ panel.dataset.tabLabel }</a>`;
+	tab.setAttribute('role','presentation');
+    tab.innerHTML = `<a href="#${ panel.id }" role="tab" data-tab="${ idx }">${ panel.dataset.tabLabel }</a>`;
 	tabList.append(tab);
   }
-  return `<tab-set data-dependencies="/assets/js/inclusive.js"` + (selected ? ' data-default="'+selected+'"' : '') + (classes ? ' class="'+classes+'"' : '') +`>${
+  return `<tabbed data-dependencies="/assets/js/tabbed.js"` + (selected ? ' data-default="'+selected+'"' : '') + (classes ? ' class="'+classes+'"' : '') +`>${
     tabList.outerHTML
-  }<div${ wrapperClass ? ` class="${ wrapperClass }"`: "" }>${
+  }<div ${ wrapperClass ? ` class="${ wrapperClass }"`: "" }>${
     panels.map(p => p.outerHTML).join('')
-  }</div></tab-set>`;
+  }</div></tabbed>`;
 }

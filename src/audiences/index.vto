@@ -46,13 +46,14 @@ breadcrumbs_full:
 						x: 'week_ending',
 						y: 'weekly',
 						colour: 'green',
-						tooltip: '{{ _title }}\n{{ week_ending | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>'
+						tooltip: 'Week ending\n{{ week_ending | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>'
 					}],
 					columns: [{
 						name: 'decimal_year',
 						template: '{{ week_ending | strptime(\"%Y-%m-%d\") | decimalYear() }}'
 					}]
 				}) }}
+				<p>Weekly tickets sold.</p>
 			</div>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', id: 'tickets-by-type', classes: 'audiences' } }}
@@ -106,7 +107,58 @@ breadcrumbs_full:
 				}) }}
 			</div>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', id: 'tickets-by-type', classes: 'audiences', full: true } }}
+	{{ /comp }}
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp grid.Brick { tag: 'li', id: 'tickets-uk', classes: 'audiences' } }}
+			<div class="block">
+				<h3>Tickets sold across the UK</h3>
+				{{>
+					let total = 0;
+					let by_la = operational.geography.filter((entry) => {
+						total += entry.value;
+						return entry.geography_type == "oslaua";
+					});
+					for(let i = 0; i < by_la.length; i++) by_la[i].percent = 100*by_la[i].value/total;
+				}}
+				
+				{{ comp Tab.Set { classes: 'big'} }}
+					{{ comp Tab.Panel { id: 'tickets-uk-hex', label: 'Cartogram' } }}
+						<p>Unlike a geographic map, this cartogram presents each local authority as a hexagon. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+						{{ comp.oi.map.hex_cartogram({
+							config: {
+								hexjson: hexes.uk_lads_2023,
+								data: by_la,
+								matchKey: 'geography_code',
+								value: 'percent',
+								min: 0,
+								scale: scale.green,
+								label: '{{ n | slice(0,3) }}',
+								width: 500,
+								tooltip: '{{ n }}\n<strong>{{ percent | toFixed(2) }}%</strong> of all tickets sold across the UK'
+							}
+						}) }}
+					{{ /comp }}
+{{#
+					{{ comp Tab.Panel { id: 'tickets-table', label: 'Table' } }}
+						{{ comp.dashboard.InfoBoxTable({
+							head: {
+								class: 'head',
+							},
+							columns: [
+								{ name: 'name', label: 'Ward' },
+								{ name: 'ticket_proportion_nice', template: '{{ ticket_proportion }}%', value: 'ticket_proportion', label: 'Proportion of tickets sold across Bradford', class: 'right', scale: scale.green, min: 0, sortable: true }
+							],
+							data: ward_data,
+							width: "100%",
+							sort: "name"
+						}) }}
+					{{ /comp }}
+#}}
+				{{ /comp }}
+				<p>The proportion of all tickets sold based on residence of lead booker.</p>
+			</div>
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', id: 'tickets-bradford', classes: 'audiences' } }}
 			<div class="block">
 				<h3>Tickets sold across Bradford</h3>
 				{{>
