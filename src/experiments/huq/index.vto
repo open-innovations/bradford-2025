@@ -3,6 +3,14 @@ title: Huq data
 description: |
     We're working with huq, a location data analytics platform, to help estimate the footfall generated
     by our events.
+huqAreas:
+    - bradford_bid
+    - bradford_city_centre
+    - bradford_penistone_hill
+    - cliffe_castle_park_bd20_6
+    - bowling_park_bd4_7
+    - lister_park_bd9_4
+    - wibsey_park_bd6_3
 draft: true
 ---
 
@@ -16,8 +24,9 @@ draft: true
 <section>
 <h2>Footfall</h2>
 
-{{ for huqArea of ['met_office_bradford', 'bradford_bid', 'bradford_city_centre', 'bradford_penistone_hill'] }}
+{{ for huqArea of huqAreas }}
 <h3>{{ huqArea }}</h3>
+
 
 {{ set max = footfall[huqArea].reduce((a, c) => Math.max(a, c.value), 0) }}
 
@@ -49,6 +58,8 @@ Maximum: {{ max }}
 {{ /for }}
 </section>
 
+{{#
+TODO fix mastercard data
 <section>
 <h2>Active Mastercard accounts</h2>
 
@@ -68,7 +79,10 @@ Maximum: {{ max }}
     })
 }}
 </section>
+#}}
 
+{{#
+TODO fix spend index
 <section>
 <h2>Spend index</h2>
 
@@ -87,3 +101,4 @@ Maximum: {{ max }}
     })
 }}
 </section>
+#}}
