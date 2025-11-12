@@ -133,8 +133,8 @@ breadcrumbs_full:
 				}}
 
 				{{ comp Tab.Set { classes: 'big'} }}
+					<p>The proportion of all tickets sold based on residence of lead booker. We haven't been able to match {{ ((bad_la / total_la)*100).toFixed(1) }}% of tickets to a valid UK local authority.</p>
 					{{ comp Tab.Panel { id: 'tickets-uk-hex', label: 'Cartogram' } }}
-						<p>Unlike a geographic map, this cartogram presents each local authority as a hexagon. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
 						{{ comp.oi.map.hex_cartogram({
 							config: {
 								hexjson: hexes.uk_lads_2023,
@@ -160,6 +160,7 @@ breadcrumbs_full:
 								}
 							}
 						}) }}
+						<p>This cartogram displays local authorities as equal-sized hexagons. This allows us to more easily compare local authorities rather than have the impression skewed by the physical area.</p>
 					{{ /comp }}
 					{{ comp Tab.Panel { id: 'tickets-uk-table', label: 'Table' } }}
 						{{ comp.dashboard.InfoBoxTable({
@@ -168,7 +169,7 @@ breadcrumbs_full:
 							},
 							columns: [
 								{ name: 'name', value: 'name', label: 'Local authority' },
-								{ name: 'ticket_proportion_nice', template: '{{ percent | toFixed(1) }}%', value: 'percent', label: 'Proportion of tickets sold across the UK', class: 'right', scale: scale.green, min: 0, sortable: true }
+								{ name: 'ticket_proportion_nice', template: '{{ percent | toFixed(1) }}%', value: 'percent', label: 'Proportion of tickets sold across the UK', class: 'right', scale: scale.green, min: 0, max: 10, sortable: true }
 							],
 							data: by_la,
 							width: "100%",
@@ -176,7 +177,6 @@ breadcrumbs_full:
 						}) }}
 					{{ /comp }}
 				{{ /comp }}
-				<p>The proportion of all tickets sold across the UK based on residence of lead booker. We haven't been able to match {{ ((bad_la / total_la)*100).toFixed(1) }}% of tickets to a valid UK local authority.</p>
 			</div>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', id: 'tickets-bradford', classes: 'audiences' } }}
@@ -194,8 +194,8 @@ breadcrumbs_full:
 				}}
 				
 				{{ comp Tab.Set { classes: 'big'} }}
+					<p>The proportion of all tickets sold across Bradford. This only includes tickets where the residence of the lead booker is known to be within Bradford.</p>
 					{{ comp Tab.Panel { id: 'tickets-hex', label: 'Cartogram' } }}
-						<p>Unlike a geographic map, this cartogram presents each ward as a hexagon. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
 						{{ comp.oi.map.hex_cartogram({
 							config: {
 								hexjson: hexes.bd_2024,
@@ -220,8 +220,41 @@ breadcrumbs_full:
 								}
 							}
 						}) }}
+						<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
 					{{ /comp }}
-
+					{{ comp Tab.Panel { id: 'tickets-map', label: 'Map' } }}
+						{{ comp.oi.map.svg({
+							config: {
+								geojson: {
+									key: 'WD24CD',
+									data: geojson.bd_wards
+								},
+								data: ward_data,
+								columns: [{
+									name: "filterLabel",
+									template: "{{ geojson.properties.WD24NM }} ({{ ticket_percent }})"
+								}],
+								key: 'geography_code',
+								value: 'ticket_proportion',
+								min: 0,
+								scale: scale.green,
+								width: 500,
+								legend: {
+									continuous: true,
+									position: 'top right',
+									items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
+								},
+								tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford',
+								tools: {
+									filter: {
+										label: 'filterLabel',
+										position: 'top left'
+									}
+								}
+							}
+						}) }}
+						<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+					{{ /comp }}
 					{{ comp Tab.Panel { id: 'tickets-table', label: 'Table' } }}
 						{{ comp.dashboard.InfoBoxTable({
 							head: {
@@ -237,7 +270,6 @@ breadcrumbs_full:
 						}) }}
 					{{ /comp }}
 				{{ /comp }}
-				<p>The proportion of all tickets sold across Bradford based on residence of lead booker.</p>
 			</div>
 		{{ /comp }}
 	{{ /comp }}

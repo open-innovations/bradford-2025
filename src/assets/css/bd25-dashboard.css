@@ -50,6 +50,7 @@ tabbed.big [aria-selected="true"]:is([role="tab"]) {
 tabbed.big [role="tab"]:focus {
 	outline: .15em dashed currentColor;
 }
+tabbed.big [role="tabpanel"] > *:last-child { margin-bottom: 0; }
 tabbed.big table tbody tr:hover { outline: 0; }
 tabbed.big table tbody tr:hover td { background: var(--color-offblack)!important; color: var(--color-white) !important; }
 
@@ -76,7 +77,9 @@ tabbed.big table tbody tr:hover td { background: var(--color-offblack)!important
 .series[data-series="0"] { display: none; }
 .oi-filter-results [role="menuitem"] { background: var(--block-bg)!important; color: var(--block-fg)!important; }
 .oi-filter-results [role="menuitem"]:focus { background: var(--flash-bg)!important; color: var(--flash-fg)!important; }
-.oi-filter.searching input { min-width: 200px; max-width: 90%; }
+.oi-filter.searching input { width: 300px; max-width: 100%; }
+.oi-legend-scale { border: 1px solid rgba(0,0,0,0.4); }
+.oi-legend { font-size: min(1em,1.5vw); }
 
 table td, table th { border-top: 0.5px solid rgba(0,0,0,0.4); background: white; color: var(--color-offblack); }
 table tr:last-child td { border-bottom: 0.5px solid rgba(0,0,0,0.4); }
