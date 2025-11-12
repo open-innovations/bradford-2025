@@ -25,7 +25,16 @@ breadcrumbs_full:
 	<h2>Tickets sold</h2>
 	{{>
 		const { operational } = search.data("../themes/ticketing");
+		const { by_ward } = search.data("insights/reach");
+		const ward_data = by_ward.map(x => ({
+			...x,
+			ticket_proportion: parseFloat((x.tickets_prop*100).toFixed(1)),
+			ticket_percent: x.tickets_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
+			response_proportion: parseFloat((x.surveys_prop*100).toFixed(1)),
+			response_percent: x.surveys_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
+		}))
 	}}
+
 	
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ comp grid.Brick { tag: 'li', id: 'tickets', classes: 'audiences' } }}
@@ -224,16 +233,6 @@ breadcrumbs_full:
 		{{ comp grid.Brick { tag: 'li', id: 'tickets-bradford', classes: 'audiences' } }}
 			<div class="block">
 				<h3>Tickets sold across Bradford</h3>
-				{{>
-					const { by_ward } = search.data("insights/reach");
-					const ward_data = by_ward.map(x => ({
-						...x,
-						ticket_proportion: parseFloat((x.tickets_prop*100).toFixed(1)),
-						ticket_percent: x.tickets_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
-						response_proportion: parseFloat((x.surveys_prop*100).toFixed(1)),
-						response_percent: x.surveys_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
-					}))
-				}}
 				
 				{{ comp Tab.Set { classes: 'big'} }}
 					<p>The proportion of all tickets sold across Bradford. This only includes tickets where the residence of the lead booker is known to be within Bradford.</p>
@@ -387,6 +386,106 @@ breadcrumbs_full:
 			</div>
 		{{ /comp }}
 
+	{{ /comp }}
+</section>
+
+<section>
+	<h2>Audience surveys</h2>
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp grid.Brick { tag: 'li', id: 'survey-responses', classes: 'audiences' } }}
+			<div class="block">
+				<h3>Survey responses</h3>
+
+				{{ comp.BigNumber({
+					number: ward_data.reduce( function(a, b){
+						return a + b.surveys;
+					}, 0) || 0,
+					classes: 'big',
+					animate: true,
+					roundingOptions: { maximumFractionDigits: 0 }
+				}) }}
+				<p>The number of survey responses we've been able to match to a ward.</p>
+				
+				{{ comp Tab.Set { classes: 'big'} }}
+					<p>The proportion of all survey responses in Bradford.</p>
+					{{ comp Tab.Panel { id: 'survey-responses-hex', label: 'Cartogram' } }}
+						{{ comp.oi.map.hex_cartogram({
+							config: {
+								hexjson: hexes.bd_2024,
+								data: ward_data,
+								matchKey: 'geography_code',
+								value: 'surveys_prop',
+								min: 0,
+								scale: scale.green,
+								label: '{{ n | slice(0,3) }}',
+								width: 500,
+								tooltip: '{{ name }}\n<strong>{{ response_percent }}</strong> of all survey responses across Bradford',
+								tools: {
+									filter: {
+										label: 'filterLabel',
+										position: 'top left'
+									},
+									panzoom: {
+										maxZoom: 2
+									}
+								}
+							}
+						}) }}
+						<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+					{{ /comp }}
+					{{ comp Tab.Panel { id: 'survey-responses-map', label: 'Map' } }}
+						{{ comp.oi.map.svg({
+							config: {
+								geojson: {
+									key: 'WD24CD',
+									data: geojson.bd_wards
+								},
+								data: ward_data,
+								columns: [{
+									name: "filterLabel",
+									template: "{{ geojson.properties.WD24NM }}"
+								}],
+								key: 'geography_code',
+								value: 'surveys_prop',
+								min: 0,
+								scale: scale.green,
+								width: 500,
+								legend: {
+									continuous: true,
+									position: 'top right',
+									items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
+								},
+								tooltip: '{{ name }}\n<strong>{{ response_percent }}</strong> of all survey responses across Bradford',
+								tools: {
+									filter: {
+										label: 'filterLabel',
+										position: 'top left'
+									},
+									panzoom: {
+										maxZoom: 3
+									}
+								}
+							}
+						}) }}
+					{{ /comp }}
+					{{ comp Tab.Panel { id: 'survey-responses-table', label: 'Table' } }}
+						{{ comp.dashboard.InfoBoxTable({
+							head: {
+								class: 'c-green',
+							},
+							columns: [
+								{ name: 'name', label: 'Ward' },
+								{ name: 'response_proportion', value: 'response_proportion', label: 'Proportion', class: 'right', scale: scale.green, min: 0 },
+							],
+							data: ward_data,
+							width: "100%",
+							sort: "name"
+						}) }}
+					{{ /comp }}
+				{{ /comp }}
+
+			</div>
+		{{ /comp }}
 	{{ /comp }}
 </section>
 
