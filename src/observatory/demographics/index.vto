@@ -12,33 +12,19 @@ description: |
 <hr>
 
 <section>
-<div>
-    <p>
-        Switch between the demographic views with the tab switcher.
-    </p>
-</div>
-<div class="block">
-{{ comp Tab.Set }}
-{{ comp Tab.Panel { id: 'age', label: 'Age' } }}
-<div class="block">
-{{ include './_partials/age.vto' }}
-</div>
-{{ /comp }}
+	<div>
+		<p>Switch between the demographic views with the tab switcher.</p>
+	</div>
+	{{ comp Tab.Set { classes: 'big'} }}
+		{{ comp Tab.Panel { id: 'age', label: 'Age' } }}
+			{{ include './_partials/age.vto' }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'ethnic-group', label: 'Ethnic group' } }}
+			{{ include './_partials/ethnic-group.vto' }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'general-health', label: 'General health' } }}
+			{{ include './_partials/general-health.vto' }}
+		{{ /comp }}
+	{{ /comp}}
 
-{{ comp Tab.Panel { id: 'ethnic-group', label: 'Ethnic group' } }}
-<div class="block">
-{{ include './_partials/ethnic-group.vto' }}
-</div>
-{{ /comp }}
-</div>
-
-{{ comp Tab.Panel { id: 'general-health', label: 'General health' } }}
-<div class="block">
-{{ include './_partials/general-health.vto' }}
-</div>
-{{ /comp }}
-</div>
-\
-
-{{ /comp}}
 </section>

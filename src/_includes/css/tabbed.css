@@ -1,44 +1,45 @@
 tabbed {
-  --selected-colour: black;
-  --selected-background: white;
-  --unselected-colour: var(--color);
-  --unselected-background: var(--background);
-  --hover-colour: white;
-  --hover-background: #343333;
-  display: block;
+	--selected-colour: black;
+	--selected-background: white;
+	--unselected-colour: var(--color);
+	--unselected-background: var(--background);
+	--hover-colour: white;
+	--hover-background: #343333;
+	display: block;
 
-  & [role="tablist"] {
-    padding: 0;
-    margin-block: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--border-width);
-  }
+	& [role="tablist"] {
+		padding: 0;
+		margin-block: 0;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--border-width);
+		list-style: none;
+	}
 
-  & a {
-    color: inherit;
-  }
+	& a {
+		color: inherit;
+	}
 
-  & [role="tab"] {
-    display: block;
-    position: relative;
-    padding: 0.5em;
-    color: var(--unselected-colour);
-    background-color: var(--unselected-background);
-    flex-grow: 1;
-    flex-shrink: 1;
+	& [role="tab"] {
+		display: block;
+		position: relative;
+		padding: 0.5em;
+		color: var(--unselected-colour);
+		background-color: var(--unselected-background);
+		flex-grow: 1;
+		flex-shrink: 1;
 
-    &[aria-selected=true] {
-      color: var(--selected-colour);
-      background-color: var(--selected-background);
-    }
+		&[aria-selected=true] {
+			color: var(--selected-colour);
+			background-color: var(--selected-background);
+		}
 
-    &:hover {
-      color: var(--hover-colour);
-      background-color: var(--hover-background);
-    }
-  }
+		&:hover {
+			color: var(--hover-colour);
+			background-color: var(--hover-background);
+		}
+	}
 }
 tabbed.big {
 	.oi-table {

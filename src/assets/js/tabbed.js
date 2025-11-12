@@ -68,7 +68,7 @@
 			var _obj = this;
 
 			// Set the tabindex of the tab panel
-			panes[t].setAttribute('tabindex',0);
+			if(panes[t]) panes[t].setAttribute('tabindex',0);
 
 			if(panes[t].hasAttribute('id')){
 				// Move the ID to the tab rather than the pane
