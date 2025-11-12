@@ -156,6 +156,48 @@ breadcrumbs_full:
 									filter: {
 										label: 'n',
 										position: 'top left'
+									},
+									panzoom: {
+										maxZoom: 6
+									}
+								}
+							}
+						}) }}
+						<p>This cartogram displays local authorities as equal-sized hexagons. This allows us to more easily compare local authorities rather than have the impression skewed by the physical area.</p>
+					{{ /comp }}
+					{{ comp Tab.Panel { id: 'tickets-uk-map', label: 'Map' } }}
+						{{ comp.oi.map.svg({
+							config: {
+								geojson: {
+									key: 'LAD23CD',
+									data: geojson.Local_Authority_Districts_December_2023_Boundaries_UK
+								},
+								data: by_la,
+								columns: [{
+									name: "filterLabel",
+									template: "{{ geojson.properties.LAD23NM }}"
+								}],
+								bounds: { lat: { min: 49.5, max: 61 }, lon: { min: -8, max: 3 }},
+								key: 'geography_code',
+								value: 'percent',
+								min: 0,
+								max: 10,
+								scale: scale.green,
+								label: '{{ n | slice(0,3) }}',
+								width: 500,
+								legend: {
+									continuous: true,
+									position: 'top right',
+									items: [{'value':10,'label':'>10%'},{'value':5,'label':'5%'},{'value':0,'label':'0%'}]
+								},
+								tooltip: '{{ geojson.properties.LAD23NM }}\n<strong>{{ percent | toFixed(1) }}%</strong> of all tickets sold across the UK',
+								tools: {
+									filter: {
+										label: 'filterLabel',
+										position: 'top left'
+									},
+									panzoom: {
+										maxZoom: 6
 									}
 								}
 							}
@@ -169,7 +211,7 @@ breadcrumbs_full:
 							},
 							columns: [
 								{ name: 'name', value: 'name', label: 'Local authority' },
-								{ name: 'ticket_proportion_nice', template: '{{ percent | toFixed(1) }}%', value: 'percent', label: 'Proportion of tickets sold across the UK', class: 'right', scale: scale.green, min: 0, max: 10, sortable: true }
+								{ name: 'ticket_proportion_nice', template: '{{ percent | toFixed(1) }}%', value: 'percent', label: 'Proportion', class: 'right', scale: scale.green, min: 0, max: 10, sortable: true }
 							],
 							data: by_la,
 							width: "100%",
@@ -216,6 +258,9 @@ breadcrumbs_full:
 									filter: {
 										label: 'n',
 										position: 'top left'
+									},
+									panzoom: {
+										maxZoom: 6
 									}
 								}
 							}
@@ -232,7 +277,7 @@ breadcrumbs_full:
 								data: ward_data,
 								columns: [{
 									name: "filterLabel",
-									template: "{{ geojson.properties.WD24NM }} ({{ ticket_percent }})"
+									template: "{{ geojson.properties.WD24NM }}"
 								}],
 								key: 'geography_code',
 								value: 'ticket_proportion',
@@ -249,6 +294,9 @@ breadcrumbs_full:
 									filter: {
 										label: 'filterLabel',
 										position: 'top left'
+									},
+									panzoom: {
+										maxZoom: 6
 									}
 								}
 							}
@@ -262,7 +310,7 @@ breadcrumbs_full:
 							},
 							columns: [
 								{ name: 'name', label: 'Ward' },
-								{ name: 'ticket_proportion_nice', template: '{{ ticket_proportion }}%', value: 'ticket_proportion', label: 'Proportion of tickets sold across Bradford', class: 'right', scale: scale.green, min: 0, sortable: true }
+								{ name: 'ticket_proportion_nice', template: '{{ ticket_proportion }}%', value: 'ticket_proportion', label: 'Proportion', class: 'right', scale: scale.green, min: 0, sortable: true }
 							],
 							data: ward_data,
 							width: "100%",

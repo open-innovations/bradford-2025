@@ -71,6 +71,7 @@ tabbed.big table tbody tr:hover td { background: var(--color-offblack)!important
 	[aria-selected="true"]:is(tab-set.big [role="tab"]){ border-bottom: 0; }
 	.wide-only { display: none; }
 }
+.oi-map-svg .area path { stroke-width: 0.5; }
 .oi-chart-line .axis-grid line { stroke: rgba(0,0,0,0.4); stroke-width: 0.5px; }
 .hex path { stroke: rgba(0,0,0,0.4); stroke-width: 0.5px; vector-effect: non-scaling-stroke; }
 .oi-series-on:is(.oi-legend-inner .oi-legend-item):hover { background: var(--color-offblack) !important; color: var(--color-white) !important; }
@@ -79,7 +80,12 @@ tabbed.big table tbody tr:hover td { background: var(--color-offblack)!important
 .oi-filter-results [role="menuitem"]:focus { background: var(--flash-bg)!important; color: var(--flash-fg)!important; }
 .oi-filter.searching input { width: 300px; max-width: 100%; }
 .oi-legend-scale { border: 1px solid rgba(0,0,0,0.4); }
-.oi-legend { font-size: min(1em,1.5vw); }
+.oi-top { container: oi-legend / inline-size; }
+@container oi-legend (width < 1200px) {
+	.oi-legend {
+		font-size: min(1em,2.5cqw);
+	}
+}
 
 table td, table th { border-top: 0.5px solid rgba(0,0,0,0.4); background: white; color: var(--color-offblack); }
 table tr:last-child td { border-bottom: 0.5px solid rgba(0,0,0,0.4); }
