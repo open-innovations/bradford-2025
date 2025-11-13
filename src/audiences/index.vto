@@ -54,7 +54,7 @@ breadcrumbs_full:
 						x: 'week_ending',
 						y: 'weekly',
 						colour: 'green',
-						tooltip: 'Week ending\n{{ week_ending | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>'
+						tooltip: 'Tickets\nWeek ending {{ week_ending | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>'
 					}],
 					columns: [{
 						name: 'decimal_year',
@@ -391,13 +391,22 @@ breadcrumbs_full:
 					legend: { show: true, position: 'bottom' }
 				}) }}
 
-				<p>The cumulative total number of followers. Updated {{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') -}}</p>
+				<p>The total number of followers across various media. Updated {{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') -}}</p>
 			
 			</div>
 		{{ /comp }}
 
 	{{ /comp }}
 </section>
+
+{{#
+<figure class="flex-quote audiences">
+	<blockquote>
+		I am so excited to have been asked to be part of Draw with David Hockney this month and would encourage anyone to pick up a pencil and sketch. There is no such thing as a good drawing or a bad drawing, it is about your way of seeing and interpreting the world around you. This month the theme is landscape and that can be an urban landscape or a rural landscape, an interior landscape or a surreal dreamscape. 
+	</blockquote>
+	<figcaption>A person</figcaption>
+</figure>
+#}}
 
 <section>
 	<h2>Audience surveys</h2>

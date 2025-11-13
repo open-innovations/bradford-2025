@@ -111,7 +111,7 @@ layout: templates/none.vto
 	x = x||series[0].x;
 	y = [];
 	for(let s = 0; s < series.length; s++){
-		if(!series[s].tooltip) series[s].tooltip = '{{ '+(series[0].x||x)+' | strptime("%Y-%m") | strftime("%B %Y") }}<br />{{ _title }}: <strong>{{ _y | toLocaleString() }}</strong>';
+		if(!series[s].tooltip) series[s].tooltip = '{{ _title }}\n{{ '+(series[0].x||x)+' | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>';
 		// Update x-value to the decimal year
 		series[s].x = 'decimal_year';
 		y.push(series[s].y);
