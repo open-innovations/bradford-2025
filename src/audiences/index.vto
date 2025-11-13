@@ -12,7 +12,7 @@ breadcrumbs_full:
 }}
 
 <section>
-	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.</p>
+	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} unless stated otherwise.</p>
 
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ include "./_partials/monthly.vto" { id: 'monthly' } }}
@@ -394,7 +394,7 @@ breadcrumbs_full:
 					legend: { show: true, position: 'bottom' }
 				}) }}
 
-				<p>The total number of followers across various media. Updated {{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') -}}</p>
+				<p>The total number of followers across various media. Updated {{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') }}.</p>
 			
 			</div>
 		{{ /comp }}
@@ -449,7 +449,7 @@ breadcrumbs_full:
 					}
 				}) }}
 				{{ comp ToDo }}Not currently automatically updated{{ /comp }}
-				<p>The average percentage of audience surveys which rated overall experience as <em>good</em> or <em>excellent</em>.</p>
+				<p>The average percentage of audience surveys which rated overall experience as <em>good</em> or <em>excellent</em>. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
 			</div>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', id: 'net-promoter-score', classes: 'audiences', style: "flex-basis: 40ch;" } }}
@@ -480,7 +480,7 @@ breadcrumbs_full:
 					}
 				}) }}
 				{{ comp ToDo }}Not currently automatically updated{{ /comp }}
-				<p>The net promoter score (on a scale of <em>0</em> to <em>10</em>) from audience surveys.</p>
+				<p>The net promoter score (on a scale of <em>0</em> to <em>10</em>) from audience surveys. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
 			</div>
 		{{ /comp }}
 	{{ /comp }}

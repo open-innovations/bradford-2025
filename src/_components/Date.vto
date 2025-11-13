@@ -4,7 +4,7 @@
     const startDateFormat = (new Date(start)).getFullYear() == (new Date(end)).getFullYear() ? yearless : withYear;
 -}}
 {{- if end -}}
-<span class="date-range">{{ if (new Date(start)).getFullYear() == (new Date(end)).getFullYear() }}{{ start |> date(startDateFormat)}} – {{ end |> date(withYear)}}{{ else }}{{ start |> date(withYear)}} – {{ end |> date(withYear)}}{{ /if }}</span>
+<span class="date-range">{{ if (new Date(start)).getFullYear() == (new Date(end)).getFullYear() }}{{ start |> date(dateFormat||startDateFormat)}} – {{ end |> date(withYear)}}{{ else }}{{ start |> date(withYear)}} – {{ end |> date(withYear)}}{{ /if }}</span>
 {{- else -}}
-<span class="date">{{ start |> date(withYear)}}</span>
+<span class="date">{{ start |> date(dateFormat||withYear)}}</span>
 {{- /if }}
