@@ -26,7 +26,7 @@ breadcrumbs_full:
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ comp grid.Brick { tag: 'li', id: 'signed-up', classes: 'participants' } }}
 			<div class="block">
-				<h3>Volunteers signed-up</h3>
+				<h3>Signed-up</h3>
 				{{ comp.BigNumber({
 					number: summary['Signed up'],
 					classes: 'big',
@@ -68,9 +68,9 @@ breadcrumbs_full:
 				{{ comp.graph.monthly({
 					data: people.checkpoints_weekly_updates,
 					series: [
-						{ title: keyMap['3. Fully Inducted Volunteers cumulative'], x: 'decimal_year', y: '3. Fully Inducted Volunteers cumulative', colour: 'green', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: keyMap['2. Sign Up to Induction cumulative'], x: 'decimal_year', y: '2. Sign Up to Induction cumulative (incl)', colour: 'yellow', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: keyMap['1. Monitoring & Evaluation cumulative'], x: 'decimal_year', y: '1. Monitoring & Evaluation cumulative (incl)', colour: 'pink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' }
+						{ title: keyMap['3. Fully Inducted Volunteers cumulative'], x: 'decimal_year', y: '3. Fully Inducted Volunteers cumulative', colour: 'deeppink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: keyMap['2. Sign Up to Induction cumulative'], x: 'decimal_year', y: '2. Sign Up to Induction cumulative (incl)', colour: 'pink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: keyMap['1. Monitoring & Evaluation cumulative'], x: 'decimal_year', y: '1. Monitoring & Evaluation cumulative (incl)', colour: 'darkpink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' }
 					],
 					columns: [{
 						name: 'decimal_year',
