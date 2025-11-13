@@ -44,7 +44,7 @@ breadcrumbs_full:
 					number: operational.summary.tickets || 0,
 					classes: 'big',
 					animate: true,
-					roundingOptions: { maximumSignificantDigits: 4 }
+					roundingOptions: { maximumFractionDigits: 0 }
 				}) }}
 
 				{{ comp.graph.monthly({
@@ -348,7 +348,7 @@ breadcrumbs_full:
 					number: website.total_users[website.total_users.length - 1].cumulative || 0,
 					classes: 'big',
 					animate: true,
-					roundingOptions: { maximumSignificantDigits: 4 }
+					roundingOptions: { maximumFractionDigits: 0 }
 				}) }}
 				
 				{{ comp.graph.monthly({
@@ -371,7 +371,7 @@ breadcrumbs_full:
 					number: followers.latest["Total Audience"].count || 0,
 					classes: 'big',
 					animate: true,
-					roundingOptions: { maximumSignificantDigits: 4 }
+					roundingOptions: { maximumFractionDigits: 0 }
 				}) }}
 
 				{{ comp.graph.monthly({
