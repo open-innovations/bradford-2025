@@ -59,7 +59,7 @@ class Programme:
                 ('projects', 'events', ),
                 (
                     self.events.distinct('project_name').nrows(),
-                    self.events.nrows(),
+                    self.events.replace('events', None, 0).values('events').sum(),
                 ),
             )
         )
