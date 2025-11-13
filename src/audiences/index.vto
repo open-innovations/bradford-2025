@@ -142,7 +142,9 @@ breadcrumbs_full:
 				}}
 
 				{{ comp Tab.Set { classes: 'big'} }}
+
 					<p>The proportion of all tickets sold based on residence of lead booker. We haven't been able to match {{ ((bad_la / total_la)*100).toFixed(1) }}% of tickets to a valid UK local authority.</p>
+
 					{{ comp Tab.Panel { id: 'tickets-uk-hex', label: 'Cartogram' } }}
 						{{ comp.oi.map.hex_cartogram({
 							config: {
@@ -155,6 +157,7 @@ breadcrumbs_full:
 								scale: scale.green,
 								label: '{{ n | slice(0,3) }}',
 								width: 500,
+								height: 660,
 								legend: {
 									continuous: true,
 									position: 'top right',
@@ -174,6 +177,7 @@ breadcrumbs_full:
 						}) }}
 						<p>This cartogram displays local authorities as equal-sized hexagons. This allows us to more easily compare local authorities rather than have the impression skewed by the physical area.</p>
 					{{ /comp }}
+
 					{{ comp Tab.Panel { id: 'tickets-uk-map', label: 'Map' } }}
 						{{ comp.oi.map.svg({
 							config: {
@@ -194,6 +198,7 @@ breadcrumbs_full:
 								scale: scale.green,
 								label: '{{ n | slice(0,3) }}',
 								width: 500,
+								height: 660,
 								legend: {
 									continuous: true,
 									position: 'top right',
@@ -213,6 +218,7 @@ breadcrumbs_full:
 						}) }}
 						<p>This cartogram displays local authorities as equal-sized hexagons. This allows us to more easily compare local authorities rather than have the impression skewed by the physical area.</p>
 					{{ /comp }}
+
 					{{ comp Tab.Panel { id: 'tickets-uk-table', label: 'Table' } }}
 						{{ comp.dashboard.InfoBoxTable({
 							head: {
@@ -227,6 +233,7 @@ breadcrumbs_full:
 							sort: "name"
 						}) }}
 					{{ /comp }}
+
 				{{ /comp }}
 			</div>
 		{{ /comp }}
@@ -236,7 +243,7 @@ breadcrumbs_full:
 				
 				{{ comp Tab.Set { classes: 'big'} }}
 					<p>The proportion of all tickets sold across Bradford. This only includes tickets where the residence of the lead booker is known to be within Bradford.</p>
-					{{ comp Tab.Panel { id: 'tickets-hex', label: 'Cartogram' } }}
+					{{ comp Tab.Panel { id: 'tickets-bradford-hex', label: 'Cartogram' } }}
 						{{ comp.oi.map.hex_cartogram({
 							config: {
 								hexjson: hexes.bd_2024,
@@ -247,6 +254,7 @@ breadcrumbs_full:
 								scale: scale.green,
 								label: '{{ n | slice(0,3) }}',
 								width: 500,
+								height: 660,
 								legend: {
 									continuous: true,
 									position: 'top right',
@@ -266,7 +274,7 @@ breadcrumbs_full:
 						}) }}
 						<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
 					{{ /comp }}
-					{{ comp Tab.Panel { id: 'tickets-map', label: 'Map' } }}
+					{{ comp Tab.Panel { id: 'tickets-bradford-map', label: 'Map' } }}
 						{{ comp.oi.map.svg({
 							config: {
 								geojson: {
@@ -283,6 +291,7 @@ breadcrumbs_full:
 								min: 0,
 								scale: scale.green,
 								width: 500,
+								height: 660,
 								legend: {
 									continuous: true,
 									position: 'top right',
@@ -302,7 +311,7 @@ breadcrumbs_full:
 						}) }}
 						<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
 					{{ /comp }}
-					{{ comp Tab.Panel { id: 'tickets-table', label: 'Table' } }}
+					{{ comp Tab.Panel { id: 'tickets-bradford-table', label: 'Table' } }}
 						{{ comp.dashboard.InfoBoxTable({
 							head: {
 								class: 'head',
@@ -404,11 +413,11 @@ breadcrumbs_full:
 					classes: 'big',
 					animate: true,
 					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}
-				<p>The number of survey responses we've been able to match to a ward.</p>
-				
+				}) }}				
 				{{ comp Tab.Set { classes: 'big'} }}
-					<p>The proportion of all survey responses in Bradford.</p>
+
+					<p>The proportion of all survey responses in Bradford that we've been able to match to a ward.</p>
+
 					{{ comp Tab.Panel { id: 'survey-responses-hex', label: 'Cartogram' } }}
 						{{ comp.oi.map.hex_cartogram({
 							config: {
@@ -439,6 +448,7 @@ breadcrumbs_full:
 						}) }}
 						<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
 					{{ /comp }}
+
 					{{ comp Tab.Panel { id: 'survey-responses-map', label: 'Map' } }}
 						{{ comp.oi.map.svg({
 							config: {
@@ -474,6 +484,7 @@ breadcrumbs_full:
 							}
 						}) }}
 					{{ /comp }}
+
 					{{ comp Tab.Panel { id: 'survey-responses-table', label: 'Table' } }}
 						{{ comp.dashboard.InfoBoxTable({
 							head: {
@@ -481,13 +492,14 @@ breadcrumbs_full:
 							},
 							columns: [
 								{ name: 'name', label: 'Ward' },
-								{ name: 'response_proportion', value: 'response_proportion', label: 'Proportion', class: 'right', scale: scale.green, min: 0 },
+								{ name: 'response', value: 'response_proportion', template: '{{ response_percent }}', label: 'Proportion', class: 'right', scale: scale.green, min: 0 },
 							],
 							data: ward_data,
 							width: "100%",
 							sort: "name"
 						}) }}
 					{{ /comp }}
+
 				{{ /comp }}
 
 			</div>
