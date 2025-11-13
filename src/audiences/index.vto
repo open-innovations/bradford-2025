@@ -54,7 +54,7 @@ breadcrumbs_full:
 						x: 'week_ending',
 						y: 'weekly',
 						colour: 'green',
-						tooltip: 'Tickets\nWeek ending {{ week_ending | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>'
+						tooltip: 'Tickets\n{{ week_ending | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>'
 					}],
 					columns: [{
 						name: 'decimal_year',
@@ -98,7 +98,7 @@ breadcrumbs_full:
 						tickets_by_ticket_type[0][typ] *= 100/total;
 					}
 					for(let i = 0; i < ticket_series.length; i++){
-						ticket_series[i].tooltip = ticket_series[i].value+": {{ "+ticket_series[i].value+" | toFixed(1) }}%";
+						ticket_series[i].tooltip = ticket_series[i].value+": <strong>{{ "+ticket_series[i].value+" | toFixed(1) }}%</strong>";
 						ticket_series[i].points = {'marker':'circle'};
 					}
 				}}

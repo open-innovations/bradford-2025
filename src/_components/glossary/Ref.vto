@@ -12,4 +12,4 @@ css: |
 {{>
     const glossaryPage = slug ? search.page(`glossary term url$="/${ slug }/"`) : search.page(`glossary term title="${ term || content }"`);
 }}
-<span data-comp="glossary-Term" data-hover-text="{{ glossaryPage.description |> md }}"><a href="{{ glossaryPage.url }}">{{ content }}</a></span>
+{{ if glossaryPage }}<span data-comp="glossary-Term" data-hover-text="{{ glossaryPage.description |> md }}"><a href="{{ glossaryPage.url }}">{{ content }}</a></span>{{ else }}<span class="error">{{ content }}</span>{{ /if }}

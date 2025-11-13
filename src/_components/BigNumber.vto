@@ -39,17 +39,20 @@ js: |
         const setValue = (n,opt) => {
             numericEl.innerHTML = n.toLocaleString(undefined, opt);
         };
-
         function animate() {
             let start = new Date();
             let t,value;
             const updateNumber = () => {
                 t = (new Date() - start)/1000;
                 value = target*(t/duration);
-                setValue(value,roundingOptions);
-                if (Math.abs(value) >= Math.abs(target)) {
+                if(isNaN(value)){
                     clearInterval(timer);
-                    setValue(target);
+                }else{
+                	setValue(value,roundingOptions);
+                	if (Math.abs(value) >= Math.abs(target)) {
+                		clearInterval(timer);
+                		setValue(target);
+                	}
                 }
             }
             let timer = setInterval(updateNumber, 40);

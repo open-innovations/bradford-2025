@@ -4,18 +4,16 @@ css: |
     [data-comp=link-list] li a { width: 100%; }
 ---
 {{ set links = search.pages(
-    `${ predicate } !url=${ url }`,
+    `${ predicate } url!=${ url }`,
     `${ sortBy || 'title' }`)
--}}
+}}
 
 {{ if links.length -}}
-<ul data-comp="link-list" class="grid {{ classes || ''}}">
-{{ for link of links }}
-    <li style="--block-bg:var(--color-lightgrey);--block-fg:var(--color-offblack);">{{- await (displayComponent || comp.link.DefaultCard)(link) -}}</li>
-{{ /for }}
-</ul>
+	<ul data-comp="link-list" class="grid {{ classes || ''}}">
+	{{ for link of links }}
+		<li {{ if itemClass }}class="{{ itemClass }}"{{ else }}style="{{ if style }}{{ style }}{{ else }}--block-bg:var(--color-lightgrey);--block-fg:var(--color-offblack);{{ /if }}"{{ /if }}>{{- await (displayComponent || comp.link.DefaultCard)(link) -}}</li>
+	{{ /for }}
+	</ul>
 {{ else }}
-<p>
-    There are no pages tagged with <q>{{ predicate }}.</p>
-</p>
+	<p>There are no pages tagged with <q>{{ predicate }}.</q></p>
 {{ /if}}

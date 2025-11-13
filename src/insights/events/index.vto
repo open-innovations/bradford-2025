@@ -14,10 +14,11 @@ description: |
     </p>
 </section>
 <section>
-{{ comp.link.List({
-    predicate: 'event report',
-    sortBy: 'date=desc',
-    classes: 'regular',
-    displayComponent: comp.link.EventCard,
-}) }}
+	{{ comp.link.List({
+		predicate: 'event report !index',
+		sortBy: 'date=desc',
+		classes: 'regular',
+		itemClass: 'events',
+		displayComponent: comp.link.EventCard,
+	}) }}
 </section>
