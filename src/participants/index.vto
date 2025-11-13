@@ -8,7 +8,9 @@ breadcrumbs_full:
 ---
 
 {{>
-	const { timestamp } = search.data("insights/dashboard");
+	const { metrics, participants, timestamp } = search.data("insights/dashboard");
+	const { people, keyMap, summary } = search.data("themes/volunteers");
+	const { graph } = search.data("landing");
 }}
 
 <section>
@@ -16,4 +18,72 @@ breadcrumbs_full:
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ include "./_partials/monthly.vto" { id: 'monthly' } }}
 	{{ /comp }}
+</section>
+
+<section>
+	<h2>Volunteers</h2>
+	
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp grid.Brick { tag: 'li', id: 'signed-up', classes: 'participants' } }}
+			<div class="block">
+				<h3>Volunteers signed-up</h3>
+				{{ comp.BigNumber({
+					number: summary['Signed up'],
+					classes: 'big',
+					animate: true,
+					roundingOptions: { maximumFractionDigits: 0 }
+				}) }}
+				<p>The first step is to sign up. During this checkpoint the prospective volunteers fill in an application form to collect key information that we use to track the volunteering process. There are currently <b>{{ summary['Signed up'] - summary['Induction booked'] }}</b> people in this checkpoint.</p>
+			</div>
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', id: 'induction-booked', classes: 'participants' } }}
+			<div class="block">
+				<h3>Induction booked</h3>
+				{{ comp.BigNumber({
+					number: people.checkpoints_weekly_updates[people.checkpoints_weekly_updates.length-1]['2. Sign Up to Induction cumulative (incl)'],
+					classes: 'big',
+					animate: true,
+					roundingOptions: { maximumFractionDigits: 0 }
+				}) }}
+				<p>Once they've completed their forms, we book the volunteers onto an induction session to cover all the important information they'll need as Bradford 2025 volunteers. At the moment, <b>{{ summary['Induction booked'] - summary['Induction completed'] }}</b> people are booked onto induction sessions.</p>
+			</div>
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', id: 'induction-completed', classes: 'participants' } }}
+			<div class="block">
+				<h3>Induction completed</h3>
+				{{ comp.BigNumber({
+					number: summary['Induction completed'],
+					classes: 'big',
+					animate: true,
+					roundingOptions: { maximumFractionDigits: 0 }
+				}) }}
+				<p>Having attended an induction session, our volunteers are fully equipped to fulfil their role as Bradford 2025 volunteers.</p>
+			</div>
+		{{ /comp }}
+	{{ /comp }}
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp grid.Brick { tag: 'li', id: 'volunteers', classes: 'participants' } }}
+			<div class="block">
+				<h3>Volunteers</h3>
+				{{ comp.graph.monthly({
+					data: people.checkpoints_weekly_updates,
+					series: [
+						{ title: keyMap['3. Fully Inducted Volunteers cumulative'], x: 'decimal_year', y: '3. Fully Inducted Volunteers cumulative', colour: 'green', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: keyMap['2. Sign Up to Induction cumulative'], x: 'decimal_year', y: '2. Sign Up to Induction cumulative (incl)', colour: 'yellow', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: keyMap['1. Monitoring & Evaluation cumulative'], x: 'decimal_year', y: '1. Monitoring & Evaluation cumulative (incl)', colour: 'pink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' }
+					],
+					columns: [{
+						name: 'decimal_year',
+						template: '{{ Week ending (Sunday) | strptime(\"%Y-%m-%d\") | decimalYear() }}'
+					}],
+					legend: { show: true, position: 'bottom' }
+				}) }}
+			</div>
+		{{ /comp }}
+	{{ /comp }}
+</section>
+
+<section>
+	<h2>Cultural learning</h2>
+	
 </section>

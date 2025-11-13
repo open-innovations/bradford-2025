@@ -1,7 +1,21 @@
 {{>
 	const { audience, metrics } = search.data("insights/dashboard");
+	const { website } = search.data("insights/digital");
+	const { graph } = search.data("landing");
+	const months = {};
+	const digital = [];
+	for(let i = 0; i < graph.audiences.total.length; i++){
+		months[graph.audiences.total[i].Date] = {'total':graph.audiences.total[i].value};
+	}
+	for(let i = 0; i < graph.audiences.in_person.length; i++){
+		months[graph.audiences.in_person[i].Date].in_person = graph.audiences.in_person[i].value;
+	}
+	for(m in months){
+		if(months[m].total > 0){
+			digital.push({'month':m,'count':months[m].total-months[m].in_person});
+		}
+	}
 }}
-
 {{ comp grid.Brick { tag: 'li', classes: 'audiences' } }}
 	<div class="block">
 		<h3>{{ metrics.audiences_digital.title }}</h3>
@@ -13,7 +27,15 @@
 			animate: true,
 			roundingOptions: { maximumSignificantDigits: 4 }
 		}) }}
-		{{ comp ToDo }}monthly graph for digital audience.{{ /comp }}
+		{{ comp.graph.monthly({
+			data: digital,
+			series: [{
+				title: 'Digital',
+				x: 'month',
+				y: 'count',
+				colour: 'green'
+			}]
+		}) }}
 		<p>The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for digital events and online.</p>
 	</div>
 {{ /comp }}

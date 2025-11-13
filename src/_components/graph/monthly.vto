@@ -48,17 +48,17 @@ layout: templates/none.vto
 	function getXAxis(s,e){
 		let start = new Date(s);
 		let end = new Date(e);
-		let axis = {min:decimalYear(s),max:decimalYear(e),ticks:[],'grid':{'stroke-width': 0.5}};
+		let xaxis = {min:decimalYear(s),max:decimalYear(e),ticks:[],'grid':{'stroke-width': 0.5}};
 		let pre = "",post="",d,months=['Jan','','','Apr','','','Jul','','','Oct','',''];
 		while (start <= end) {
 			// compensate for zero-based months in display
 			const displayMonth = start.getUTCMonth() + 1;
 			d = (months[displayMonth-1]||"") + (displayMonth==1 ? "\n" + start.getUTCFullYear() : "");
-			axis.ticks.push({'value':decimalYear(start.toISOString().substr(0,7)),'label':(pre+d+post),'tickSize':10});
+			xaxis.ticks.push({'value':decimalYear(start.toISOString().substr(0,7)),'label':(pre+d+post),'tickSize':10});
 			// progress the start date by one month
 			start = new Date(start.setUTCMonth(displayMonth));
 		}
-		return axis;
+		return xaxis;
 	}
 
 	// Function to return a yaxis object suitable for OI Lume Viz adjusted to the range of the data
@@ -79,11 +79,13 @@ layout: templates/none.vto
 		}
 		// If the scale minimum is set we'll use that instead (this helps preserve some sensible zero scaling)
 		if(typeof scale.min==="number") min = scale.min;
+		if(typeof scale.max==="number") max = scale.max;
 		// Find the range
 		range = max - min;
 		// Work out a spacing and then a scale factor
 		if(range > 0){
 			spacing = Math.pow(10,Math.floor(Math.log10(range)));
+			if(range==spacing) spacing /= 2;
 			let n = range/spacing;
 			if(n > 3) f = 2;
 			if(n > 6) f = 5;
@@ -94,6 +96,7 @@ layout: templates/none.vto
 		}
 		// Update the tick spacing
 		spacing = spacing*f;
+		if("tick" in scale && "spacing" in scale.tick && typeof scale.tick.spacing==="number") spacing = scale.tick.spacing;
 		// Find the new minimum/maximum to use for the scale
 		lo = (Math.floor(min/spacing)*spacing);
 		lo = 0;
@@ -130,7 +133,7 @@ layout: templates/none.vto
 			width: width||800,
 			axis: {
 				x: getXAxis(start||'2025-01',end||'2026-01'),
-				y: getYAxis(data,y)
+				y: getYAxis(data,y,(axis && axis.y ? axis.y : {}))
 			},
 			series: series
 		}

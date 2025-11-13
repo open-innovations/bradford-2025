@@ -84,9 +84,9 @@ tags:
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
 			<div class="block">
-				<h3>{{ metrics.events_exhibition_days.title }}</h3>
+				<h3>{{ metrics.events_exhibitions.title }}</h3>
 				{{ comp.BigNumber({
-					number: events.by_category.Exhibition || 0,
+					number: projects.by_category['Exhibition'] || 0,
 					classes: 'big',
 					animate: true,
 					roundingOptions: { maximumFractionDigits: 0 },
@@ -97,9 +97,9 @@ tags:
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
 			<div class="block">
-				<h3>{{ metrics.events_exhibitions.title }}</h3>
+				<h3>{{ metrics.events_exhibition_days.title }}</h3>
 				{{ comp.BigNumber({
-					number: projects.by_category['Exhibition'] || 0,
+					number: events.by_category.Exhibition || 0,
 					classes: 'big',
 					animate: true,
 					roundingOptions: { maximumFractionDigits: 0 },
