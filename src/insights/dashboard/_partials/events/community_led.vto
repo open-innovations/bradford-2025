@@ -37,17 +37,17 @@
 
 			{{> const rows = [] }}
 			{{> 
-				 if(events.by_project['Our Patch']){
+				rows.push({ "title": "Community-led arts events", "value": events.by_category["Community-led arts event"] });
+				if(events.by_project['Our Patch']){
 					rows.push({
 						"title": "Our Patch events",
 						"value": events.by_project['Our Patch']?.count || 0,
 						"description": "Events run as part of the Our Patch (community engagements) project."
 					});
 				}
-				rows.push({ "title": "Community-led arts events", "value": events.by_category["Community-led arts event"] });
-				rows.push({ "title": "Total", "value": total, "description": "Total of above", "_class": "c-yellow" });
 				//rows.push({ "title": "Ticketed events", "value": tickets.events.count, "description": "Ticketed events that ran between {{ comp.Date({ ...timestamp }) }}" });
 				//rows.push({ "title": "Volunteering shifts", "value": volunteers.shifts.count, "description": "There may be more than one volunteering shift per event, or each volunteering shift might cover multiple events"; });
+				rows.push({ "title": "Total", "value": total, "description": "Total of above", "_class": "c-yellow" });
 			}}
 			
 			{{ comp.dashboard.InfoBoxTable({

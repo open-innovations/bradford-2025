@@ -41,7 +41,7 @@
 					},
 					...Object.entries(participants.by_type.cultural_learning_participants.by_project)
 						.filter(p => p[1].count > 0)
-						.sort((a, b) => b[1].count - a[1].count)
+						.sort((a, b) => b[1].title - a[1].title)
 						.map(([k, v]) => ({ title: k, value: v.count.toLocaleString(), category: v.category }))
 					]
 				}) |> md |> vto(page.data) }}

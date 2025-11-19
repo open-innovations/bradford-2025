@@ -48,7 +48,7 @@
 					"value": eventsCount.toLocaleString(),
 					"description": "Events running between {{ comp.Date({start:timestamp.start,end:timestamp.end}) }} recorded in the <strong>Bradford 2025 Project Hub</strong>."
 				}];
-				for (const project of Object.entries(events.by_project).sort((a,b) => b[1].count - a[1].count)) {
+				for (const project of Object.entries(events.by_project).sort((a,b) => b[1].title - a[1].title)) {
 					// Don't process if the project category is excluded
 					if (excludedCategories.includes(project[1].category)) continue;
 					// Should only be remaining categories from now
