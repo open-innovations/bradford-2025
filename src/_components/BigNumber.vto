@@ -70,7 +70,6 @@ js: |
     {{- if duration }} data-duration="{{ duration }}"{{ /if -}}
     {{ /if -}}
 >
-{{ if label }}<p class="label">{{ label }}</p>{{ /if -}}
     <p class="number">
         <span class="numeric">{{ number.toLocaleString(undefined, roundingOptions) -}}</span>
         {{- if suffix }}<span class="suffix">{{ suffix }}</span>{{ /if -}}

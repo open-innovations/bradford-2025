@@ -23,32 +23,23 @@ datasets:
 
 {{ comp InfoCard { id:"sustainability" } }}
 	<h2>Sustainability headlines</h2>
-	{{ comp grid.Masonry }}
-		{{ comp grid.Brick { cols: 2 } }}
-			{{ comp BigNumber {
-				label: "Total emissions",
-				number: calculations.summary.total_tCO2e,
-				suffix: '',
-				classes: 'block'
-			} }}
-				<p class="centred">
-					Tonnes of carbon dioxide equivalent <span>(tCO<sub>2</sub>e)</span>
-				</p>
-			{{ /comp }}
-		{{ /comp }}
-		{{ comp grid.Brick }}
-			{{ comp BigNumber {
-				label: "Project related",
-				number: calculations.summary.project_related_emissions,
-				suffix: '%',
-				classes: 'block'
-			} }}
-			<p class="centred">
-				Emissions that can be allocated to projects.
-			</p>
-			{{ /comp }}
-		{{ /comp }}
+	<div class="grid regular">
+	{{ comp dashboard.Cell { classes: 'centred', title: 'Total emissions' } }}
+		{{ comp.BigNumber({
+			number: calculations.summary.total_tCO2e,
+			suffix: ''
+		}) }}
+		<p class="centred">Tonnes of carbon dioxide equivalent <span>(tCO<sub>2</sub>e)</span></p>
 	{{ /comp }}
+	{{ comp dashboard.Cell { classes: 'centred', title: 'Project related' } }}
+		{{ comp.BigNumber({
+			number: calculations.summary.project_related_emissions,
+			suffix: '%',
+			classes: 'block'
+		}) }}
+		<p class="centred">Emissions that can be allocated to projects.</p>
+	{{ /comp }}
+	</div>
 {{ /comp }}
 
 <hr>

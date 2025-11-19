@@ -3,117 +3,108 @@
 {{# TODO unpick event reports from this #}}
 {{ if programme && programme.summary }}
 	{{ if programme.summary.events?.audience }}
-	{{ comp dashboard.Cell { classes: 'centred c-yellow' } }}
-	{{ comp.BigNumber({
-		label: 'Audience',
-		number: programme.summary.events.audience,
-		animate: true,
-		roundingOptions: { maximumFractionDigits: 0 },
-	}) }}
-	<p>Total audience attendees</p>
-	{{ /comp }}
+		{{ comp dashboard.Cell { classes: 'centred c-yellow', title: 'Audience' } }}
+			{{ comp.BigNumber({
+				number: programme.summary.events.audience,
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+			}) }}
+			<p>Total audience attendees</p>
+		{{ /comp }}
 	{{ /if }}
 
 	{{ if programme.summary.events?.participants }}
-	{{ comp dashboard.Cell { classes: 'centred c-yellow' } }}
-	{{ comp.BigNumber({
-		label: 'Participants',
-		number: programme.summary.events.participants,
-		animate: true,
-		roundingOptions: { maximumFractionDigits: 0 },
-	}) }}
-	<p>Total community participants (those taking part or contributing)</p>
-	{{ /comp }}
+		{{ comp dashboard.Cell { classes: 'centred c-yellow', title: 'Participants' } }}
+			{{ comp.BigNumber({
+				number: programme.summary.events.participants,
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+			}) }}
+			<p>Total community participants (those taking part or contributing)</p>
+		{{ /comp }}
 	{{ /if }}
 
 	{{# TODO replace with volunteers from rosterfy #}}
 	{{ if programme?.summary?.event_report }}
-	{{ comp dashboard.Cell { classes: 'centred c-yellow' } }}
-	{{ comp.BigNumber({
-		label: 'Volunteers',
-		number: programme.summary.event_report.volunteers,
-		animate: true,
-		roundingOptions: { maximumFractionDigits: 0 },
-	}) }}
-	<p>Individual volunteers {{- if volunteers?.summary }} contributed 
-		{{ volunteers?.summary.find(x => x.date == 'ALL').hours.toLocaleString() }} hours {{ /if }}</p>
+		{{ comp dashboard.Cell { classes: 'centred c-yellow', title: 'Volunteers' } }}
+			{{ comp.BigNumber({
+				number: programme.summary.event_report.volunteers,
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+			}) }}
+			<p>Individual volunteers {{- if volunteers?.summary }} contributed 
+				{{ volunteers?.summary.find(x => x.date == 'ALL').hours.toLocaleString() }} hours {{ /if }}</p>
 
-	{{ comp Controls }}
-	{{ comp Popover }}
-	<p>
-		Data has been extracted from the the Airtable Project Hub and Rosterfy volunteer management system, and is subject to change as adjustments and data validation is completed.
-	</p>
-	{{ /comp }}
-	{{ /comp }}
-
-	{{ /comp }}
+			{{ comp Controls }}
+				{{ comp Popover }}
+				<p>
+					Data has been extracted from the the Airtable Project Hub and Rosterfy volunteer management system, and is subject to change as adjustments and data validation is completed.
+				</p>
+				{{ /comp }}
+			{{ /comp }}
+		{{ /comp }}
 	{{ /if }}
 
 	{{ if programme.summary.count.events > 1 }}
-	{{ comp dashboard.Cell { classes: 'centred c-pink' } }}
-	{{ comp.BigNumber({
-		label: 'Events',
-		number: programme.summary.count.events,
-		animate: true,
-		roundingOptions: { maximumFractionDigits: 0 },
-	}) }}
-	<p>Total events</p>
-	{{ /comp }}
+		{{ comp dashboard.Cell { classes: 'centred c-pink', title: 'Events' } }}
+			{{ comp.BigNumber({
+				number: programme.summary.count.events,
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+			}) }}
+			<p>Total events</p>
+		{{ /comp }}
 	{{ /if }}
 
 {{ /if }}
 
 {{ if (tickets?.summary && tickets.summary.length > 0) }}
-{{ comp dashboard.Cell { classes: 'centred c-pink' } }}
-{{ comp.BigNumber( {
-    label: 'Tickets sold',
-    number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets,
-    animate: true,
-    roundingOptions: { maximumFractionDigits: 0 }
-}) }}
-<p>Total tickets sold</p>
-{{ /comp }}
+	{{ comp dashboard.Cell { classes: 'centred c-pink', title: 'Tickets sold' } }}
+		{{ comp.BigNumber( {
+			number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets,
+			animate: true,
+			roundingOptions: { maximumFractionDigits: 0 }
+		}) }}
+		<p>Total tickets sold</p>
+	{{ /comp }}
 {{ /if }}
 
 {{#
 {{ if volunteers?.summary }}
-{{ comp dashboard.Cell { classes: 'centred c-yellow' } }}
-{{ comp.BigNumber( {
-    label: "Volunteer time",
-    number: volunteers?.summary.find(x => x.date == 'ALL').hours,
-    suffix: ' hours',
-    animate: true,
-    roundingOptions: { maximumFractionDigits: 0 }
-}) }}
-<p>
-    Hours were completed in
-    {{ volunteers.summary.find(x => x.date == 'ALL').attended }}
-    individual shifts.
-</p>
-
-{{ /comp }}
+	{{ comp dashboard.Cell { classes: 'centred c-yellow', title: "Volunteer time" } }}
+		{{ comp.BigNumber( {
+			number: volunteers?.summary.find(x => x.date == 'ALL').hours,
+			suffix: ' hours',
+			animate: true,
+			roundingOptions: { maximumFractionDigits: 0 }
+		}) }}
+		<p>
+			Hours were completed in
+			{{ volunteers.summary.find(x => x.date == 'ALL').attended }}
+			individual shifts.
+		</p>
+	{{ /comp }}
 {{ /if }}
 #}}
 
 {{ if sustainability?.summary }}
-{{ comp dashboard.Cell { classes: 'centred c-green' } }}
-{{ comp.BigNumber({
-    label: "Carbon footprint",
-    number: sustainability.summary.tCO2e,
-    suffix: ' tonnes',
-    animate: true,
-    roundingOptions: { maximumSignificantDigits: 2 }
-}) }}
-<p>
-    Estimated tonnes of carbon dioxide equivalent <span>(tCO<sub>2</sub>e).</span>
-</p>
-{{ comp Controls }}
-{{ comp Popover }}
-<p>
-    <i>This estimate includes activities which been associated with the project &ndash; the true carbon footprint could be higher, and this figure could change as more activities are identified.</i>
-</p>
-{{ /comp }}
-{{ /comp }}
-{{ /comp }}
+	{{ comp dashboard.Cell { classes: 'centred c-green', title: "Carbon footprint" } }}
+		{{ comp.BigNumber({
+			number: sustainability.summary.tCO2e,
+			suffix: ' tonnes',
+			animate: true,
+			roundingOptions: { maximumSignificantDigits: 2 }
+		}) }}
+		<p>
+			Estimated tonnes of carbon dioxide equivalent <span>(tCO<sub>2</sub>e).</span>
+		</p>
+		{{ comp Controls }}
+			{{ comp Popover }}
+			<p>
+				<i>This estimate includes activities which been associated with the project &ndash; the true carbon footprint could be higher, and this figure could change as more activities are identified.</i>
+			</p>
+			{{ /comp }}
+		{{ /comp }}
+	{{ /comp }}
 {{ /if }}
 </section>
