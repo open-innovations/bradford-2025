@@ -3,7 +3,7 @@
 {{# TODO unpick event reports from this #}}
 {{ if programme && programme.summary }}
 	{{ if programme.summary.events?.audience }}
-		{{ comp dashboard.Cell { classes: 'centred c-yellow', title: 'Audience' } }}
+		{{ comp dashboard.Cell { classes: 'centred audiences', title: 'Audience' } }}
 			{{ comp.BigNumber({
 				number: programme.summary.events.audience,
 				animate: true,
@@ -14,7 +14,7 @@
 	{{ /if }}
 
 	{{ if programme.summary.events?.participants }}
-		{{ comp dashboard.Cell { classes: 'centred c-yellow', title: 'Participants' } }}
+		{{ comp dashboard.Cell { classes: 'centred events', title: 'Participants' } }}
 			{{ comp.BigNumber({
 				number: programme.summary.events.participants,
 				animate: true,
@@ -26,7 +26,7 @@
 
 	{{# TODO replace with volunteers from rosterfy #}}
 	{{ if programme?.summary?.event_report }}
-		{{ comp dashboard.Cell { classes: 'centred c-yellow', title: 'Volunteers' } }}
+		{{ comp dashboard.Cell { classes: 'centred participants', title: 'Volunteers' } }}
 			{{ comp.BigNumber({
 				number: programme.summary.event_report.volunteers,
 				animate: true,
@@ -46,7 +46,7 @@
 	{{ /if }}
 
 	{{ if programme.summary.count.events > 1 }}
-		{{ comp dashboard.Cell { classes: 'centred c-pink', title: 'Events' } }}
+		{{ comp dashboard.Cell { classes: 'centred events', title: 'Events' } }}
 			{{ comp.BigNumber({
 				number: programme.summary.count.events,
 				animate: true,
@@ -59,7 +59,7 @@
 {{ /if }}
 
 {{ if (tickets?.summary && tickets.summary.length > 0) }}
-	{{ comp dashboard.Cell { classes: 'centred c-pink', title: 'Tickets sold' } }}
+	{{ comp dashboard.Cell { classes: 'centred audiences', title: 'Tickets sold' } }}
 		{{ comp.BigNumber( {
 			number: tickets.summary.find(x => x.start == 'ALL').count_of_tickets,
 			animate: true,
@@ -71,7 +71,7 @@
 
 {{#
 {{ if volunteers?.summary }}
-	{{ comp dashboard.Cell { classes: 'centred c-yellow', title: "Volunteer time" } }}
+	{{ comp dashboard.Cell { classes: 'centred participants', title: "Volunteer time" } }}
 		{{ comp.BigNumber( {
 			number: volunteers?.summary.find(x => x.date == 'ALL').hours,
 			suffix: ' hours',
