@@ -87,9 +87,9 @@ breadcrumbs_full:
 <section>
 	<h2>Cultural learning</h2>
 	{{> const tabledata = Object.entries(participants.by_type.cultural_learning_participants.by_project)
-					.filter(p => p[1].count > 0)
-					.sort((a, b) => b[1].count - a[1].count)
-					.map(([k, v]) => ({ title: k, value: v.count, category: v.category })) }}
+		.filter(p => p[1].count > 0)
+		.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
+		.map(([k, v]) => ({ title: k, value: v.count, category: v.category })) }}
 
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ comp grid.Brick { tag: 'li', id: 'cultural-learning', classes: 'participants' } }}
@@ -119,7 +119,7 @@ breadcrumbs_full:
 			</div>
 		{{ /comp }}
 		
-		{{ comp grid.Brick { tag: 'li', id: 'cultural-learning', classes: 'participants' } }}
+		{{ comp grid.Brick { tag: 'li', id: 'schools-engaged', classes: 'participants' } }}
 			<div class="block">
 				<h3>Schools engaged</h3>
 				{{ comp.BigNumber({
@@ -138,7 +138,7 @@ breadcrumbs_full:
 {{>
 	const tablecommunity = Object.entries(participants.by_type.community_participants.by_project)
 		.filter(p => p[1].count > 0)
-		.sort((a, b) => b[1].count - a[1].count)
+		.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
 		.map(([project, props]) => ({
 			title: project,
 			count: props.count,
@@ -150,7 +150,7 @@ breadcrumbs_full:
 <section>
 	<h2>Community</h2>
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'cultural-learning', classes: 'participants' } }}
+		{{ comp grid.Brick { tag: 'li', id: 'community-participants', classes: 'participants' } }}
 			<div class="block">
 				<h3>Community participants</h3>
 				{{ comp.BigNumber({
@@ -160,13 +160,13 @@ breadcrumbs_full:
 					roundingOptions: { maximumFractionDigits: 0 }
 				}) }}
 				<p>The total number of individual communinity participants.</p>
-				<p>Below is a breakdown of community engagement into participants, how many sessions they attended, and instances of participation. An "Instance of participation" represents a 2-hour block of time available for participatory activity. If a participant were to attend a 4 hour session, that would count as 2 instances of participation.</p>
+				<p>Below is a breakdown of community engagement into participants and instances of participation. An "Instance of participation" represents a 2-hour block of time available for participatory activity. If a participant were to attend a 4 hour session, that would count as 2 instances of participation.</p>
 				{{ comp.dashboard.InfoBoxTable({
 					"cms": metrics.participants_community_engagement,
 					"columns": [
 						{ "name": "title", "label": "Project" },
 						{ "name": "value", "value": "count", "template": "{{ count | toLocaleString() }}", "label": "Participants", "scale": scalepink, min: 0, "class": "right" },
-						{ "name": "attendance", "value": "attendances", "template": "{{ attendances | toLocaleString() }}", "label": "Attendances", "scale": scalepink, min: 0, "class": "right" },
+						//{ "name": "attendance", "value": "attendances", "template": "{{ attendances | toLocaleString() }}", "label": "Attendances", "scale": scalepink, min: 0, "class": "right" },
 						{ "name": "instance", "value": "instances", "template": "{{ instances | toLocaleString() }}", "label": "Instances", "scale": scalepink, min: 0, "class": "right" },
 						//{ "name": "description", "label": "Description", key: 'description' }
 					],
@@ -185,7 +185,7 @@ breadcrumbs_full:
 <section>
 	<h2>Training and skills development</h2>
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'cultural-learning', classes: 'participants' } }}
+		{{ comp grid.Brick { tag: 'li', id: 'training-and-skills', classes: 'participants' } }}
 			<div class="block">
 				<h3>Training and skills participants</h3>
 				{{ comp.BigNumber({
@@ -207,7 +207,7 @@ breadcrumbs_full:
 					"width": "100%",
 					"data": Object.entries(participants.by_type.training_and_skills_development_participants.by_project)
 						.filter(r => r[1].count > 0)
-						.sort((a, b) => b[1].count - a[1].count)
+						.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
 						.map(([k, v]) => ({ title: k, value: v.count, category: v.category }))
 				}) |> md |> vto(page.data) }}
 			</div>
