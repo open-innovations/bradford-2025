@@ -20,31 +20,27 @@ tags:
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ include "./_partials/monthly.vto" { id: 'monthly' } }}
 
-		{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
-			<div class="block">
-				<h3>{{ metrics.events_in_person.title }}</h3>
-				{{ comp.BigNumber({
-					number: Object.entries(events.by_category).filter(c => ![ 'Exhibition', 'Festival', 'Digital' ].includes(c[0])).reduce((a, c) => a + c[1], 0) || '&mdash;',
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 },
-					suffix: '',
-				}) }}
-				<p>Count of in-person {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}).</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
+			<h3>{{ metrics.events_in_person.title }}</h3>
+			{{ comp.BigNumber({
+				number: Object.entries(events.by_category).filter(c => ![ 'Exhibition', 'Festival', 'Digital' ].includes(c[0])).reduce((a, c) => a + c[1], 0) || '&mdash;',
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+				suffix: '',
+			}) }}
+			<p>Count of in-person {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}).</p>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
-			<div class="block">
-				<h3>{{ metrics.events_online.title }}</h3>
-				{{ comp.BigNumber({
-					number: events.by_category['Online'] || '&mdash;',
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 },
-					suffix: '',
-				}) }}
-				<p>Count of online {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}).</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
+			<h3>{{ metrics.events_online.title }}</h3>
+			{{ comp.BigNumber({
+				number: events.by_category['Online'] || '&mdash;',
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+				suffix: '',
+			}) }}
+			<p>Count of online {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}).</p>
 		{{ /comp }}
 	{{ /comp }}
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
@@ -56,83 +52,71 @@ tags:
 				}
 			}
 		}}
-		{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
-			<div class="block">
-				<h3>{{ metrics.events_festivals.title }}</h3>
-				{{ comp.BigNumber({
-					number: festivals.length || '&mdash;',
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 },
-					suffix: '',
-				}) }}
-				<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}festivals{{ /comp }}.</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
+			<h3>{{ metrics.events_festivals.title }}</h3>
+			{{ comp.BigNumber({
+				number: festivals.length || '&mdash;',
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+				suffix: '',
+			}) }}
+			<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}festivals{{ /comp }}.</p>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
-			<div class="block">
-				<h3>{{ metrics.events_festival_events.title }}</h3>
-				{{ comp.BigNumber({
-					number: events.by_category.Festival || 0,
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 },
-					suffix: '',
-				}) }}
-				<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}Festival events{{ /comp }}.</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
+			<h3>{{ metrics.events_festival_events.title }}</h3>
+			{{ comp.BigNumber({
+				number: events.by_category.Festival || 0,
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+				suffix: '',
+			}) }}
+			<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}Festival events{{ /comp }}.</p>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
-			<div class="block">
-				<h3>{{ metrics.events_exhibitions.title }}</h3>
-				{{ comp.BigNumber({
-					number: projects.by_category['Exhibition'] || 0,
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 },
-					suffix: '',
-				}) }}
-				<p>Count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}.</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
+			<h3>{{ metrics.events_exhibitions.title }}</h3>
+			{{ comp.BigNumber({
+				number: projects.by_category['Exhibition'] || 0,
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+				suffix: '',
+			}) }}
+			<p>Count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}.</p>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
-			<div class="block">
-				<h3>{{ metrics.events_exhibition_days.title }}</h3>
-				{{ comp.BigNumber({
-					number: events.by_category.Exhibition || 0,
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 },
-					suffix: '',
-				}) }}
-				<p>Count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}.</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
+			<h3>{{ metrics.events_exhibition_days.title }}</h3>
+			{{ comp.BigNumber({
+				number: events.by_category.Exhibition || 0,
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+				suffix: '',
+			}) }}
+			<p>Count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}.</p>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
-			<div class="block">
-				<h3>{{ metrics.events_community_led.title }}</h3>
-				{{ comp.BigNumber({
-					number: (events.by_project['Our Patch']?.count || 0) + (events.by_category["Community-led arts event"] || 0),
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 },
-					suffix: '',
-				}) }}
-				<p>Count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}.</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
+			<h3>{{ metrics.events_community_led.title }}</h3>
+			{{ comp.BigNumber({
+				number: (events.by_project['Our Patch']?.count || 0) + (events.by_category["Community-led arts event"] || 0),
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+				suffix: '',
+			}) }}
+			<p>Count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}.</p>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events' } }}
-			<div class="block">
-				<h3>{{ metrics.events_free_activities.title }}</h3>
-				{{ comp.BigNumber({
-					number: events.free || '&mdash;',
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 },
-					suffix: '',
-				}) }}
-				<p>Count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}.</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
+			<h3>{{ metrics.events_free_activities.title }}</h3>
+			{{ comp.BigNumber({
+				number: events.free || '&mdash;',
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 },
+				suffix: '',
+			}) }}
+			<p>Count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}.</p>
 		{{ /comp }}
 	{{ /comp }}
 </section>
@@ -143,7 +127,7 @@ tags:
 	{{ comp.link.List({
 		predicate: 'event report !index',
 		sortBy: 'date=desc',
-		classes: 'regular',
+		classes: 'regular dashboard',
 		itemClass: 'events',
 		displayComponent: comp.link.EventCard,
 	}) }}

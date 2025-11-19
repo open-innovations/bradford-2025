@@ -25,61 +25,53 @@ breadcrumbs_full:
 	<h2>Volunteers</h2>
 	
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'signed-up', classes: 'participants' } }}
-			<div class="block">
-				<h3>Signed-up</h3>
-				{{ comp.BigNumber({
-					number: summary['Signed up'],
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}
-				<p>The first step is to sign up. During this checkpoint the prospective volunteers fill in an application form to collect key information that we use to track the volunteering process. There are currently <b>{{ summary['Signed up'] - summary['Induction booked'] }}</b> people in this checkpoint.</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', id: 'signed-up', classes: 'participants block' } }}
+			<h3>Signed-up</h3>
+			{{ comp.BigNumber({
+				number: summary['Signed up'],
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			<p>The first step is to sign up. During this checkpoint the prospective volunteers fill in an application form to collect key information that we use to track the volunteering process. There are currently <b>{{ summary['Signed up'] - summary['Induction booked'] }}</b> people in this checkpoint.</p>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', id: 'induction-booked', classes: 'participants' } }}
-			<div class="block">
-				<h3>Induction booked</h3>
-				{{ comp.BigNumber({
-					number: people.checkpoints_weekly_updates[people.checkpoints_weekly_updates.length-1]['2. Sign Up to Induction cumulative (incl)'],
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}
-				<p>Once they've completed their forms, we book the volunteers onto an induction session to cover all the important information they'll need as Bradford 2025 volunteers. At the moment, <b>{{ summary['Induction booked'] - summary['Induction completed'] }}</b> people are booked onto induction sessions.</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', id: 'induction-booked', classes: 'participants block' } }}
+			<h3>Induction booked</h3>
+			{{ comp.BigNumber({
+				number: people.checkpoints_weekly_updates[people.checkpoints_weekly_updates.length-1]['2. Sign Up to Induction cumulative (incl)'],
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			<p>Once they've completed their forms, we book the volunteers onto an induction session to cover all the important information they'll need as Bradford 2025 volunteers. At the moment, <b>{{ summary['Induction booked'] - summary['Induction completed'] }}</b> people are booked onto induction sessions.</p>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', id: 'induction-completed', classes: 'participants' } }}
-			<div class="block">
-				<h3>Induction completed</h3>
-				{{ comp.BigNumber({
-					number: summary['Induction completed'],
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}
-				<p>Having attended an induction session, our volunteers are fully equipped to fulfil their role as Bradford 2025 volunteers.</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', id: 'induction-completed', classes: 'participants block' } }}
+			<h3>Induction completed</h3>
+			{{ comp.BigNumber({
+				number: summary['Induction completed'],
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			<p>Having attended an induction session, our volunteers are fully equipped to fulfil their role as Bradford 2025 volunteers.</p>
 		{{ /comp }}
 	{{ /comp }}
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'volunteers', classes: 'participants' } }}
-			<div class="block">
-				<h3>Volunteers</h3>
-				{{ comp.graph.monthly({
-					data: people.checkpoints_weekly_updates,
-					series: [
-						{ title: keyMap['3. Fully Inducted Volunteers cumulative'], x: 'decimal_year', y: '3. Fully Inducted Volunteers cumulative', colour: 'deeppink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: keyMap['2. Sign Up to Induction cumulative'], x: 'decimal_year', y: '2. Sign Up to Induction cumulative (incl)', colour: 'pink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: keyMap['1. Monitoring & Evaluation cumulative'], x: 'decimal_year', y: '1. Monitoring & Evaluation cumulative (incl)', colour: 'darkpink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' }
-					],
-					columns: [{
-						name: 'decimal_year',
-						template: '{{ Week ending (Sunday) | strptime(\"%Y-%m-%d\") | decimalYear() }}'
-					}],
-					legend: { show: true, position: 'bottom' }
-				}) }}
-			</div>
+		{{ comp grid.Brick { tag: 'li', id: 'volunteers', classes: 'participants block' } }}
+			<h3>Volunteers</h3>
+			{{ comp.graph.monthly({
+				data: people.checkpoints_weekly_updates,
+				series: [
+					{ title: keyMap['3. Fully Inducted Volunteers cumulative'], x: 'decimal_year', y: '3. Fully Inducted Volunteers cumulative', colour: 'deeppink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: keyMap['2. Sign Up to Induction cumulative'], x: 'decimal_year', y: '2. Sign Up to Induction cumulative (incl)', colour: 'pink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: keyMap['1. Monitoring & Evaluation cumulative'], x: 'decimal_year', y: '1. Monitoring & Evaluation cumulative (incl)', colour: 'darkpink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' }
+				],
+				columns: [{
+					name: 'decimal_year',
+					template: '{{ Week ending (Sunday) | strptime(\"%Y-%m-%d\") | decimalYear() }}'
+				}],
+				legend: { show: true, position: 'bottom' }
+			}) }}
 		{{ /comp }}
 	{{ /comp }}
 </section>
@@ -92,9 +84,7 @@ breadcrumbs_full:
 		.map(([k, v]) => ({ title: k, value: v.count, category: v.category })) }}
 
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'cultural-learning', classes: 'participants' } }}
-			<div class="block">
-			
+		{{ comp grid.Brick { tag: 'li', id: 'cultural-learning', classes: 'participants block' } }}
 				<h3>Cultural learning participants</h3>
 				{{ comp.BigNumber({
 					number: (participants.cultural_learning.participants || 0),
@@ -116,20 +106,17 @@ breadcrumbs_full:
 					"data": tabledata,
 					width: "100%",
 				}) |> md |> vto(page.data) }}
-			</div>
 		{{ /comp }}
 		
-		{{ comp grid.Brick { tag: 'li', id: 'schools-engaged', classes: 'participants' } }}
-			<div class="block">
-				<h3>Schools engaged</h3>
-				{{ comp.BigNumber({
-					number: participants.cultural_learning.schools_engaged || '',
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}
-				<p>Number of schools that have participated in events and activities.</p>
-			</div>
+		{{ comp grid.Brick { tag: 'li', id: 'schools-engaged', classes: 'participants block' } }}
+			<h3>Schools engaged</h3>
+			{{ comp.BigNumber({
+				number: participants.cultural_learning.schools_engaged || '',
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			<p>Number of schools that have participated in events and activities.</p>
 		{{ /comp }}
 	{{ /comp }}
 </section>
@@ -150,33 +137,31 @@ breadcrumbs_full:
 <section>
 	<h2>Community</h2>
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'community-participants', classes: 'participants' } }}
-			<div class="block">
-				<h3>Community participants</h3>
-				{{ comp.BigNumber({
-					number: (participants.by_type.community_participants.count || '&mdash;'),
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}
-				<p>The total number of individual communinity participants.</p>
-				<p>Below is a breakdown of community engagement into participants and instances of participation. An "Instance of participation" represents a 2-hour block of time available for participatory activity. If a participant were to attend a 4 hour session, that would count as 2 instances of participation.</p>
-				{{ comp.dashboard.InfoBoxTable({
-					"cms": metrics.participants_community_engagement,
-					"columns": [
-						{ "name": "title", "label": "Project" },
-						{ "name": "value", "value": "count", "template": "{{ count | toLocaleString() }}", "label": "Participants", "scale": scalepink, min: 0, "class": "right" },
-						//{ "name": "attendance", "value": "attendances", "template": "{{ attendances | toLocaleString() }}", "label": "Attendances", "scale": scalepink, min: 0, "class": "right" },
-						{ "name": "instance", "value": "instances", "template": "{{ instances | toLocaleString() }}", "label": "Instances", "scale": scalepink, min: 0, "class": "right" },
-						//{ "name": "description", "label": "Description", key: 'description' }
-					],
-					"head": {
-						"class": "head"
-					},
-					"width": "100%",
-					"data": tablecommunity
-				}) |> md |> vto(page.data) }}
-			</div>
+		{{ comp grid.Brick { tag: 'li', id: 'community-participants', classes: 'participants block' } }}
+			<h3>Community participants</h3>
+			{{ comp.BigNumber({
+				number: (participants.by_type.community_participants.count || '&mdash;'),
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			<p>The total number of individual communinity participants.</p>
+			<p>Below is a breakdown of community engagement into participants and instances of participation. An "Instance of participation" represents a 2-hour block of time available for participatory activity. If a participant were to attend a 4 hour session, that would count as 2 instances of participation.</p>
+			{{ comp.dashboard.InfoBoxTable({
+				"cms": metrics.participants_community_engagement,
+				"columns": [
+					{ "name": "title", "label": "Project" },
+					{ "name": "value", "value": "count", "template": "{{ count | toLocaleString() }}", "label": "Participants", "scale": scalepink, min: 0, "class": "right" },
+					//{ "name": "attendance", "value": "attendances", "template": "{{ attendances | toLocaleString() }}", "label": "Attendances", "scale": scalepink, min: 0, "class": "right" },
+					{ "name": "instance", "value": "instances", "template": "{{ instances | toLocaleString() }}", "label": "Instances", "scale": scalepink, min: 0, "class": "right" },
+					//{ "name": "description", "label": "Description", key: 'description' }
+				],
+				"head": {
+					"class": "head"
+				},
+				"width": "100%",
+				"data": tablecommunity
+			}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 	
@@ -185,32 +170,30 @@ breadcrumbs_full:
 <section>
 	<h2>Training and skills development</h2>
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'training-and-skills', classes: 'participants' } }}
-			<div class="block">
-				<h3>Training and skills participants</h3>
-				{{ comp.BigNumber({
-					number: (otherFigures.training_and_skills_development_participants || '&mdash;'),
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}
-				<p>Number of participants in training and CPD activities (e.g. skills or talent development) provided or commissioned by Bradford 2025 - including a breakdown by type to distinguish between training/skills event participants, work placements, apprenticeships, etc. This does not yet include Bradford 2025 apprenticeships, traineeships and placements, or participants in sector-facing talent development events (e.g. the Elevate Heritage Skills project).</p>
-				{{ comp.dashboard.InfoBoxTable({
-					"cms": metrics.participants_training_and_skills,
-					"columns": [
-						{ "name": "title", "label": "Project" },
-						{ "name": "participants", "value": "value", "template": "{{ value | toLocaleString() }}", "label": "Participants", "scale": scalepink, min: 0, "class": "right" },
-					],
-					"head": {
-						"class": "head"
-					},
-					"width": "100%",
-					"data": Object.entries(participants.by_type.training_and_skills_development_participants.by_project)
-						.filter(r => r[1].count > 0)
-						.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
-						.map(([k, v]) => ({ title: k, value: v.count, category: v.category }))
-				}) |> md |> vto(page.data) }}
-			</div>
+		{{ comp grid.Brick { tag: 'li', id: 'training-and-skills', classes: 'participants block' } }}
+			<h3>Training and skills participants</h3>
+			{{ comp.BigNumber({
+				number: (otherFigures.training_and_skills_development_participants || '&mdash;'),
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			<p>Number of participants in training and CPD activities (e.g. skills or talent development) provided or commissioned by Bradford 2025 - including a breakdown by type to distinguish between training/skills event participants, work placements, apprenticeships, etc. This does not yet include Bradford 2025 apprenticeships, traineeships and placements, or participants in sector-facing talent development events (e.g. the Elevate Heritage Skills project).</p>
+			{{ comp.dashboard.InfoBoxTable({
+				"cms": metrics.participants_training_and_skills,
+				"columns": [
+					{ "name": "title", "label": "Project" },
+					{ "name": "participants", "value": "value", "template": "{{ value | toLocaleString() }}", "label": "Participants", "scale": scalepink, min: 0, "class": "right" },
+				],
+				"head": {
+					"class": "head"
+				},
+				"width": "100%",
+				"data": Object.entries(participants.by_type.training_and_skills_development_participants.by_project)
+					.filter(r => r[1].count > 0)
+					.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
+					.map(([k, v]) => ({ title: k, value: v.count, category: v.category }))
+			}) |> md |> vto(page.data) }}
 		{{ /comp }}
 	{{ /comp }}
 </section>

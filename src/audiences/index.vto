@@ -37,300 +37,291 @@ breadcrumbs_full:
 
 	
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'tickets', classes: 'audiences' } }}
-			<div class="block">
-				<h3>Total tickets</h3>
-				{{ comp.BigNumber({
-					number: operational.summary.tickets || 0,
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}
+		{{ comp grid.Brick { tag: 'li', id: 'tickets', classes: 'audiences block' } }}
+			<h3>Total tickets</h3>
+			{{ comp.BigNumber({
+				number: operational.summary.tickets || 0,
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
 
-				{{ comp.graph.monthly({
-					data: operational.weekly_tickets,
-					series: [{
-						title: 'Weekly tickets',
-						x: 'week_ending',
-						y: 'weekly',
-						colour: 'green',
-						tooltip: 'Tickets\n{{ week_ending | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>'
-					}],
-					columns: [{
-						name: 'decimal_year',
-						template: '{{ week_ending | strptime(\"%Y-%m-%d\") | decimalYear() }}'
-					}]
-				}) }}
-				<p>Weekly tickets sold.</p>
-			</div>
+			{{ comp.graph.monthly({
+				data: operational.weekly_tickets,
+				series: [{
+					title: 'Weekly tickets',
+					x: 'week_ending',
+					y: 'weekly',
+					colour: 'green',
+					tooltip: 'Tickets\n{{ week_ending | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>'
+				}],
+				columns: [{
+					name: 'decimal_year',
+					template: '{{ week_ending | strptime(\"%Y-%m-%d\") | decimalYear() }}'
+				}]
+			}) }}
+			<p>Weekly tickets sold.</p>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', id: 'tickets-by-type', classes: 'audiences' } }}
-			<div class="block">
-				<h3>Tickets sold by type</h3>
-				{{> 
-					let tickets_by_ticket_type = [{}];
-					let ticket_types = {
-						"Full Price":"Full price",
-						"Child Ticket":"Child",
-						"Aged 0-5":"Child",
-						"Aged 0-11":"Child",
-						"Bradford Youth Pass":"Child",
-						"Senior Ticket":"Senior",
-						"Accessible Ticket":"Accessible",
-					};
-					let ticket_series = [
-						{ value: "Full price", colour: "#45D108" },
-						{ value: "Child", colour: "#E0B942" },
-						{ value: "Senior", colour: "#F4ACCD" },
-						{ value: "Accessible", colour: "#C9AFBB" },
-						{ value: "Other", colour: "#e6e4e5" }
-					];
-					var total = 0;
-					for(let i = 0; i < operational.type.length; i++){
-						let typ = (operational.type[i]['Ticket type'] in ticket_types) ? ticket_types[operational.type[i]['Ticket type']] : "Other";
-						if(!(typ in tickets_by_ticket_type[0])) tickets_by_ticket_type[0][typ] = 0;
-						if(typeof operational.type[i]['Number of tickets sold']==="number"){
-							tickets_by_ticket_type[0][typ] += operational.type[i]['Number of tickets sold'];
-							total += operational.type[i]['Number of tickets sold'];
-						}
+		{{ comp grid.Brick { tag: 'li', id: 'tickets-by-type', classes: 'audiences block' } }}
+			<h3>Tickets sold by type</h3>
+			{{> 
+				let tickets_by_ticket_type = [{}];
+				let ticket_types = {
+					"Full Price":"Full price",
+					"Child Ticket":"Child",
+					"Aged 0-5":"Child",
+					"Aged 0-11":"Child",
+					"Bradford Youth Pass":"Child",
+					"Senior Ticket":"Senior",
+					"Accessible Ticket":"Accessible",
+				};
+				let ticket_series = [
+					{ value: "Full price", colour: "#45D108" },
+					{ value: "Child", colour: "#E0B942" },
+					{ value: "Senior", colour: "#F4ACCD" },
+					{ value: "Accessible", colour: "#C9AFBB" },
+					{ value: "Other", colour: "#e6e4e5" }
+				];
+				var total = 0;
+				for(let i = 0; i < operational.type.length; i++){
+					let typ = (operational.type[i]['Ticket type'] in ticket_types) ? ticket_types[operational.type[i]['Ticket type']] : "Other";
+					if(!(typ in tickets_by_ticket_type[0])) tickets_by_ticket_type[0][typ] = 0;
+					if(typeof operational.type[i]['Number of tickets sold']==="number"){
+						tickets_by_ticket_type[0][typ] += operational.type[i]['Number of tickets sold'];
+						total += operational.type[i]['Number of tickets sold'];
 					}
-					for(let typ in tickets_by_ticket_type[0]){
-						tickets_by_ticket_type[0][typ] *= 100/total;
-					}
-					for(let i = 0; i < ticket_series.length; i++){
-						ticket_series[i].tooltip = ticket_series[i].value+": <strong>{{ "+ticket_series[i].value+" | toFixed(1) }}%</strong>";
-						ticket_series[i].points = {'marker':'circle'};
-					}
-				}}
+				}
+				for(let typ in tickets_by_ticket_type[0]){
+					tickets_by_ticket_type[0][typ] *= 100/total;
+				}
+				for(let i = 0; i < ticket_series.length; i++){
+					ticket_series[i].tooltip = ticket_series[i].value+": <strong>{{ "+ticket_series[i].value+" | toFixed(1) }}%</strong>";
+					ticket_series[i].points = {'marker':'circle'};
+				}
+			}}
 
-				{{ comp.oi.chart.waffle({
-					config: {
-						data: tickets_by_ticket_type,
-						series: ticket_series,
-						size: [20, 10],
-						total: 100,
-						legend: { show: true, position: 'bottom' },
-						rounding: ceil
-					}
-				}) }}
-			</div>
+			{{ comp.oi.chart.waffle({
+				config: {
+					data: tickets_by_ticket_type,
+					series: ticket_series,
+					size: [20, 10],
+					total: 100,
+					legend: { show: true, position: 'bottom' },
+					rounding: ceil
+				}
+			}) }}
 		{{ /comp }}
 	{{ /comp }}
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'tickets-uk', classes: 'audiences' } }}
-			<div class="block">
-				<h3>Tickets sold across the UK</h3>
-				{{>
-					let total_la = 0;
-					let bad_la = 0;
-					let by_la = operational.geography.filter((entry) => {
-						let ok = entry.geography_type == "oslaua";
-						if(ok && (entry.geography_code == "MISSING" || entry.geography_code == "UNMATCHED")){
-							bad_la += entry.value;
-						}
-						if(ok) total_la += entry.value;
-						return ok;
-					});
-					for(let i = 0; i < by_la.length; i++){
-						by_la[i].percent = 100*by_la[i].value/total_la;
-						if(by_la[i].geography_code in hexes.uk_lads_2023.hexes) {
-							by_la[i].name = hexes.uk_lads_2023.hexes[by_la[i].geography_code].n;
-						}else{
-							by_la[i].name = by_la[i].geography_code;
-						}
+		{{ comp grid.Brick { tag: 'li', id: 'tickets-uk', classes: 'audiences block' } }}
+			<h3>Tickets sold across the UK</h3>
+			{{>
+				let total_la = 0;
+				let bad_la = 0;
+				let by_la = operational.geography.filter((entry) => {
+					let ok = entry.geography_type == "oslaua";
+					if(ok && (entry.geography_code == "MISSING" || entry.geography_code == "UNMATCHED")){
+						bad_la += entry.value;
 					}
-				}}
+					if(ok) total_la += entry.value;
+					return ok;
+				});
+				for(let i = 0; i < by_la.length; i++){
+					by_la[i].percent = 100*by_la[i].value/total_la;
+					if(by_la[i].geography_code in hexes.uk_lads_2023.hexes) {
+						by_la[i].name = hexes.uk_lads_2023.hexes[by_la[i].geography_code].n;
+					}else{
+						by_la[i].name = by_la[i].geography_code;
+					}
+				}
+			}}
 
-				{{ comp Tab.Set { classes: 'big'} }}
+			{{ comp Tab.Set { classes: 'big'} }}
 
-					<p>The proportion of all tickets sold based on residence of lead booker. We haven't been able to match {{ ((bad_la / total_la)*100).toFixed(1) }}% of tickets to a valid UK local authority.</p>
+				<p>The proportion of all tickets sold based on residence of lead booker. We haven't been able to match {{ ((bad_la / total_la)*100).toFixed(1) }}% of tickets to a valid UK local authority.</p>
 
-					{{ comp Tab.Panel { id: 'tickets-uk-hex', label: 'Cartogram' } }}
-						{{ comp.oi.map.hex_cartogram({
-							config: {
-								hexjson: hexes.uk_lads_2023,
-								data: by_la,
-								matchKey: 'geography_code',
-								value: 'percent',
-								min: 0,
-								max: 10,
-								scale: scale.green,
-								label: '{{ n | slice(0,3) }}',
-								width: 500,
-								height: 660,
-								legend: {
-									continuous: true,
-									position: 'top right',
-									items: [{'value':10,'label':'>10%'},{'value':5,'label':'5%'},{'value':0,'label':'0%'}]
-								},
-								tooltip: '{{ n }}\n<strong>{{ percent | toFixed(1) }}%</strong> of all tickets sold across the UK',
-								tools: {
-									filter: {
-										label: 'n',
-										position: 'top left'
-									},
-									panzoom: {
-										maxZoom: 3,
-										scrollWheelZoom: false
-									}
-								}
-							}
-						}) }}
-						<p>This cartogram displays local authorities as equal-sized hexagons. This allows us to more easily compare local authorities rather than have the impression skewed by the physical area.</p>
-					{{ /comp }}
-
-					{{ comp Tab.Panel { id: 'tickets-uk-map', label: 'Map' } }}
-						{{ comp.oi.map.svg({
-							config: {
-								geojson: {
-									key: 'LAD23CD',
-									data: geojson.Local_Authority_Districts_December_2023_Boundaries_UK
-								},
-								data: by_la,
-								columns: [{
-									name: "filterLabel",
-									template: "{{ geojson.properties.LAD23NM }}"
-								}],
-								bounds: { lat: { min: 49.5, max: 61 }, lon: { min: -8, max: 3 }},
-								key: 'geography_code',
-								value: 'percent',
-								min: 0,
-								max: 10,
-								scale: scale.green,
-								label: '{{ n | slice(0,3) }}',
-								width: 500,
-								height: 660,
-								legend: {
-									continuous: true,
-									position: 'top right',
-									items: [{'value':10,'label':'>10%'},{'value':5,'label':'5%'},{'value':0,'label':'0%'}]
-								},
-								tooltip: '{{ geojson.properties.LAD23NM }}\n<strong>{{ percent | toFixed(1) }}%</strong> of all tickets sold across the UK',
-								tools: {
-									filter: {
-										label: 'filterLabel',
-										position: 'top left'
-									},
-									panzoom: {
-										maxZoom: 6,
-										scrollWheelZoom: false
-									}
-								}
-							}
-						}) }}
-						<p>This cartogram displays local authorities as equal-sized hexagons. This allows us to more easily compare local authorities rather than have the impression skewed by the physical area.</p>
-					{{ /comp }}
-
-					{{ comp Tab.Panel { id: 'tickets-uk-table', label: 'Table' } }}
-						{{ comp.dashboard.InfoBoxTable({
-							head: {
-								class: 'head',
-							},
-							columns: [
-								{ name: 'name', value: 'name', label: 'Local authority' },
-								{ name: 'ticket_proportion_nice', template: '{{ percent | toFixed(1) }}%', value: 'percent', label: 'Proportion', class: 'right', scale: scale.green, min: 0, max: 10, sortable: true }
-							],
+				{{ comp Tab.Panel { id: 'tickets-uk-hex', label: 'Cartogram' } }}
+					{{ comp.oi.map.hex_cartogram({
+						config: {
+							hexjson: hexes.uk_lads_2023,
 							data: by_la,
-							width: "100%",
-							sort: "name"
-						}) }}
-					{{ /comp }}
-
-				{{ /comp }}
-			</div>
-		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', id: 'tickets-bradford', classes: 'audiences' } }}
-			<div class="block">
-				<h3>Tickets sold across Bradford</h3>
-				
-				{{ comp Tab.Set { classes: 'big'} }}
-					<p>The proportion of all tickets sold across Bradford. This only includes tickets where the residence of the lead booker is known to be within Bradford.</p>
-					{{ comp Tab.Panel { id: 'tickets-bradford-hex', label: 'Cartogram' } }}
-						{{ comp.oi.map.hex_cartogram({
-							config: {
-								hexjson: hexes.bd_2024,
-								data: ward_data,
-								matchKey: 'geography_code',
-								value: 'ticket_proportion',
-								min: 0,
-								scale: scale.green,
-								label: '{{ n | slice(0,3) }}',
-								width: 500,
-								height: 660,
-								legend: {
-									continuous: true,
-									position: 'top right',
-									items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
-								},
-								tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford',
-								tools: {
-									filter: {
-										label: 'n',
-										position: 'top left'
-									},
-									panzoom: {
-										maxZoom: 2,
-										scrollWheelZoom: false
-									}
-								}
-							}
-						}) }}
-						<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
-					{{ /comp }}
-					{{ comp Tab.Panel { id: 'tickets-bradford-map', label: 'Map' } }}
-						{{ comp.oi.map.svg({
-							config: {
-								geojson: {
-									key: 'WD24CD',
-									data: geojson.bd_wards
-								},
-								data: ward_data,
-								columns: [{
-									name: "filterLabel",
-									template: "{{ geojson.properties.WD24NM }}"
-								}],
-								key: 'geography_code',
-								value: 'ticket_proportion',
-								min: 0,
-								scale: scale.green,
-								width: 500,
-								height: 660,
-								legend: {
-									continuous: true,
-									position: 'top right',
-									items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
-								},
-								tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford',
-								tools: {
-									filter: {
-										label: 'filterLabel',
-										position: 'top left'
-									},
-									panzoom: {
-										maxZoom: 3,
-										scrollWheelZoom: false
-									}
-								}
-							}
-						}) }}
-						<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
-					{{ /comp }}
-					{{ comp Tab.Panel { id: 'tickets-bradford-table', label: 'Table' } }}
-						{{ comp.dashboard.InfoBoxTable({
-							head: {
-								class: 'head',
+							matchKey: 'geography_code',
+							value: 'percent',
+							min: 0,
+							max: 10,
+							scale: scale.green,
+							label: '{{ n | slice(0,3) }}',
+							width: 500,
+							height: 660,
+							legend: {
+								continuous: true,
+								position: 'top right',
+								items: [{'value':10,'label':'>10%'},{'value':5,'label':'5%'},{'value':0,'label':'0%'}]
 							},
-							columns: [
-								{ name: 'name', label: 'Ward' },
-								{ name: 'ticket_proportion_nice', template: '{{ ticket_proportion }}%', value: 'ticket_proportion', label: 'Proportion', class: 'right', scale: scale.green, min: 0, sortable: true }
-							],
-							data: ward_data,
-							width: "100%",
-							sort: "name"
-						}) }}
-					{{ /comp }}
+							tooltip: '{{ n }}\n<strong>{{ percent | toFixed(1) }}%</strong> of all tickets sold across the UK',
+							tools: {
+								filter: {
+									label: 'n',
+									position: 'top left'
+								},
+								panzoom: {
+									maxZoom: 3,
+									scrollWheelZoom: false
+								}
+							}
+						}
+					}) }}
+					<p>This cartogram displays local authorities as equal-sized hexagons. This allows us to more easily compare local authorities rather than have the impression skewed by the physical area.</p>
 				{{ /comp }}
-			</div>
+
+				{{ comp Tab.Panel { id: 'tickets-uk-map', label: 'Map' } }}
+					{{ comp.oi.map.svg({
+						config: {
+							geojson: {
+								key: 'LAD23CD',
+								data: geojson.Local_Authority_Districts_December_2023_Boundaries_UK
+							},
+							data: by_la,
+							columns: [{
+								name: "filterLabel",
+								template: "{{ geojson.properties.LAD23NM }}"
+							}],
+							bounds: { lat: { min: 49.5, max: 61 }, lon: { min: -8, max: 3 }},
+							key: 'geography_code',
+							value: 'percent',
+							min: 0,
+							max: 10,
+							scale: scale.green,
+							label: '{{ n | slice(0,3) }}',
+							width: 500,
+							height: 660,
+							legend: {
+								continuous: true,
+								position: 'top right',
+								items: [{'value':10,'label':'>10%'},{'value':5,'label':'5%'},{'value':0,'label':'0%'}]
+							},
+							tooltip: '{{ geojson.properties.LAD23NM }}\n<strong>{{ percent | toFixed(1) }}%</strong> of all tickets sold across the UK',
+							tools: {
+								filter: {
+									label: 'filterLabel',
+									position: 'top left'
+								},
+								panzoom: {
+									maxZoom: 6,
+									scrollWheelZoom: false
+								}
+							}
+						}
+					}) }}
+					<p>This cartogram displays local authorities as equal-sized hexagons. This allows us to more easily compare local authorities rather than have the impression skewed by the physical area.</p>
+				{{ /comp }}
+
+				{{ comp Tab.Panel { id: 'tickets-uk-table', label: 'Table' } }}
+					{{ comp.dashboard.InfoBoxTable({
+						head: {
+							class: 'head',
+						},
+						columns: [
+							{ name: 'name', value: 'name', label: 'Local authority' },
+							{ name: 'ticket_proportion_nice', template: '{{ percent | toFixed(1) }}%', value: 'percent', label: 'Proportion', class: 'right', scale: scale.green, min: 0, max: 10, sortable: true }
+						],
+						data: by_la,
+						width: "100%",
+						sort: "name"
+					}) }}
+				{{ /comp }}
+			{{ /comp }}
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', id: 'tickets-bradford', classes: 'audiences block' } }}
+			<h3>Tickets sold across Bradford</h3>
+			
+			{{ comp Tab.Set { classes: 'big'} }}
+				<p>The proportion of all tickets sold across Bradford. This only includes tickets where the residence of the lead booker is known to be within Bradford.</p>
+				{{ comp Tab.Panel { id: 'tickets-bradford-hex', label: 'Cartogram' } }}
+					{{ comp.oi.map.hex_cartogram({
+						config: {
+							hexjson: hexes.bd_2024,
+							data: ward_data,
+							matchKey: 'geography_code',
+							value: 'ticket_proportion',
+							min: 0,
+							scale: scale.green,
+							label: '{{ n | slice(0,3) }}',
+							width: 500,
+							height: 660,
+							legend: {
+								continuous: true,
+								position: 'top right',
+								items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
+							},
+							tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford',
+							tools: {
+								filter: {
+									label: 'n',
+									position: 'top left'
+								},
+								panzoom: {
+									maxZoom: 2,
+									scrollWheelZoom: false
+								}
+							}
+						}
+					}) }}
+					<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+				{{ /comp }}
+				{{ comp Tab.Panel { id: 'tickets-bradford-map', label: 'Map' } }}
+					{{ comp.oi.map.svg({
+						config: {
+							geojson: {
+								key: 'WD24CD',
+								data: geojson.bd_wards
+							},
+							data: ward_data,
+							columns: [{
+								name: "filterLabel",
+								template: "{{ geojson.properties.WD24NM }}"
+							}],
+							key: 'geography_code',
+							value: 'ticket_proportion',
+							min: 0,
+							scale: scale.green,
+							width: 500,
+							height: 660,
+							legend: {
+								continuous: true,
+								position: 'top right',
+								items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
+							},
+							tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford',
+							tools: {
+								filter: {
+									label: 'filterLabel',
+									position: 'top left'
+								},
+								panzoom: {
+									maxZoom: 3,
+									scrollWheelZoom: false
+								}
+							}
+						}
+					}) }}
+					<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+				{{ /comp }}
+				{{ comp Tab.Panel { id: 'tickets-bradford-table', label: 'Table' } }}
+					{{ comp.dashboard.InfoBoxTable({
+						head: {
+							class: 'head',
+						},
+						columns: [
+							{ name: 'name', label: 'Ward' },
+							{ name: 'ticket_proportion_nice', template: '{{ ticket_proportion }}%', value: 'ticket_proportion', label: 'Proportion', class: 'right', scale: scale.green, min: 0, sortable: true }
+						],
+						data: ward_data,
+						width: "100%",
+						sort: "name"
+					}) }}
+				{{ /comp }}
+			{{ /comp }}
 		{{ /comp }}
 	{{ /comp }}
 
@@ -344,59 +335,54 @@ breadcrumbs_full:
 	}}
 	
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'website', classes: 'audiences', style: "flex-basis: 40ch;" } }}
-			<div class="block">
-				<h3>Website audience</h3>
+		{{ comp grid.Brick { tag: 'li', id: 'website', classes: 'audiences block', style: "flex-basis: 40ch;" } }}
+			<h3>Website audience</h3>
 
-				{{ comp.BigNumber({
-					number: website.total_users[website.total_users.length - 1].cumulative || 0,
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}
-				
-				{{ comp.graph.monthly({
-					data: website.total_users,
-					series: [{
-						title: 'Website audience',
-						x: 'month',
-						y: 'count',
-						colour: 'green'
-					}],
-				}) }}
-				<p>Total users recorded by Google Analytics.</p>
-			</div>
-		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', id: 'followers', classes: 'audiences', style: "flex-basis: 40ch;" } }}
-			<div class="block">
-				<h3>Followers</h3>
-
-				{{ comp.BigNumber({
-					number: followers.latest["Total Audience"].count || 0,
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}
-
-				{{ comp.graph.monthly({
-					data: followers.by_date,
-					series: [
-						{ title: 'Email', x: 'Date', y: 'Email Subscribers', colour: 'green', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: 'Facebook', x: 'Date', y: 'Facebook Followers', colour: '#1877F2', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: 'Instagram', x: 'Date', y: 'Instagram Followers', colour: '#833AB4', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: 'LinkedIn', x: 'Date', y: 'LinkedIn Followers', colour: '#005c69', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: 'TikTok', x: 'Date', y: 'TikTok Followers', colour: '#ff0257', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
-					],
-					columns: [{
-						name: 'decimal_year',
-						template: '{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}'
-					}],
-					legend: { show: true, position: 'bottom' }
-				}) }}
-
-				<p>The total number of followers across various media. Updated {{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') }}.</p>
+			{{ comp.BigNumber({
+				number: website.total_users[website.total_users.length - 1].cumulative || 0,
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
 			
-			</div>
+			{{ comp.graph.monthly({
+				data: website.total_users,
+				series: [{
+					title: 'Website audience',
+					x: 'month',
+					y: 'count',
+					colour: 'green'
+				}],
+			}) }}
+			<p>Total users recorded by Google Analytics.</p>
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', id: 'followers', classes: 'audiences block', style: "flex-basis: 40ch;" } }}
+			<h3>Followers</h3>
+
+			{{ comp.BigNumber({
+				number: followers.latest["Total Audience"].count || 0,
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+
+			{{ comp.graph.monthly({
+				data: followers.by_date,
+				series: [
+					{ title: 'Email', x: 'Date', y: 'Email Subscribers', colour: 'green', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Facebook', x: 'Date', y: 'Facebook Followers', colour: '#1877F2', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Instagram', x: 'Date', y: 'Instagram Followers', colour: '#833AB4', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'LinkedIn', x: 'Date', y: 'LinkedIn Followers', colour: '#005c69', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'TikTok', x: 'Date', y: 'TikTok Followers', colour: '#ff0257', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+				],
+				columns: [{
+					name: 'decimal_year',
+					template: '{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}'
+				}],
+				legend: { show: true, position: 'bottom' }
+			}) }}
+
+			<p>The total number of followers across various media. Updated {{ followers.latest["Total Audience"].updated |> date('BD25_LONG_DATE') }}.</p>
 		{{ /comp }}
 
 	{{ /comp }}
@@ -420,174 +406,166 @@ breadcrumbs_full:
 		}
 	}}
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'positive-experience', classes: 'audiences', style: "flex-basis: 40ch;" } }}
-			<div class="block">
-				<h3>Positive experience</h3>
-				{{ comp.BigNumber({
-					number: ((audience_survey.total.proportion || 0)*100),
-					classes: 'big',
-					animate: true,
-					suffix: '%',
-					roundingOptions: { maximumFractionDigits: 1 }
-				}) }}
-				
-				{{ comp.graph.monthly({
-					data: by_month,
-					series: [{
-						title: 'Positive experience',
-						x: 'month',
-						y: 'percent',
-						colour: 'green',
-						tooltip: '{{ _title }}\n{{ month | strptime("%Y-%m-%d") | strftime("%B %Y") }}: <strong>{{ percent | toFixed(1) }}%</strong>'
-					}],
-					axis: {
-						y: {
-							min: 0,
-							max: 100,
-							tick: { spacing: 25 }
-						}
+		{{ comp grid.Brick { tag: 'li', id: 'positive-experience', classes: 'audiences block', style: "flex-basis: 40ch;" } }}
+			<h3>Positive experience</h3>
+			{{ comp.BigNumber({
+				number: ((audience_survey.total.proportion || 0)*100),
+				classes: 'big',
+				animate: true,
+				suffix: '%',
+				roundingOptions: { maximumFractionDigits: 1 }
+			}) }}
+			
+			{{ comp.graph.monthly({
+				data: by_month,
+				series: [{
+					title: 'Positive experience',
+					x: 'month',
+					y: 'percent',
+					colour: 'green',
+					tooltip: '{{ _title }}\n{{ month | strptime("%Y-%m-%d") | strftime("%B %Y") }}: <strong>{{ percent | toFixed(1) }}%</strong>'
+				}],
+				axis: {
+					y: {
+						min: 0,
+						max: 100,
+						tick: { spacing: 25 }
 					}
-				}) }}
-				{{ comp ToDo }}Not currently automatically updated{{ /comp }}
-				<p>The average percentage of audience surveys which rated overall experience as <em>good</em> or <em>excellent</em>. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
-			</div>
+				}
+			}) }}
+			{{ comp ToDo }}Not currently automatically updated{{ /comp }}
+			<p>The average percentage of audience surveys which rated overall experience as <em>good</em> or <em>excellent</em>. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
 		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', id: 'net-promoter-score', classes: 'audiences', style: "flex-basis: 40ch;" } }}
-			<div class="block">
-				<h3>Would you recommend?</h3>
-				{{ comp.BigNumber({
-					number: (audience_survey.total.nps || 0),
-					classes: 'big',
-					animate: true,
-					suffix: '/10',
-					roundingOptions: { maximumFractionDigits: 1 }
-				}) }}
-				{{ comp.graph.monthly({
-					data: by_month,
-					series: [{
-						title: 'Net promoter score',
-						x: 'month',
-						y: 'nps',
-						colour: 'green',
-						tooltip: '{{ _title }}\n{{ month | strptime("%Y-%m-%d") | strftime("%B %Y") }}: <strong>{{ nps | toFixed(1) }}/10</strong>'
-					}],
-					axis: {
-						y: {
-							min: 0,
-							max: 10,
-							tick: { spacing: 2 }
-						}
+		{{ comp grid.Brick { tag: 'li', id: 'net-promoter-score', classes: 'audiences block', style: "flex-basis: 40ch;" } }}
+			<h3>Would you recommend?</h3>
+			{{ comp.BigNumber({
+				number: (audience_survey.total.nps || 0),
+				classes: 'big',
+				animate: true,
+				suffix: '/10',
+				roundingOptions: { maximumFractionDigits: 1 }
+			}) }}
+			{{ comp.graph.monthly({
+				data: by_month,
+				series: [{
+					title: 'Net promoter score',
+					x: 'month',
+					y: 'nps',
+					colour: 'green',
+					tooltip: '{{ _title }}\n{{ month | strptime("%Y-%m-%d") | strftime("%B %Y") }}: <strong>{{ nps | toFixed(1) }}/10</strong>'
+				}],
+				axis: {
+					y: {
+						min: 0,
+						max: 10,
+						tick: { spacing: 2 }
 					}
-				}) }}
-				{{ comp ToDo }}Not currently automatically updated{{ /comp }}
-				<p>The net promoter score (on a scale of <em>0</em> to <em>10</em>) from audience surveys. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
-			</div>
+				}
+			}) }}
+			{{ comp ToDo }}Not currently automatically updated{{ /comp }}
+			<p>The net promoter score (on a scale of <em>0</em> to <em>10</em>) from audience surveys. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
 		{{ /comp }}
 	{{ /comp }}
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ comp grid.Brick { tag: 'li', id: 'survey-responses', classes: 'audiences' } }}
-			<div class="block">
-				<h3>Survey responses</h3>
+		{{ comp grid.Brick { tag: 'li', id: 'survey-responses', classes: 'audiences block' } }}
+			<h3>Survey responses</h3>
 
-				{{ comp.BigNumber({
-					number: ward_data.reduce( function(a, b){
-						return a + b.surveys;
-					}, 0) || 0,
-					classes: 'big',
-					animate: true,
-					roundingOptions: { maximumFractionDigits: 0 }
-				}) }}				
-				{{ comp Tab.Set { classes: 'big'} }}
+			{{ comp.BigNumber({
+				number: ward_data.reduce( function(a, b){
+					return a + b.surveys;
+				}, 0) || 0,
+				classes: 'big',
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}				
+			{{ comp Tab.Set { classes: 'big'} }}
 
-					<p>The proportion of all survey responses in Bradford that we've been able to match to a ward.</p>
+				<p>The proportion of all survey responses in Bradford that we've been able to match to a ward.</p>
 
-					{{ comp Tab.Panel { id: 'survey-responses-hex', label: 'Cartogram' } }}
-						{{ comp.oi.map.hex_cartogram({
-							config: {
-								hexjson: hexes.bd_2024,
-								data: ward_data,
-								matchKey: 'geography_code',
-								value: 'surveys_prop',
-								min: 0,
-								scale: scale.green,
-								label: '{{ n | slice(0,3) }}',
-								width: 500,
-								legend: {
-									continuous: true,
-									position: 'top right',
-									items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
-								},
-								tooltip: '{{ name }}\n<strong>{{ response_percent }}</strong> of all survey responses across Bradford',
-								tools: {
-									filter: {
-										label: 'n',
-										position: 'top left'
-									},
-									panzoom: {
-										maxZoom: 2,
-										scrollWheelZoom: false
-									}
-								}
-							}
-						}) }}
-						<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
-					{{ /comp }}
-
-					{{ comp Tab.Panel { id: 'survey-responses-map', label: 'Map' } }}
-						{{ comp.oi.map.svg({
-							config: {
-								geojson: {
-									key: 'WD24CD',
-									data: geojson.bd_wards
-								},
-								data: ward_data,
-								columns: [{
-									name: "filterLabel",
-									template: "{{ geojson.properties.WD24NM }}"
-								}],
-								key: 'geography_code',
-								value: 'surveys_prop',
-								min: 0,
-								scale: scale.green,
-								width: 500,
-								legend: {
-									continuous: true,
-									position: 'top right',
-									items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
-								},
-								tooltip: '{{ name }}\n<strong>{{ response_percent }}</strong> of all survey responses across Bradford',
-								tools: {
-									filter: {
-										label: 'filterLabel',
-										position: 'top left'
-									},
-									panzoom: {
-										maxZoom: 3,
-										scrollWheelZoom: false
-									}
-								}
-							}
-						}) }}
-					{{ /comp }}
-
-					{{ comp Tab.Panel { id: 'survey-responses-table', label: 'Table' } }}
-						{{ comp.dashboard.InfoBoxTable({
-							head: {
-								class: 'c-green',
-							},
-							columns: [
-								{ name: 'name', label: 'Ward' },
-								{ name: 'response', value: 'response_proportion', template: '{{ response_percent }}', label: 'Proportion', class: 'right', scale: scale.green, min: 0 },
-							],
+				{{ comp Tab.Panel { id: 'survey-responses-hex', label: 'Cartogram' } }}
+					{{ comp.oi.map.hex_cartogram({
+						config: {
+							hexjson: hexes.bd_2024,
 							data: ward_data,
-							width: "100%",
-							sort: "name"
-						}) }}
-					{{ /comp }}
-
+							matchKey: 'geography_code',
+							value: 'surveys_prop',
+							min: 0,
+							scale: scale.green,
+							label: '{{ n | slice(0,3) }}',
+							width: 500,
+							legend: {
+								continuous: true,
+								position: 'top right',
+								items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
+							},
+							tooltip: '{{ name }}\n<strong>{{ response_percent }}</strong> of all survey responses across Bradford',
+							tools: {
+								filter: {
+									label: 'n',
+									position: 'top left'
+								},
+								panzoom: {
+									maxZoom: 2,
+									scrollWheelZoom: false
+								}
+							}
+						}
+					}) }}
+					<p>This cartogram displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
 				{{ /comp }}
 
-			</div>
+				{{ comp Tab.Panel { id: 'survey-responses-map', label: 'Map' } }}
+					{{ comp.oi.map.svg({
+						config: {
+							geojson: {
+								key: 'WD24CD',
+								data: geojson.bd_wards
+							},
+							data: ward_data,
+							columns: [{
+								name: "filterLabel",
+								template: "{{ geojson.properties.WD24NM }}"
+							}],
+							key: 'geography_code',
+							value: 'surveys_prop',
+							min: 0,
+							scale: scale.green,
+							width: 500,
+							legend: {
+								continuous: true,
+								position: 'top right',
+								items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
+							},
+							tooltip: '{{ name }}\n<strong>{{ response_percent }}</strong> of all survey responses across Bradford',
+							tools: {
+								filter: {
+									label: 'filterLabel',
+									position: 'top left'
+								},
+								panzoom: {
+									maxZoom: 3,
+									scrollWheelZoom: false
+								}
+							}
+						}
+					}) }}
+				{{ /comp }}
+
+				{{ comp Tab.Panel { id: 'survey-responses-table', label: 'Table' } }}
+					{{ comp.dashboard.InfoBoxTable({
+						head: {
+							class: 'c-green',
+						},
+						columns: [
+							{ name: 'name', label: 'Ward' },
+							{ name: 'response', value: 'response_proportion', template: '{{ response_percent }}', label: 'Proportion', class: 'right', scale: scale.green, min: 0 },
+						],
+						data: ward_data,
+						width: "100%",
+						sort: "name"
+					}) }}
+				{{ /comp }}
+			{{ /comp }}
 		{{ /comp }}
 	{{ /comp }}
 
