@@ -37,7 +37,7 @@
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					data: by_ward,
-					scale: scales.yellow,
+					scale: scales.green,
 					value: 'count_of_tickets',
 					tooltip: '<b>{{ WD24NM }}</b>:\n{{ count_of_tickets }} tickets sold',
 					hexjson: hexes.bd_2024,
@@ -63,7 +63,7 @@
 			{{ comp.oi.map.svg({
 				config: {
 					data: by_ward,
-					scale: scales.yellow,
+					scale: scales.green,
 					value: 'count_of_tickets',
 					tooltip: '<b>{{ WD24NM }}</b>:\n{{ count_of_tickets }} tickets sold',
 					geojson: { key: "WD24CD", data: geojson.bd_wards },
@@ -89,12 +89,9 @@
 			This list contains any Local Authority with a count of more than {{ minTickets }} tickets:</p>
 
 			{{ comp.dashboard.InfoBoxTable({
-				head: {
-					class: 'c-yellow',
-				},
 				columns: [
 					{ label: 'Local Authority', name: 'name' },
-					{ label: 'Count of tickets', name: 'lad', template: '{{ count_of_tickets | toLocaleString() }}', value: 'count_of_tickets', class: 'right', scale: scales.yellow, min: 0 }
+					{ label: 'Count of tickets', name: 'lad', template: '{{ count_of_tickets | toLocaleString() }}', value: 'count_of_tickets', class: 'right', scale: scales.green, min: 0 }
 				],
 				data: oslauaTickets,
 				width: "100%",
@@ -208,13 +205,10 @@
 <section>
 	<h3>Tickets by event</h3>
 	{{ comp.dashboard.InfoBoxTable({
-		head: {
-			class: 'c-yellow',
-		},
 		columns: [
 			{ label: 'Event name', name: 'event_name' },
 			{ label: 'Event start time', name: 'start_date', template: '{{ start | strptime("%Y-%m-%dT%H:%M") | strftime("%e %B %Y %H:%M") }}',value: 'start' },
-			{ label: 'Tickets sold', name: 'tickets_sold', template: '{{ tickets | toLocaleString() }}', value: 'tickets', class: 'right', scale: scales.yellow, min: 0 }
+			{ label: 'Tickets sold', name: 'tickets_sold', template: '{{ tickets | toLocaleString() }}', value: 'tickets', class: 'right', scale: scales.green, min: 0 }
 		],
 		data: tickets.by_event,
 		width: "100%"

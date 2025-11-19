@@ -12,9 +12,9 @@
         { key: 'venue_name', label: 'Venue Name', class: "" },
         { key: 'project_name', label: 'Project Name' },
         { key: 'date', label: 'Dates', class: 'right' },
-        { key: 'event_count', label: 'Events', class: 'right' },
-        { key: 'audience_label', label: 'Audience', template: '{{ audience | toLocaleString() }}', value: 'audience', class: "right", scale: scales.pink },
-        { key: 'participants_label', label: 'Participants', template: '{{ participants | toLocaleString() }}', value: 'participants', class: "right", scale: scales.pink },
+        { key: 'event_count', label: 'Events', class: 'right', scale: scales.yellow, min: 0 },
+        { key: 'audience_label', label: 'Audience', template: '{{ audience | toLocaleString() }}', value: 'audience', class: "right", scale: scales.green, min: 0 },
+        { key: 'participants_label', label: 'Participants', template: '{{ participants | toLocaleString() }}', value: 'participants', class: "right", scale: scales.pink, min: 0 },
     ],
     data: programme.total_by_venue.sort((a, b) => a.start_date < b.start_date).map(x => ({
         ...x,
