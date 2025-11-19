@@ -59,7 +59,7 @@
 					},
 					...Object.entries(participants.by_type.community_participants.by_project)
 						.filter(p => p[1].count > 0)
-						.sort((a, b) => b[1].title - a[1].title)
+						.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
 						.map(([project, props]) => ({
 							title: project,
 							count: props.count.toLocaleString(),
