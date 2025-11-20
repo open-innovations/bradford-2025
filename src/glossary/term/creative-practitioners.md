@@ -9,7 +9,7 @@ This includes:
 
 * Ann Hamilton 
 * Osman Yousefzadi 
-* Magic Waiting  
+* Our Patch
 * Podcasters  
 * Blogger 
 * Gardener  

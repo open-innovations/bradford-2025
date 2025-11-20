@@ -7,9 +7,9 @@ Communities make the decisions about the content/activity. Might not have a defi
 
 Examples include 
 
-* Magic Waiting  
+* Our Patch
 * _Give Bradford_ grants 
-* Do your thing micro awards
+* 'Do your thing' micro awards
 
 This does not include:
 

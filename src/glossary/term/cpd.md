@@ -1,4 +1,4 @@
 ---
 title: CPD
-description: See [Training & CPD](../training-and-cpd/)
+description: See [Training & CPD](/glossary/term/training-and-cpd/)
 ---

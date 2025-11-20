@@ -5,5 +5,5 @@ description: Broadcast content can be a live event or a pre-recorded programme b
 
 Broadcasting is a form of one-way communication. 
 
-Broadcast audience: see [Audience](../audience/)
+Broadcast audience: see [Audience](/glossary/term/audience/)
 

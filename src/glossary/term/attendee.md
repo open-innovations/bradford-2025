@@ -1,4 +1,4 @@
 ---
 title: Attendee
-description: Use [Audience](../audience/)
+description: See [Audience](/glossary/term/audience/)
 ---

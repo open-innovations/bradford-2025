@@ -1,8 +1,10 @@
 ---
 title: Commission 
-description: Delivery of that is delegated to external organisations/artists
+description: Delivery that is delegated to external organisations/artists
 ---
-  
+
+We pay and delegate delivery to external organisations/artists. We will have a contract in place with agreed outcomes, milestones and deliverables.
+
 We will have a contract in place with agreed outcomes, milestones and deliverables. 
 
 Could include: 
@@ -12,7 +14,7 @@ Could include:
 * Heritage community groups/ organisations
 * School/M.A.T.ed, College or University led  
 
-This include:
+This includes:
 
 * Common Wealth  
 * Mini-seed commissions 

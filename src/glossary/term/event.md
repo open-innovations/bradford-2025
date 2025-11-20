@@ -3,11 +3,15 @@ title: Event
 description: An instance with a defined start and end date and time.   
 ---
 
-Events can be sub-divided into public events or school/ community events, performances, etc. 
+Events can be sub-divided into public events or school/community events, performances, etc. 
 
 Each day of an exhibition = an event. 
 
 Each performance with a new audience cohort = an event  
+
+Public events: open to audience or participants to attend.
+
+Closed events: working with a pre-existing group.
 
 This includes: 
 
@@ -15,6 +19,7 @@ This includes:
 * Exhibitions – public events programme,  
 * Festivals – count events within the overall festival 
 * Open/public rehearsals 
+* Closed events might be workshops in schools
 
 Problem of definition here: It seems as though events are being used to refer to both the containing event (e.g. Rise) and instances (e.g. Rise Friday performance).
 Need to define this more tightly.
