@@ -3,8 +3,8 @@ css: |
     [data-comp=pill] {
         color: var(--flash-fg,black);
         background: var(--flash-bg,white);
-        padding: 0.4em 1em;
-        border-radius: 1.25em;
+        padding: 11px 24px 13px!important;
+        border-radius: 3rem;
         line-height: 1.25em;
         display: inline-block;
         &:hover {
@@ -12,7 +12,7 @@ css: |
             background: black;
         }
     }
-    .block:hover, .block a:hover, .block:focus , .block a:focus {
+    a.block:hover, .block a:hover, a.block:focus , .block a:focus {
         outline: none;
         [data-comp=pill] {
             color: white;
@@ -29,4 +29,4 @@ css: |
         }
     }
 ---
-<span data-comp='pill'>{{ content }}</span>
+<span data-comp='pill'>{{ content }}{{ if arrow }} <span aria-hidden="true">→</span>{{ /if }}</span>
