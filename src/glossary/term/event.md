@@ -20,6 +20,3 @@ This includes:
 * Festivals – count events within the overall festival 
 * Open/public rehearsals 
 * Closed events might be workshops in schools
-
-Problem of definition here: It seems as though events are being used to refer to both the containing event (e.g. Rise) and instances (e.g. Rise Friday performance).
-Need to define this more tightly.

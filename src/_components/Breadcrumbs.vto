@@ -21,7 +21,7 @@ css: |
     }
 ---
 {{ if breadcrumbs.length > 0 }}
-<nav data-comp="breadcrumbs">
+<nav data-comp="breadcrumbs" aria-label="Breadcrumb">
 <ul>
 {{ for b of breadcrumbs.filter(x => x && x.url !== url) }}
 <li><a href="{{ b.url }}">{{ b.title || search.page(`url="${ b.url }"`).title }}</a></li>

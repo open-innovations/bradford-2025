@@ -24,4 +24,4 @@ May also be referred to as 'programme category'.
 | International                 | Includes an international partnership or artist/s                                                                 | Wild Uplands                             |
 | Heritage                      | Projects funded in whole or in part by NHLF or Historic England                                                   | Nisbett Tailor's Shop, 1 in 12           |
 | Engagement                    | Projects that are led by the Engagement team                                                                      | Poetry Slam, Yorkshire Dance             |
-| Associated Projects or Events | see [Associated events](../associated-events/) definition                                                         |                                          |
+| Associated Projects or Events | see [Associated events](/glossary/term/associated-events/) definition                                                         |                                          |

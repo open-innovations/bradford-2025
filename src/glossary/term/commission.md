@@ -1,6 +1,6 @@
 ---
 title: Commission 
-description: Delivery that is delegated to external organisations/artists
+description: Delivery that is delegated to external organisations/artists.
 ---
 
 We pay and delegate delivery to external organisations/artists. We will have a contract in place with agreed outcomes, milestones and deliverables.
