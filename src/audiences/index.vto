@@ -337,7 +337,7 @@ breadcrumbs_full:
 	
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ comp grid.Brick { tag: 'li', id: 'website', classes: 'audiences block', style: "flex-basis: 40ch;" } }}
-			<h3>Website audience</h3>
+			<h3>Website users</h3>
 
 			{{ comp.BigNumber({
 				number: website.total_users[website.total_users.length - 1].cumulative || 0,
@@ -349,7 +349,7 @@ breadcrumbs_full:
 			{{ comp.graph.monthly({
 				data: website.total_users,
 				series: [{
-					title: 'Website audience',
+					title: 'Website users',
 					x: 'month',
 					y: 'count',
 					colour: 'green'

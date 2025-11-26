@@ -24,7 +24,11 @@ base_stylesheets:
   {{ headerExtra }}
 </head>
 <body>
-	{{ if internal }}<div class="block c-yellow centred internal"><strong>This page is for internal Bradford 2025 use only.</strong></div>{{ /if }}
+	{{ if internal }}
+	<div class="block c-yellow centred internal"><strong>This page is for internal Bradford 2025 use only</strong></div>
+	{{ else }}
+		{{ if draft }}<div class="block c-yellow centred draft"><strong>DRAFT: not yet public{{ if message }}. {{ message }}{{ /if }}</strong></div>{{ /if }}
+	{{ /if }}
 	{{ content }}
 </body>
 {{ if build.host == 'data.bradford2025.co.uk' -}}
