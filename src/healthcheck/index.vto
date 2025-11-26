@@ -1,29 +1,35 @@
 ---
 title: Healthcheck
 layout: templates/page.vto
+headerExtra: |
+    <style>
+    .top {
+        padding-top: var(--site-padding);
+    }
+    </style>
 ---
 
 {{ set check = healthcheck(page.data) }}
-<section>
-{{ comp.Health({ health: check.healthy, style: 'font-size: 4rem; font-weight: bold; padding: 2rem;' })}}
+<section class="top">
+	{{ comp.Health({ health: check.healthy, style: 'font-size: 4rem; font-weight: bold; padding: 2rem;' })}}
 
-<table>
-    <thead>
-        <tr>
-            <th>Data source</th>
-            <th>Updated</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{ for detail of check.detail }}
-        <tr>
-            <td>{{ detail.source }} &mdash; {{ detail.filename }}</td>
-            <td>{{ detail.updated |> date('BD25_LONG_DATETIME') }}</td>
-            <td>{{ comp.Health({ health: detail.healthy, style: "padding:0.5rem;" }) }}</td>
-        </tr>
-        {{ /for }}
-    </tbody>
-</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Data source</th>
+				<th>Updated</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{ for detail of check.detail }}
+			<tr>
+				<td>{{ detail.source }} &mdash; {{ detail.filename }}</td>
+				<td>{{ detail.updated |> date('BD25_LONG_DATETIME') }}</td>
+				<td>{{ comp.Health({ health: detail.healthy, style: "padding:0.5rem;" }) }}</td>
+			</tr>
+			{{ /for }}
+		</tbody>
+	</table>
 
 </section>
