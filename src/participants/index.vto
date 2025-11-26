@@ -1,5 +1,6 @@
 ---
 draft: true
+internal: false
 title: Participants
 layout: templates/dashboard.vto
 breadcrumbs_full:
@@ -81,7 +82,7 @@ breadcrumbs_full:
 	{{> const tabledata = Object.entries(participants.by_type.cultural_learning_participants.by_project)
 		.filter(p => p[1].participants_cl > 0)
 		.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
-		.map(([k, v]) => ({ title: k, value: v.participants_cl, category: v.category })) }}
+		.map(([k, v]) => ({ title: k, value: v.participants_cl, instances: v.participants_cl_instances, category: v.category })) }}
 
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ comp grid.Brick { tag: 'li', id: 'cultural-learning', classes: 'participants block' } }}
@@ -98,7 +99,8 @@ breadcrumbs_full:
 					"cms": metrics.participants_cultural_learning,
 					"columns": [
 						{ "name": "title", "label": "Project", "sortable": true },
-						{ "name": "participants", "value": "value", "template": "{{ value | toLocaleString() }}", "label": "Participants", "class": "right", "scale": scalepink, min: 0, "sortable": true }
+						{ "name": "participants", "value": "value", "template": "{{ value | toLocaleString() }}", "label": "Participants", "class": "right", "scale": scalepink, min: 0, "sortable": true },
+						{ "name": "instance", "value": "instances", "template": "{{ instances | toLocaleString() }}", "label": "Instances", "class": "right", "scale": scalepink, min: 0, "sortable": true }
 					],
 					"head": {
 						"class": "head"

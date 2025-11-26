@@ -34,7 +34,7 @@ css: |
     }
 ---
 
-<header class="comp-site-header">
+<header class="comp-site-header{{ if internal }} internal-header{{ /if }}">
 	{{# To match Brand Guidelines, the logo must contain "Bradford 2025" and "UK City of Culture" #}}
 	<a href="/">
 		<img src="/assets/images/logo.svg" alt="Bradford 2025 logo" inline>

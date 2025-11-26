@@ -24,7 +24,7 @@ base_stylesheets:
   {{ headerExtra }}
 </head>
 <body>
-	{{ if draft || internal }}<div class="block c-yellow centred"><strong>This is an internal version of a page.{{ if build.host != 'data.bradford2025.co.uk' }} There may not be an equivalent page on https://data.bradford2025.co.uk/{{ /if }}</strong></div>{{ /if }}
+	{{ if internal }}<div class="block c-yellow centred internal"><strong>This page is for internal Bradford 2025 use only.</strong></div>{{ /if }}
 	{{ content }}
 </body>
 {{ if build.host == 'data.bradford2025.co.uk' -}}

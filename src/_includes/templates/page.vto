@@ -2,7 +2,7 @@
 layout: templates/base.vto
 ---
 
-{{ comp.SiteHeader({ title }) }}
+{{ comp.SiteHeader(page.data) }}
 
 {{ comp.Breadcrumbs({ breadcrumbs: breadcrumbs_full || breadcrumbs, title, url }) }}
 
