@@ -1,6 +1,6 @@
 import petl as etl
 
-from ..paths import PUBLISHED, SITE
+from ..paths import PROCESSED, SITE
 from ..themes.programme import Programme as _Programme
 from ..themes.programme_slice import ProgrammeSlice
 
@@ -104,7 +104,7 @@ class Tickets:
 
         self.instances = (
             etl
-            .fromcsv(PUBLISHED / 'ticketing/event-instances.csv')
+            .fromcsv(PROCESSED / 'ticketing/event-instances.csv')
             .selectin('event_id', self.event_ids)
             .cutout('firstInstanceDateTime', 'lastInstanceDateTime')
             .convert('start', etl.datetimeparser('%Y-%m-%d %H:%M:%S'))
@@ -112,7 +112,7 @@ class Tickets:
 
         self.all = (
             etl
-            .fromcsv(PUBLISHED / 'ticketing/tickets.csv')
+            .fromcsv(PROCESSED / 'ticketing/tickets.csv')
             .selectin('instance_id', self.instance_ids())
             .convertnumbers()
         ).cache()
@@ -217,7 +217,7 @@ class Volunteers(object):
     def __init__(self, ids: list[str]):
         self.data = (
             etl
-            .fromcsv(PUBLISHED / 'volunteers/shifts.csv').selectin('rosterfy_event_id', ids)
+            .fromcsv(PROCESSED / 'volunteers/shifts.csv').selectin('rosterfy_event_id', ids)
             .convertnumbers()
         )
 
@@ -238,7 +238,7 @@ class Sustainability(object):
     def __init__(self, project_ids: list[str]):
         self.data = (
             etl
-            .fromcsv(PUBLISHED / 'sustainability/calculations.csv')
+            .fromcsv(PROCESSED / 'sustainability/calculations.csv')
             .selectin('project_id', project_ids)
             .convertnumbers()
         )

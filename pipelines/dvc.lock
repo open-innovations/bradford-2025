@@ -74,7 +74,7 @@ stages:
       size: 16491568
     - path: ticketing.ipynb
       hash: md5
-      md5: 9f8f448a8757c15a5ed3a2a9beb5dc26
+      md5: 3e12da4885d6bffdf298ca0a13bf5b46
       size: 23545
     outs:
     - path: ../src/themes/ticketing/_data/operational
@@ -193,7 +193,7 @@ stages:
       size: 72136
     - path: sustainability.ipynb
       hash: md5
-      md5: 1bd13e187287e96b65faba4969e915bf
+      md5: 8b0647a7946fafd7b6faebf49b643675
       size: 3364
     outs:
     - path: ../src/themes/sustainability/_data/calculations/
@@ -238,11 +238,11 @@ stages:
       nfiles: 27
     - path: dashboard.ipynb
       hash: md5
-      md5: c2a6edd00547d33780e2927ed8e2b7f9
+      md5: f06d3ba90159ba04f33df81f6c1409f7
       size: 22651
     - path: utils/themes/programme.py
       hash: md5
-      md5: 995b823126d07e571078b0523b98a22f
+      md5: 6ccbf0ce872f7b9aba5ca021cfdea269
       size: 3717
     outs:
     - path: ../src/insights/dashboard//_data/audience.json
@@ -280,11 +280,11 @@ stages:
       nfiles: 27
     - path: dashboard.ipynb
       hash: md5
-      md5: c2a6edd00547d33780e2927ed8e2b7f9
+      md5: f06d3ba90159ba04f33df81f6c1409f7
       size: 22651
     - path: utils/themes/programme.py
       hash: md5
-      md5: 995b823126d07e571078b0523b98a22f
+      md5: 6ccbf0ce872f7b9aba5ca021cfdea269
       size: 3717
     outs:
     - path: ../src/insights/dashboard/q1/_data/audience.json
@@ -348,11 +348,11 @@ stages:
       nfiles: 27
     - path: dashboard.ipynb
       hash: md5
-      md5: c2a6edd00547d33780e2927ed8e2b7f9
+      md5: f06d3ba90159ba04f33df81f6c1409f7
       size: 22651
     - path: utils/themes/programme.py
       hash: md5
-      md5: 995b823126d07e571078b0523b98a22f
+      md5: 6ccbf0ce872f7b9aba5ca021cfdea269
       size: 3717
     outs:
     - path: ../src/insights/dashboard/q2/_data/audience.json
@@ -426,7 +426,7 @@ stages:
       size: 10540
     - path: utils/themes/programme.py
       hash: md5
-      md5: 995b823126d07e571078b0523b98a22f
+      md5: 6ccbf0ce872f7b9aba5ca021cfdea269
       size: 3717
     outs:
     - path: ../src/themes/programme/_data/events/
@@ -550,11 +550,11 @@ stages:
       nfiles: 27
     - path: dashboard.ipynb
       hash: md5
-      md5: c2a6edd00547d33780e2927ed8e2b7f9
+      md5: f06d3ba90159ba04f33df81f6c1409f7
       size: 22651
     - path: utils/themes/programme.py
       hash: md5
-      md5: 995b823126d07e571078b0523b98a22f
+      md5: 6ccbf0ce872f7b9aba5ca021cfdea269
       size: 3717
     outs:
     - path: ../src/insights/dashboard/q3/_data/audience.json
@@ -617,7 +617,7 @@ stages:
       nfiles: 1
     - path: public-dashboard.ipynb
       hash: md5
-      md5: 97c7241c4105cc180b7e8d80db5b94d8
+      md5: 0a085e2681418c6b2428fec90ac7817a
       size: 3368
     outs:
     - path: ../src/landing/_data/graph/audiences/total.json
@@ -635,15 +635,19 @@ stages:
   digital:
     cmd: jupyter execute digital.ipynb
     deps:
+    - path: ../data/published/combined/programme.parquet
+      hash: md5
+      md5: 2ce89bda2d6bb9a757c96922b601a002
+      size: 124512
     - path: ../data/published/digital/
       hash: md5
       md5: 60c85f1a856ed50e87e2f01e67a90f50.dir
       size: 20299
       nfiles: 1
-    - path: public-dashboard.ipynb
+    - path: digital.ipynb
       hash: md5
-      md5: 97c7241c4105cc180b7e8d80db5b94d8
-      size: 3368
+      md5: 92cfcd1916a65ad063672b03a69587e3
+      size: 3383
     outs:
     - path: ../src/insights/digital/_data/followers/by_date.json
       hash: md5
@@ -710,7 +714,7 @@ stages:
       size: 8417
     - path: surveys.ipynb
       hash: md5
-      md5: d40fdf54a37d8b4e509dd54cbf92af40
+      md5: 284c1b6f486935b54a22775201508532
       size: 2835
     outs:
     - path: ../src/_data/audience_survey/by_month.json

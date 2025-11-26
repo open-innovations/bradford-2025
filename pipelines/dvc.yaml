@@ -1,14 +1,15 @@
 vars:
   - ROOT: ..
   - VOLUNTEER_DATA: ../src/themes/volunteers/_data
+  - PROCESSED: ../data/published
 stages:
   programme:
     cmd: jupyter execute programme.ipynb
     deps:
       - programme.ipynb
       - utils/themes/programme.py
-      - ${ROOT}/data/published/programme/events.csv
-      - ${ROOT}/data/published/combined/programme.parquet
+      - ${PROCESSED}/programme/events.csv
+      - ${PROCESSED}/combined/programme.parquet
     outs:
       - ${ROOT}/src/themes/programme/_data/events/:
           cache: false
@@ -17,8 +18,8 @@ stages:
     cmd: papermill --no-log-output volunteers.ipynb output/volunteers.ipynb
     deps:
       - volunteers.ipynb
-      - ../data/published/volunteers/checkpoints.csv
-      - ../data/published/volunteers/shifts.csv
+      - ${PROCESSED}/volunteers/checkpoints.csv
+      - ${PROCESSED}/volunteers/shifts.csv
     outs:
       - ${VOLUNTEER_DATA}/summary.json:
           cache: false
@@ -46,8 +47,8 @@ stages:
     cmd: papermill --no-log-output ticketing.ipynb output/ticketing.ipynb
     deps:
       - ticketing.ipynb
-      - ${ROOT}/data/published/ticketing/tickets.csv
-      - ${ROOT}/data/published/ticketing/orders.csv
+      - ${PROCESSED}/ticketing/tickets.csv
+      - ${PROCESSED}/ticketing/orders.csv
     outs:
       - ${ROOT}/src/themes/ticketing/_data/operational:
           cache: false
@@ -77,8 +78,8 @@ stages:
           -p slug '${key}'
       deps:
         - events.ipynb
-        - ${ROOT}/data/published/
-        - ${ROOT}/data/published/ticketing/
+        - ${PROCESSED}/
+        - ${PROCESSED}/ticketing/
       outs:
         - ${ROOT}/src/events/${key}/_data/event/:
             cache: false
@@ -87,7 +88,7 @@ stages:
     cmd: jupyter execute sustainability.ipynb
     deps:
       - sustainability.ipynb
-      - ${ROOT}/data/published/sustainability/calculations.csv
+      - ${PROCESSED}/sustainability/calculations.csv
     outs:
       - ${ROOT}/src/themes/sustainability/_data/calculations/:
           cache: false
@@ -105,7 +106,7 @@ stages:
       deps:
         - dashboard.ipynb
         - utils/themes/programme.py
-        - ${ROOT}/data/published/
+        - ${PROCESSED}/
       outs:
         - ${ROOT}/src/insights/dashboard/${item.target}/_data/events.json:
             cache: false
@@ -130,7 +131,7 @@ stages:
     cmd: jupyter execute public-dashboard.ipynb
     deps:
       - public-dashboard.ipynb
-      - ${ROOT}/data/published/combined/
+      - ${PROCESSED}/combined/
     outs:
       - ${ROOT}/src/landing/_data/graph/audiences/total.json:
           cache: false
@@ -145,8 +146,9 @@ stages:
   digital:
     cmd: jupyter execute digital.ipynb
     deps:
-      - public-dashboard.ipynb
-      - ${ROOT}/data/published/digital/
+      - digital.ipynb
+      - ${PROCESSED}/combined/programme.parquet
+      - ${PROCESSED}/digital/
     outs:
       - ${ROOT}/src/insights/digital/_data/followers/by_date.json:
           cache: false
@@ -157,7 +159,7 @@ stages:
     cmd: jupyter execute surveys.ipynb
     deps:
       - surveys.ipynb
-      - ${ROOT}/data/published/surveys/responses.csv
+      - ${PROCESSED}/surveys/responses.csv
     outs:
       - ${ROOT}/src/_data/audience_survey/by_month.json:
           cache: false

@@ -2,7 +2,7 @@ from datetime import date
 
 from rap_utils.petl.io.parquet_view import ParquetView
 
-from ..paths import PUBLISHED
+from ..paths import PROCESSED
 
 
 deprecated_variables = [
@@ -42,7 +42,7 @@ class ProgrammeSlice:
         self.start_date, self.end_date = date_range
 
         self.events_data, self.excluded_events_data = (
-            ParquetView(PUBLISHED / 'combined/programme.parquet')
+            ParquetView(PROCESSED / 'combined/programme.parquet')
             .selectnotin('variable', deprecated_variables)
 
             .addfield('validation', self.validation)

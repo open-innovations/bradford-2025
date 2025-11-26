@@ -3,9 +3,9 @@ from ast import literal_eval
 from datetime import date, datetime
 
 import petl as etl
-from utils.paths import PUBLISHED
+from utils.paths import PROCESSED
 
-with open(PUBLISHED / 'manual/manual-project-name-map.json') as f:
+with open(PROCESSED / 'manual/manual-project-name-map.json') as f:
     canonical_project_name = json.load(f)
 
 
@@ -30,7 +30,7 @@ def validation(row):
 class Programme:
     projects = (
         etl
-        .fromjson(PUBLISHED / 'programme/projects.json')
+        .fromjson(PROCESSED / 'programme/projects.json')
         .convert(['Start Date', 'End Date'], lambda f: datetime.fromisoformat(f).date())
         .cut('id', 'Project Name', 'Start Date', 'End Date', 'Evaluation Category', 'Programme Category', 'Greenlight Status', 'Project Phase')
         .replace('Project Name', None, 'UNKNOWN')
@@ -39,7 +39,7 @@ class Programme:
 
     events, excluded_events = (
         etl
-        .fromcsv(PUBLISHED / 'programme/events.csv')
+        .fromcsv(PROCESSED / 'programme/events.csv')
 
         .convert(['Start Date', 'End Date'], etl.dateparser('%Y-%m-%d'))
         # .convert('Project Name', lambda x: x.strip())
@@ -74,7 +74,7 @@ class Programme:
     )
 
     manual_events = (
-        etl.fromcsv(PUBLISHED / 'manual/manual-events.csv')
+        etl.fromcsv(PROCESSED / 'manual/manual-events.csv')
         .selectne('Exclude from events count', 'True')
         .cutout('Exclude from events count')
         .replace('Events', '', 1)
@@ -92,7 +92,7 @@ class Programme:
 
     venues = (
         etl
-        .fromcsv(PUBLISHED / 'programme/venues.csv')
+        .fromcsv(PROCESSED / 'programme/venues.csv')
         .convert(['Org/Venue Type', 'Event Reports'], literal_eval)
         .replace(['Event Reports'], None, [])
         .cache()
