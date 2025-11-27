@@ -51,6 +51,16 @@ if (Deno.env.get('LUME_DRAFTS') == 'true') {
   }))
 }
 
+if (!Deno.env.has('LUME_DRAFTS') || Deno.env.get('LUME_DRAFTS') !== 'true') {
+  // Ensure that anything marked internal is also set to be draft
+  site.preprocess(['.html'], (pages) => pages.forEach((page) => {
+    if (page.data.internal == true) {
+      // TODO work out why this isn't preventing publication
+      page.data.draft = true;
+    }
+  }));
+}
+
 site.use(sheets({
   options: {
     cellDates: true,
