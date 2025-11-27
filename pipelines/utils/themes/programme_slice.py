@@ -58,8 +58,8 @@ class ProgrammeSlice:
         '''Calculate the participants by adding the community and school participants'''
         return sum(
             filter(None.__ne__, (
-                row.get('participants_community'),
-                row.get('participants_school'),
+                row.get('participants_cp'),
+                row.get('participants_cl'),
             )), 0
         )
 
@@ -104,8 +104,8 @@ class ProgrammeSlice:
                 'events', 'projected_events',
                 'audience',
                 'participants',
-                'participants_community', 'participants_community_attendance', 'participants_community_instances',
-                'participants_school',
+                'participants_cp', 'participants_cp_attendance', 'participants_cp_instances',
+                'participants_cl',
             ] if f in self.events.header()])
             .selectnotnone('value')
             .aggregate(['project_name', 'evaluation_category', 'variable'], sum, 'value')
