@@ -11,8 +11,9 @@ message: This is a design for a future front-page.
 }}
 
 <section class="river">
-	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.</p>
+	<p>Welcome to the data dashboard site for <a href="https://bradford2025.co.uk/">Bradford 2025</a>. This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.</p>
 </section>
+
 <section>
 {{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 	{{ include "../audiences/_partials/monthly.vto" { id: '#audience' } }}
@@ -23,5 +24,6 @@ message: This is a design for a future front-page.
 
 <section>
 	<h2>About</h2>
-	<p>This site has been developed to visualise data captured from multiple sources about Bradford 2025, the UK City of Culture 2025. You can also take a look at our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf" class="c-green">Evaluation strategy</a>, and the <a href="/strategy/" class="c-green">Open Data Strategy</a> which sets out what we hope to achieve by being open and transparent with our data.</p>
+	<p>This site has been developed to visualise data captured from multiple sources about Bradford 2025, the UK City of Culture 2025. You can find out more about Bradford 2025's evaluation and research activities and outputs on our <a href="https://bradford2025.co.uk/about/our-story-of-change/">Story of Change webpages</a>. Please also take a look at our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf" class="c-green">Evaluation strategy</a>, and our <a href="/strategy/" class="c-green">Open Data Strategy</a> which sets out what we hope to achieve by being open and transparent with our data.</p>
+	<p>There's also a useful <a href="/glossary/">glossary of terms</a> to help a shared understanding of what we are describing and what is being evaluated.</p>
 </section>
