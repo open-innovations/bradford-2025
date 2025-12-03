@@ -21,7 +21,7 @@ You can review these by clicking on the links below:
 
 <section>
 {{ comp grid.Auto { tag: 'ul' } }}
-    {{ for d of ['q1', 'q2', 'q3'].map(x => search.page(`url="${url}${x}/"`)) }}
+    {{ for d of ['q1', 'q2', 'q3', 'q4'].map(x => search.page(`url="${url}${x}/"`)) }}
         {{ comp grid.Brick { tag: 'li', style: "flex-basis: 30ch;--block-bg:var(--color-lightgrey);--block-fg:var(--color-offblack);" } }}
             <a class="block" href="{{ d.url }}">
                 <p>{{ d.title }}{{ if d.title == 'All-time dashboard' }}: {{ comp.Date({start:d.timestamp.start,end:d.timestamp.end}) }}{{ /if }}</p>
