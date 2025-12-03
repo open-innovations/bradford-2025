@@ -433,7 +433,7 @@ breadcrumbs_full:
 				}
 			}) }}
 			{{ comp ToDo }}Not currently automatically updated{{ /comp }}
-			<p>The average percentage of audience surveys which rated overall experience as <em>good</em> or <em>excellent</em>. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
+			<p>The average percentage of {{ comp glossary.Ref { slug: 'audience-survey' } }}audience surveys{{ /comp }} which rated overall experience as <em>good</em> or <em>excellent</em>. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', id: 'net-promoter-score', classes: 'audiences block', style: "flex-basis: 40ch;" } }}
 			<h3>Would you recommend?</h3>
@@ -462,7 +462,7 @@ breadcrumbs_full:
 				}
 			}) }}
 			{{ comp ToDo }}Not currently automatically updated{{ /comp }}
-			<p>The net promoter score (on a scale of <em>0</em> to <em>10</em>) from audience surveys. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
+			<p>The {{ comp glossary.Ref { slug: 'net-promoter-score' } }}net promoter score{{ /comp }} (on a scale of <em>0</em> to <em>10</em>) from audience surveys. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
 		{{ /comp }}
 	{{ /comp }}
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
