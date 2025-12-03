@@ -721,3 +721,45 @@ stages:
       hash: md5
       md5: 626ca243fb4e20d6c80023bf448af7a9
       size: 1277
+  dashboards@q4:
+    cmd: papermill --no-log-output dashboard.ipynb - -p target 'q4' -p start 
+      '2025-10-01' -p end '2025-12-31' -p fixed_date 'true'
+    deps:
+    - path: ../data/published/
+      hash: md5
+      md5: c314b9a7f90b21dc1e2d6f2c8eaba5de.dir
+      size: 20933212
+      nfiles: 28
+    - path: dashboard.ipynb
+      hash: md5
+      md5: f350865cf37d4b4feeaacd8eeb92062c
+      size: 22586
+    - path: utils/themes/programme.py
+      hash: md5
+      md5: 943d6c1db5764c9c904c2aa2b45daadb
+      size: 3729
+    outs:
+    - path: ../src/insights/dashboard/q4/_data/audience.json
+      hash: md5
+      md5: b71c51763bee926334bedacbb55044f0
+      size: 12355
+    - path: ../src/insights/dashboard/q4/_data/events.json
+      hash: md5
+      md5: ba3cb1f4e39a36cdbf942d4f6bb4d067
+      size: 10236
+    - path: ../src/insights/dashboard/q4/_data/otherFigures.json
+      hash: md5
+      md5: 99914b932bd37a50b983c5e7c90ae93b
+      size: 2
+    - path: ../src/insights/dashboard/q4/_data/participants.json
+      hash: md5
+      md5: af9d1935eb4cafbaf80a1ea3c61e4545
+      size: 7214
+    - path: ../src/insights/dashboard/q4/_data/projects.json
+      hash: md5
+      md5: d688d3ea2f83fd4d61cf50315a79747c
+      size: 2492
+    - path: ../src/insights/dashboard/q4/_data/timestamp.json
+      hash: md5
+      md5: 29fdc88db076e604efe6b9f507c2ee9e
+      size: 69
