@@ -5,26 +5,26 @@
 <p>The table below summarises the events by venue, showing counts of events at each venue, along with audience and participants.</p>
 
 {{ comp.dashboard.InfoBoxTable({
-    head: {
-        class: 'c-pink',
-    },
-    columns: [
-        { key: 'venue_name', label: 'Venue Name', class: "" },
-        { key: 'project_name', label: 'Project Name' },
-        { key: 'date', label: 'Dates' },
-        { key: 'event_count', label: 'Events', class: 'right', scale: scales.yellow, min: 0 },
-        { key: 'audience_label', label: 'Audience', template: '{{ audience | toLocaleString() }}', value: 'audience', class: "right", scale: scales.green, min: 0 },
-        { key: 'participants_label', label: 'Participants', template: '{{ participants | toLocaleString() }}', value: 'participants', class: "right", scale: scales.pink, min: 0 },
-    ],
-    data: programme.total_by_venue.sort((a, b) => a.start_date < b.start_date).map(x => ({
-        ...x,
-        date: `${
-            (new Date(x.start_date)).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })
-        } &mdash; ${(new Date(x.end_date)).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })}`,
-        // TODO Work out why this is not working
-        // audience: x.audience.toLocaleString(),
-        // participants: parseInt(x.participants).toLocaleString(),
-    })),
+	head: {
+		class: 'c-pink',
+	},
+	columns: [
+		{ key: 'venue_name', label: 'Venue Name', class: "" },
+		{ key: 'project_name', label: 'Project Name' },
+		{ key: 'daterange', label: 'Dates', template: '{{ date }}', name: 'daterange', value: 'start_date' },
+		{ key: 'events', label: 'Events', template: '{{ event_count | toLocaleString() }}', value: 'event_count', class: 'right', scale: scales.yellow, min: 0 },
+		{ key: 'audience_label', label: 'Audience', template: '{{ audience | toLocaleString() }}', value: 'audience', class: "right", scale: scales.green, min: 0 },
+		{ key: 'participants_label', label: 'Participants', template: '{{ participants | toLocaleString() }}', value: 'participants', class: "right", scale: scales.pink, min: 0 },
+	],
+	data: programme.total_by_venue.sort((a, b) => a.start_date < b.start_date).map(x => ({
+		...x,
+		date: `${
+			(new Date(x.start_date)).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })
+		} &mdash; ${(new Date(x.end_date)).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })}`,
+		// TODO Work out why this is not working
+		// audience: x.audience.toLocaleString(),
+		// participants: parseInt(x.participants).toLocaleString(),
+	})),
 	width: "100%"
 }) }}
 </section>
