@@ -50,7 +50,7 @@ description: |
 
 {{ comp Tab.Set { classes: 'big'} }}
 	{{ comp Tab.Panel { id: 'hex-tickets', label: 'Map: tickets sold' } }}
-		<p>The proportion of all tickets sold in Bradford. Unlike a geographic map, this cartogram presents each ward as the same-sized hexagon. This allows us to make sure the impression of the data isn't skewed by the area of each ward.</p>
+		<p>The proportion of all tickets sold in Bradford. Unlike a geographic map, this {{ comp glossary.Ref { slug: 'cartogram' } }}cartogram{{ /comp }} presents each {{ comp glossary.Ref { slug: 'ward' } }}ward{{ /comp }} as the same-sized hexagon. This allows us to make sure the impression of the data isn't skewed by the area of each ward.</p>
 		{{ comp.oi.map.hex_cartogram({
 			config: {
 				hexjson: hexes.bd_2024,
