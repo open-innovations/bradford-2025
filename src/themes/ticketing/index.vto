@@ -101,15 +101,22 @@ seriesConfig:
 	<h2 class="full-width">Tickets sold by Geography</h2>
 	<div class="block">
 		<figure>
+			{{>
+				let by_ward = operational.geography.filter(x => x.geography_type == 'osward' && x.geography_code !== 'OTHER');
+				let total = by_ward.map(function(row){ return row.value; }).reduce(function(a,c){ return a+c; },0);
+				by_ward = by_ward.map(function(row){
+					return { ...row, percent: 100*row.value/total };
+				})
+			}}
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_2024,
-					data: operational.geography.filter(x => x.geography_type == 'osward'),
+					data: by_ward,
 					scale: scales.green,
 					matchKey: 'geography_code',
 					value: 'value',
 					label: 'short_code',
-					tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ value }} tickets sold'
+					tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ value | toLocaleString() }} ({{ percent | toFixed(1) }}%) tickets sold'
 				}
 			}) }}
 			<figcaption>
