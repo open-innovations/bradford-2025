@@ -5,9 +5,8 @@
 <p>The table below summarises the events by venue, showing counts of events at each venue, along with audience and participants.</p>
 
 {{ comp.dashboard.InfoBoxTable({
-	head: {
-		class: 'c-pink',
-	},
+	head: head||{class: 'c-yellow'},
+	download,
 	columns: [
 		{ key: 'venue_name', label: 'Venue Name', class: "" },
 		{ key: 'project_name', label: 'Project Name' },

@@ -20,7 +20,11 @@ breadcrumbs_full:
 </section>
 {{ /if }}
 
-{{ comp.event.EventSummary({ ...event }) }}
+{{ comp.event.EventSummary({
+	...event,
+	head: {class:'events'},
+	download: 'event-summary-' + title.toLowerCase().replace(/ /g,'-') + '.csv'
+}) }}
 
 {{ if event && event.tickets }}
 {{ comp.event.Tickets({ tickets: event.tickets }) }}

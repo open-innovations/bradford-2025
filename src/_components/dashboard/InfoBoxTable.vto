@@ -18,15 +18,16 @@ css: |
 		}
 	}
 }}
-<div data-comp='dashboard-InfoBoxTable'>
-{{ comp.oi.table({
-	config: {
-		data: data,
-		columns: columns,
-		head: header||head,
-		width,
-		sort,
-		debug,
-	}
-}) }}
+<div data-comp='dashboard-InfoBoxTable'{{ if download }} data-dependencies="/assets/js/save-table.js" class="saveable-table" data-filename="{{ download }}"{{ /if }}>
+	{{ comp.oi.table({
+		config: {
+			data: data,
+			columns: columns,
+			head: header||head,
+			width,
+			sort,
+			debug,
+		}
+	}) }}
+	{{ if download }}<a href="#" class="more {{ head.class }}"><span data-comp="pill" style="margin-top:1rem;">Download table as CSV <span aria-hidden="true">→</span></span></a>{{ /if }}
 </div>
