@@ -206,7 +206,7 @@ site.copy("assets/vendor/");
  */
 
 // Set up landing page
-const landing = 'placeholder';
+const landing = 'public';
 const devLanding = 'v2';
 site.data('landingPage', Deno.env.get('LUME_DRAFTS') == 'true' ? devLanding : landing, '/landing');
 site.data('build', {
