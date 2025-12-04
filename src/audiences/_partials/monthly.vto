@@ -22,7 +22,7 @@
 			}]
 		}) }}
 
-		<p>{{ comp glossary.Ref { slug: 'audience' } }}Audience{{ /comp }} - includes in-person &amp; digital events.</p>
+		<p>Includes in-person &amp; digital events. The {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} prior to 2025 is {{ audience.total - graph.audiences.total.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0) |> toLocaleString() }}.</p>
 		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View audience breakdown{{ /comp }}</a></p>{{ /if }}
 	</div>
 {{ /comp }}

@@ -22,7 +22,7 @@
 			}]
 		}) }}
 
-		<p>{{ comp glossary.Ref { slug: 'event' } }}Event{{ /comp }} - an organised activity with a defined start and end.</p>
+		<p>An organised activity with a defined start and end. There were {{ events.total - graph.events.total.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0) |> toLocaleString() }} {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} prior to 2025.</p>
 		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View event breakdown{{ /comp }}</a></p>{{ /if }}
 	</div>
 {{ /comp }}
