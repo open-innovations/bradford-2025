@@ -1,0 +1,23 @@
+---
+draft: true
+internal: false
+title: Headlines
+layout: templates/dashboard.vto
+message: This is a design for a future headlines dashboard. Similar to <a href="/headlines">v1</a> but with links to sub pages.
+---
+
+{{>
+	const { timestamp } = search.data("insights/dashboard");
+}}
+
+<section class="river">
+	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.</p>
+</section>
+
+<section>
+{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+	{{ include "../audiences/_partials/monthly.vto" { id: '#audience', more: '/audiences/' } }}
+	{{ include "../events/_partials/monthly.vto" { id: '#events', more: '/events/' } }}
+	{{ include "../participants/_partials/monthly.vto" { id: '#participants', more: '/participants/' } }}
+{{ /comp }}
+</section>

@@ -1,0 +1,23 @@
+---
+draft: true
+internal: false
+title: Headlines
+layout: templates/dashboard.vto
+oldUrl: /dashboard/public/
+---
+{{>
+	const { timestamp } = search.data("insights/dashboard");
+}}
+
+<section class="river">
+	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.</p>
+</section>
+
+<section>
+{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+	{{ include "../audiences/_partials/monthly.vto" { id: '#audience' } }}
+	{{ include "../events/_partials/monthly.vto" { id: '#events' } }}
+	{{ include "../participants/_partials/monthly.vto" { id: '#participants' } }}
+{{ /comp }}
+</section>
+
