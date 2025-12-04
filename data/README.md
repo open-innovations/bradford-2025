@@ -1,7 +1,7 @@
 The whole upstream data directory is mirrored with the following commands
 
 ```sh
-dvc import --out data/published/ --rev main git@github.com:bradford-2025/open-data-pipelines data/processed/
+dvc import --out data/processed/ --rev main git@github.com:bradford-2025/open-data-pipelines data/processed/
 
 dvc import --out data/metadata/ --rev main git@github.com:bradford-2025/open-data-pipelines data/metadata/processed/
 ```

@@ -2,7 +2,17 @@ vars:
   - ROOT: ..
   - VOLUNTEER_DATA: ../src/themes/volunteers/_data
   - PROCESSED: ../data/processed
+  - PUBLISHED: ../data/published
 stages:
+  publish:
+    cmd: python get-published.py
+    deps:
+      - get-published.py
+      - ${PUBLISHED}
+    outs:
+      - ${ROOT}/src/_data/published/:
+          cache: false
+          persist: false
   programme:
     cmd: jupyter execute programme.ipynb
     deps:

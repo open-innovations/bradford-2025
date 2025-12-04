@@ -763,3 +763,21 @@ stages:
       hash: md5
       md5: f501224b6526cf6ae71a4558716cbe0e
       size: 69
+  publish:
+    cmd: python get-published.py
+    deps:
+    - path: ../data/published
+      hash: md5
+      md5: f7c327f2576281d55a0659be07dd467c.dir
+      size: 19018
+      nfiles: 6
+    - path: get-published.py
+      hash: md5
+      md5: e69c34b4ebd7cd8a064c68dae51fe742
+      size: 340
+    outs:
+    - path: ../src/_data/published/
+      hash: md5
+      md5: f7c327f2576281d55a0659be07dd467c.dir
+      size: 19018
+      nfiles: 6
