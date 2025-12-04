@@ -6,7 +6,7 @@ css: |
         background: var(--color-offblack);
         padding-inline: var(--site-padding);
         padding-block: 1rem;
-        & a {
+        & a:first-child {
             display: flex;
             align-items: center;
             color: inherit;
@@ -31,15 +31,16 @@ css: |
             .logo-main { letter-spacing: -0.3px; text-transform: uppercase; }
             .logo-sub { font-weight: 300; }
         }
+        .sub-title { color: inherit; text-decoration: none; }
     }
 ---
 
 <header class="comp-site-header{{ if internal }} internal-header{{ /if }}">
 	{{# To match Brand Guidelines, the logo must contain "Bradford 2025" and "UK City of Culture" #}}
-	<a href="/">
+	<a href="https://bradford2025.co.uk/">
 		<img src="/assets/images/logo.svg" alt="Bradford 2025 logo" inline>
 		<p class="logo-title"><span class="logo-main">{{ metas.brand }}</span><span class="logo-sub">{{ metas.sub_brand }}</span></p>
 	</a>
-	<p class="sub-title">{{ metas.site_title }}</p>
+	<a href="/" class="sub-title">{{ metas.site_title }}</a>
 	<h1>{{ title }}</h1>
 </header>
