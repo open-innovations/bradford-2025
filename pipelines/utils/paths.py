@@ -4,7 +4,7 @@ ROOT = (Path(__file__).parent / '../..').resolve()
 
 DATA = ROOT / 'data'
 # TODO Fix this
-PROCESSED = DATA / 'published'
+PROCESSED = DATA / 'processed'
 PUBLISHED = DATA / 'published'
 OPEN_DATA = DATA / 'open-data'
 

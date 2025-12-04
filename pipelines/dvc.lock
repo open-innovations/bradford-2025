@@ -3,18 +3,18 @@ stages:
   volunteers:
     cmd: papermill --no-log-output volunteers.ipynb output/volunteers.ipynb
     deps:
-    - path: ../data/published/volunteers/checkpoints.csv
+    - path: ../data/processed/volunteers/checkpoints.csv
       hash: md5
       md5: 85a2268c0c327bb401faa9b289873a30
       size: 39106
-    - path: ../data/published/volunteers/shifts.csv
+    - path: ../data/processed/volunteers/shifts.csv
       hash: md5
       md5: ad05347ea8505a7f584e813a8d1654cf
       size: 187799
     - path: volunteers.ipynb
       hash: md5
-      md5: 19f11445b0e04b469bc992e8b5030526
-      size: 11731
+      md5: f6f3e5a0525f6632b873c418cf8a3ef0
+      size: 11770
     outs:
     - path: ../src/themes/volunteers/_data/people/by_demographic_age_range.csv
       hash: md5
@@ -64,11 +64,11 @@ stages:
   ticketing:
     cmd: papermill --no-log-output ticketing.ipynb output/ticketing.ipynb
     deps:
-    - path: ../data/published/ticketing/orders.csv
+    - path: ../data/processed/ticketing/orders.csv
       hash: md5
       md5: b8f456c946225108abbcbcba2463416d
       size: 7319
-    - path: ../data/published/ticketing/tickets.csv
+    - path: ../data/processed/ticketing/tickets.csv
       hash: md5
       md5: e2e698dcca18f24f722252ed56316723
       size: 16821394
@@ -112,12 +112,12 @@ stages:
       'BD1 1LA' -p rosterfy_event_ids '25890' -p project_ids 'recf4tPyjoXi81NDo'
       -p evaluation_categories '' -p venue_ids '' -p slug 'rise'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -138,12 +138,12 @@ stages:
       'BD1 1JT' -p rosterfy_event_ids '26307' -p project_ids 'recYvLfpThEXGXcmn'
       -p evaluation_categories '' -p venue_ids '' -p slug 'la-haine'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -164,12 +164,12 @@ stages:
       '24438' -p project_ids 'recu2QievPdxr1dnH' -p evaluation_categories '' -p 
       venue_ids '' -p slug 'les-girafes'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -187,7 +187,7 @@ stages:
   sustainability:
     cmd: jupyter execute sustainability.ipynb
     deps:
-    - path: ../data/published/sustainability/calculations.csv
+    - path: ../data/processed/sustainability/calculations.csv
       hash: md5
       md5: 7b2de06aff067960fa602abad01f79ac
       size: 72136
@@ -207,12 +207,12 @@ stages:
       'None' -p rosterfy_event_ids '26540' -p project_ids 'recoJF8kMXHloBbjt' -p
       evaluation_categories '' -p venue_ids '' -p slug 'grue'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -231,7 +231,7 @@ stages:
     cmd: papermill --no-log-output dashboard.ipynb - -p target '' -p start 
       '2023-01-01' -p end '2025-12-31' -p fixed_date 'false'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
@@ -273,7 +273,7 @@ stages:
     cmd: papermill --no-log-output dashboard.ipynb - -p target 'q1' -p start 
       '2025-01-01' -p end '2025-03-31' -p fixed_date 'true'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
@@ -317,12 +317,12 @@ stages:
       'None' -p rosterfy_event_ids 'None' -p project_ids 'recjdRJvjmX67plPM' -p 
       evaluation_categories '' -p venue_ids '' -p slug 'dracula'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -341,7 +341,7 @@ stages:
     cmd: papermill --no-log-output dashboard.ipynb - -p target 'q2' -p start 
       '2025-04-01' -p end '2025-06-30' -p fixed_date 'true'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
@@ -412,11 +412,11 @@ stages:
   programme:
     cmd: jupyter execute programme.ipynb
     deps:
-    - path: ../data/published/combined/programme.parquet
+    - path: ../data/processed/combined/programme.parquet
       hash: md5
       md5: 311dd445c880c7f3f73f81e1acc6bb60
       size: 130419
-    - path: ../data/published/programme/events.csv
+    - path: ../data/processed/programme/events.csv
       hash: md5
       md5: 04526a44a22c93685d0b5f03892e3470
       size: 1876264
@@ -441,12 +441,12 @@ stages:
       recCTkADG9VERRhxt recFYiOZvNnYDgbfk recInFDrcQ4KutUcL recIrQ1v64zKajXU1 
       recalzwrAJkBYOz8w' -p slug 'loading-bay'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -458,7 +458,7 @@ stages:
     outs:
     - path: ../src/events/loading-bay/_data/event/
       hash: md5
-      md5: c1bae6df762a13ef988191d5976a8db7.dir
+      md5: a13ac41edc2752a8cbbda1c1f56dad73.dir
       size: 18704
       nfiles: 2
   events@beacon:
@@ -467,12 +467,12 @@ stages:
       project_ids '' -p evaluation_categories '' -p venue_ids 'recx817GdO7wmJDf6
       rec7tn1K6r85N72yc recea0GEE29eKCtxu recW1DV5uXWsrUShy' -p slug 'beacon'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -493,12 +493,12 @@ stages:
       '29424' -p project_ids 'recSACUvnIn3yCW2S' -p evaluation_categories '' -p 
       venue_ids '' -p slug 'the-bradford-progress'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -519,12 +519,12 @@ stages:
       '' -p rosterfy_event_ids '' -p project_ids 'rec6linWPrAEi0gwr' -p 
       evaluation_categories '' -p venue_ids '' -p slug 'woodland-tribe'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -543,7 +543,7 @@ stages:
     cmd: papermill --no-log-output dashboard.ipynb - -p target 'q3' -p start 
       '2025-07-01' -p end '2025-09-30' -p fixed_date 'true'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
@@ -587,12 +587,12 @@ stages:
       project_ids '' -p evaluation_categories 'Film' -p venue_ids '' -p slug 
       'film'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -610,7 +610,7 @@ stages:
   public-dashboard:
     cmd: jupyter execute public-dashboard.ipynb
     deps:
-    - path: ../data/published/combined/
+    - path: ../data/processed/combined/
       hash: md5
       md5: 245b6b5d4baa9502d49e87a039238de1.dir
       size: 130419
@@ -635,11 +635,11 @@ stages:
   digital:
     cmd: jupyter execute digital.ipynb
     deps:
-    - path: ../data/published/combined/programme.parquet
+    - path: ../data/processed/combined/programme.parquet
       hash: md5
       md5: 311dd445c880c7f3f73f81e1acc6bb60
       size: 130419
-    - path: ../data/published/digital/
+    - path: ../data/processed/digital/
       hash: md5
       md5: 91920bce80e3f912862732ed0ad6409b.dir
       size: 20689
@@ -685,12 +685,12 @@ stages:
       'recHt86hDKkVGecCP' -p evaluation_categories '' -p venue_ids '' -p slug 
       'contains-strong-language'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
       nfiles: 28
-    - path: ../data/published/ticketing/
+    - path: ../data/processed/ticketing/
       hash: md5
       md5: 89a417a15c1d9bed4a306f84bb98d421.dir
       size: 17622930
@@ -708,7 +708,7 @@ stages:
   surveys:
     cmd: jupyter execute surveys.ipynb
     deps:
-    - path: ../data/published/surveys/responses.csv
+    - path: ../data/processed/surveys/responses.csv
       hash: md5
       md5: 174a394c742f64e210dfdb927a0c25c2
       size: 8417
@@ -725,7 +725,7 @@ stages:
     cmd: papermill --no-log-output dashboard.ipynb - -p target 'q4' -p start 
       '2025-10-01' -p end '2025-12-31' -p fixed_date 'false'
     deps:
-    - path: ../data/published/
+    - path: ../data/processed/
       hash: md5
       md5: 3206803707bf508b8401e08af28a5e4a.dir
       size: 20972400
