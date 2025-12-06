@@ -22,7 +22,7 @@ class ProgrammeSlice:
     Slice of the programme data
     '''
 
-    dimensions = ['project_name', 'evaluation_category', 'month', 'source']
+    dimensions = ['project_name', 'evaluation_category', 'month', 'source', 'variable_group']
 
     def validation(self, row):
         '''Validate a project row for inclusion'''
@@ -53,16 +53,6 @@ class ProgrammeSlice:
             .biselect(lambda r: r.validation is None)
         )
 
-    @staticmethod
-    def calculate_partitipants(row):
-        '''Calculate the participants by adding the community and school participants'''
-        return sum(
-            filter(None.__ne__, (
-                row.get('participants_cp'),
-                row.get('participants_cl'),
-            )), 0
-        )
-
     @property
     def events(self):
         '''Get the events in the slice'''
@@ -71,7 +61,6 @@ class ProgrammeSlice:
             .aggregate([*self.dimensions, 'variable'], sum, 'value')
             .recast([*self.dimensions], samplesize=1_000_000)
             # .addfield('events', self.calculate_events, index=3)
-            .addfield('participants', self.calculate_partitipants, index=4)
             .replace(['events', 'audience', 'participants'], None, 0)
             .cache()
         )
@@ -103,11 +92,9 @@ class ProgrammeSlice:
             .melt(variables=[f for f in [
                 'events', 'projected_events',
                 'audience',
-                'participants',
-                'participants_cp', 'participants_cp_attendance', 'participants_cp_instances',
-                'participants_cl',
+                'participants', 'participant_instances',
             ] if f in self.events.header()])
             .selectnotnone('value')
-            .aggregate(['project_name', 'evaluation_category', 'variable'], sum, 'value')
+            .aggregate(['project_name', 'evaluation_category', 'variable_group', 'variable'], sum, 'value')
             .recast()
         )
