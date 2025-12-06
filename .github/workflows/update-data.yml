@@ -43,7 +43,7 @@ jobs:
 
           echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
           ssh-add deploy-key
-          pipenv run dvc update data/published.dvc data/metadata.dvc data/status.json.dvc data/reports.dvc 
+          pipenv run dvc update data/processed.dvc data/published.dvc data/metadata.dvc data/status.json.dvc data/reports.dvc 
           ssh-add -D
 
           echo "${{ secrets.DEPLOY_KEY_HUQ }}" > deploy-key-huq
