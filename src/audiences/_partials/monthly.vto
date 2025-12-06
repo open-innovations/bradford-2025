@@ -1,19 +1,23 @@
 {{>
-	const { audience, metrics, timestamp } = search.data("insights/dashboard");
-	const { graph } = search.data("landing");
+	const audience_type = 'all_audience'
+	const audience = calculated.programme[audience_type].value;
+	const graph = calculated.programme.graph[audience_type];
+
+	const difference = audience - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 }}
 {{ comp grid.Brick { tag: 'li', id: id, classes: 'audiences', full } }}
 	<div class="block">
-		<h3>{{ metrics.audiences_total.title }}</h3>
+		
+		<h3>Audience</h3>
 		{{ comp.BigNumber({
-			number: audience.total || 0,
+			number: audience || 0,
 			classes: 'big',
 			animate: true,
 			roundingOptions: { maximumFractionDigits: 0 }
 		}) }}
 
 		{{ comp.graph.monthly({
-			data: graph.audiences.total,
+			data: graph,
 			series: [{
 				title: 'Audience',
 				x: 'Date',
@@ -22,7 +26,8 @@
 			}]
 		}) }}
 
-		<p>Includes in-person &amp; digital events. The {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} prior to 2025 is {{ audience.total - graph.audiences.total.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0) |> toLocaleString() }}.</p>
+		<p>Includes in-person &amp; digital events. The {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} prior to 2025 is {{ difference |> toLocaleString() }}.</p>
 		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View audience breakdown{{ /comp }}</a></p>{{ /if }}
+		
 	</div>
 {{ /comp }}

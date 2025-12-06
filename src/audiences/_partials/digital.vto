@@ -1,38 +1,22 @@
 {{>
-	const { audience, metrics } = search.data("insights/dashboard");
-	const { website } = search.data("insights/digital");
-	const { graph } = search.data("landing");
-	const months = {};
-	const digital = [];
-	for(let i = 0; i < graph.audiences.total.length; i++){
-		months[graph.audiences.total[i].Date] = {'total':graph.audiences.total[i].value};
-	}
-	for(let i = 0; i < graph.audiences.in_person.length; i++){
-		months[graph.audiences.in_person[i].Date].in_person = graph.audiences.in_person[i].value;
-	}
-	for(m in months){
-		if(months[m].total > 0){
-			digital.push({'month':m,'count':months[m].total-months[m].in_person});
-		}
-	}
+	const audience = calculated.programme.categories.digital_audience.value;
+	const graph = calculated.programme.graph.categories.digital_audience;
 }}
 {{ comp grid.Brick { tag: 'li', classes: 'audiences' } }}
 	<div class="block">
-		<h3>{{ metrics.audiences_digital.title }}</h3>
+		<h3>Digital audience</h3>
 		{{ comp.BigNumber({
-			number: Object.entries(audience.by_category)
-				.filter(c => ['Digital'].includes(c[0]))
-				.reduce((a, c) => a + c[1], 0) || 0,
+			number: audience || 0,
 			classes: 'big',
 			animate: true,
 			roundingOptions: { maximumFractionDigits: 0 }
 		}) }}
 		{{ comp.graph.monthly({
-			data: digital,
+			data: graph,
 			series: [{
 				title: 'Digital',
-				x: 'month',
-				y: 'count',
+				x: 'Date',
+				y: 'value',
 				colour: 'green'
 			}]
 		}) }}

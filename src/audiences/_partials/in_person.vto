@@ -1,22 +1,20 @@
 {{>
-	const { audience, metrics } = search.data("insights/dashboard");
-	const { graph } = search.data("landing");
+	const audience = calculated.programme.categories.non_digital_audience.value;
+	const graph = calculated.programme.graph.categories.non_digital_audience;
 }}
 
 {{ comp grid.Brick { tag: 'li', classes: 'audiences' } }}
 	<div class="block">
-		<h3>{{ metrics.audiences_in_person_events.title }}</h3>
+		<h3>In-person audience</h3>
 		{{ comp.BigNumber({
-			number: Object.entries(audience.by_category)
-				.filter(c => !['Digital'].includes(c[0]))
-				.reduce((a, c) => a + c[1], 0) || 0,
+			number: audience,
 			classes: 'big',
 			animate: true,
 			roundingOptions: { maximumFractionDigits: 0 }
 		}) }}
 
 		{{ comp.graph.monthly({
-			data: graph.audiences.in_person,
+			data: graph,
 			series: [{
 				title: 'Audience',
 				x: 'Date',

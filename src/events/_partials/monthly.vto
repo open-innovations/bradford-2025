@@ -1,19 +1,23 @@
 {{>
-	const { events, metrics, timestamp } = search.data("insights/dashboard");
-	const { graph } = search.data("landing");
+	const event_type = 'all_events'; // Could be 'open_events', although that's missing data;
+	const events = calculated.programme[event_type].value;
+	const graph = calculated.programme.graph[event_type];
+
+	const difference = events - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 }}
+
 {{ comp grid.Brick { tag: 'li', classes: 'events' } }}
 	<div class="block">
-		<h3>{{ metrics.events_total.title }}</h3>
+		<h3>Events</h3>
 		{{ comp.BigNumber({
-			number: events.total || 0,
+			number: events || 0,
 			classes: 'big',
 			animate: true,
 			roundingOptions: { maximumFractionDigits: 0 }
 		}) }}
 
 		{{ comp.graph.monthly({
-			data: graph.events.total,
+			data: graph,
 			series: [{
 				title: 'Events',
 				x: 'Date',
@@ -22,7 +26,7 @@
 			}]
 		}) }}
 
-		<p>An organised activity with a defined start and end. There were {{ events.total - graph.events.total.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0) |> toLocaleString() }} {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} prior to 2025.</p>
+		<p>An organised activity with a defined start and end. There were {{ difference |> toLocaleString() }} {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} prior to 2025.</p>
 		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View event breakdown{{ /comp }}</a></p>{{ /if }}
 	</div>
 {{ /comp }}

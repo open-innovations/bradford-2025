@@ -137,22 +137,6 @@ stages:
             cache: false
             persist: false
 
-  public-dashboard:
-    cmd: jupyter execute public-dashboard.ipynb
-    deps:
-      - public-dashboard.ipynb
-      - ${PROCESSED}/combined/
-    outs:
-      - ${ROOT}/src/landing/_data/graph/audiences/total.json:
-          cache: false
-          persist: false
-      - ${ROOT}/src/landing/_data/graph/events/total.json:
-          cache: false
-          persist: false
-      - ${ROOT}/src/landing/_data/graph/participants/total.json:
-          cache: false
-          persist: false
-
   digital:
     cmd: jupyter execute digital.ipynb
     deps:

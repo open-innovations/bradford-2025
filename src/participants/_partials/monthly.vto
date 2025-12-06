@@ -1,19 +1,21 @@
 {{>
-	const { participants, metrics, timestamp } = search.data("insights/dashboard");
-	const { graph } = search.data("landing");
+	const participants = calculated.participants.all.value;
+	const graph = calculated.participants.graph.all;
+
+	const difference = participants - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
 }}
 {{ comp grid.Brick { tag: 'li', classes: 'participants' } }}
 	<div class="block">
-		<h3>{{ metrics.participants_total.title }}</h3>
+		<h3>Participants</h3>
 		{{ comp.BigNumber({
-			number: participants.total || 0,
+			number: participants || 0,
 			classes: 'big',
 			animate: true,
 			roundingOptions: { maximumFractionDigits: 0 }
 		}) }}
 
 		{{ comp.graph.monthly({
-			data: graph.participants.total,
+			data: graph,
 			series: [{
 				title: 'Participants',
 				x: 'Date',
@@ -22,7 +24,7 @@
 			}]
 		}) }}
 
-		<p>People taking part in or contributing to the programme going beyond being an audience member. There were {{ participants.total - graph.participants.total.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0) |> toLocaleString() }} {{ comp glossary.Ref { slug: 'participants' } }}participants{{ /comp }} prior to 2025.</p>
+		<p>People taking part in or contributing to the programme going beyond being an audience member. There were {{ difference |> toLocaleString() }} {{ comp glossary.Ref { slug: 'participants' } }}participants{{ /comp }} prior to 2025.</p>
 		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View participant breakdown{{ /comp }}</a></p>{{ /if }}
 	</div>
 {{ /comp }}

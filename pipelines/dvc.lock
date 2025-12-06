@@ -617,21 +617,14 @@ stages:
       nfiles: 1
     - path: public-dashboard.ipynb
       hash: md5
-      md5: 87a81f7f8f3063eaa06b5fb6095e180d
-      size: 3358
+      md5: c2c1e9c88edc7dd4bd568819e9d9f79b
+      size: 2390
     outs:
-    - path: ../src/landing/_data/graph/audiences/total.json
+    - path: ../src/landing/_data/graph/
       hash: md5
-      md5: 4877886e515edbc4c7a8904335d716c3
-      size: 622
-    - path: ../src/landing/_data/graph/events/total.json
-      hash: md5
-      md5: a47f9582a7ee47f248468077b3690f20
-      size: 591
-    - path: ../src/landing/_data/graph/participants/total.json
-      hash: md5
-      md5: 99188b21704440fad7e68b061e379ec4
-      size: 605
+      md5: 2af2de1a4c748e89dc5c8332900e51b9.dir
+      size: 1244
+      nfiles: 2
   digital:
     cmd: jupyter execute digital.ipynb
     deps:
