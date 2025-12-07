@@ -1,5 +1,5 @@
-import { getColourVariables } from "./lib/parse-css.ts";
-import { metricsBuilder } from "./lib/font-metrics.ts";
+import { getColourVariables } from "lib/parse-css.ts";
+import { metricsBuilder } from "lib/font-metrics.ts";
 
 const cssFile =
   new URL(import.meta.resolve("./src/_includes/css/colour.css")).pathname;

@@ -22,11 +22,11 @@ import autoDependency from "oi_lume_utils/processors/auto-dependency.ts";
 import oiLumeViz from "oi_lume_viz/mod.ts";
 
 import oiLumeVizOptions from './oi-lume-viz-config.ts';
-import filters from "./lib/filters.ts";
+import filters from "lib/filters.ts";
 
 import postcssConfig from "./postcss-config.ts";
 
-import bradfordDataPublisher from './lib/bradford-data-publisher.ts';
+import bradfordDataPublisher from 'lib/bradford-data-publisher.ts';
 
 const site = lume({
   src: "./src",
