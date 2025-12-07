@@ -1,7 +1,7 @@
 {{>
-	const event_type = 'all_events'; // Could be 'open_events', although that's missing data;
-	const events = calculated.programme[event_type].value;
-	const graph = calculated.programme.graph[event_type];
+	const event_type = 'all'; // Could be 'open_events', although that's missing data;
+	const events = calculated.programme.events[event_type].value;
+	const graph = calculated.programme.events.graph[event_type];
 
 	const difference = events - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 }}

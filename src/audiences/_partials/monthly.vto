@@ -1,7 +1,7 @@
 {{>
-	const audience_type = 'all_audience'
-	const audience = calculated.programme[audience_type].value;
-	const graph = calculated.programme.graph[audience_type];
+	const audience_type = 'all'
+	const audience = calculated.programme.audience[audience_type].value;
+	const graph = calculated.programme.audience.graph[audience_type];
 
 	const difference = audience - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 }}
