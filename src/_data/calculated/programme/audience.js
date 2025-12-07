@@ -10,32 +10,44 @@
  */
 import { loadCsv, cleanGraphData } from 'lib/data-helpers.js';
 
-// TODO this might change name
 const totals = await loadCsv("src/_data/published/programme/total.csv");
 
-// Calculate
 const allAudience = totals.find((r) =>
   r.event_type == "ALL" && r.variable == "audience"
 );
+const digitalAudience = totals.find(r =>
+  r.aggregation == 'BY_EVAL_CAT' &&
+  r.evaluation_category == 'Digital' &&
+  r.variable == 'audience'
+);
+const nonDigitalAudience = totals.filter(r =>
+  r.aggregation == 'BY_EVAL_CAT' &&
+  r.evaluation_category != 'Digital' &&
+  r.variable == 'audience'
+).reduce((a, c) => ({ value: a.value + c.value}), { value: 0 });
 
 // MONTHLY DATA
 const byMonth = await loadCsv("src/_data/published/programme/by_month.csv");
 
 const allAudienceByMonth = byMonth.filter((r) =>
+  r.aggregation == 'BY_MONTH' &&
   r.month.match(/^2025-/) &&
-  r.event_type == "ALL" &&
-  r.variable_group == "ALL" &&
   r.variable == "audience"
 ).map(cleanGraphData);
 
 // CATEGORY DATA
-const byCategory = await loadCsv("src/_data/published/programme/by_category.csv");
 
-const digitalAudience = byCategory.find(r => r.month == 'ALL' && r.event_type == 'ALL' && r.variable == 'audience' && r.evaluation_category == 'Digital');
-const nonDigitalAudience = byCategory.filter(r => r.month == 'ALL' && r.event_type == 'ALL' && r.variable == 'audience' && r.evaluation_category != 'Digital').reduce((a, c) => ({ value: a.value + c.value}), { value: 0 });
-
-const digitalAudienceByMonth = byCategory.filter(r => r.evaluation_category == 'Digital' && r.month.match(/^2025/) && r.event_type == 'ALL' && r.variable_group == 'ALL' && r.variable == 'audience').map(cleanGraphData);
-const nonDigitalAudienceByMonth = allAudienceByMonth.map(({ Date, value }, i) => ({ Date, value: value - (digitalAudienceByMonth.find(r => r.Date === Date)?.value || 0) }))
+const digitalAudienceByMonth = byMonth.filter(r =>
+  r.aggregation == 'BY_MONTH_BY_EVAL_CAT' &&
+  r.evaluation_category == 'Digital' &&
+  r.month.match(/^2025/) &&
+  r.variable == 'audience'
+).map(cleanGraphData);
+const nonDigitalAudienceByMonth = allAudienceByMonth.map(
+  ({ Date, value }) => ({
+    Date,
+    value: value - (digitalAudienceByMonth.find(r => r.Date === Date)?.value || 0)
+}))
 
 // This exposes the variables to the build. They will be available as `calculated.programme.x`
 // (where `x` is the name in the export object)
