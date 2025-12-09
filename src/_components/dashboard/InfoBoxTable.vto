@@ -29,5 +29,5 @@ css: |
 			debug,
 		}
 	}) }}
-	{{ if download }}<a href="#" class="more {{ head.class }}"><span data-comp="pill" style="margin-top:1rem;">Download table as CSV <span aria-hidden="true">→</span></span></a>{{ /if }}
+	{{ if download }}{{ comp.Download({class: head.class, text:'Download table as CSV', 'url':download}) }}{{ /if }}
 </div>

@@ -30,7 +30,7 @@ css: |
 	Partial: "Data which is currently only derived from one source"
 } }}
 
-{{ comp grid.Brick { style: 'min-width: min(20rem, 100%);' } }}
+{{ comp grid.Brick { tag, style: 'min-width: min(20rem, 100%);' } }}
 	<div data-comp='dashboard-Cell' class="block{{ if classes }} {{ classes }}{{ /if }}"{{ if flash }} data-flash="true"{{ /if }}>
 	{{ if flash }}
 		<div title="{{ flashes[flash] }}" class="flash">{{ flash }}</div>

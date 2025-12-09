@@ -45,20 +45,28 @@ layout: templates/none.vto
 	}
 
 	// Get the x-axis structure
-	function getXAxis(s,e){
+	function getXAxis(s,e,axis){
+		if(!axis) axis = {};
+		if(typeof axis.min==="string") s = axis.min;
+		if(typeof axis.max==="string") e = axis.max;
+
 		let start = new Date(s);
 		let end = new Date(e);
-		let xaxis = {min:decimalYear(s),max:decimalYear(e),ticks:[],'grid':{'stroke-width': 0.5}};
+
+		if(typeof axis.min!=="number") axis.min = decimalYear(s);
+		if(typeof axis.max!=="number") axis.max = decimalYear(e);
+		if(!("grid" in axis)) axis.grid = {'stroke-width': 0.5};
+		axis.ticks = [];
 		let pre = "",post="",d,months=['Jan','','','Apr','','','Jul','','','Oct','',''];
 		while (start <= end) {
 			// compensate for zero-based months in display
 			const displayMonth = start.getUTCMonth() + 1;
 			d = (months[displayMonth-1]||"") + (displayMonth==1 ? "\n" + start.getUTCFullYear() : "");
-			xaxis.ticks.push({'value':decimalYear(start.toISOString().substr(0,7)),'label':(pre+d+post),'tickSize':10});
+			axis.ticks.push({'value':decimalYear(start.toISOString().substr(0,7)),'label':(pre+d+post),'tickSize':(d ? (bigTick||10) : (smallTick||5))});
 			// progress the start date by one month
 			start = new Date(start.setUTCMonth(displayMonth));
 		}
-		return xaxis;
+		return axis;
 	}
 
 	// Function to return a yaxis object suitable for OI Lume Viz adjusted to the range of the data
@@ -102,6 +110,8 @@ layout: templates/none.vto
 		lo = 0;
 		hi = (Math.ceil(max/spacing)*spacing);
 		axis = {min:lo,max:hi,ticks:[],'grid':{'stroke-width': 0.5}};
+		if("title" in scale) axis.title = scale.title;
+
 		// Create tick marks
 		//axis.ticks.push({'value':lo,'label':(pre+lo.toLocaleString()+post),'grid':true});
 		//axis.ticks.push({'value':hi,'label':(pre+hi.toLocaleString()+post),'grid':true});
@@ -132,7 +142,7 @@ layout: templates/none.vto
 			height: height||300,
 			width: width||800,
 			axis: {
-				x: getXAxis(start||'2025-01',end||'2026-01'),
+				x: getXAxis(start||'2025-01',end||'2026-01',(axis && axis.x ? axis.x : {})),
 				y: getYAxis(data,y,(axis && axis.y ? axis.y : {}))
 			},
 			series: series
