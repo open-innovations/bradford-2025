@@ -261,11 +261,53 @@ description: |
 </section>
 
 <section>
-	{{ include './_partials/project.vto' }}
+	<h2>Summary of events by programme</h2>
+	<style>
+		.oi-sticky.oi-table { overflow-x: unset; } 
+	</style>
+	<div class="oi-viz oi-table oi-sticky" data-dependencies="/assets/css/holder.css,/assets/js/table-sort.js,/assets/css/legend.css">
+		<table class="sticky-head table-sort table-arrows" style="width:100%;">
+		<thead class="events">
+			<tr>
+			<th scope="column">Project</th>
+			<th scope="column">Dates</th>
+			<th scope="column">Events</th>
+			<th scope="column">Audience</th>
+			<th scope="column">Participants</th>
+			{{# <th scope="column">Schedule events</th> #}}
+			<th scope="column"></th>
+			</tr>
+		</thead>
+		<tbody>
+		{{ for row, project of Object.entries(events.by_project).sort((a, b) => (a[1].earliestDate < b[1].earliestDate) ? -1 : 1) }}
+			{{> const [ name, details ] = project }}
+			{{ comp.ProjectRow({ name, ...details, id: `project-info-${row}`, row }) }}
+		{{ /for }}
+		</tbody>
+		</table>
+		{{ comp.Download({ class:'events', text:'Download table as CSV', 'url':'./data/projects.csv' }) }}
+	</div>
+
 </section>
 
 <section>
-	{{ include './_partials/venues.vto' }}
+	<h2>Venues</h2>
+
+	<p>Some event series are associated with particular venues.</p>
+
+	<h3>Loading Bay</h3>
+	<ul>
+	{{ for venue, eventCount of events.by_venue.loading_bay }}
+		<li>{{ venue }} has held {{ eventCount }} event{{ eventCount !== 1 ? 's' : '' }}.
+	{{ /for }}
+	</ul>
+
+	<h3>Beacon</h3>
+	<ul>
+	{{ for venue, eventCount of events.by_venue.beacon }}
+		<li>{{ venue }} has held {{ eventCount }} event{{ eventCount !== 1 ? 's' : '' }}.
+	{{ /for }}
+	</ul>
 </section>
 
 <section>
