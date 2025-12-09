@@ -1,7 +1,7 @@
 {{>
-	const event_type = 'all'; // Could be 'open_events', although that's missing data;
+	const event_type = 'all'; // Could be 'open', although that's missing data;
 	const events = calculated.programme.events[event_type].value;
-	const graph = calculated.programme.events.graph[event_type];
+	const graph = calculated.programme.events.monthly[event_type];
 
 	const difference = events - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 }}
@@ -23,7 +23,9 @@
 				x: 'Date',
 				y: 'value',
 				colour: 'yellow'
-			}]
+			}],
+			start: '2025-01',
+			end: '2026-01'
 		}) }}
 
 		<p>An organised activity with a defined start and end. There were {{ difference |> toLocaleString() }} {{ comp glossary.Ref { slug: 'event' } }}events{{ /comp }} prior to 2025.</p>

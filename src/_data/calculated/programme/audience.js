@@ -77,14 +77,11 @@ export default {
 	},
 	monthly: {
 		all: allAudienceByMonth,
-		2025: allAudienceByMonth.filter((r) => r.Date.match(/^2025-/) ),
-	},
-	graph: {
-		all: allAudienceByMonth.filter((r) => r.Date.match(/^2025-/) ),
+		all_2025: allAudienceByMonth.filter((r) => r.Date.match(/^2025-/) ),
 		categories: {
 			digital: digitalAudienceByMonth.filter((r) => r.Date.match(/^2025-/) ),
 			nonDigital: nonDigitalAudienceByMonth.filter((r) => r.Date.match(/^2025-/) ),
-		},
+		}
 	},
 	dates: minMaxDates(allAudienceByMonth,'Date'),
 };

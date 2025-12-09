@@ -1,6 +1,6 @@
 {{>
 	const participants = calculated.participants.all.value;
-	const graph = calculated.participants.graph.all;
+	const graph = calculated.participants.monthly.all;
 
 	const difference = participants - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
 }}
@@ -21,7 +21,9 @@
 				x: 'Date',
 				y: 'value',
 				colour: 'deeppink'
-			}]
+			}],
+			start: '2025-01',
+			end: '2026-01'
 		}) }}
 
 		<p>People taking part in or contributing to the programme going beyond being an audience member. There were {{ difference |> toLocaleString() }} {{ comp glossary.Ref { slug: 'participants' } }}participants{{ /comp }} prior to 2025.</p>

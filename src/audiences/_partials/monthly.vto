@@ -1,7 +1,7 @@
 {{>
 	const audience_type = 'all'
 	const audience = calculated.programme.audience[audience_type].value;
-	const graph = calculated.programme.audience.graph[audience_type];
+	const graph = calculated.programme.audience.monthly[audience_type];
 
 	const difference = audience - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 }}
@@ -23,7 +23,9 @@
 				x: 'Date',
 				y: 'value',
 				colour: 'green'
-			}]
+			}],
+			start: '2025-01',
+			end: '2026-01'
 		}) }}
 
 		<p>Includes in-person &amp; digital events. The {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} prior to 2025 is {{ difference |> toLocaleString() }}.</p>

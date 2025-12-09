@@ -40,13 +40,9 @@ export default {
 	open: openEvents,
 	monthly: {
 		all: allEventsByMonth,
-		open: openEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
-		2025: allEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
-	},
-	graph: {
-		// We'll limit the graph data to just 2025 dates
-		all: allEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
-		open: openEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
+		all_2025: allEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
+		open: openEventsByMonth,
+		open_2025: openEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
 	},
 	dates: minMaxDates(allEventsByMonth,'Date'),
 };
