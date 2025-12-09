@@ -35,24 +35,27 @@
 	{{ /comp }}
 {{ /comp }}
 
-
-{{>
-    const eventsByMonth = events.total_by_month.map(function(row){
-		// Internally the date has been converted into a UTC time, so we fudge it here by applying the timezone offset
-		safemonth = (new Date(row.month.getTime() - row.month.getTimezoneOffset()*60000) ).toISOString().substr(0,10);
-		return {
-			...row,
-			projects: Object.entries(events.monthly_breakdown.find(r => row.month.toISOString() == r.month.toISOString()))
+{{> 
+	let months = {},eventsByMonth = [],key;
+	let all = calculated.programme.events.monthly.all.concat(calculated.programme.audience.monthly.all, calculated.participants.monthly.all);
+	for(let i = 0; i < all.length; i++) months[all[i].Date] = {'Month':all[i].Month};
+	for(key in months) {
+		month = key;
+		months[key].iso = key;
+		months[key].Events = calculated.programme.events.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + c.value, 0 );
+		months[key].Audience = calculated.programme.audience.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + c.value, 0 );
+		months[key].Participants = calculated.participants.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + c.value, 0 );
+		months[key].projects = Object.entries(events.monthly_breakdown.find(r => month == r.month.toISOString().substr(0,7)))
 				.filter(r => (r[0] !== 'month') && (r[1] > 0))
 				.toSorted((a, b) => b[1] - a[1])
 				.reduce((a, c) => ({...a, [c[0]]: c[1]}), {}),
-			safemonth: safemonth,
-			Month: row.month.toLocaleDateString(undefined, { month: "long", year: "numeric" }),
-			iso: safemonth.substr(0,7),
-		}
-	});
-
+		eventsByMonth.push(months[key]);
+	}
 }}
+<details>
+	<summary>months</summary>
+	{{ months |> JSON.stringify }}
+</details>
 
 <style>
 .monthGrid {
@@ -91,7 +94,7 @@
 	<div id="{{ item.iso }}">
 		<div class="block">
 			<h4 class="month">{{ item.Month }}</h4>
-			<p>Audience: {{ item.Audience.toLocaleString() }}, Events: {{ item.Events.toLocaleString() }}</p>
+			<p>Audience: {{ (item.Audience||0).toLocaleString() }}, Events: {{ (item.Events||0).toLocaleString() }}, Participants: {{ (item.Participants||0).toLocaleString() }}</p>
 			{{ comp Details {'summary':'Event details' } }}
 				{{>
 					let eventlist = [];
@@ -103,7 +106,7 @@
 					data: eventlist,
 					columns: [
 						{name:'Project',sortable:true,header:true},
-						{name:'Events',sortable:true,class:'',scale:scales.yellow}
+						{name:'Events',sortable:true,class:'',scale:scales.yellow},
 					],
 					head: { class: 'c-yellow' },
 					width: "100%",
@@ -147,6 +150,3 @@ ready(function(){
 	if(anchor) openDetailsIfAnchorHidden(anchor);
 });
 </script>
-	
-
-
