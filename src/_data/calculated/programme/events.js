@@ -8,7 +8,7 @@
  * Pipelines in this repo have become somewhat fragile, presenting conflicting and
  * confusing data.
  */
-import { loadCsv, cleanGraphData } from "lib/data-helpers.js";
+import { loadCsv, cleanGraphData, minMaxDates } from "lib/data-helpers.js";
 
 // Load total figures
 const totals = await loadCsv("src/_data/published/programme/total.csv");
@@ -24,13 +24,11 @@ const allEvents = totals.find((r) =>
 const byMonth = await loadCsv("src/_data/published/programme/by_month.csv");
 const allEventsByMonth = byMonth.filter((r) =>
   r.aggregation == 'BY_MONTH' &&
-  r.month.match(/^2025-/) &&
   r.variable == "events"
 ).map(cleanGraphData);
 
 const openEventsByMonth = byMonth.filter((r) =>
   r.aggregation == 'BY_MONTH_BY_EVENT_TYPE' &&
-  r.month.match(/^2025-/) &&
   r.event_type == "Open" &&
   r.variable == "events"
 ).map(cleanGraphData);
@@ -38,10 +36,17 @@ const openEventsByMonth = byMonth.filter((r) =>
 // This exposes the variables to the build. They will be available as `calculated.programme.events.x`
 // (where `x` is the name in the export object)
 export default {
-  all: allEvents,
-  open: openEvents,
-  graph: {
-    all: allEventsByMonth,
-    open: openEventsByMonth,
-  },
+	all: allEvents,
+	open: openEvents,
+	monthly: {
+		all: allEventsByMonth,
+		open: openEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
+		2025: allEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
+	},
+	graph: {
+		// We'll limit the graph data to just 2025 dates
+		all: allEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
+		open: openEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
+	},
+	dates: minMaxDates(allEventsByMonth,'Date'),
 };

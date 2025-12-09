@@ -1,109 +1,119 @@
 ---
 title: Programme
+layout: templates/dashboard.vto
 description: |
     Monitoring data by month for the programme of events.
 ---
 
 {{ comp WARNING }}
-<p>
-    The numbers in this page currently exclude audience estimates from the Spektrix ticket sales.
-    A more accurate figure for audience can be found on the <a style="text-decoration: underline" href="/insights/dashboard/">Bradford 2025 dashboard</a>.
-</p>
-<p>
-    The figures in this table are derived from data entered into the Project Hub in Airtable.
-    We are aware of some situations where the numbers are overcounted,
-    and are working with the Airtable team to resolve these issues.
-</p>
+	<p>The numbers in this page currently exclude audience estimates from the Spektrix ticket sales. A more accurate figure for audience can be found on the <a style="text-decoration: underline" href="/insights/dashboard/">Bradford 2025 dashboard</a>.</p>
+	<p>The figures in this table are derived from data entered into the Project Hub in Airtable. We are aware of some situations where the numbers are overcounted, and are working with the Airtable team to resolve these issues.</p>
 {{ /comp }}
 
-<section>
-{{ comp dashboard.Frame }}
-    {{ comp dashboard.Cell {
-        title: 'Total events',
-        classes: 'events'
-    } }}
-        {{ comp.BigNumber({number: events.summary.total.events }) }}
-        <div class="centred">
-            Total events recorded in the <strong>Bradford 2025 Project hub</strong><br>
-            {{ comp.Date({start:events.summary.date.earliest,end:events.summary.date.latest}) }}
-        </div>
-    {{ /comp }}
-    {{ comp dashboard.Cell {
-        title: 'Total audience',
-        classes: 'audiences'
-    } }}
-        {{ comp.BigNumber({number: events.summary.total.audience }) }}
-        <div class="centred">
-            Total audience recorded in the <strong>Bradford 2025 Project hub</strong><br>
-            {{ comp.Date({start:events.summary.date.earliest,end:events.summary.date.latest}) }}
-        </div>
-    {{ /comp }}
-    {{ comp dashboard.Cell {
-        title: 'Total participants',
-        classes: 'participants'
-    } }}
-        {{ comp.BigNumber({ number: events.summary.total.participants }) }}
-        <div class="centred">
-            Total participants recorded in the <strong>Bradford 2025 Project hub</strong><br>
-            {{ comp.Date({start:events.summary.date.earliest,end:events.summary.date.latest}) }}
-        </div>
-    {{ /comp }}
 
-{{ /comp }}
+<section>
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp dashboard.Cell {
+			tag: 'li',
+			title: 'Total events',
+			classes: 'events'
+		} }}
+			{{ comp.BigNumber({
+				classes: 'big',
+				number: calculated.programme.events.all.value,
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			<p>
+				Recorded in the <em>Bradford 2025 Project hub</em> from {{ comp.Date({start:calculated.programme.events.dates.earliest,end:calculated.programme.events.dates.latest}) }}.
+			</p>
+		{{ /comp }}
+		{{ comp dashboard.Cell {
+			tag: 'li',
+			title: 'Total audience',
+			classes: 'audiences'
+		} }}
+			{{ comp.BigNumber({
+				classes: 'big', 
+				number: calculated.programme.audience.all.value,
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			<p>
+				Recorded in the <em>Bradford 2025 Project hub</em> from {{ comp.Date({start:calculated.programme.audience.dates.earliest,end:calculated.programme.audience.dates.latest}) }}.
+			</p>
+		{{ /comp }}
+		{{ comp dashboard.Cell {
+			tag: 'li',
+			title: 'Total participants',
+			classes: 'participants'
+		} }}
+			{{ comp.BigNumber({
+				classes: 'big',
+				number: calculated.participants.all.value,
+				animate: true,
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			<p>
+				Recorded in the <em>Bradford 2025 Project hub</em> from {{ comp.Date({start:calculated.participants.dates.earliest,end:calculated.participants.dates.latest}) }}.
+			</p>
+		{{ /comp }}
+	{{ /comp }}
 </section>
 
 <section>
-    {{ include './_partials/monthly.vto' }}
+	{{ include './_partials/monthly.vto' }}
 </section>
 
 <section>
-    {{ include './_partials/project.vto' }}
-
-    <a href="./data/projects.csv" data-oi-csv data-oi-csv-collapse="Hide the CSV editor">View CSV</a>
+	{{ include './_partials/project.vto' }}
 </section>
 
 <section>
-    {{ include './_partials/venues.vto' }}
+	{{ include './_partials/venues.vto' }}
 </section>
 
 <section>
-<h2>Evaluation Category</h2>
+	<h2>Evaluation Category</h2>
 
-<p>
-Evaluation categories are derived from the Programme category assigned to the project in Airtable.
-</p>
+	<p>Evaluation categories are derived from the Programme category assigned to the project in Airtable.</p>
 
-{{>
-    const evaluationCategory = Object.entries(events.by_project).reduce((a, [name, details]) => {
-        const c = details.evaluationCategory || 'UNKNOWN';
-        return {
-            ...a,
-            [c]: [...(a[c] || []), name],
-        }
-    }, {})
-}}
+	{{>
+		const evaluationCategory = Object.entries(events.by_project).reduce((a, [name, details]) => {
+			const c = details.evaluationCategory || 'UNKNOWN';
+			return {
+				...a,
+				[c]: [...(a[c] || []), name],
+			}
+		}, {})
+	}}
 
-{{ comp grid.Auto }}
-{{ for key of Object.keys(evaluationCategory).sort((a, b) => (a > b) ? 1 : -1) }}
-{{ comp grid.Brick }}
-    <h3>{{ key }}</h3>
-    {{ comp.BigNumber({ number: evaluationCategory[key].length, suffix: ' projects' }) }}
-    {{ comp Controls }}
-    {{ comp Popover }}
-    <p>Projects in the {{ key }} category:</p>
-    <ul>
-    {{ evaluationCategory[key].map(p => `<li>${p}</li>` ).join('') }}
-    </ul>
-    {{ /comp }}
-    {{ /comp }}
-{{ /comp }}
-{{ /for }}
-{{ /comp }}
+	{{ comp grid.Auto { tag: 'ul'} }}
+		{{ for key of Object.keys(evaluationCategory).sort((a, b) => (a > b) ? 1 : -1) }}
+			{{ comp grid.Brick { tag: 'li', style: '--block-bg: var(--post-it-bg); --block-fg: var(--color-black);' } }}
+				<div class="block">
+				<h3 class="title">{{ key }}</h3>
+				{{ comp.BigNumber({ number: evaluationCategory[key].length, suffix: ' projects', classes:'big' }) }}
+				{{ comp Controls }}
+					{{ comp Popover }}
+					<p>Projects in the {{ key }} category:</p>
+					<ul>
+					{{ evaluationCategory[key].map(p => `<li>${p}</li>` ).join('') }}
+					</ul>
+					{{ /comp }}
+				{{ /comp }}
+				</div>
+			{{ /comp }}
+		{{ /for }}
+	{{ /comp }}
 
-<section>
-    {{ include './_partials/data_pipeline.md' |> md }}
+	<section>
+		{{ include './_partials/data_pipeline.md' |> md }}
+	</section>
+
 </section>
 
-</section>
-
+<!--
+<a href="./data/projects.csv" data-oi-csv data-oi-csv-collapse="Hide the CSV editor">View CSV</a>
 <script src="/assets/js/oi/oi.csv.js"></script>
+-->

@@ -1,4 +1,4 @@
-import { loadCsv, cleanGraphData } from "lib/data-helpers.js";
+import { loadCsv, cleanGraphData, minMaxDates } from "lib/data-helpers.js";
 
 const totals = await loadCsv('src/_data/published/participants/total.csv');
 const byMonth = await loadCsv('src/_data/published/participants/by_month.csv');
@@ -10,13 +10,13 @@ const all = totals.find((r) =>
 
 const allByMonth = byMonth.filter(r =>
     r.aggregation == 'BY_MONTH' &&
-    r.month.match(/^2025-/) &&
     r.variable == 'participants'
 ).map(cleanGraphData);
 
 export default {
     all,
     graph: {
-        all: allByMonth
-    }
+        all: allByMonth.filter((r) => r.Date.match(/^2025-/) )
+    },
+	dates: minMaxDates(allByMonth,'Date'),
 }

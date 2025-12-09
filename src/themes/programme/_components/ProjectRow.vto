@@ -15,44 +15,40 @@ css: |
 </th>
 
 {{# Dates #}}
-<td>
+<td data-sort="{{ earliestDate }}">
     {{- if earliestDate -}}
         {{ comp.Date({ start: earliestDate, end: earliestDate != latestDate ? latestDate : undefined }) }}
     {{- /if -}}
 </td>
 
 {{# Events #}}
-<td>
+<td data-sort="{{ events }}">
     {{- if events -}}
-    {{ comp.BigNumber({
-        number: events
-    }) }}
+    {{ events.toLocaleString() }}
     {{- else -}}
     &mdash;
     {{- /if -}}
 </td>
 
 {{# Audience #}}
-<td>
+<td data-sort="{{ audience }}">
     {{- if audience -}}
-    {{ comp.BigNumber({ number: audience }) }}
+    {{ audience.toLocaleString() }}
     {{- else -}}
     &mdash;
     {{- /if -}}
 </td>
 
 {{# Participants #}}
-<td>
+<td data-sort="{{ participants }}">
     {{- if participants -}}
-    {{ comp.BigNumber({
-        number: participants
-    }) }}
+    {{ participants.toLocaleString() }}
     {{- else -}}
     &mdash;
     {{- /if -}}
 </td>
 
-<td>
+<td data-sort="{{ row }}">
 {{ comp Controls }}
     {{ comp Popover { id } }}
         <!--

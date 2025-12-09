@@ -2,6 +2,40 @@
 
 <p>In this section we look at events, audience and participant data by month and by specific events programmes.</p>
 
+{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+	{{ comp grid.Brick { tag: 'li', id: 'events', classes: 'events block' } }}
+		<h3>Events</h3>
+		{{ comp.graph.monthly({
+			data: calculated.programme.events.monthly.all,
+			series: [{
+				title: 'Events',
+				x: 'Date',
+				y: 'value',
+				colour: oiColour.names.yellow,
+				tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+			}],
+			start: calculated.programme.events.dates.earliest,
+			end: calculated.programme.events.dates.latest
+		}) }}
+	{{ /comp }}
+	{{ comp grid.Brick { tag: 'li', id: 'audience', classes: 'audiences block' } }}
+		<h3>Audience</h3>
+		{{ comp.graph.monthly({
+			data: calculated.programme.audience.monthly.all,
+			series: [{
+				title: 'Audience',
+				x: 'Date',
+				y: 'value',
+				colour: oiColour.names.green,
+				tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+			}],
+			start: calculated.programme.audience.dates.earliest,
+			end: calculated.programme.audience.dates.latest
+		}) }}
+	{{ /comp }}
+{{ /comp }}
+
+
 {{>
     const eventsByMonth = events.total_by_month.map(function(row){
 		// Internally the date has been converted into a UTC time, so we fudge it here by applying the timezone offset
@@ -20,51 +54,11 @@
 
 }}
 
-{{ comp dashboard.Frame }}
-	{{ comp dashboard.Cell }}
-		{{ comp.LineChart({
-			data: eventsByMonth,
-			dateField: 'safemonth',
-			prettyDate: '%B %Y',
-			seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: <b>{{ _y }}</b><br /><a href=\"#{{ iso }}\">See details below</a>",
-			series: [{
-				title: 'Events',
-				x: 'decimal_year',
-				y: 'Events',
-				colour: oiColour.names.yellow
-			}],
-			labels: {
-				x: '',
-				y: 'Number of events'
-			},
-			bigTick: 10,
-			smallTick: 4,
-		}) }}
-	{{ /comp }}
-	{{ comp dashboard.Cell }}
-		{{ comp.LineChart({
-			data: eventsByMonth,
-			dateField: 'safemonth',
-			prettyDate: '%B %Y',
-			seriesTooltip: "<b>{{ _title }}</b>\n{{ pretty_date }}: <b>{{ _y }}</b><br /><a href=\"#{{ iso }}\">See details below</a>",
-			series: [{
-				title: 'Audience',
-				x: 'decimal_year',
-				y: 'Audience',
-				colour: oiColour.names.green
-			}],
-			labels: {
-				x: '',
-				y: 'Audience figures'
-			},
-			bigTick: 10,
-			smallTick: 4,
-		}) }}
-	{{ /comp }}
-{{ /comp }}
 <style>
 .monthGrid {
-	display: grid;grid-template-columns:repeat(3, 1fr);grid-gap:1rem;
+	display: grid;grid-template-columns:repeat(4, 1fr);grid-gap:1rem;
+	--block-bg: var(--post-it-bg);
+	--block-fg: var(--color-black);
 }
 @media only screen and (max-width: 1080px) {
 	.monthGrid {
@@ -77,7 +71,9 @@
 	}
 }
 </style>
+
 <h3>Monthly breakdown</h3>
+
 {{# Get the first month based on the data #}}
 {{ set prevYear = eventsByMonth[0].iso.substr(0,4) }}
 <h4>{{ prevYear }}</h4>
@@ -103,15 +99,14 @@
 						eventlist.push({Project:p,Events:item.projects[p]});
 					}
 				}}
-				{{ comp.oi.table({
-					config: {
-						data: eventlist,
-						columns: [
-							{name:'Project',sortable:true,header:true},
-							{name:'Events',sortable:true,class:'',scale:scales.yellow}
-						],
-						head: { class: 'c-yellow' }
-					}
+				{{ comp.dashboard.InfoBoxTable({
+					data: eventlist,
+					columns: [
+						{name:'Project',sortable:true,header:true},
+						{name:'Events',sortable:true,class:'',scale:scales.yellow}
+					],
+					head: { class: 'c-yellow' },
+					width: "100%",
 				}) }}
 			{{ /comp }}
 		</div>
