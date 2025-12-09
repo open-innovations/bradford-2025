@@ -22,7 +22,7 @@ css: |
 </td>
 
 {{# Events #}}
-<td data-sort="{{ events }}">
+<td data-sort="{{ events }}" style="background:{{ events |> colourScale(scales.yellow,0,maxValues.events) }};color:{{ events |> colourScale(scales.yellow,0,maxValues.events) |> contrastColour }}">
     {{- if events -}}
     {{ events.toLocaleString() }}
     {{- else -}}
@@ -31,7 +31,8 @@ css: |
 </td>
 
 {{# Audience #}}
-<td data-sort="{{ audience }}">
+<td data-sort="{{ audience }}" style="background:{{ audience |> colourScale(scales.green,0,maxValues.audience) }};color:{{ audience |> colourScale(scales.green,0,maxValues.audience) |> contrastColour }}">
+{{ colours |> JSON.stringify }}
     {{- if audience -}}
     {{ audience.toLocaleString() }}
     {{- else -}}
@@ -40,7 +41,7 @@ css: |
 </td>
 
 {{# Participants #}}
-<td data-sort="{{ participants }}">
+<td data-sort="{{ participants }}" style="background:{{ participants |> colourScale(scales.pink,0,maxValues.participants) }};color:{{ participants |> colourScale(scales.pink,0,maxValues.participants) |> contrastColour }}">
     {{- if participants -}}
     {{ participants.toLocaleString() }}
     {{- else -}}

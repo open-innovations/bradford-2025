@@ -200,7 +200,7 @@ description: |
 		{{ /if }}
 		{{# Create a block #}}
 		<div id="{{ item.iso }}">
-			<div class="block">
+			<div class="block hoverable">
 				<h4 class="month">{{ item.Month }}</h4>
 				<p>Audience: {{ (item.Audience||0).toLocaleString() }}, Events: {{ (item.Events||0).toLocaleString() }}, Participants: {{ (item.Participants||0).toLocaleString() }}</p>
 				{{ comp Details {'summary':'Event details' } }}
@@ -216,7 +216,7 @@ description: |
 							{name:'Project',sortable:true,header:true},
 							{name:'Events',sortable:true,class:'',scale:scales.yellow},
 						],
-						head: { class: 'c-yellow' },
+						head: { class: 'events' },
 						width: "100%",
 					}) }}
 				{{ /comp }}
@@ -279,9 +279,16 @@ description: |
 			</tr>
 		</thead>
 		<tbody>
+		{{>
+			const maxValues = {
+				"events": Math.max(...(Object.entries(events.by_project)).map(o => { return o[1].events })),
+				"audience": Math.max(...(Object.entries(events.by_project)).map(o => { return o[1].audience })),
+				"participants": Math.max(...(Object.entries(events.by_project)).map(o => { return o[1].participants }))
+			};
+		}}
 		{{ for row, project of Object.entries(events.by_project).sort((a, b) => (a[1].earliestDate < b[1].earliestDate) ? -1 : 1) }}
 			{{> const [ name, details ] = project }}
-			{{ comp.ProjectRow({ name, ...details, id: `project-info-${row}`, row }) }}
+			{{ comp.ProjectRow({ name, ...details, id: `project-info-${row}`, row, maxValues }) }}
 		{{ /for }}
 		</tbody>
 		</table>
