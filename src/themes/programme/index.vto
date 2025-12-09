@@ -31,7 +31,7 @@ description: |
 					x: 'Date',
 					y: 'value',
 					colour: oiColour.names.yellow,
-					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y | toLocaleString() }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
 				}],
 				start: calculated.programme.events.dates.earliest,
 				end: calculated.programme.events.dates.latest
@@ -58,7 +58,7 @@ description: |
 					x: 'Date',
 					y: 'value',
 					colour: oiColour.names.green,
-					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y | toLocaleString() }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
 				}],
 				start: calculated.programme.audience.dates.earliest,
 				end: calculated.programme.audience.dates.latest
@@ -84,8 +84,8 @@ description: |
 					title: 'Participants',
 					x: 'Date',
 					y: 'value',
-					colour: oiColour.names.pink,
-					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+					colour: 'deeppink',
+					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y | toLocaleString() }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
 				}],
 				start: calculated.participants.dates.earliest,
 				end: calculated.participants.dates.latest
