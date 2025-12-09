@@ -24,6 +24,18 @@ description: |
 				animate: true,
 				roundingOptions: { maximumFractionDigits: 0 }
 			}) }}
+			{{ comp.graph.monthly({
+				data: calculated.programme.events.monthly.all,
+				series: [{
+					title: 'Events',
+					x: 'Date',
+					y: 'value',
+					colour: oiColour.names.yellow,
+					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+				}],
+				start: calculated.programme.events.dates.earliest,
+				end: calculated.programme.events.dates.latest
+			}) }}
 			<p>
 				Recorded in the <em>Bradford 2025 Project hub</em> from {{ comp.Date({start:calculated.programme.events.dates.earliest,end:calculated.programme.events.dates.latest}) }}.
 			</p>
@@ -38,6 +50,18 @@ description: |
 				number: calculated.programme.audience.all.value,
 				animate: true,
 				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			{{ comp.graph.monthly({
+				data: calculated.programme.audience.monthly.all,
+				series: [{
+					title: 'Audience',
+					x: 'Date',
+					y: 'value',
+					colour: oiColour.names.green,
+					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+				}],
+				start: calculated.programme.audience.dates.earliest,
+				end: calculated.programme.audience.dates.latest
 			}) }}
 			<p>
 				Recorded in the <em>Bradford 2025 Project hub</em> from {{ comp.Date({start:calculated.programme.audience.dates.earliest,end:calculated.programme.audience.dates.latest}) }}.
@@ -54,6 +78,18 @@ description: |
 				animate: true,
 				roundingOptions: { maximumFractionDigits: 0 }
 			}) }}
+			{{ comp.graph.monthly({
+				data: calculated.participants.monthly.all,
+				series: [{
+					title: 'Participants',
+					x: 'Date',
+					y: 'value',
+					colour: oiColour.names.pink,
+					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+				}],
+				start: calculated.participants.dates.earliest,
+				end: calculated.participants.dates.latest
+			}) }}
 			<p>
 				Recorded in the <em>Bradford 2025 Project hub</em> from {{ comp.Date({start:calculated.participants.dates.earliest,end:calculated.participants.dates.latest}) }}.
 			</p>
@@ -62,7 +98,166 @@ description: |
 </section>
 
 <section>
-	{{ include './_partials/monthly.vto' }}
+{{#
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp grid.Brick { tag: 'li', id: 'events', classes: 'events block' } }}
+			<h3>Events</h3>
+			{{ comp.graph.monthly({
+				data: calculated.programme.events.monthly.all,
+				series: [{
+					title: 'Events',
+					x: 'Date',
+					y: 'value',
+					colour: oiColour.names.yellow,
+					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+				}],
+				start: calculated.programme.events.dates.earliest,
+				end: calculated.programme.events.dates.latest
+			}) }}
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', id: 'audience', classes: 'audiences block' } }}
+			<h3>Audience</h3>
+			{{ comp.graph.monthly({
+				data: calculated.programme.audience.monthly.all,
+				series: [{
+					title: 'Audience',
+					x: 'Date',
+					y: 'value',
+					colour: oiColour.names.green,
+					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+				}],
+				start: calculated.programme.audience.dates.earliest,
+				end: calculated.programme.audience.dates.latest
+			}) }}
+		{{ /comp }}
+		{{ comp grid.Brick { tag: 'li', id: 'participants', classes: 'participants block' } }}
+			<h3>Participants</h3>
+			{{ comp.graph.monthly({
+				data: calculated.participants.monthly.all,
+				series: [{
+					title: 'Participants',
+					x: 'Date',
+					y: 'value',
+					colour: oiColour.names.pink,
+					tooltip: "<b>{{ _title }}</b>\n{{ Month }}: <b>{{ _y }}</b><br /><a href=\"#{{ Date }}\">See details below</a>"
+				}],
+				start: calculated.participants.dates.earliest,
+				end: calculated.participants.dates.latest
+			}) }}
+		{{ /comp }}
+	{{ /comp }}
+#}}
+	{{> 
+		let months = {},eventsByMonth = [],key;
+		let all = calculated.programme.events.monthly.all.concat(calculated.programme.audience.monthly.all, calculated.participants.monthly.all);
+		for(let i = 0; i < all.length; i++) months[all[i].Date] = {'Month':all[i].Month};
+		for(key in months) {
+			month = key;
+			months[key].iso = key;
+			months[key].Events = calculated.programme.events.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + c.value, 0 );
+			months[key].Audience = calculated.programme.audience.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + c.value, 0 );
+			months[key].Participants = calculated.participants.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + c.value, 0 );
+			months[key].projects = Object.entries(events.monthly_breakdown.find(r => month == r.month.toISOString().substr(0,7)))
+					.filter(r => (r[0] !== 'month') && (r[1] > 0))
+					.toSorted((a, b) => b[1] - a[1])
+					.reduce((a, c) => ({...a, [c[0]]: c[1]}), {}),
+			eventsByMonth.push(months[key]);
+		}
+	}}
+	<style>
+	.monthGrid {
+		display: grid;grid-template-columns:repeat(4, 1fr);grid-gap:1rem;
+		--block-bg: var(--post-it-bg);
+		--block-fg: var(--color-black);
+	}
+	@media only screen and (max-width: 1080px) {
+		.monthGrid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media only screen and (max-width: 726px) {
+		.monthGrid {
+			grid-template-columns: 100%;
+		}
+	}
+	</style>
+
+	<h3>Monthly breakdown</h3>
+	<p>In this section we look at events, audience and participant data by month and by specific events programmes.</p>
+
+	{{# Get the first month based on the data #}}
+	{{ set prevYear = eventsByMonth[0].iso.substr(0,4) }}
+	<h4>{{ prevYear }}</h4>
+	{{# Create the grid #}}
+	<div class="monthGrid">
+	{{ for item of eventsByMonth }}
+		{{ set currentYear = item.iso.substr(0,4) }}
+		{{# If year has changed, end the grid, add a new title, then add a new grid #}}
+		{{ if currentYear != prevYear }}
+			</div>
+			<h4>{{currentYear}}</h4>
+			<div class="monthGrid">
+		{{ /if }}
+		{{# Create a block #}}
+		<div id="{{ item.iso }}">
+			<div class="block">
+				<h4 class="month">{{ item.Month }}</h4>
+				<p>Audience: {{ (item.Audience||0).toLocaleString() }}, Events: {{ (item.Events||0).toLocaleString() }}, Participants: {{ (item.Participants||0).toLocaleString() }}</p>
+				{{ comp Details {'summary':'Event details' } }}
+					{{>
+						let eventlist = [];
+						for(p in item.projects){
+							eventlist.push({Project:p,Events:item.projects[p]});
+						}
+					}}
+					{{ comp.dashboard.InfoBoxTable({
+						data: eventlist,
+						columns: [
+							{name:'Project',sortable:true,header:true},
+							{name:'Events',sortable:true,class:'',scale:scales.yellow},
+						],
+						head: { class: 'c-yellow' },
+						width: "100%",
+					}) }}
+				{{ /comp }}
+			</div>
+		</div>
+		{{# Update the current year #}}
+		{{ set prevYear = currentYear }}
+	{{ /for }}
+	</div>
+	<style>
+	h4.month { margin-bottom: 0; }
+	h4.month + p { margin-block: 0.25rem; }
+	details summary:focus { outline: 0; }
+	</style>
+
+	{{# This script will open a <details> if the anchor #}}
+	<script>
+	function ready(fn){
+		if(document.readyState != 'loading') fn();
+		else document.addEventListener('DOMContentLoaded', fn);
+	}
+	function openDetailsIfAnchorHidden(target){
+		const elTarget = document.getElementById(target);
+		if (!elTarget) return; // No such element in DOM. Do nothing
+		// Open all <details> ancestors
+		let elDetails = elTarget.querySelector('details');
+		while (elDetails) {
+			if (elDetails.matches("details")) elDetails.open = true;
+			elDetails = elDetails.parentElement;
+		}
+	}
+
+	ready(function(){
+		// Attach event
+		window.addEventListener("popstate", (event) => {
+			openDetailsIfAnchorHidden(location.href.substr(location.href.indexOf('#')+1));
+		});
+		const anchor = location.href.split("#")[1];
+		if(anchor) openDetailsIfAnchorHidden(anchor);
+	});
+	</script>
 </section>
 
 <section>
