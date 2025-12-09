@@ -1,7 +1,7 @@
 {{>
 	const event_type = 'all'; // Could be 'open', although that's missing data;
 	const events = calculated.programme.events[event_type].value;
-	const graph = calculated.programme.events.monthly[event_type];
+	const graph = calculated.programme.events.monthly[event_type].filter((r) => r.Date.match(/^2025-/) );
 
 	const difference = events - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 }}

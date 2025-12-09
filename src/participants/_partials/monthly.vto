@@ -1,6 +1,6 @@
 {{>
 	const participants = calculated.participants.all.value;
-	const graph = calculated.participants.monthly.all;
+	const graph = calculated.participants.monthly.all.filter((r) => r.Date.match(/^2025-/) );
 
 	const difference = participants - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
 }}

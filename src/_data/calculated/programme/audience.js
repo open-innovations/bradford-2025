@@ -77,10 +77,9 @@ export default {
 	},
 	monthly: {
 		all: allAudienceByMonth,
-		all_2025: allAudienceByMonth.filter((r) => r.Date.match(/^2025-/) ),
 		categories: {
-			digital: digitalAudienceByMonth.filter((r) => r.Date.match(/^2025-/) ),
-			nonDigital: nonDigitalAudienceByMonth.filter((r) => r.Date.match(/^2025-/) ),
+			digital: digitalAudienceByMonth,
+			nonDigital: nonDigitalAudienceByMonth,
 		}
 	},
 	dates: minMaxDates(allAudienceByMonth,'Date'),

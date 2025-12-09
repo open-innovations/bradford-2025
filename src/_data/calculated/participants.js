@@ -17,7 +17,6 @@ export default {
     all,
 	monthly: {
 		all: allByMonth,
-		all_2025: allByMonth.filter((r) => r.Date.match(/^2025-/) ),
 	},
 	dates: minMaxDates(allByMonth,'Date'),
 }

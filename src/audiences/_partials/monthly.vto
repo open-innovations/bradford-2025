@@ -1,7 +1,7 @@
 {{>
 	const audience_type = 'all'
 	const audience = calculated.programme.audience[audience_type].value;
-	const graph = calculated.programme.audience.monthly[audience_type];
+	const graph = calculated.programme.audience.monthly[audience_type].filter((r) => r.Date.match(/^2025-/) );
 
 	const difference = audience - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 }}

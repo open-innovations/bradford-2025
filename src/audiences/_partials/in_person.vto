@@ -1,6 +1,6 @@
 {{>
 	const audience = calculated.programme.audience.categories.nonDigital.value;
-	const graph = calculated.programme.audience.monthly.categories.nonDigital;
+	const graph = calculated.programme.audience.monthly.categories.nonDigital.filter((r) => r.Date.match(/^2025-/) );
 }}
 
 {{ comp grid.Brick { tag: 'li', classes: 'audiences' } }}

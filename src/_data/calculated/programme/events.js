@@ -40,9 +40,7 @@ export default {
 	open: openEvents,
 	monthly: {
 		all: allEventsByMonth,
-		all_2025: allEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
 		open: openEventsByMonth,
-		open_2025: openEventsByMonth.filter((r) => r.Date.match(/^2025-/) ),
 	},
 	dates: minMaxDates(allEventsByMonth,'Date'),
 };
