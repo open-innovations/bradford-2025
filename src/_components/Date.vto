@@ -1,10 +1,9 @@
 {{->
-    const yearless = "d LLL";
-    const withYear = yearless + " y";
-    const startDateFormat = (new Date(start)).getFullYear() == (new Date(end)).getFullYear() ? yearless : withYear;
+    if(typeof startDateFormat==="undefined") startDateFormat = dateFormat||((start.length==10 ? "d LLL" : "LLL") + ((new Date(start)).getFullYear() == (new Date(end)).getFullYear() ? "" : " y"));
+    if(typeof endDateFormat==="undefined") endDateFormat = dateFormat||((end && end.length==10 ? "d LLL" : "LLL") + " y");
 -}}
 {{- if end -}}
-<span class="date-range">{{ if (new Date(start)).getFullYear() == (new Date(end)).getFullYear() }}{{ start |> date(dateFormat||startDateFormat)}} – {{ end |> date(withYear)}}{{ else }}{{ start |> date(withYear)}} – {{ end |> date(withYear)}}{{ /if }}</span>
+<span class="date-range">{{ start |> date(startDateFormat)}} – {{ end |> date(endDateFormat)}}</span>
 {{- else -}}
-<span class="date">{{ start |> date(dateFormat||withYear)}}</span>
+<span class="date">{{ start |> date(startDateFormat)}}</span>
 {{- /if }}
