@@ -18,8 +18,8 @@ h2, h3 { line-height: 1.2em; }
 .dashboard li > .block, .dashboard > .block { padding: 2rem; position: relative; }
 .dashboard .block h3 { padding-top: 0; margin-top: 0; line-height: 1em; }
 .dashboard .more { display: inline-block; }
-.oi-viz.oi-chart { margin-top: 1rem; }
-.oi-viz.oi-chart + * { margin-top: 1rem; }
+.oi-viz { margin-top: 1rem; }
+.oi-viz + * { margin-top: 1rem; }
 .updated { margin-block: 0; }
 .dashboard :is(.oi-viz .axis-grid-x) g[data] text { dominant-baseline: unset; }
 .oi-viz > a:focus { padding: 0.5rem; background: black; color: white; margin: 0!important; }
@@ -60,7 +60,7 @@ tabbed.big [role="tab"]:focus {
 }
 tabbed.big [role="tabpanel"] > *:last-child { margin-bottom: 0; }
 tabbed.big table tbody tr:hover { outline: 0; }
-tabbed.big table tbody tr:hover td { background: var(--color-offblack)!important; color: var(--color-white) !important; }
+tabbed.big table tbody tr:hover td, .hoverable table tbody tr:hover td, .hoverable table tbody tr:hover th[scope=row] { background: var(--color-offblack)!important; color: var(--color-white) !important; }
 tabbed.big table td, tabbed.big th { background: var(--selected-background); color: var(--color-black); }
 tabbed.big table tr:last-child td { border-bottom: 0.5px solid rgba(0,0,0,0.4); }
 tabbed.big table tr th:last-child { text-align: right; }
