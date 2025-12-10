@@ -127,6 +127,7 @@ layout: templates/none.vto
 		if(!series[s].tooltip) series[s].tooltip = '{{ _title }}\n{{ '+(series[0].x||x)+' | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>';
 		// Update x-value to the decimal year
 		series[s].x = 'decimal_year';
+		if(!("points" in series[s])) series[s].points = {'size': 6};
 		y.push(series[s].y);
 	}
 }}

@@ -150,13 +150,15 @@ description: |
 	{{> 
 		let months = {},eventsByMonth = [],key;
 		let all = calculated.programme.events.monthly.all.concat(calculated.programme.audience.monthly.all, calculated.participants.monthly.all);
-		for(let i = 0; i < all.length; i++) months[all[i].Date] = {'Month':all[i].Month};
+		for(let i = 0; i < all.length; i++){
+			if(typeof all[i].value==="number") months[all[i].Date] = {'Month':all[i].Month};
+		}
 		for(key in months) {
 			month = key;
 			months[key].iso = key;
-			months[key].Events = calculated.programme.events.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + c.value, 0 );
-			months[key].Audience = calculated.programme.audience.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + c.value, 0 );
-			months[key].Participants = calculated.participants.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + c.value, 0 );
+			months[key].Events = calculated.programme.events.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + (c.value||0), 0 );
+			months[key].Audience = calculated.programme.audience.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + (c.value||0), 0 );
+			months[key].Participants = calculated.participants.monthly.all.filter(r => (r.Date === month && r.value > 0)).reduce( (a,c) => a + (c.value||0), 0 );
 			months[key].projects = Object.entries(events.monthly_breakdown.find(r => month == r.month.toISOString().substr(0,7)))
 					.filter(r => (r[0] !== 'month') && (r[1] > 0))
 					.toSorted((a, b) => b[1] - a[1])

@@ -1,8 +1,7 @@
 {{>
 	const participants = calculated.participants.all.value;
 	const graph = calculated.participants.monthly.all;
-
-	const difference = participants - graph.filter((r) => r.Date.match(/^2025-/) ).reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
+	//const difference = participants - graph.filter((r) => r.Date.match(/^2025-/) ).reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
 }}
 {{ comp grid.Brick { tag: 'li', classes: 'participants' } }}
 	<div class="block">

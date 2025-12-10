@@ -8,7 +8,7 @@
  * Pipelines in this repo have become somewhat fragile, presenting conflicting and
  * confusing data.
  */
-import { cleanGraphData, loadCsv, minMaxDates } from "lib/data-helpers.js";
+import { cleanGraphData, loadCsv, minMaxDates, expandToRange } from "lib/data-helpers.js";
 
 // Load total figures
 const totals = await loadCsv("src/_data/published/programme/total.csv");
@@ -67,6 +67,8 @@ const nonDigitalAudienceByMonth = allAudienceByMonth.map(
   }),
 );
 
+const dates = minMaxDates(allAudienceByMonth,'Date');
+
 // This exposes the variables to the build. They will be available as `calculated.programme.x`
 // (where `x` is the name in the export object)
 export default {
@@ -76,11 +78,11 @@ export default {
 		nonDigital: nonDigitalAudience,
 	},
 	monthly: {
-		all: allAudienceByMonth,
+		all: expandToRange(allAudienceByMonth,dates),
 		categories: {
 			digital: digitalAudienceByMonth,
 			nonDigital: nonDigitalAudienceByMonth,
 		}
 	},
-	dates: minMaxDates(allAudienceByMonth,'Date'),
+	dates: dates,
 };
