@@ -1,9 +1,9 @@
 {{>
 	const audience_type = 'all'
 	const audience = calculated.programme.audience[audience_type].value;
-	const graph = calculated.programme.audience.monthly[audience_type].filter((r) => r.Date.match(/^2025-/) );
+	const graph = calculated.programme.audience.monthly[audience_type];
 
-	const difference = audience - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
+	const difference = audience - graph.filter((r) => r.Date.match(/^2025-/) ).reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 }}
 {{ comp grid.Brick { tag: 'li', id: id, classes: 'audiences', full } }}
 	<div class="block">
@@ -24,11 +24,11 @@
 				y: 'value',
 				colour: 'green'
 			}],
-			start: '2025-01',
+			start: '2023-01',
 			end: '2026-01'
 		}) }}
 
-		<p>Includes in-person &amp; digital events. The {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} prior to 2025 is {{ difference |> toLocaleString() }}.</p>
+		<p>Includes in-person &amp; digital events. <!--The {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} prior to 2025 is {{ difference |> toLocaleString() }}.--></p>
 		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View audience breakdown{{ /comp }}</a></p>{{ /if }}
 		
 	</div>

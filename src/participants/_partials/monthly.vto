@@ -1,8 +1,8 @@
 {{>
 	const participants = calculated.participants.all.value;
-	const graph = calculated.participants.monthly.all.filter((r) => r.Date.match(/^2025-/) );
+	const graph = calculated.participants.monthly.all;
 
-	const difference = participants - graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
+	const difference = participants - graph.filter((r) => r.Date.match(/^2025-/) ).reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
 }}
 {{ comp grid.Brick { tag: 'li', classes: 'participants' } }}
 	<div class="block">
@@ -22,11 +22,11 @@
 				y: 'value',
 				colour: 'deeppink'
 			}],
-			start: '2025-01',
+			start: '2023-01',
 			end: '2026-01'
 		}) }}
 
-		<p>People taking part in or contributing to the programme going beyond being an audience member. There were {{ difference |> toLocaleString() }} {{ comp glossary.Ref { slug: 'participants' } }}participants{{ /comp }} prior to 2025.</p>
+		<p>People taking part in or contributing to the programme going beyond being an audience member. <!--There were {{ difference |> toLocaleString() }} {{ comp glossary.Ref { slug: 'participants' } }}participants{{ /comp }} prior to 2025.--></p>
 		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View participant breakdown{{ /comp }}</a></p>{{ /if }}
 	</div>
 {{ /comp }}
