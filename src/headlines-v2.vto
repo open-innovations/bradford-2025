@@ -1,11 +1,12 @@
 ---
 draft: true
 internal: false
-title: Headlines
+title: Data dashboards
 layout: templates/dashboard.vto
 message: This is a design for a future headlines dashboard. Similar to <a href="/headlines">v1</a> but with links to sub pages.
 oldUrl:
     - /landing/v4/
+front: true
 ---
 
 {{>
@@ -13,7 +14,8 @@ oldUrl:
 }}
 
 <section class="river">
-	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.</p>
+	<p>Welcome to the data dashboard site for <a href="https://bradford2025.co.uk/">Bradford 2025</a>. Behind the scenes we are developing a wide range of dashboards to help people understand what our data tells us about events, audiences, participants and many more.</p>
+	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The overall total for each panel covers the entire period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}. <!--The graphs only show the monthly figures within 2025 so may add up to a smaller total.--></p>
 </section>
 
 <section>
@@ -23,3 +25,7 @@ oldUrl:
 	{{ include "../participants/_partials/monthly.vto" { id: '#participants', more: '/participants/' } }}
 {{ /comp }}
 </section>
+
+<p>You can find out more about Bradford 2025’s evaluation and research activities and outputs on our <a href="https://bradford2025.co.uk/about/our-story-of-change/">Story of Change webpages</a>. Please also take a look at our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf" class="c-green">Evaluation strategy</a>, and our <a href="/strategy/" class="c-green">Open Data Strategy</a> which sets out what we hope to achieve by being open and transparent with our data. <!--Take a look at our first set of data Headlines.--></p>
+<p>There's also a useful <a href="/glossary/">glossary of terms</a> to help a shared understanding of what we are describing and what is being evaluated.</p>
+<p>We welcome feedback on any of the above. Please email evaluation@bradford2025.co.uk</p>
