@@ -399,30 +399,25 @@ breadcrumbs_full:
 	<h2>Audience surveys</h2>
 	{{>
 		const { otherFigures,metrics } = search.data("insights/dashboard");
-		const by_month = audience_survey.by_month;
-		for(let i = 0; i < by_month.length; i++){
-			by_month[i].percent = parseFloat((by_month[i].proportion*100).toFixed(1));
-		}
 	}}
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ comp grid.Brick { tag: 'li', id: 'positive-experience', classes: 'audiences block', style: "flex-basis: 40ch;" } }}
 			<h3>Positive experience</h3>
 			{{ comp.BigNumber({
-				number: ((audience_survey.total.proportion || 0)*100),
+				number: ((calculated.survey.rated_good_or_excellent.all.value || 0)*100),
 				classes: 'big',
 				animate: true,
 				suffix: '%',
 				roundingOptions: { maximumFractionDigits: 1 }
 			}) }}
-			
 			{{ comp.graph.monthly({
-				data: by_month,
+				data: calculated.survey.rated_good_or_excellent.monthly.all,
 				series: [{
 					title: 'Positive experience',
-					x: 'month',
+					x: 'Date',
 					y: 'percent',
 					colour: 'green',
-					tooltip: '{{ _title }}\n{{ month | strptime("%Y-%m-%d") | strftime("%B %Y") }}: <strong>{{ percent | toFixed(1) }}%</strong>'
+					tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ percent | toFixed(1) }}%</strong>'
 				}],
 				axis: {
 					y: {
@@ -432,26 +427,25 @@ breadcrumbs_full:
 					}
 				}
 			}) }}
-			{{ comp ToDo }}Not currently automatically updated{{ /comp }}
-			<p>The average percentage of {{ comp glossary.Ref { slug: 'audience-survey' } }}audience surveys{{ /comp }} which rated overall experience as <em>good</em> or <em>excellent</em>. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
+			<p>The average percentage of {{ comp glossary.Ref { slug: 'audience-survey' } }}audience surveys{{ /comp }} which rated overall experience as <em>good</em> or <em>excellent</em>. Last updated {{ comp.Date({start:calculated.survey.rated_good_or_excellent.monthly.all[calculated.survey.rated_good_or_excellent.monthly.all.length-1].Date+'-01',dateFormat:'LLLL y'}) }}.</p>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', id: 'net-promoter-score', classes: 'audiences block', style: "flex-basis: 40ch;" } }}
 			<h3>Would you recommend?</h3>
 			{{ comp.BigNumber({
-				number: (audience_survey.total.nps || 0),
+				number: (calculated.survey.nps.all.value || 0),
 				classes: 'big',
 				animate: true,
 				suffix: '/10',
 				roundingOptions: { maximumFractionDigits: 1 }
 			}) }}
 			{{ comp.graph.monthly({
-				data: by_month,
+				data: calculated.survey.nps.monthly.all,
 				series: [{
 					title: 'Net promoter score',
-					x: 'month',
-					y: 'nps',
+					x: 'Date',
+					y: 'value',
 					colour: 'green',
-					tooltip: '{{ _title }}\n{{ month | strptime("%Y-%m-%d") | strftime("%B %Y") }}: <strong>{{ nps | toFixed(1) }}/10</strong>'
+					tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ value | toFixed(1) }}/10</strong>'
 				}],
 				axis: {
 					y: {
@@ -461,8 +455,7 @@ breadcrumbs_full:
 					}
 				}
 			}) }}
-			{{ comp ToDo }}Not currently automatically updated{{ /comp }}
-			<p>The {{ comp glossary.Ref { slug: 'net-promoter-score' } }}net promoter score{{ /comp }} (on a scale of <em>0</em> to <em>10</em>) from audience surveys. Last updated {{ comp.Date({start:by_month[by_month.length-1].month,dateFormat:'LLLL y'}) }}.</p>
+			<p>The {{ comp glossary.Ref { slug: 'net-promoter-score' } }}net promoter score{{ /comp }} (on a scale of <em>0</em> to <em>10</em>) from audience surveys. Last updated {{ comp.Date({start:calculated.survey.nps.monthly.all[calculated.survey.nps.monthly.all.length-1].Date+'-01',dateFormat:'LLLL y'}) }}.</p>
 		{{ /comp }}
 	{{ /comp }}
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}

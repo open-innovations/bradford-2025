@@ -148,12 +148,3 @@ stages:
           cache: false
       - ${ROOT}/src/insights/digital/_data/followers/latest.json:
           cache: false
-
-  surveys:
-    cmd: jupyter execute surveys.ipynb
-    deps:
-      - surveys.ipynb
-      - ${PROCESSED}/surveys/responses.csv
-    outs:
-      - ${ROOT}/src/_data/audience_survey/by_month.json:
-          cache: false
