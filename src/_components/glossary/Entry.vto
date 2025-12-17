@@ -1,2 +1,4 @@
-<dt><a href="{{ url }}">{{ title }}</a></dt>
+{{ if description }}
+	<dt><a href="{{ url }}">{{ title }}</a></dt>
     <dd>{{ description |> md }}</dd>
+{{ /if }}
