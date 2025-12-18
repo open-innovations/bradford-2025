@@ -5,9 +5,6 @@ from datetime import date, datetime
 import petl as etl
 from utils.paths import PROCESSED
 
-with open(PROCESSED / 'manual/manual-project-name-map.json') as f:
-    canonical_project_name = json.load(f)
-
 
 def validation(row):
     if row['project_name'] is None:
@@ -43,7 +40,6 @@ class Programme:
 
         .convert(['start_date', 'end_date'], etl.dateparser('%Y-%m-%d'))
         # .convert('Project Name', lambda x: x.strip())
-        # .convert('Project Name', canonical_project_name)
         .convert([
             'programme_category',
             'producing_model',
@@ -85,7 +81,6 @@ class Programme:
             'Airtable project ID': 'project_id',
         })
         # .convert('Project Name', lambda x: x.strip())
-        # .convert('Project Name', canonical_project_name)
         .convertnumbers()
         .cache()
     )
