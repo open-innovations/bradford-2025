@@ -14,17 +14,17 @@ tags:
 {{>
 	console.warn("%cWARNING:", "background-color: yellow;", 'Pulling data from internal source');
 	// Suffixing these with _d to make it easier to remove them when replacing with open data
-	const { timestamp, events: events_d, projects: projects_d, metrics } = search.data("insights/dashboard");
+	const { timestamp: timestamp_d, events: events_d, projects: projects_d, metrics: metrics_d } = search.data("insights/dashboard");
 }}
 
 <section>
-	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp.start,end:timestamp.end}) }}.</p>
+	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp_d.start,end:timestamp_d.end}) }}.</p>
 
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ include "./_partials/monthly.vto" { id: 'monthly' } }}
 
 		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics.events_in_person.title }}</h3>
+			<h3>{{ metrics_d.events_in_person.title }}</h3>
 			{{ comp.BigNumber({
 				number: Object.entries(calculated.programme.events.categories.open).filter(c => ![ 'Exhibition', 'Festival', 'Digital' ].includes(c[0])).reduce((a, c) => a + c[1], 0) || '&mdash;',
 				classes: 'big',
@@ -35,7 +35,7 @@ tags:
 			<p>Count of in-person {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}).</p>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics.events_online.title }}</h3>
+			<h3>{{ metrics_d.events_online.title }}</h3>
 			{{ comp.BigNumber({
 				number: calculated.programme.events.categories.open.Digital || '&mdash;',
 				classes: 'big',
@@ -57,7 +57,7 @@ tags:
 		}}
 		{{# TODO work out how to get this from somewhere else or remove? #}}
 		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics.events_festivals.title }}</h3>
+			<h3>{{ metrics_d.events_festivals.title }}</h3>
 			{{ comp.BigNumber({
 				number: festivals.length || '&mdash;',
 				classes: 'big',
@@ -68,7 +68,7 @@ tags:
 			<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}festivals{{ /comp }}.</p>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics.events_festival_events.title }}</h3>
+			<h3>{{ metrics_d.events_festival_events.title }}</h3>
 			{{ comp.BigNumber({
 				number: calculated.programme.events.categories.open.Festival || 0,
 				classes: 'big',
@@ -80,7 +80,7 @@ tags:
 		{{ /comp }}
 		{{# TODO work out how to get this from somewhere else or remove? #}}
 		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics.events_exhibitions.title }}</h3>
+			<h3>{{ metrics_d.events_exhibitions.title }}</h3>
 			{{ comp.BigNumber({
 				number: projects_d.by_category['Exhibition'] || 0,
 				classes: 'big',
@@ -91,7 +91,7 @@ tags:
 			<p>Count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}.</p>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics.events_exhibition_days.title }}</h3>
+			<h3>{{ metrics_d.events_exhibition_days.title }}</h3>
 			{{ comp.BigNumber({
 				number: calculated.programme.events.categories.open.Exhibition || 0,
 				classes: 'big',
@@ -102,7 +102,7 @@ tags:
 			<p>Count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}.</p>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics.events_community_led.title }}</h3>
+			<h3>{{ metrics_d.events_community_led.title }}</h3>
 			{{ comp.BigNumber({
 				number: (events_d.by_project['Our Patch']?.count || 0) + (events_d.by_category["Community-led arts event"] || 0),
 				classes: 'big',
@@ -113,7 +113,7 @@ tags:
 			<p>Count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}.</p>
 		{{ /comp }}
 		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics.events_free_activities.title }}</h3>
+			<h3>{{ metrics_d.events_free_activities.title }}</h3>
 			{{ comp.BigNumber({
 				number: events_d.free || '&mdash;',
 				classes: 'big',
