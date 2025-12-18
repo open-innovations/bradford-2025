@@ -108,7 +108,7 @@ stages:
     # Set this in the `params.yaml` file
     foreach: ${dashboards}
     do:
-      cmd: papermill --no-log-output dashboard.ipynb -
+      cmd: papermill --no-log-output dashboard.ipynb /dev/null
         -p target '${item.target}'
         -p start '${item.start}'
         -p end '${item.end}'
