@@ -66,12 +66,12 @@ stages:
     deps:
     - path: ../data/processed/ticketing/orders.csv
       hash: md5
-      md5: 033286c0911ed3e74f40872fbe42a72d
-      size: 7732
+      md5: 5363d7af943655107a2471c8b187279e
+      size: 7748
     - path: ../data/processed/ticketing/tickets.csv
       hash: md5
-      md5: f9792ed03974cf4115b2148ee4d233ee
-      size: 17747477
+      md5: 17912d75f68797c3d8f267e07810fb3d
+      size: 17776716
     - path: ticketing.ipynb
       hash: md5
       md5: 3e12da4885d6bffdf298ca0a13bf5b46
@@ -79,16 +79,16 @@ stages:
     outs:
     - path: ../src/themes/ticketing/_data/operational
       hash: md5
-      md5: 012d39f99ac43c7104cbf6892fb11273.dir
-      size: 15210
+      md5: 38c3292b340c489b1061b339e5b69228.dir
+      size: 15284
       nfiles: 7
   huq:
     cmd: papermill --no-log-output huq.ipynb output/huq.ipynb
     deps:
     - path: ../data/huq/footfall.long.csv.bz2
       hash: md5
-      md5: 6361048dcf8c9564cabd5b1f27d81b65
-      size: 42232
+      md5: 48cc4185b0793c9afcefc13580e942cc
+      size: 42044
     - path: ../data/huq/mastercard.csv
       hash: md5
       md5: 85ffb7f9dc6335e47616bbcbe88b505d
@@ -114,13 +114,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -140,13 +140,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -166,13 +166,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -209,13 +209,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -233,8 +233,8 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: dashboard.ipynb
       hash: md5
@@ -247,11 +247,11 @@ stages:
     outs:
     - path: ../src/insights/dashboard//_data/audience.json
       hash: md5
-      md5: 6ed15e2bb2abd3e0e5630026184134df
+      md5: 840ec5cb6915c14c1b1b4e2edb2a1abe
       size: 9312
     - path: ../src/insights/dashboard//_data/events.json
       hash: md5
-      md5: b22504fa738cdf093c966ee5a76f6ece
+      md5: 113180319327cc5e926d6c75a761f9a4
       size: 27563
     - path: ../src/insights/dashboard//_data/otherFigures.json
       hash: md5
@@ -259,7 +259,7 @@ stages:
       size: 96
     - path: ../src/insights/dashboard//_data/participants.json
       hash: md5
-      md5: 26e18346ec7504b0a8a2ff10cfb12402
+      md5: fdc69762ec934b3fbf2556b410c82324
       size: 12391
     - path: ../src/insights/dashboard//_data/projects.json
       hash: md5
@@ -267,7 +267,7 @@ stages:
       size: 6977
     - path: ../src/insights/dashboard//_data/timestamp.json
       hash: md5
-      md5: 7eee792a47e9d1a1ecc4078bc5c74b20
+      md5: 20acf5c40a41e8955619b5f28ec81941
       size: 69
   dashboards@q1:
     cmd: papermill --no-log-output dashboard.ipynb /dev/null -p target 'q1' -p 
@@ -275,8 +275,8 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: dashboard.ipynb
       hash: md5
@@ -309,7 +309,7 @@ stages:
       size: 2315
     - path: ../src/insights/dashboard/q1/_data/timestamp.json
       hash: md5
-      md5: bd6012df5bd647cffc6c08c605946309
+      md5: 140fcf50e998b4e597a8b27cfd363f0e
       size: 69
   events@dracula:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
@@ -319,13 +319,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -343,8 +343,8 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: dashboard.ipynb
       hash: md5
@@ -377,7 +377,7 @@ stages:
       size: 3799
     - path: ../src/insights/dashboard/q2/_data/timestamp.json
       hash: md5
-      md5: 583a537026aa8da40ab99173ae813ce4
+      md5: 3c016d93827a87447bbb0e90dd3caf2a
       size: 69
   dashboards@all:
     cmd: papermill --no-log-output dashboard.ipynb - -p target 'all' -p start 
@@ -414,12 +414,12 @@ stages:
     deps:
     - path: ../data/processed/combined/programme.parquet
       hash: md5
-      md5: d55bb7fd7009c52137cb89c109cc14f5
-      size: 149685
+      md5: 0eb8fc18315a788eb5f1a6265c3773a7
+      size: 149752
     - path: ../data/processed/programme/events.csv
       hash: md5
-      md5: 69e1d54cd2c7d3f875c9d0b78b12ad4c
-      size: 2014308
+      md5: 077283c51f26ba3cebbf5ec32d7d66f7
+      size: 2014958
     - path: programme.ipynb
       hash: md5
       md5: a8c15ab77e93d636408848e5321ec014
@@ -431,7 +431,7 @@ stages:
     outs:
     - path: ../src/themes/programme/_data/events/
       hash: md5
-      md5: 62b40c4757d0f28c12e28132d4dfba8f.dir
+      md5: e5569857b4fac0b8fd75555c1ae007ea.dir
       size: 100266
       nfiles: 7
   events@loading-bay:
@@ -443,13 +443,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -469,13 +469,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -495,13 +495,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -521,13 +521,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -545,8 +545,8 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: dashboard.ipynb
       hash: md5
@@ -579,7 +579,7 @@ stages:
       size: 2946
     - path: ../src/insights/dashboard/q3/_data/timestamp.json
       hash: md5
-      md5: 54dd2329f9563b8bd90bd5b4026f7dd2
+      md5: 342347417f9c39a9b2e9e38bd2a9b418
       size: 69
   events@film:
     cmd: papermill --no-log-output events.ipynb output/events.ipynb -p 
@@ -589,13 +589,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -630,11 +630,11 @@ stages:
     deps:
     - path: ../data/processed/combined/programme.parquet
       hash: md5
-      md5: d55bb7fd7009c52137cb89c109cc14f5
-      size: 149685
+      md5: 0eb8fc18315a788eb5f1a6265c3773a7
+      size: 149752
     - path: ../data/processed/digital/
       hash: md5
-      md5: 75edc0044ee5ef900d9e6be9a83131a7.dir
+      md5: 725429a7151056f714a279cb4f6f468a.dir
       size: 41012
       nfiles: 2
     - path: digital.ipynb
@@ -680,13 +680,13 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: ../data/processed/ticketing/
       hash: md5
-      md5: e66bdcd5a77cfebe8c35b6d34ec14efc.dir
-      size: 18553965
+      md5: 518cfe3e31ec4afba6b065f560d7a811.dir
+      size: 18583220
       nfiles: 3
     - path: events.ipynb
       hash: md5
@@ -720,8 +720,8 @@ stages:
     deps:
     - path: ../data/processed/
       hash: md5
-      md5: 8b641127519d621f28c4a47c1111a899.dir
-      size: 22168629
+      md5: 0629bc252f9adee7b97d289c9282311f.dir
+      size: 22198601
       nfiles: 27
     - path: dashboard.ipynb
       hash: md5
@@ -734,11 +734,11 @@ stages:
     outs:
     - path: ../src/insights/dashboard/q4/_data/audience.json
       hash: md5
-      md5: bab236771583fb83c7432dd98a3829c4
+      md5: 06d5ab2724ea1fd5f70346204fb2e590
       size: 2996
     - path: ../src/insights/dashboard/q4/_data/events.json
       hash: md5
-      md5: 3ce806ef4a8c30a70fc60fb4b83168dc
+      md5: 0436b14328d811c037d5b3983c35f231
       size: 9950
     - path: ../src/insights/dashboard/q4/_data/otherFigures.json
       hash: md5
@@ -746,7 +746,7 @@ stages:
       size: 2
     - path: ../src/insights/dashboard/q4/_data/participants.json
       hash: md5
-      md5: 69ac46e0cfe1b8726506a070188faa86
+      md5: f36db10c243bfdaa6a8b3338b3131080
       size: 5139
     - path: ../src/insights/dashboard/q4/_data/projects.json
       hash: md5
@@ -754,14 +754,14 @@ stages:
       size: 2436
     - path: ../src/insights/dashboard/q4/_data/timestamp.json
       hash: md5
-      md5: 2bee77121726eb8248060952c723d319
+      md5: d4e3a0ed49450f95c7ea49972818cceb
       size: 69
   publish:
     cmd: python get-published.py
     deps:
     - path: ../data/published
       hash: md5
-      md5: 6c4ef9f598b9e693bde4d9009e7485d5.dir
+      md5: bd86b989855610d97aa8ed36f4227c35.dir
       size: 121590
       nfiles: 11
     - path: get-published.py
@@ -771,6 +771,6 @@ stages:
     outs:
     - path: ../src/_data/published/
       hash: md5
-      md5: 6c4ef9f598b9e693bde4d9009e7485d5.dir
+      md5: bd86b989855610d97aa8ed36f4227c35.dir
       size: 121590
       nfiles: 11
