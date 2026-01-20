@@ -23,12 +23,11 @@ const allEvents = totals.find((r) =>
 // MONTHLY DATA
 const byMonth = await loadCsv("src/_data/published/programme/by_month.csv");
 const allEventsByMonth = byMonth.filter((r) =>
-  r.aggregation == 'BY_MONTH'
+  r.aggregation == 'BY_MONTH' && r.variable == 'events'
 ).map(cleanGraphData);
 
 const openEventsByMonth = byMonth.filter((r) =>
-  r.aggregation == 'BY_MONTH_BY_EVENT_TYPE' &&
-  r.event_type == "Open"
+  r.aggregation == 'BY_MONTH_BY_EVENT_TYPE' && r.event_type == "Open" && r.variable == 'events'
 ).map(cleanGraphData);
 
 const dates = minMaxDates(allEventsByMonth,'Date');
