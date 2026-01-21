@@ -56,7 +56,8 @@ jobs:
           echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
           ssh-add deploy-key
           pipenv run dvc update data/status.json.dvc data/reports.dvc 
-          pipenv run dvc pull data/processed.dvc
+          # Pull specific file
+          pipenv run dvc pull --force --with-deps data/processed/programme/events.csv
           ssh-add -D
 
       - name: Build the dev site
