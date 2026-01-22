@@ -7,10 +7,17 @@
 	};
 
 	var styles = document.createElement('style');
-	styles.innerHTML = '.filterable label { margin-right: 0.5rem; } .filterable input.filter { height: 2em; line-height: 2em; }';
+	styles.innerHTML = '.filterable label { margin-right: 0.5rem; } .filterable input { height: 2em; line-height: 2em; font-size: 1em; }';
 	document.head.prepend(styles);
 
-	function filterTable(v,rows){
+	function filterTable(v,table){
+		// Get the table rows at this point (in case any table sorting has happened)
+		let tr = table.querySelectorAll('tbody tr');
+		let rows = [];
+		for(let r = 0; r < tr.length; r++){
+			rows[r] = {'tr':tr[r],'td':tr[r].querySelectorAll('td')};
+		}
+
 		let lower = v.toLowerCase();
 		for(let r = 0; r < rows.length; r++){
 			let ok = false;
@@ -30,13 +37,10 @@
 	}
 
 	function addTableFilter(el){
-		console.log('add filter to ',el);
 		// Add a class to this
 		el.classList.add('filterable');
 		// Get the table to filter
 		let table = el.querySelector('.oi-table table');
-		// Get the table rows
-		let tr = table.querySelectorAll('tbody tr');
 		// Make a label
 		let lbl = document.createElement('label');
 		lbl.innerHTML = "Filter the table below:";
@@ -48,16 +52,12 @@
 		el.prepend(inp);
 		el.prepend(lbl);
 
-		let rows = [];
-		for(let r = 0; r < tr.length; r++){
-			rows[r] = {'tr':tr[r],'td':tr[r].querySelectorAll('td')};
-		}
 		// Add events
 		inp.addEventListener('keyup',function(e){
-			filterTable(e.target.value,rows);
+			filterTable(e.target.value,table);
 		});
 		inp.addEventListener('change',function(e){
-			filterTable(e.target.value,rows);
+			filterTable(e.target.value,table);
 		});
 	}
 

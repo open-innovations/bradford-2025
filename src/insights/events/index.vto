@@ -75,7 +75,7 @@ stylesheets:
 	}}
 
 	<h3 id="project">Aggregated by project ID</h3>
-	<p>A table with one row per project ID. This is an aggregation of rows in the <a href="#full">full table</a>.</p>
+	<p>A table aggregated from the <a href="#full">full table</a> by the combination of project name and internal project name.</p>
 	{{ comp.dashboard.InfoBoxTable({
 		head: head||{class: 'c-yellow'},
 		filter: true,
@@ -91,7 +91,7 @@ stylesheets:
 	}) }}
 
 	<h3 id="full">Full list of events</h3>
-	<p>A table with one row per row in <code>data/published/programme/events.csv</code>.</p>
+	<p>A table with one row per row in <code>data/processed/programme/events.csv</code>.</p>
 
 	{{ comp.dashboard.InfoBoxTable({
 		head: head||{class: 'c-yellow'},
