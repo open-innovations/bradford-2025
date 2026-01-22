@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "86c7773356f77405f520ebc29503d1b82d2a6369940b96f1236833c032016740"
+            "sha256": "3a3de83f43b59d96df1ba8edb87b34f6f1802c7b4316a73a1d24a3dd87e78540"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -211,6 +211,9 @@
             "version": "==3.0.0"
         },
         "asyncssh": {
+            "extras": [
+                "bcrypt"
+            ],
             "hashes": [
                 "sha256:c3ce72b01be4f97b40e62844dd384227e5ff5a401a3793007c42f86a5c8eb537",
                 "sha256:d16465ccdf1ed20eba1131b14415b155e047f6f5be0d19f39c2e0b61331ee0e7"
@@ -861,11 +864,13 @@
             "version": "==1.0.0"
         },
         "dvc": {
+            "extras": [
+                "ssh"
+            ],
             "hashes": [
                 "sha256:6805637cde28902ada95b33127c6a36b85133d6b0f161626eb473504605f686f",
                 "sha256:ed8e07050fdf1fc222ea95afbef8540820179e42022bc068c7b343f2a1304e69"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.9'",
             "version": "==3.66.1"
         },
@@ -900,6 +905,14 @@
             ],
             "markers": "python_version >= '3.9'",
             "version": "==1.0.2"
+        },
+        "dvc-ssh": {
+            "hashes": [
+                "sha256:4fac932c5f22bd9444d87d4e7b3ffd6c09cc8e56d98eb3c6d4b44301d3535017",
+                "sha256:c8078b784518b29e63014f151ec21009f72de56216081b570a09fcb8aeac91dd"
+            ],
+            "markers": "python_version >= '3.9'",
+            "version": "==4.2.2"
         },
         "dvc-studio-client": {
             "hashes": [
@@ -3421,6 +3434,16 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==0.11.2"
+        },
+        "sshfs": {
+            "extras": [
+                "bcrypt"
+            ],
+            "hashes": [
+                "sha256:90a3a2e815d28a0e8475f10fe8ef0127a507b60f77df17c3473c1a28e78c7f4b",
+                "sha256:f5bad75e16229112a8a13d6d4a2faeffd72e4141907d8d999a978bef599e4847"
+            ],
+            "version": "==2025.11.0"
         },
         "stack-data": {
             "hashes": [
