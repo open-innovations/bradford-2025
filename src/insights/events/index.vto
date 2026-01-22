@@ -74,8 +74,8 @@ stylesheets:
 		}
 	}}
 
-	<h3 id="project">Aggregated by project ID</h3>
-	<p>A table aggregated from the <a href="#full">full table</a> by the combination of project name and internal project name.</p>
+	<h3 id="project">Aggregated by project name+internal name</h3>
+	<p>A table aggregated from the <a href="#full">full table</a> by the combination of project name and internal project name. Note that the participants number is currently using <code>participants_cp_instances</code> rather than <code>participants_cp</code> or <code>participants_cp_attendance</code>.</p>
 	{{ comp.dashboard.InfoBoxTable({
 		head: head||{class: 'c-yellow'},
 		filter: true,
