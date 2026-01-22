@@ -24,7 +24,7 @@ description: |
 	}) }}
 </section>
 
-{{#
+
 <h2>Event breakdowns</h2>
 <p>The following tables use data from <code>data/published/programme/events.csv</code>.</p>
 
@@ -33,29 +33,35 @@ description: |
 	{{>
 		const data = all_events.map(x => ({
 			...x,
-			start_date: (x['Start Date'] || '9999-99-99'),
 			date: (
-				x['End Date'] != x['Start Date'] ? 
-				`${(new Date(x['Start Date'])).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })} &mdash; ${(new Date(x['End Date'])).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })}`
+				x['end_date'] != x['start_date'] ? 
+				`${(new Date(x['start_date'])).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })} &mdash; ${(new Date(x['end_date'])).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })}`
 				:
-				`${(new Date(x['Start Date'])).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })}`
+				`${(new Date(x['start_date'])).toLocaleDateString("en-GB", { weekday: undefined, year: "numeric", month: "short", day: "numeric", })}`
 			),
 		}));
 		
-		let by_project = {},pid,r,project_id,project_name,a,e,p;
+		let by_project = {},pid,r,id,project_name,a,e,p;
 		for(r = 0; r < data.length; r++){
-			project_id = data[r].project_id;
-			project_name = data[r]['Project Name'];
-			if(project_id){
-				if(!(project_id in by_project)){
-					by_project[project_id] = {'id':project_id,'name':project_name,'audience':0,'events':0,'participants_community':0};
+			id = data[r].project_name + ' / ' + data[r].project_name_internal;
+			project_name = data[r].project_name;
+			if(id){
+				if(!(id in by_project)){
+					by_project[id] = {
+						'id':id,
+						'name':project_name,
+						'name_internal':data[r].project_name_internal,
+						'audience':0,
+						'events':0,
+						'participants':0
+					};
 				}
 				a = parseInt(data[r].audience);
-				e = parseInt(data[r]._occurrences);
-				p = parseInt(data[r].participants_community);
-				if(!isNaN(a)) by_project[project_id].audience += a;
-				if(!isNaN(e)) by_project[project_id].events += e;
-				if(!isNaN(p)) by_project[project_id].participants_community += p;
+				e = parseInt(data[r].events);
+				p = parseInt(data[r].participants_cp_instances);
+				if(!isNaN(a)) by_project[id].audience += a;
+				if(!isNaN(e)) by_project[id].events += e;
+				if(!isNaN(p)) by_project[id].participants += p;
 			}else{
 				console.warning('Bad project ID',data[r]);
 			}
@@ -72,15 +78,14 @@ description: |
 		head: head||{class: 'c-yellow'},
 		download,
 		columns: [
-			{ key: 'name', label: 'Project name' },
+			{ key: 'name', label: 'Project name', template: '{{ id }}' },
 			{ key: 'event_label', label: 'Events', template: '{{ events | toLocaleString() }}', value: 'events', class: 'right', scale: scales.yellow, min: 0, width: 100 },
 			{ key: 'audience_label', label: 'Audience', template: '{{ audience | toLocaleString() }}', value: 'audience', class: "right", scale: scales.green, min: 0, width: 100 },
-			{ key: 'participants_label', label: 'Participants', template: '{{ participants_community | toLocaleString() }}', value: 'participants_community', class: "right", scale: scales.pink, min: 0, width: 100 },
+			{ key: 'participants_label', label: 'Participants', template: '{{ participants | toLocaleString() }}', value: 'participants', class: "right", scale: scales.pink, min: 0, width: 100 },
 		],
-		data: projects.sort((a, b) => a.name < b.name),
+		data: projects.sort((a, b) => { return (a.name < b.name ? -1 : (a.name > b.name ? 1 : 0)); }),
 		width: "100%"
 	}) }}
-
 
 	<h3 id="full">Full list of events</h3>
 	<p>A table with one row per row in <code>data/published/programme/events.csv</code>.</p>
@@ -89,16 +94,16 @@ description: |
 		head: head||{class: 'c-yellow'},
 		download,
 		columns: [
-			{ key: 'Project', label: 'Project name: activity', template: '{{ Project Name }}: <em>{{ Activity }}</em>' },
+			{ key: 'id', label: 'ID' },
+			{ key: 'Project', label: 'Project name: activity', template: '{{ project_name }} / {{ activity }} / ({{ project_name_internal }})' },
 			{ key: 'Evaluation Category', label: 'Evaluation Category' },
 			{ key: 'daterange', label: 'Dates', template: '{{ date }}', name: 'daterange', value: 'start_date', width: 220 },
-			{ key: 'events', label: 'Events', template: '{{ _occurrences | toLocaleString() }}', value: '_occurrences', class: 'right', scale: scales.yellow, min: 0, width: 100 },
+			{ key: 'events', label: 'Events', template: '{{ events | toLocaleString() }}', value: 'events', class: 'right', scale: scales.yellow, min: 0, width: 100 },
 			{ key: 'audience_label', label: 'Audience', template: '{{ audience | toLocaleString() }}', value: 'audience', class: "right", scale: scales.green, min: 0, width: 100 },
-			{ key: 'participants_label', label: 'Participants', template: '{{ participants_community | toLocaleString() }}', value: 'participants_community', class: "right", scale: scales.pink, min: 0, width: 100 },
+			{ key: 'participants_label', label: 'Participants', template: '{{ participants_cp | toLocaleString() }}', value: 'participants_cp', class: "right", scale: scales.pink, min: 0, width: 100 },
 		],
-		data: data.sort((a, b) => a['End Date'] < b['Start Date']),
+		data: data.sort((a, b) => { return (a.start_date < b.start_date ? -1 : (a.start_date > b.start_date ? 1 : 0)); }),
 		width: "100%"
 	}) }}
 
 </section>
-#}}

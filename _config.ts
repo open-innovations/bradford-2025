@@ -28,7 +28,7 @@ import postcssConfig from "./postcss-config.ts";
 
 import bradfordDataPublisher from 'lib/bradford-data-publisher.ts';
 
-//import { loadCsv } from "lib/data-helpers.js";
+import { loadCsv } from "lib/data-helpers.js";
 
 const site = lume({
   src: "./src",
@@ -74,7 +74,7 @@ site.process(['.html'], (pages) => pages.forEach(autoDependency));
 site.use(oiLumeViz(oiLumeVizOptions));
 site.data('oiColour', oiLumeVizOptions.colour);
 
-//site.data('all_events',await loadCsv("data/published/programme/events.csv"));
+site.data('all_events',await loadCsv("data/processed/programme/events.csv"));
 
 site.use(base_path());
 site.use(date({
