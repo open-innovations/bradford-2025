@@ -45,7 +45,7 @@ stylesheets:
 		
 		let by_project = {},pid,r,id,project_name,a,e,p;
 		for(r = 0; r < data.length; r++){
-			id = data[r].project_name + ' / ' + data[r].project_name_internal;
+			id = data[r].project_name + (data[r].project_name!=data[r].project_name_internal ? ' / ' + data[r].project_name_internal : '');
 			project_name = data[r].project_name;
 			if(id){
 				if(!(id in by_project)){
