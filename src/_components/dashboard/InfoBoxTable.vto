@@ -11,8 +11,19 @@
 			}
 		}
 	}
+	let deps = "",cls = "", extra = "";
+	if(download){
+		deps += "/assets/js/save-table.js";
+		cls += "saveable-table";
+		extra = " data-filename=\"" + download + "\"";
+	}
+	if(filter){
+		deps += (deps ? ",":"")+"/assets/js/table-filter.js";
+		extra += " data-table-filter=\"true\"";
+	}
 }}
-<div data-comp='dashboard-InfoBoxTable'{{ if download }} data-dependencies="/assets/js/save-table.js" class="saveable-table" data-filename="{{ download }}"{{ /if }}>
+
+<div data-comp="dashboard-InfoBoxTable"{{ if deps }} data-dependencies="{{ deps }}"{{ /if }}{{ if cls }} class="{{ cls }}"{{ /if }}{{ if extra }}{{ extra }}{{ /if }}>
 	{{ comp.oi.table({
 		config: {
 			data: data,

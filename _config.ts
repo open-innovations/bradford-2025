@@ -241,6 +241,7 @@ site.remoteFile('/assets/js/oi/oi.csv.js', "https://cdn.jsdelivr.net/gh/open-inn
 site.remoteFile('/assets/js/oi/oi.csv.editor.js', "https://cdn.jsdelivr.net/gh/open-innovations/oi.csv.js@main/dist/oi.csv.editor.js");
 site.copy("/assets/js/popover.js");
 site.copy("/assets/js/flashes.js");
+site.copy("/assets/js/table-filter.js");
 site.copy("/assets/js/save-table.js");
 site.copy("/assets/js/oi/");
 
