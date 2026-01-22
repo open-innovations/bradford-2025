@@ -42,14 +42,9 @@ jobs:
         uses: ./.github/actions/setup-python-environment
 
       - name: Get status and report data
-        run: |
-          umask 077
-          eval $(ssh-agent -s)
-
-          echo "${{ secrets.DEPLOY_KEY }}" > deploy-key
-          ssh-add deploy-key
-          pipenv run dvc update data/status.json.dvc data/reports.dvc 
-          ssh-add -D
+        uses: ./.github/actions/fetch-build-data
+        with:
+          deploy-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Build the site
         run: | 

@@ -1,0 +1,21 @@
+name: Get status and report data
+description: Fetch data required for building site
+inputs:
+  deploy-key: 
+    required: true
+    description: Deploy key to install
+runs:
+  using: composite
+  steps:
+    - name: Setup credentials and pull required data
+      shell: bash
+      run: |
+        umask 077
+        eval $(ssh-agent -s)
+
+        echo "${DEPLOY_KEY}" > deploy-key
+        ssh-add deploy-key
+        pipenv run dvc pull data/status.json.dvc data/reports.dvc data/processed.dvc
+        ssh-add -D
+      env:
+        DEPLOY_KEY: ${{ inputs.deploy-key }}
