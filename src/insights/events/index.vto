@@ -43,7 +43,7 @@ stylesheets:
 			),
 		}));
 		
-		let by_project = {},pid,r,id,project_name,a,e,p;
+		let by_project = {},pid,r,id,project_name,a,e,p,cp,cp_i,cp_a;
 		for(r = 0; r < data.length; r++){
 			id = data[r].project_name + (data[r].project_name!=data[r].project_name_internal ? ' / ' + data[r].project_name_internal : '');
 			project_name = data[r].project_name;
@@ -55,15 +55,21 @@ stylesheets:
 						'name_internal':data[r].project_name_internal,
 						'audience':0,
 						'events':0,
-						'participants':0
+						'cp':0,
+						'cp_i':0,
+						'cp_a':0
 					};
 				}
 				a = parseInt(data[r].audience);
 				e = parseInt(data[r].events);
-				p = parseInt(data[r].participants_cp_instances);
+				cp = parseInt(data[r].participants_cp);
+				cp_a = parseInt(data[r].participants_cp_attendance);
+				cp_i = parseInt(data[r].participants_cp_instances);
 				if(!isNaN(a)) by_project[id].audience += a;
 				if(!isNaN(e)) by_project[id].events += e;
-				if(!isNaN(p)) by_project[id].participants += p;
+				if(!isNaN(cp)) by_project[id].cp += cp;
+				if(!isNaN(cp_i)) by_project[id].cp_i += cp_i;
+				if(!isNaN(cp_a)) by_project[id].cp_a += cp_a;
 			}else{
 				console.warning('Bad project ID',data[r]);
 			}
@@ -75,7 +81,7 @@ stylesheets:
 	}}
 
 	<h3 id="project">Aggregated by project name+internal name</h3>
-	<p>A table aggregated from the <a href="#full">full table</a> by the combination of project name and internal project name. Note that the participants number is currently using <code>participants_cp_instances</code> rather than <code>participants_cp</code> or <code>participants_cp_attendance</code>.</p>
+	<p>A table aggregated from the <a href="#full">full table</a> by the combination of project name and internal project name. Note that there are three different  participants numbers.</p>
 	{{ comp.dashboard.InfoBoxTable({
 		head: head||{class: 'c-yellow'},
 		filter: true,
@@ -84,7 +90,9 @@ stylesheets:
 			{ key: 'name', label: 'Project name / internal name', template: '{{ id }}' },
 			{ key: 'event_label', label: 'Events', template: '{{ events | toLocaleString() }}', value: 'events', class: 'right', scale: scales.yellow, min: 0, width: 100 },
 			{ key: 'audience_label', label: 'Audience', template: '{{ audience | toLocaleString() }}', value: 'audience', class: "right", scale: scales.green, min: 0, width: 100 },
-			{ key: 'participants_label', label: 'Participants', template: '{{ participants | toLocaleString() }}', value: 'participants', class: "right", scale: scales.pink, min: 0, width: 100 },
+			{ key: 'cp_label', label: 'Participants', template: '{{ cp | toLocaleString() }}', value: 'cp', class: "right", scale: scales.pink, min: 0, width: 100 },
+			{ key: 'cp_a_label', label: 'Participants (attendance)', template: '{{ cp_a | toLocaleString() }}', value: 'cp_a', class: "right", scale: scales.pink, min: 0, width: 100 },
+			{ key: 'cp_i_label', label: 'Participants (instances)', template: '{{ cp_i | toLocaleString() }}', value: 'cp_i', class: "right", scale: scales.pink, min: 0, width: 100 },
 		],
 		data: projects.sort((a, b) => { return (a.name < b.name ? -1 : (a.name > b.name ? 1 : 0)); }),
 		width: "100%"
@@ -95,6 +103,7 @@ stylesheets:
 
 	{{ comp.dashboard.InfoBoxTable({
 		head: head||{class: 'c-yellow'},
+		filter: true,
 		download,
 		columns: [
 			{ key: 'id', label: 'ID' },
@@ -104,6 +113,8 @@ stylesheets:
 			{ key: 'events', label: 'Events', template: '{{ events | toLocaleString() }}', value: 'events', class: 'right', scale: scales.yellow, min: 0, width: 100 },
 			{ key: 'audience_label', label: 'Audience', template: '{{ audience | toLocaleString() }}', value: 'audience', class: "right", scale: scales.green, min: 0, width: 100 },
 			{ key: 'participants_label', label: 'Participants', template: '{{ participants_cp | toLocaleString() }}', value: 'participants_cp', class: "right", scale: scales.pink, min: 0, width: 100 },
+			{ key: 'participants_attendance_label', label: 'Participants (attendance)', template: '{{ participants_cp_attendance | toLocaleString() }}', value: 'participants_cp_attendance', class: "right", scale: scales.pink, min: 0, width: 100 },
+			{ key: 'participants_instances_label', label: 'Participants (instances)', template: '{{ participants_cp_instances | toLocaleString() }}', value: 'participants_cp_instances', class: "right", scale: scales.pink, min: 0, width: 100 },
 		],
 		data: data.sort((a, b) => { return (a.start_date < b.start_date ? -1 : (a.start_date > b.start_date ? 1 : 0)); }),
 		width: "100%"

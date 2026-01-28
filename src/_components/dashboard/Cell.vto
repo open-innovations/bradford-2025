@@ -37,7 +37,7 @@ css: |
 	{{ /if }}
 	{{ if title }}<{{ heading_level || 'h3' }} class="title">{{ title }}</{{ heading_level || 'h3' }}>{{ /if }}
 	{{ content }}
-	</div>
+	</div><!-- end cell -->
 	{{ if typeof progress==="number" && !isNaN(progress) }}
 		{{ if !progresslabel }}
 			{{ if progresstarget }}{{ set progresslabel }}

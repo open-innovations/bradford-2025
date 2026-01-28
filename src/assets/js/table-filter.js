@@ -28,11 +28,7 @@
 					c = rows[r].td.length;
 				}
 			}
-			if(ok){
-				rows[r].tr.style.display = "";
-			}else{
-				rows[r].tr.style.display = "none";
-			}
+			rows[r].tr.style.display = (ok) ? "" : rows[r].tr.style.display = "none";
 		}
 	}
 
@@ -43,7 +39,7 @@
 		let table = el.querySelector('.oi-table table');
 		// Make a label
 		let lbl = document.createElement('label');
-		lbl.innerHTML = "Filter the table below:";
+		lbl.innerHTML = "Filter the table:";
 		// Make an input text box
 		let inp = document.createElement('input');
 		inp.setAttribute('type','text');
