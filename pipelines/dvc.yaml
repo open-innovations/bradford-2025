@@ -28,7 +28,10 @@ stages:
     cmd: papermill --no-log-output volunteers.ipynb output/volunteers.ipynb
     deps:
       - volunteers.ipynb
+      - ${PROCESSED}/volunteers/checkpoint-updates.csv
       - ${PROCESSED}/volunteers/checkpoints.csv
+      - ${PROCESSED}/volunteers/demographics.csv
+      - ${PROCESSED}/volunteers/geo-summary.csv
       - ${PROCESSED}/volunteers/shifts.csv
     outs:
       - ${VOLUNTEER_DATA}/summary.json:

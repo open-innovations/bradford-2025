@@ -3,10 +3,22 @@ stages:
   volunteers:
     cmd: papermill --no-log-output volunteers.ipynb output/volunteers.ipynb
     deps:
+    - path: ../data/processed/volunteers/checkpoint-updates.csv
+      hash: md5
+      md5: 2b5b33632bef5e38ac976a0a892ba73d
+      size: 39195
     - path: ../data/processed/volunteers/checkpoints.csv
       hash: md5
       md5: 87524ba1c3a7611170f095a08855a49a
       size: 40100
+    - path: ../data/processed/volunteers/demographics.csv
+      hash: md5
+      md5: 90af859f01191ca5deba656002ad4f70
+      size: 196
+    - path: ../data/processed/volunteers/geo-summary.csv
+      hash: md5
+      md5: 5fb5ffa07b6001463b35aeafdc63b404
+      size: 1993
     - path: ../data/processed/volunteers/shifts.csv
       hash: md5
       md5: bdda8d054b7170f19b5b1d5a0847b3c7
@@ -59,8 +71,8 @@ stages:
       size: 4004
     - path: ../src/themes/volunteers/_data/summary.json
       hash: md5
-      md5: d7dacdce58f0ea1d23664a6fd7b9ca96
-      size: 612
+      md5: ba02d08b71aafca305b0af3c18448aa4
+      size: 621
   ticketing:
     cmd: papermill --no-log-output ticketing.ipynb output/ticketing.ipynb
     deps:
