@@ -46,9 +46,9 @@ export default {
 		all: allEventsByMonth,
 		open: expandToRange(openEventsByMonth,dates),
 	},
-  categories: {
-    all: all_by_category,
-    open: open_by_category,
-  },
+	categories: {
+		all: all_by_category,
+		open: open_by_category,
+	},
 	dates: dates,
 };
