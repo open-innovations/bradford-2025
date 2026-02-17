@@ -25,7 +25,7 @@
 			end: '2026-02'
 		}) }}
 
-		<p>People taking part in or contributing to the programme going beyond being an audience member. <!--There were {{ difference |> toLocaleString() }} {{ comp glossary.Ref { slug: 'participants' } }}participants{{ /comp }} prior to 2025.--></p>
+		<p>People taking part in or contributing to the programme going beyond being an audience member. This includes data from {{ comp.Date({start:calculated.participants.dates.earliest,end:calculated.participants.dates.latest}) }}.</p>
 		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View participant breakdown{{ /comp }}</a></p>{{ /if }}
 	</div>
 {{ /comp }}

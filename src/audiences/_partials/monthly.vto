@@ -28,7 +28,7 @@
 			end: '2026-02'
 		}) }}
 
-		<p>Includes in-person &amp; digital events. <!--The {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} prior to 2025 is {{ difference |> toLocaleString() }}.--></p>
+		<p>Includes in-person &amp; digital events. This includes data from {{ comp.Date({start:calculated.programme.audience.dates.earliest,end:calculated.programme.audience.dates.latest}) }}.</p>
 		{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View audience breakdown{{ /comp }}</a></p>{{ /if }}
 		
 	</div>
