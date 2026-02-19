@@ -139,7 +139,7 @@ breadcrumbs_full:
 
 			{{ comp Tab.Set { classes: 'big'} }}
 
-				<p>The proportion of all tickets sold based on residence of lead booker. We haven't been able to match {{ ((bad_la / total_la)*100).toFixed(1) }}% of tickets to a valid UK {{ comp glossary.Ref { slug: 'local-authority' } }}local authority{{ /comp }}.</p>
+				<p>The proportion of all tickets sold based on residence of lead booker. We haven't been able to match {{ ((bad_la / total_la)*100).toFixed(1) }}% of tickets to a valid UK {{ comp glossary.Ref { slug: 'local-authority' } }}local authority{{ /comp }}. Numbers have been rounded.</p>
 
 				{{ comp Tab.Panel { id: 'tickets-uk-hex', label: 'Cartogram' } }}
 					{{ comp.oi.map.hex_cartogram({
@@ -236,7 +236,7 @@ breadcrumbs_full:
 			<h3>Tickets sold across Bradford</h3>
 			
 			{{ comp Tab.Set { classes: 'big'} }}
-				<p>The proportion of all tickets sold across Bradford split by {{ comp glossary.Ref { slug: 'ward' } }}ward{{ /comp }}. This only includes tickets where the residence of the lead booker is known to be within Bradford.</p>
+				<p>The proportion of all tickets sold across Bradford split by {{ comp glossary.Ref { slug: 'ward' } }}ward{{ /comp }}. This only includes tickets where the residence of the lead booker is known to be within Bradford. Numbers have been rounded.</p>
 				{{ comp Tab.Panel { id: 'tickets-bradford-hex', label: 'Cartogram' } }}
 					{{ comp.oi.map.hex_cartogram({
 						config: {
