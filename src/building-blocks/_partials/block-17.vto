@@ -14,20 +14,25 @@ block: block-17
 			v *= obj.perkilo;
 			if(obj.scale) v *= obj.scale;
 			if(obj.unit=="days"){
-				if(v > 365*1e6) return {'number':(v/365000000).toFixed(1),'unit':'Myr'}
-				if(v > 365) return {'number':(v/365).toFixed(1),'unit':'yr'}
-				return {'number':v,'unit':obj.unit};
+				if(v >= 365*1e6) return {'number':(v/365000000).toFixed(1),'unit':'million years','dp':1}
+				if(v >= 36500) return {'number':(v/365).toFixed(1),'unit':'years','dp':0}
+				if(v >= 400) return {'number':(v/365).toFixed(1),'unit':'years','dp':1}
+				return {'number':v,'unit':obj.unit,'dp':0};
 			}else{
 				if(obj.unit=="kg"){
-					if(v > 1e3){
+					if(v >= 1e3){
 						v /= 1000;
 						obj.unit = 'tonnes';
 					}
-					if(v > 1e6) return {'number':(v/1e6).toFixed(1),'unit':'million '+obj.unit};
-					else return {'number':v.toFixed(1),'unit':obj.unit};
+					if(v >= 1e7) return {'number':(v/1e6).toFixed(0),'unit':'million '+obj.unit,'dp':0};
+					else if(v >= 1e6) return {'number':(v/1e6).toFixed(1),'unit':'million '+obj.unit,'dp':1};
+					else if(v > 100) return {'number':v.toFixed(0),'unit':obj.unit,'dp':0};
+					else return {'number':v.toFixed(1),'unit':obj.unit,'dp':1};
 				}
-				if(v > 1e6) return {'number':(v/1e6).toFixed(1),'unit':'million '+obj.unit};
-				else return {'number':v.toFixed(1),'unit':obj.unit};
+				if(v > 1e7) return {'number':(v/1e6).toFixed(0),'unit':'million '+obj.unit,'dp':0};
+				else if(v >= 1e6) return {'number':(v/1e6).toFixed(1),'unit':'million '+obj.unit,'dp':1};
+				else if(v >= 100) return {'number':v.toFixed(0),'unit':obj.unit,'dp':0};
+				else return {'number':v.toFixed(1),'unit':obj.unit,'dp':1};
 			}
 		}
 	}}
@@ -39,10 +44,30 @@ block: block-17
 			'assumption': 'Assuming over one year, a mature tree will take up about 22 kilograms of carbon dioxide (CO2) from the atmosphere.',
 			'source': 'Figures from https://www.arbor.eco/carbon-equivalent-calculator'
 		},{
+			'type': 'forest',
+			'perkilo': 17/270000,
+			'unit': 'days',
+			'label': 'of carbon consumption for trees planted in the Forest of Bradford',
+			'assumption': 'Assuming over one year, a mature tree will take up about 22 kilograms of carbon dioxide (CO2) from the atmosphere.',
+			'source': 'Figures from https://www.arbor.eco/carbon-equivalent-calculator'
+		},{
 			'type': 'car',
 			'perkilo': 1/0.17474,
 			'unit': 'km',
 			'label': 'driving in a medium-sized car (petrol)',
+			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
+		},{
+			'type': 'flight',
+			'perkilo': 1/0.15282,
+			'unit': 'km',
+			'label': 'flown on a long-haul flight',
+			'assumption': 'Assumes the average passenger and includes direct and indirect affects.',
+			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
+		},{
+			'type':'flight',
+			'perkilo': (1/0.15282)*(1/40075.017),
+			'unit': 'flights',
+			'label': 'around the world',
 			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
 		},{
 			'type': 'cans',
@@ -58,19 +83,6 @@ block: block-17
 			'label': 'of the average smartphone',
 			'assumption': 'Assuming a smartphone charges on the WECC California grid at 0.019 kWh/charge.',
 			'source': 'Figures from https://www.arbor.eco/carbon-equivalent-calculator'
-		},{
-			'type': 'flight',
-			'perkilo': 1/0.15282,
-			'unit': 'km',
-			'label': 'flown on a long-haul flight',
-			'assumption': 'Assumes the average passenger and includes direct and indirect affects.',
-			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
-		},{
-			'type':'flight',
-			'perkilo': (1/0.15282)*(1/40075.017),
-			'unit': 'flights',
-			'label': 'around the world',
-			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
 		},{
 			'type': 'waste',
 			'perkilo': 0.39,
@@ -99,7 +111,7 @@ block: block-17
 				number: output.number,
 				suffix: output.unit,
 				classes: 'big',
-				roundingOptions: { maximumFractionDigits: 0 }
+				roundingOptions: { maximumFractionDigits: output.dp||0 }
 			}) }}
 			<p>{{ comparison.label }}</p>
 		</div>
