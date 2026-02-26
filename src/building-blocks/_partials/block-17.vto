@@ -61,6 +61,12 @@ block: block-17
 			'label': 'driving in a medium-sized car (petrol)',
 			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
 		},{
+			'type': 'car',
+			'perkilo': (1/0.17474)/327/2,
+			'unit': '',
+			'label': 'round trips from Bradford to London in a medium-sized car',
+			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
+		},{
 			'type': 'flight',
 			'perkilo': 1/0.15282,
 			'unit': 'km',
@@ -107,7 +113,7 @@ block: block-17
 	
 	<div class="grid oi-dashboard">
 		{{ for comparison of comparisons }}
-		<div class="panel c-lightgrey" style="text-align:left;">
+		<div class="panel" style="text-align:left;">
 			{{> 
 				output = getEmissions(calculations.summary.total_tCO2e*1000,comparison);
 			}}

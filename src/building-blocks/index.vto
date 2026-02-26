@@ -20,8 +20,7 @@ layout: templates/dashboard.vto
 </style>
 
 <section class="river">
-	<p>This is a page of visualisation building blocks that can be re-used elsewhere on the site.</p>
-	<p>On internal pages (and draft pages) each block will get a dark header bar that identifies it.</p>
+	<p>This is a page of visualisation building blocks that can be re-used elsewhere on the site. On internal pages (and draft pages) each block will get a dark header bar that identifies it.</p>
 </section>
 
 <section>
@@ -54,3 +53,61 @@ layout: templates/dashboard.vto
 	{{ include "./_partials/block.vto" }}
 	<p>You can change the colour of this block by setting <code>classes</code> to one of "audiences", "participants", or "events". If you leave <code>classes</code> empty it'll default to black.</p>
 </section>
+
+<script>
+(function(root){
+
+	function ready(fn){
+		// Version 1.1
+		if(document.readyState != 'loading') fn();
+		else document.addEventListener('DOMContentLoaded', fn);
+	};
+
+	var styles = document.createElement('style');
+	styles.innerHTML = '.filterable label { margin-right: 0.5rem; } .filterable input { height: 2em; line-height: 2em; font-size: 1em; }';
+	document.head.prepend(styles);
+
+	function filterList(v,ul){
+		// Get the table rows at this point (in case any table sorting has happened)
+		let li = ul.querySelectorAll('li[data-comp=grid-Block]');
+		let rows = [];
+		for(let r = 0; r < li.length; r++) rows[r] = {'li':li[r]};
+
+		let lower = v.toLowerCase();
+		for(let r = 0; r < rows.length; r++){
+			let ok = false;
+			if(rows[r].li.innerText.toLowerCase().indexOf(lower) >= 0) ok = true;
+			rows[r].li.style.display = (ok) ? "" : rows[r].li.style.display = "none";
+		}
+	}
+
+	function addFilter(ul){
+		let el = ul.parentNode;
+		// Add a class to this
+		el.classList.add('filterable');
+		// Make a label
+		let lbl = document.createElement('label');
+		lbl.innerHTML = "Filter the building blocks:";
+		// Make an input text box
+		let inp = document.createElement('input');
+		inp.setAttribute('type','text');
+		inp.classList.add('filter');
+		// Add them to the top
+		el.prepend(inp);
+		el.prepend(lbl);
+
+		// Add events
+		inp.addEventListener('keyup',function(e){
+			filterList(e.target.value,ul);
+		});
+		inp.addEventListener('change',function(e){
+			filterList(e.target.value,ul);
+		});
+	}
+
+	ready(function(){
+		addFilter(document.querySelector('ul.dashboard'));
+	});
+	
+})(window || this);
+</script>
