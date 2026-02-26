@@ -9,6 +9,76 @@ block: block-17
 
 	{{>
 		const { calculations } = search.data("themes/sustainability");
+		function getEmissions(v,obj){
+			// Assume input is in kilograms
+			v *= obj.perkilo;
+			if(obj.scale) v *= obj.scale;
+			if(obj.unit=="days"){
+				if(v > 365*1e6) return {'number':(v/365000000).toFixed(1),'unit':'Myr'}
+				if(v > 365) return {'number':(v/365).toFixed(1),'unit':'yr'}
+				return {'number':v,'unit':obj.unit};
+			}else{
+				if(obj.unit=="kg"){
+					if(v > 1e3){
+						v /= 1000;
+						obj.unit = 'tonnes';
+					}
+					if(v > 1e6) return {'number':(v/1e6).toFixed(1),'unit':'million '+obj.unit};
+					else return {'number':v.toFixed(1),'unit':obj.unit};
+				}
+				if(v > 1e6) return {'number':(v/1e6).toFixed(1),'unit':'million '+obj.unit};
+				else return {'number':v.toFixed(1),'unit':obj.unit};
+			}
+		}
+	}}
+	{{ set comparisons = [{
+			'type': 'tree',
+			'perkilo': 17,
+			'unit': 'days',
+			'label': 'of carbon consumption for 1 tree',
+			'assumption': 'Assuming over one year, a mature tree will take up about 22 kilograms of carbon dioxide (CO2) from the atmosphere.',
+			'source': 'Figures from https://www.arbor.eco/carbon-equivalent-calculator'
+		},{
+			'type': 'car',
+			'perkilo': 1/0.17474,
+			'unit': 'km',
+			'label': 'driving in a medium-sized car (petrol)',
+			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
+		},{
+			'type': 'cans',
+			'perkilo': 959,
+			'unit': 'cans',
+			'label': 'of aluminum recycled',
+			'assumption': 'Assuming aluminum cans weighing 14.9 grams/can are treated via recycling',
+			'source': 'Figures from https://www.arbor.eco/carbon-equivalent-calculator'
+		},{
+			'type': 'phone',
+			'perkilo': 232,
+			'unit': 'charges',
+			'label': 'of the average smartphone',
+			'assumption': 'Assuming a smartphone charges on the WECC California grid at 0.019 kWh/charge.',
+			'source': 'Figures from https://www.arbor.eco/carbon-equivalent-calculator'
+		},{
+			'type': 'flight',
+			'perkilo': 1/0.15282,
+			'unit': 'km',
+			'label': 'flown on a long-haul flight',
+			'assumption': 'Assumes the average passenger and includes direct and indirect affects.',
+			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
+		},{
+			'type':'flight',
+			'perkilo': (1/0.15282)*(1/40075.017),
+			'unit': 'flights',
+			'label': 'around the world',
+			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
+		},{
+			'type': 'waste',
+			'perkilo': 0.39,
+			'unit': 'kg',
+			'label': 'of plastic waste incinerated',
+			'assumption': 'Assuming generic mixed plastic waste treated via incineration.',
+			'source': 'Figures from https://www.arbor.eco/carbon-equivalent-calculator'
+		}]
 	}}
 	{{ comp.BigNumber({
 		number: calculations.summary.total_tCO2e,
@@ -17,6 +87,23 @@ block: block-17
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 }
 	}) }}
-	<p>Tonnes of carbon dioxide equivalent (tCO<sub>2</sub>e).</p>
+	<p>Tonnes of carbon dioxide equivalent (tCO<sub>2</sub>e) equivalent to:</p>
+	
+	<div class="grid oi-dashboard">
+		{{ for comparison of comparisons }}
+		<div class="panel c-lightgrey" style="text-align:left;">
+			{{> 
+				output = getEmissions(calculations.summary.total_tCO2e*1000,comparison);
+			}}
+			{{ comp.BigNumber({
+				number: output.number,
+				suffix: output.unit,
+				classes: 'big',
+				roundingOptions: { maximumFractionDigits: 0 }
+			}) }}
+			<p>{{ comparison.label }}</p>
+		</div>
+		{{ /for }}
+	</div>
 
 {{ /comp }}

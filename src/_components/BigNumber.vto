@@ -30,43 +30,48 @@ js: |
             threshold: 0.75,
         }
     );
-    document.querySelectorAll('[data-comp=big-number][data-animate]').forEach(numberBlock => {
+    document.querySelectorAll('[data-comp=big-number]').forEach(numberBlock => {
         const numericEl = numberBlock.querySelector('span.numeric');
-        const target = +(numberBlock.dataset.number);
+        const target = parseFloat(numberBlock.dataset?.number||0);
         const roundingOptions = JSON.parse(numberBlock.dataset?.roundingOptions || '{}');
-        // Set the duration in seconds
-        const duration = (numberBlock.dataset && numberBlock.dataset.duration ? parseFloat(numberBlock.dataset?.duration) : 1);
         const setValue = (n,opt) => {
             numericEl.innerHTML = n.toLocaleString(undefined, opt);
         };
-        function animate() {
-            let start = new Date();
-            let t,value;
-            const updateNumber = () => {
-                t = (new Date() - start)/1000;
-                value = target*(t/duration);
-                if(isNaN(value)){
-                    clearInterval(timer);
-                }else{
-                	setValue(value,roundingOptions);
-                	if (Math.abs(value) >= Math.abs(target)) {
-                		clearInterval(timer);
-                		setValue(target,roundingOptions);
-                	}
+        if(numberBlock.hasAttribute('data-animate')){
+            // Set the duration in seconds
+            const duration = (numberBlock.dataset && numberBlock.dataset.duration ? parseFloat(numberBlock.dataset?.duration) : 1);
+            function animate() {
+                let start = new Date();
+                let t,value;
+                const updateNumber = () => {
+                    t = (new Date() - start)/1000;
+                    value = target*(t/duration);
+                    if(isNaN(value)){
+                        clearInterval(timer);
+                    }else{
+                    	setValue(value,roundingOptions);
+                    	if (Math.abs(value) >= Math.abs(target)) {
+                    		clearInterval(timer);
+                    		setValue(target,roundingOptions);
+                    	}
+                    }
                 }
+                let timer = setInterval(updateNumber, 40);
             }
-            let timer = setInterval(updateNumber, 40);
+            numericEl.animate = animate;
+            observer.observe(numericEl);
+        }else{
+            setValue(target,roundingOptions);
         }
-        numericEl.animate = animate;
-        observer.observe(numericEl);
     })
 ---
 <div
     data-comp="big-number"
     {{ if classes }}class="{{ classes || ""}}"{{ /if }}
+	data-number="{{ number }}"
+    {{- if roundingOptions }} data-rounding-options='{{ JSON.stringify(roundingOptions) }}'{{ /if -}}
     {{ if animate -}}
-    data-animate data-number="{{ number }}"
-    {{- if roundingOptions }} data-rounding-options={{ JSON.stringify(roundingOptions) }}{{ /if -}}
+    data-animate="true" 
     {{- if duration }} data-duration="{{ duration }}"{{ /if -}}
     {{ /if -}}
 >
