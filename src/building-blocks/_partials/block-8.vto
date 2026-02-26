@@ -1,0 +1,130 @@
+---
+block: block-8
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
+	<h3>Tickets sold across the UK</h3>
+
+	{{>
+		const { timestamp: timestamp_d } = search.data("insights/dashboard");
+		const scale = {'green': '#ffffff 0%, #45d108 100%'};
+		const { operational: operational_d } = search.data("../themes/ticketing");
+	}}
+
+	{{>
+		let total_la = 0;
+		let bad_la = 0;
+		let by_la = operational_d.geography.filter((entry) => {
+			let ok = entry.geography_type == "oslaua";
+			if(ok && (entry.geography_code == "MISSING" || entry.geography_code == "UNMATCHED")){
+				bad_la += entry.value;
+			}
+			if(ok) total_la += entry.value;
+			return ok;
+		});
+		for(let i = 0; i < by_la.length; i++){
+			by_la[i].percent = 100*by_la[i].value/total_la;
+			if(by_la[i].geography_code in hexes.uk_lads_2023.hexes) {
+				by_la[i].name = hexes.uk_lads_2023.hexes[by_la[i].geography_code].n;
+			}else{
+				by_la[i].name = by_la[i].geography_code;
+			}
+		}
+	}}
+
+	{{ comp Tab.Set { classes: 'big'} }}
+
+		<p>The proportion of all tickets sold based on residence of lead booker. We haven't been able to match {{ ((bad_la / total_la)*100).toFixed(1) }}% of tickets to a valid UK {{ comp glossary.Ref { slug: 'local-authority' } }}local authority{{ /comp }}. Numbers have been rounded.</p>
+
+		{{ comp Tab.Panel { id: 'tickets-uk-hex', label: 'Cartogram' } }}
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.uk_lads_2023,
+					data: by_la,
+					matchKey: 'geography_code',
+					value: 'percent',
+					min: 0,
+					max: 10,
+					scale: scale.green,
+					label: '{{ n | slice(0,3) }}',
+					width: 500,
+					height: 660,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [{'value':10,'label':'>10%'},{'value':5,'label':'5%'},{'value':0,'label':'0%'}]
+					},
+					tooltip: '{{ n }}\n<strong>{{ percent | toFixed(1) }}%</strong> of all tickets sold across the UK',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 3,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+			<p>This {{ comp glossary.Ref { slug: 'cartogram' } }}cartogram{{ /comp }} displays local authorities as equal-sized hexagons. This allows us to more easily compare local authorities rather than have the impression skewed by the physical area.</p>
+		{{ /comp }}
+
+		{{ comp Tab.Panel { id: 'tickets-uk-map', label: 'Map' } }}
+			{{ comp.oi.map.svg({
+				config: {
+					geojson: {
+						key: 'LAD23CD',
+						data: geojson.Local_Authority_Districts_December_2023_Boundaries_UK
+					},
+					data: by_la,
+					columns: [{
+						name: "filterLabel",
+						template: "{{ geojson.properties.LAD23NM }}"
+					}],
+					bounds: { lat: { min: 49.5, max: 61 }, lon: { min: -8, max: 3 }},
+					key: 'geography_code',
+					value: 'percent',
+					min: 0,
+					max: 10,
+					scale: scale.green,
+					label: '{{ n | slice(0,3) }}',
+					width: 500,
+					height: 660,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [{'value':10,'label':'>10%'},{'value':5,'label':'5%'},{'value':0,'label':'0%'}]
+					},
+					tooltip: '{{ geojson.properties.LAD23NM }}\n<strong>{{ percent | toFixed(1) }}%</strong> of all tickets sold across the UK',
+					tools: {
+						filter: {
+							label: 'filterLabel',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 6,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+		{{ /comp }}
+
+		{{ comp Tab.Panel { id: 'tickets-uk-table', label: 'Table' } }}
+			{{ comp.dashboard.InfoBoxTable({
+				head: {
+					class: 'head',
+				},
+				columns: [
+					{ name: 'name', value: 'name', label: 'Local authority' },
+					{ name: 'ticket_proportion_nice', template: '{{ percent | toFixed(1) }}%', value: 'percent', label: 'Proportion', class: 'right', scale: scale.green, min: 0, max: 10, sortable: true }
+				],
+				data: by_la,
+				width: "100%",
+				sort: "name"
+			}) }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}

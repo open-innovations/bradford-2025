@@ -13,6 +13,8 @@ css: |
         }
     }
     [data-comp=grid-Block].full-width { flex-basis: 100%; }
+    [data-comp=grid-Block] .block-inner > *:last-child { margin-bottom: 0; }
+    [data-comp=grid-Block] .source { font-size: 0.8em; }
     [data-comp=grid-Block] .block-id { background: #555; color: silver; display: block; padding-inline: 0.5rem; padding-block: 0.25rem; text-decoration: none; }
     [data-comp=grid-Block] .block-id span { font-weight: bold; color: white; }
     [data-comp=grid-Block] .block-id:hover, [data-comp=grid-Block] .block-id:focus { background: black; }
@@ -35,6 +37,12 @@ css: |
 {{ /if }}
 	<div class="block-inner">
 	{{ content }}
+	{{ if source }}<p class="source">Source: {{ source }}</p>{{ /if }}
 	</div>
+	{{ if notes }}
+	<div class="block c-yellow centred internal">
+	{{ notes }}
+	</div>
+	{{ /if }}
 </div>
 </{{ tag || 'div'}}>

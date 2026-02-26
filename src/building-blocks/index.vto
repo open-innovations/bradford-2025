@@ -6,8 +6,17 @@ layout: templates/dashboard.vto
 ---
 <style>
 	ul[data-comp="grid-Auto"].dashboard { gap: 1rem; }
-	.dashboard li[data-comp="grid-Block"] { flex-basis: 30%; }
-	.dashboard li[data-comp="grid-Block"] .oi-chart-line .oi-chart-main { max-height: 80vh; }
+	[data-comp="grid-Block"] { flex-basis: 30%; }
+	[data-comp="grid-Block"] .block { padding: 0; }
+	[data-comp="grid-Block"] .block-inner { padding: 2rem; }
+	[data-comp="grid-Block"] .oi-chart-line .oi-chart-main { max-height: 80vh; }
+	code { background: var(--color-grey); color: var(--color-black); padding: 0.25em; }
+	@media (max-width: 1000px) {
+		[data-comp="grid-Block"] { flex-basis: 45%; }
+	}
+	@media (max-width: 600px) {
+		[data-comp="grid-Block"] { flex-basis: 100%; }
+	}
 </style>
 
 <section class="river">
@@ -20,12 +29,25 @@ layout: templates/dashboard.vto
 	{{ include "./_partials/block-1.vto" }}
 	{{ include "./_partials/block-2.vto" }}
 	{{ include "./_partials/block-3.vto" }}
+	{{ include "./_partials/block-4.vto" }}
+	{{ include "./_partials/block-5.vto" }}
+	{{ include "./_partials/block-6.vto" }}
+	{{ include "./_partials/block-7.vto" }}
+	{{ include "./_partials/block-8.vto" }}
+	{{ include "./_partials/block-9.vto" }}
+	{{ include "./_partials/block-10.vto" }}
+	{{ include "./_partials/block-11.vto" }}
+	{{ include "./_partials/block-12.vto" }}
+	{{ include "./_partials/block-13.vto" }}
+	{{ include "./_partials/block-14.vto" }}
 {{ /comp }}
 </section>
 
 <section class="river">
 	<h2>Notes</h2>
-	<p>When including one of these building blocks on other pages, you can set the _anchor_ to use by setting the variable `id`. e.g</p>
+	<p>When including one of these building blocks on other pages, you can set the _anchor_ to use by setting the variable <code>id</code>. e.g</p>
 	<code>{{ "{{ include './building-blocks/_partials/block-1.vto' { id: 'audience'} }}" }}</code>
-	<p>will make the block have a page anchor set to `audience`.</p>
+	<p>will make the block have a page anchor set to <code>audience</code>. Below is the template block in <code>_partials/block.vto</code>.</p>
+	{{ include "./_partials/block.vto" }}
+	<p>You can change the colour of this block by setting <code>classes</code> to one of "audiences", "participants", or "events". If you leave <code>classes</code> empty it'll default to black.</p>
 </section>

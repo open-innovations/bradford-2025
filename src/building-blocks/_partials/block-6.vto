@@ -1,0 +1,35 @@
+---
+block: block-6
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Spektrix', notes: "Example of an internal note that won't appear on a live public page." } }}
+
+	<h3>Total tickets</h3>
+
+	{{>
+		const { operational: operational_d } = search.data("../themes/ticketing");
+	}}
+
+	{{ comp.BigNumber({
+		number: operational_d.summary.tickets || 0,
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+
+	{{ comp.graph.monthly({
+		data: operational_d.weekly_tickets,
+		series: [{
+			title: 'Weekly tickets',
+			x: 'week_ending',
+			y: 'weekly',
+			colour: 'green',
+			tooltip: 'Tickets\n{{ week_ending | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>'
+		}],
+		columns: [{
+			name: 'decimal_year',
+			template: '{{ week_ending | strptime(\"%Y-%m-%d\") | decimalYear() }}'
+		}]
+	}) }}
+	<p>Weekly tickets sold.</p>
+{{ /comp }}

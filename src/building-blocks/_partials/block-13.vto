@@ -1,0 +1,35 @@
+---
+block: block-13
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
+	<h3>Would you recommend?</h3>
+
+	{{ comp.BigNumber({
+		number: (calculated.survey.nps.all.value || 0),
+		classes: 'big',
+		animate: true,
+		suffix: '/10',
+		roundingOptions: { maximumFractionDigits: 1 }
+	}) }}
+	{{ comp.graph.monthly({
+		data: calculated.survey.nps.monthly.all,
+		series: [{
+			title: 'Net promoter score',
+			x: 'Date',
+			y: 'value',
+			colour: 'green',
+			tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ value | toFixed(1) }}/10</strong>'
+		}],
+		axis: {
+			y: {
+				min: 0,
+				max: 10,
+				tick: { spacing: 2 }
+			}
+		}
+	}) }}
+	<p>The {{ comp glossary.Ref { slug: 'net-promoter-score' } }}net promoter score{{ /comp }} (on a scale of <em>0</em> to <em>10</em>) from audience surveys. Last updated {{ comp.Date({start:calculated.survey.nps.monthly.all[calculated.survey.nps.monthly.all.length-1].Date+'-01',dateFormat:'LLLL y'}) }}.</p>
+
+{{ /comp }}

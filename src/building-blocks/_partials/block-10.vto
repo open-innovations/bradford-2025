@@ -1,0 +1,31 @@
+---
+block: block-10
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Google Analytics' } }}
+
+	<h3>Website users</h3>
+
+	{{>
+		const { website: website_d } = search.data("insights/digital");
+	}}
+
+	{{ comp.BigNumber({
+		number: website_d.total_users[website_d.total_users.length - 1].cumulative || 0,
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	
+	{{ comp.graph.monthly({
+		data: website_d.total_users,
+		series: [{
+			title: 'Website users',
+			x: 'month',
+			y: 'count',
+			colour: 'green'
+		}],
+	}) }}
+	<p>Total users recorded by Google Analytics.</p>
+
+{{ /comp }}

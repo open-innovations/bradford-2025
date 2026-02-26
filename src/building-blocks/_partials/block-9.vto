@@ -1,0 +1,111 @@
+---
+block: block-9
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
+	<h3>Tickets sold across Bradford</h3>
+
+	{{>
+		const { timestamp: timestamp_d } = search.data("insights/dashboard");
+		const scale = {'green': '#ffffff 0%, #45d108 100%'};
+		const { operational: operational_d } = search.data("../themes/ticketing");
+
+		const { by_ward: by_ward_d } = search.data("insights/reach");
+		const ward_data_d = by_ward_d.map(x => ({
+			...x,
+			ticket_proportion: parseFloat((x.tickets_prop*100).toFixed(1)),
+			ticket_percent: x.tickets_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
+			response_proportion: parseFloat((x.surveys_prop*100).toFixed(1)),
+			response_percent: x.surveys_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
+		}))
+
+	}}
+
+	{{ comp Tab.Set { classes: 'big'} }}
+		<p>The proportion of all tickets sold across Bradford split by {{ comp glossary.Ref { slug: 'ward' } }}ward{{ /comp }}. This only includes tickets where the residence of the lead booker is known to be within Bradford. Numbers have been rounded.</p>
+		{{ comp Tab.Panel { id: 'tickets-bradford-hex', label: 'Cartogram' } }}
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_2024,
+					data: ward_data_d,
+					matchKey: 'geography_code',
+					value: 'ticket_proportion',
+					min: 0,
+					scale: scale.green,
+					label: '{{ n | slice(0,3) }}',
+					width: 500,
+					height: 660,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
+					},
+					tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 2,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+			<p>This {{ comp glossary.Ref { slug: 'cartogram' } }}cartogram{{ /comp }} displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'tickets-bradford-map', label: 'Map' } }}
+			{{ comp.oi.map.svg({
+				config: {
+					geojson: {
+						key: 'WD24CD',
+						data: geojson.bd_wards
+					},
+					data: ward_data_d,
+					columns: [{
+						name: "filterLabel",
+						template: "{{ geojson.properties.WD24NM }}"
+					}],
+					key: 'geography_code',
+					value: 'ticket_proportion',
+					min: 0,
+					scale: scale.green,
+					width: 500,
+					height: 660,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [{'value':20,'label':'>20%'},{'value':10,'label':'10%'},{'value':0,'label':'0%'}]
+					},
+					tooltip: '{{ name }}\n<strong>{{ ticket_percent }}</strong> of all tickets sold across Bradford',
+					tools: {
+						filter: {
+							label: 'filterLabel',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 3,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'tickets-bradford-table', label: 'Table' } }}
+			{{ comp.dashboard.InfoBoxTable({
+				head: {
+					class: 'head',
+				},
+				columns: [
+					{ name: 'name', label: 'Ward' },
+					{ name: 'ticket_proportion_nice', template: '{{ ticket_proportion }}%', value: 'ticket_proportion', label: 'Proportion', class: 'right', scale: scale.green, min: 0, sortable: true }
+				],
+				data: ward_data_d,
+				width: "100%",
+				sort: "name"
+			}) }}
+		{{ /comp }}
+	{{ /comp }}
+{{ /comp }}

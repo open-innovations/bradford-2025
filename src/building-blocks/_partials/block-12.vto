@@ -1,0 +1,35 @@
+---
+block: block-12
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+	
+	<h3>Positive experience</h3>
+
+	{{ comp.BigNumber({
+		number: ((calculated.survey.rated_good_or_excellent.all.value || 0)*100),
+		classes: 'big',
+		animate: true,
+		suffix: '%',
+		roundingOptions: { maximumFractionDigits: 1 }
+	}) }}
+	{{ comp.graph.monthly({
+		data: calculated.survey.rated_good_or_excellent.monthly.all,
+		series: [{
+			title: 'Positive experience',
+			x: 'Date',
+			y: 'percent',
+			colour: 'green',
+			tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ percent | toFixed(1) }}%</strong>'
+		}],
+		axis: {
+			y: {
+				min: 0,
+				max: 100,
+				tick: { spacing: 25 }
+			}
+		}
+	}) }}
+	<p>The average percentage of {{ comp glossary.Ref { slug: 'audience-survey' } }}audience surveys{{ /comp }} which rated overall experience as <em>good</em> or <em>excellent</em>. Last updated {{ comp.Date({start:calculated.survey.rated_good_or_excellent.monthly.all[calculated.survey.rated_good_or_excellent.monthly.all.length-1].Date+'-01',dateFormat:'LLLL y'}) }}.</p>
+
+{{ /comp }}

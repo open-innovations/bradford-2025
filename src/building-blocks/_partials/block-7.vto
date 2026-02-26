@@ -1,0 +1,60 @@
+---
+block: block-7
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
+	<h3>Tickets sold by type</h3>
+
+	{{>
+		const { operational: operational_d } = search.data("../themes/ticketing");
+	}}
+
+	{{> 
+		let tickets_by_ticket_type = [{}];
+		let ticket_types = {
+			"Full Price":"Full price",
+			"Child Ticket":"Child",
+			"Aged 0-5":"Child",
+			"Aged 0-11":"Child",
+			"Bradford Youth Pass":"Child",
+			"Senior Ticket":"Senior",
+			"Accessible Ticket":"Accessible",
+		};
+		let ticket_series = [
+			{ value: "Full price", colour: "#45D108" },
+			{ value: "Child", colour: "#E0B942" },
+			{ value: "Senior", colour: "#F4ACCD" },
+			{ value: "Accessible", colour: "#C9AFBB" },
+			{ value: "Other", colour: "#e6e4e5" }
+		];
+		var total = 0;
+		for(let i = 0; i < operational_d.type.length; i++){
+			let typ = (operational_d.type[i]['Ticket type'] in ticket_types) ? ticket_types[operational_d.type[i]['Ticket type']] : "Other";
+			if(!(typ in tickets_by_ticket_type[0])) tickets_by_ticket_type[0][typ] = 0;
+			if(typeof operational_d.type[i]['Number of tickets sold']==="number"){
+				tickets_by_ticket_type[0][typ] += operational_d.type[i]['Number of tickets sold'];
+				total += operational_d.type[i]['Number of tickets sold'];
+			}
+		}
+		for(let typ in tickets_by_ticket_type[0]){
+			tickets_by_ticket_type[0][typ] *= 100/total;
+		}
+		for(let i = 0; i < ticket_series.length; i++){
+			ticket_series[i].tooltip = ticket_series[i].value+": <strong>{{ "+ticket_series[i].value+" | toFixed(1) }}%</strong>";
+			ticket_series[i].points = {'marker':'circle'};
+		}
+	}}
+
+	{{ comp.oi.chart.waffle({
+		config: {
+			data: tickets_by_ticket_type,
+			series: ticket_series,
+			size: [20, 10],
+			total: 100,
+			legend: { show: true, position: 'bottom' },
+			rounding: ceil
+		}
+	}) }}
+
+{{ /comp }}

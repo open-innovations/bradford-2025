@@ -1,0 +1,36 @@
+---
+block: block-11
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+	<h3>Followers</h3>
+
+	{{>
+		const { followers: followers_d } = search.data("insights/digital");
+	}}
+
+	{{ comp.BigNumber({
+		number: followers_d.latest["Total Audience"].count || 0,
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+
+	{{ comp.graph.monthly({
+		data: followers_d.by_date,
+		series: [
+			{ title: 'Email', x: 'Date', y: 'Email Subscribers', colour: 'green', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+			{ title: 'Facebook', x: 'Date', y: 'Facebook Followers', colour: '#1877F2', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+			{ title: 'Instagram', x: 'Date', y: 'Instagram Followers', colour: '#833AB4', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+			{ title: 'LinkedIn', x: 'Date', y: 'LinkedIn Followers', colour: '#005c69', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+			{ title: 'TikTok', x: 'Date', y: 'TikTok Followers', colour: '#ff0257', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+		],
+		columns: [{
+			name: 'decimal_year',
+			template: '{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}'
+		}],
+		legend: { show: true, position: 'bottom' }
+	}) }}
+
+	<p>The total number of followers across various {{ comp glossary.Ref { slug: 'social-media' } }}media{{ /comp }}. Updated {{ followers_d.latest["Total Audience"].updated |> date('BD25_LONG_DATE') }}.</p>
+{{ /comp }}
