@@ -13,6 +13,8 @@ css: |
         }
     }
     [data-comp=grid-Brick].full-width { flex-basis: 100%; }
+    [data-comp=grid-Brick] .block-id { background: black; color: silver; display: inline-block; padding-inline: 0.5rem; padding-block: 0.25rem; text-decoration: none; }
+    [data-comp=grid-Brick] .block-id span { font-weight: bold; color: white; }
 ---
 {{>
     let extraStyle = style || '';
@@ -25,5 +27,9 @@ css: |
     {{ if classes || full }} class="{{ classes }}{{ if full }} full-width{{ /if }}"{{ /if }}
     {{ if id }} id="{{ id }}"{{ /if }}
 >
+{{ page |> JSON.stringify }}
+{{ if block && id }}
+<a href="{{ id }}" class="block-id"><span id="{{ id |> replace(/\#/,'') }}">{{ id |> replace(/\#/,'') }}</span> - this ID is for internal reference only</a>
+{{ /if }}
 {{ content }}
 </{{ tag || 'div'}}>

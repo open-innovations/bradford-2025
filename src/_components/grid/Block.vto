@@ -1,0 +1,40 @@
+---
+css: |
+    [data-comp=grid-Block] {
+        display: flex;
+        flex-direction: column;
+        & > * {
+            flex-grow: 1;
+        }
+        @media print {
+            & {
+                break-inside: avoid-page;
+            }
+        }
+    }
+    [data-comp=grid-Block].full-width { flex-basis: 100%; }
+    [data-comp=grid-Block] .block-id { background: #555; color: silver; display: block; padding-inline: 0.5rem; padding-block: 0.25rem; text-decoration: none; }
+    [data-comp=grid-Block] .block-id span { font-weight: bold; color: white; }
+    [data-comp=grid-Block] .block-id:hover, [data-comp=grid-Block] .block-id:focus { background: black; }
+---
+{{# This is the same as the Brick component but to add block ID #}}
+{{>
+    let extraStyle = style || '';
+    if (cols) {
+        extraStyle += `--cols:${cols}`;
+    }
+}}
+<{{ tag || 'div' }} data-comp="grid-Block"
+    {{ if extraStyle }} style="{{ extraStyle }}"{{ /if }}
+    {{ if classes || full }} class="{{ classes }}{{ if full }} full-width{{ /if }}"{{ /if }}
+    {{ if id }} id="{{ id }}"{{ /if }}
+>
+<div class="block">
+{{ if internal || draft }}
+<a href="/building-blocks/#{{ block }}" class="block-id"><span id="{{ block }}">{{ block }}</span> - internal ID for this block (this bar won't appear on a live public page)</a>
+{{ /if }}
+	<div class="block-inner">
+	{{ content }}
+	</div>
+</div>
+</{{ tag || 'div'}}>

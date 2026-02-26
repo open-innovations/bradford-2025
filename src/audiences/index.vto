@@ -16,7 +16,7 @@ breadcrumbs_full:
 	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp_d.start,end:timestamp_d.end}) }} unless stated otherwise.</p>
 
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ include "./_partials/monthly.vto" { id: 'monthly' } }}
+		{{ include "../building-blocks/_partials/block-1.vto" { id: 'monthly' } }}
 		{{ include "./_partials/in_person.vto" { id: 'in-person' } }}
 		{{ include "./_partials/digital.vto" { id: 'digital' } }}
 	{{ /comp }}

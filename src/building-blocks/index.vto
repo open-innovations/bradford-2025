@@ -1,0 +1,31 @@
+---
+draft: true
+internal: true
+title: Building blocks
+layout: templates/dashboard.vto
+---
+<style>
+	.dashboard li[data-comp="grid-Block"] { flex-basis: 100%; }
+	.dashboard li[data-comp="grid-Block"] .oi-chart-line .oi-chart-main { max-height: 80vh; }
+	.dashboard li[data-comp="grid-Block"] + [data-comp="grid-Block"] { margin-top: 2rem; }
+</style>
+
+<section class="river">
+	<p>This is a page of visualisation building blocks that can be re-used elsewhere on the site.</p>
+	<p>On internal pages (and draft pages) each block will get a dark header bar that identifies it.</p>
+</section>
+
+<section>
+{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+	{{ include "./_partials/block-1.vto" }}
+	{{ include "./_partials/block-2.vto" }}
+	{{ include "./_partials/block-3.vto" }}
+{{ /comp }}
+</section>
+
+<section class="river">
+	<h2>Notes</h2>
+	<p>When including one of these building blocks on other pages, you can set the _anchor_ to use by setting the variable `id`. e.g</p>
+	<code>{{ "{{ include './building-blocks/_partials/block-1.vto' { id: 'audience'} }}" }}</code>
+	<p>will make the block have a page anchor set to `audience`.</p>
+</section>
