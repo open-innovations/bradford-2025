@@ -1,0 +1,19 @@
+---
+block: block-26
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants' } }}
+
+	<h3>Signed-up</h3>
+
+	{{>
+		const { summary: summary_d } = search.data("themes/volunteers");
+	}}
+	{{ comp.BigNumber({
+		number: summary_d['Signed up'],
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	<p>The first step is to sign up. During this checkpoint the prospective volunteers fill in an application form to collect key information that we use to track the volunteering process. There are currently <b>{{ summary_d['Signed up'] - summary_d['Induction booked'] }}</b> people in this checkpoint.</p>
+{{ /comp }}

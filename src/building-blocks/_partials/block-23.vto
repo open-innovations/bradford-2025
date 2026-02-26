@@ -1,0 +1,20 @@
+---
+block: block-23
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events' } }}
+
+	{{> 
+		// Suffixing these with _d to make it easier to remove them when replacing with open data
+		const { metrics: metrics_d } = search.data("insights/dashboard");
+	}}
+	<h3>{{ metrics_d.events_exhibition_days.title }}</h3>
+	{{ comp.BigNumber({
+		number: calculated.programme.events.categories.open.Exhibition || 0,
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 },
+		suffix: '',
+	}) }}
+	<p>Count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}.</p>
+{{ /comp }}

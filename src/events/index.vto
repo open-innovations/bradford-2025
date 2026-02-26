@@ -21,108 +21,17 @@ tags:
 	<p>This is a live work-in-progress and does not present the full and complete picture of all activity and engagement. The totals cover the period from {{ comp.Date({start:timestamp_d.start,end:timestamp_d.end}) }}.</p>
 
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{ include "./_partials/monthly.vto" { id: 'monthly' } }}
-
-		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics_d.events_in_person.title }}</h3>
-			{{ comp.BigNumber({
-				number: Object.entries(calculated.programme.events.categories.open).filter(c => ![ 'Exhibition', 'Festival', 'Digital' ].includes(c[0])).reduce((a, c) => a + c[1], 0) || '&mdash;',
-				classes: 'big',
-				animate: true,
-				roundingOptions: { maximumFractionDigits: 0 },
-				suffix: '',
-			}) }}
-			<p>Count of in-person {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}).</p>
-		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics_d.events_online.title }}</h3>
-			{{ comp.BigNumber({
-				number: calculated.programme.events.categories.open.Digital || '&mdash;',
-				classes: 'big',
-				animate: true,
-				roundingOptions: { maximumFractionDigits: 0 },
-				suffix: '',
-			}) }}
-			<p>Count of online {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}).</p>
-		{{ /comp }}
+		{{ include "../building-blocks/_partials/block-2.vto" { id: 'monthly' } }}
+		{{ include "../building-blocks/_partials/block-18.vto" { id: 'in-person' } }}
+		{{ include "../building-blocks/_partials/block-19.vto" { id: 'digital' } }}
 	{{ /comp }}
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-		{{> 
-			const festivals = [];
-			for(e in events_d.by_project){
-				if(events_d.by_project[e].category === 'Festival'){
-					festivals.push({"title":e,"value":events_d.by_project[e].count});
-				}
-			}
-		}}
-		{{# TODO work out how to get this from somewhere else or remove? #}}
-		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics_d.events_festivals.title }}</h3>
-			{{ comp.BigNumber({
-				number: festivals.length || '&mdash;',
-				classes: 'big',
-				animate: true,
-				roundingOptions: { maximumFractionDigits: 0 },
-				suffix: '',
-			}) }}
-			<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}festivals{{ /comp }}.</p>
-		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics_d.events_festival_events.title }}</h3>
-			{{ comp.BigNumber({
-				number: calculated.programme.events.categories.open.Festival || 0,
-				classes: 'big',
-				animate: true,
-				roundingOptions: { maximumFractionDigits: 0 },
-				suffix: '',
-			}) }}
-			<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}Festival events{{ /comp }}.</p>
-		{{ /comp }}
-		{{# TODO work out how to get this from somewhere else or remove? #}}
-		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics_d.events_exhibitions.title }}</h3>
-			{{ comp.BigNumber({
-				number: projects_d.by_category['Exhibition'] || 0,
-				classes: 'big',
-				animate: true,
-				roundingOptions: { maximumFractionDigits: 0 },
-				suffix: '',
-			}) }}
-			<p>Count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}.</p>
-		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics_d.events_exhibition_days.title }}</h3>
-			{{ comp.BigNumber({
-				number: calculated.programme.events.categories.open.Exhibition || 0,
-				classes: 'big',
-				animate: true,
-				roundingOptions: { maximumFractionDigits: 0 },
-				suffix: '',
-			}) }}
-			<p>Count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}.</p>
-		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics_d.events_community_led.title }}</h3>
-			{{ comp.BigNumber({
-				number: (events_d.by_project['Our Patch']?.count || 0) + (events_d.by_category["Community-led arts event"] || 0),
-				classes: 'big',
-				animate: true,
-				roundingOptions: { maximumFractionDigits: 0 },
-				suffix: '',
-			}) }}
-			<p>Count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}.</p>
-		{{ /comp }}
-		{{ comp grid.Brick { tag: 'li', classes: 'events block' } }}
-			<h3>{{ metrics_d.events_free_activities.title }}</h3>
-			{{ comp.BigNumber({
-				number: events_d.free || '&mdash;',
-				classes: 'big',
-				animate: true,
-				roundingOptions: { maximumFractionDigits: 0 },
-				suffix: '',
-			}) }}
-			<p>Count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}.</p>
-		{{ /comp }}
+		{{ include "../building-blocks/_partials/block-20.vto" { id: 'festivals' } }}
+		{{ include "../building-blocks/_partials/block-21.vto" { id: 'festival-events' } }}
+		{{ include "../building-blocks/_partials/block-22.vto" { id: 'exhibitions' } }}
+		{{ include "../building-blocks/_partials/block-23.vto" { id: 'exhibition-days' } }}
+		{{ include "../building-blocks/_partials/block-24.vto" { id: 'community' } }}
+		{{ include "../building-blocks/_partials/block-25.vto" { id: 'free-to-access' } }}
 	{{ /comp }}
 </section>
 

@@ -1,0 +1,45 @@
+---
+block: block-30
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants' } }}
+
+	<h3>Cultural learning participants</h3>
+
+	{{>
+		const {
+			metrics: metrics_d,
+			participants: participants_d,
+			timestamp: timestamp_d,
+			otherFigures: otherFigures_d,
+		} = search.data("insights/dashboard");
+		const scalepink = "#ffffff 0%, #e1699f 100%";
+		const { people: people_d, keyMap: keyMap_d, summary: summary_d } = search.data("themes/volunteers");
+		const tabledata = Object.entries(participants_d.by_type.cultural_learning_participants.by_project)
+		.filter(p => p[1].participants_cl > 0)
+		.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
+		.map(([k, v]) => ({ title: k, value: v.participants_cl, instances: v.participants_cl_instances, category: v.category }))
+	}}
+
+	{{ comp.BigNumber({
+		number: (participants_d.cultural_learning.participants || 0),
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	<p>Children and young people who are taking part via their school, college, home educators or alternative providers</p>
+
+	{{ comp.dashboard.InfoBoxTable({
+		"cms": metrics_d.participants_cultural_learning,
+		"columns": [
+			{ "name": "title", "label": "Project", "sortable": true },
+			{ "name": "participants", "value": "value", "template": "{{ value | toLocaleString() }}", "label": "Participants", "class": "right", "scale": scalepink, min: 0, "sortable": true },
+			{ "name": "instance", "value": "instances", "template": "{{ instances | toLocaleString() }}", "label": "Instances", "class": "right", "scale": scalepink, min: 0, "sortable": true }
+		],
+		"head": {
+			"class": "head"
+		},
+		"data": tabledata,
+		width: "100%",
+	}) |> md |> vto(page.data) }}
+{{ /comp }}

@@ -1,0 +1,20 @@
+---
+block: block-24
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events' } }}
+
+	{{> 
+		// Suffixing these with _d to make it easier to remove them when replacing with open data
+		const { events: events_d, metrics: metrics_d } = search.data("insights/dashboard");
+	}}
+	<h3>{{ metrics_d.events_community_led.title }}</h3>
+	{{ comp.BigNumber({
+		number: (events_d.by_project['Our Patch']?.count || 0) + (events_d.by_category["Community-led arts event"] || 0),
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 },
+		suffix: '',
+	}) }}
+	<p>Count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}.</p>
+{{ /comp }}

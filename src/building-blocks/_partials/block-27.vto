@@ -1,0 +1,20 @@
+---
+block: block-27
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants' } }}
+
+	<h3>Induction booked</h3>
+	
+
+	{{>
+		const { people: people_d, summary: summary_d } = search.data("themes/volunteers");
+	}}
+	{{ comp.BigNumber({
+		number: people_d.checkpoints_weekly_updates[people_d.checkpoints_weekly_updates.length-1]['2. Sign Up to Induction cumulative (incl)'],
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	<p>Once they've completed their forms, we book the volunteers onto an induction session to cover all the important information they'll need as Bradford 2025 volunteers. At the moment, <b>{{ summary_d['Induction booked'] - summary_d['Induction completed'] }}</b> people are booked onto induction sessions.</p>
+{{ /comp }}

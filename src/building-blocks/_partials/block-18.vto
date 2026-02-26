@@ -1,0 +1,23 @@
+---
+block: block-18
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events' } }}
+
+	{{>
+		// Suffixing these with _d to make it easier to remove them when replacing with open data
+		const { metrics: metrics_d } = search.data("insights/dashboard");
+	}}
+
+	<h3>{{ metrics_d.events_in_person.title }}</h3>
+
+	{{ comp.BigNumber({
+		number: Object.entries(calculated.programme.events.categories.open).filter(c => ![ 'Exhibition', 'Festival', 'Digital' ].includes(c[0])).reduce((a, c) => a + c[1], 0) || '&mdash;',
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 },
+		suffix: '',
+	}) }}
+	<p>Count of in-person {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}).</p>
+
+{{ /comp }}

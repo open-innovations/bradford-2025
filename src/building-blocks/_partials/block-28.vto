@@ -1,0 +1,18 @@
+---
+block: block-28
+---
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants' } }}
+
+	<h3>Induction completed</h3>
+
+	{{>
+		const { summary: summary_d } = search.data("themes/volunteers");
+	}}
+	{{ comp.BigNumber({
+		number: summary_d['Induction completed'],
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	<p>Having attended an induction session, our volunteers are fully equipped to fulfil their role as Bradford 2025 volunteers.</p>
+{{ /comp }}

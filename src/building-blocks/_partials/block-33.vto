@@ -1,0 +1,40 @@
+---
+block: block-33
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants' } }}
+
+	<h3>Training and skills participants</h3>
+
+	{{>
+		const {
+			metrics: metrics_d,
+			participants: participants_d,
+			timestamp: timestamp_d,
+			otherFigures: otherFigures_d,
+		} = search.data("insights/dashboard");
+		const scalepink = "#ffffff 0%, #e1699f 100%";
+	}}
+	{{ comp.BigNumber({
+		number: (otherFigures_d.training_and_skills_development_participants || '&mdash;'),
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	<p>Number of participants in training and CPD activities (e.g. skills or talent development) provided or commissioned by Bradford 2025 - including a breakdown by type to distinguish between training/skills event participants, work placements, apprenticeships, etc. This does not yet include Bradford 2025 apprenticeships, traineeships and placements, or participants in sector-facing talent development events (e.g. the Elevate Heritage Skills project).</p>
+	{{ comp.dashboard.InfoBoxTable({
+		"cms": metrics_d.participants_training_and_skills,
+		"columns": [
+			{ "name": "title", "label": "Project" },
+			{ "name": "participants", "value": "value", "template": "{{ value | toLocaleString() }}", "label": "Participants", "scale": scalepink, min: 0, "class": "right" },
+		],
+		"head": {
+			"class": "head"
+		},
+		"width": "100%",
+		"data": Object.entries(participants_d.by_type.training_and_skills_development_participants.by_project)
+			.filter(r => r[1].count > 0)
+			.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
+			.map(([k, v]) => ({ title: k, value: v.count, category: v.category }))
+	}) |> md |> vto(page.data) }}
+{{ /comp }}

@@ -1,0 +1,26 @@
+---
+block: block-22
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events' } }}
+
+	{{> 
+		// Suffixing these with _d to make it easier to remove them when replacing with open data
+		const { events: events_d, metrics: metrics_d, projects: projects_d } = search.data("insights/dashboard");
+		const festivals = [];
+		for(e in events_d.by_project){
+			if(events_d.by_project[e].category === 'Festival'){
+				festivals.push({"title":e,"value":events_d.by_project[e].count});
+			}
+		}
+	}}
+	<h3>{{ metrics_d.events_exhibitions.title }}</h3>
+	{{ comp.BigNumber({
+		number: projects_d.by_category['Exhibition'] || 0,
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 },
+		suffix: '',
+	}) }}
+	<p>Count of {{ comp glossary.Ref { slug: 'event' } }}exhibitions days{{ /comp }}.</p>
+{{ /comp }}

@@ -1,0 +1,25 @@
+---
+block: block-29
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants' } }}
+
+	<h3>Volunteers</h3>
+	
+	{{>
+		const { people: people_d, keyMap: keyMap_d, summary: summary_d } = search.data("themes/volunteers");
+	}}
+	{{ comp.graph.monthly({
+		data: people_d.checkpoints_weekly_updates,
+		series: [
+			{ title: keyMap_d['3. Fully Inducted Volunteers cumulative'], x: 'decimal_year', y: '3. Fully Inducted Volunteers cumulative', colour: 'deeppink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+			{ title: keyMap_d['2. Sign Up to Induction cumulative'], x: 'decimal_year', y: '2. Sign Up to Induction cumulative (incl)', colour: 'pink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+			{ title: keyMap_d['1. Monitoring & Evaluation cumulative'], x: 'decimal_year', y: '1. Monitoring & Evaluation cumulative (incl)', colour: 'darkpink', tooltip: '{{ _title }}\n{{ Week ending (Sunday) | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' }
+		],
+		columns: [{
+			name: 'decimal_year',
+			template: '{{ Week ending (Sunday) | strptime(\"%Y-%m-%d\") | decimalYear() }}'
+		}],
+		legend: { show: true, position: 'bottom' }
+	}) }}
+{{ /comp }}

@@ -23,8 +23,11 @@ css: |
 {{>
     let extraStyle = style || '';
     if (cols) {
-        extraStyle += `--cols:${cols}`;
+        extraStyle += `--cols:${cols};`;
     }
+	if( width ) {
+		extraStyle += 'flex-basis:'+width+';max-width:100%;';
+	}
 }}
 <{{ tag || 'div' }} data-comp="grid-Block"
     {{ if extraStyle }} style="{{ extraStyle }}"{{ /if }}

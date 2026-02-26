@@ -1,0 +1,23 @@
+---
+block: block-31
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants' } }}
+
+	{{>
+		const {
+			metrics: metrics_d,
+			participants: participants_d,
+			timestamp: timestamp_d,
+			otherFigures: otherFigures_d,
+		} = search.data("insights/dashboard");
+	}}
+	<h3>Schools engaged</h3>
+	{{ comp.BigNumber({
+		number: participants_d.cultural_learning.schools_engaged || '',
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	<p>Number of schools that have participated in events and activities.</p>
+{{ /comp }}

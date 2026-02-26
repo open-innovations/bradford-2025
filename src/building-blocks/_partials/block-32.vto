@@ -1,0 +1,52 @@
+---
+block: block-32
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants' } }}
+
+	<h3>Community participants</h3>
+
+	{{>
+		const {
+			metrics: metrics_d,
+			participants: participants_d,
+			timestamp: timestamp_d,
+			otherFigures: otherFigures_d,
+		} = search.data("insights/dashboard");
+		const scalepink = "#ffffff 0%, #e1699f 100%";
+		const tablecommunity = Object.entries(participants_d.by_type.community_participants.by_project)
+		.filter(p => p[1].count > 0)
+		.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
+		.map(([project, props]) => ({
+			title: project,
+			count: props.count,
+			attendances: (props.attendances || 0) || '',
+			instances: (props.instances || 0) || '',
+			category: props.category
+		}))
+	}}
+	{{ comp.BigNumber({
+		number: (participants_d.by_type.community_participants.count || '&mdash;'),
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	<p>The total number of individual communinity participants.</p>
+	<p>Below is a breakdown of community engagement into participants and instances of participation. An "Instance of participation" represents a 2-hour block of time available for participatory activity. If a participant were to attend a 4 hour session, that would count as 2 instances of participation.</p>
+	{{ comp.dashboard.InfoBoxTable({
+		"cms": metrics_d.participants_community_engagement,
+		"columns": [
+			{ "name": "title", "label": "Project" },
+			{ "name": "value", "value": "count", "template": "{{ count | toLocaleString() }}", "label": "Participants", "scale": scalepink, min: 0, "class": "right" },
+			//{ "name": "attendance", "value": "attendances", "template": "{{ attendances | toLocaleString() }}", "label": "Attendances", "scale": scalepink, min: 0, "class": "right" },
+			{ "name": "instance", "value": "instances", "template": "{{ instances | toLocaleString() }}", "label": "Instances", "scale": scalepink, min: 0, "class": "right" },
+			//{ "name": "description", "label": "Description", key: 'description' }
+		],
+		"head": {
+			"class": "head"
+		},
+		"width": "100%",
+		"data": tablecommunity
+	}) |> md |> vto(page.data) }}
+
+{{ /comp }}

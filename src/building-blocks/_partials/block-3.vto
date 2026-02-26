@@ -1,13 +1,16 @@
 ---
 block: block-3
 ---
-{{>
-	const participants = calculated.participants.all.value;
-	const graph = calculated.participants.monthly.all;
-	//const difference = participants - graph.filter((r) => r.Date.match(/^2025-/) ).reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
-}}
+
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants' } }}
+
 	<h3>Participants</h3>
+	{{>
+		const participants = calculated.participants.all.value;
+		const graph = calculated.participants.monthly.all;
+		//const difference = participants - graph.filter((r) => r.Date.match(/^2025-/) ).reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
+	}}
+
 	{{ comp.BigNumber({
 		number: participants || 0,
 		classes: 'big',
