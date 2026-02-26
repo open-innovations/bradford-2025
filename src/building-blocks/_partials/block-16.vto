@@ -1,0 +1,22 @@
+---
+block: block-16
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
+	<h3>Free events</h3>
+
+	{{>
+		const { events: events } = search.data("insights/dashboard");
+	}}
+
+	{{ comp.BigNumber({
+		number: (100*events.free/events.total) || '&mdash;',
+		suffix: '%',
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 1 }
+	}) }}
+	<p>Percentage of (public) events which were free.</p>
+
+{{ /comp }}

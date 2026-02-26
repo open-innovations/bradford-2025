@@ -1,0 +1,53 @@
+---
+block: block-15
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
+	<h3>Tickets sold by type of event</h3>
+
+	{{>
+		const { operational: operational_d } = search.data("../themes/ticketing");
+		let tickets_by_event_type = [{}];
+		let ticket_types = {
+			"Main Programme":"Main Programme",
+			"Sector Event":"Sector Event",
+			"VIP Reception":"VIP Reception",
+			"Unknown":"Unknown"
+		};
+		let ticket_series = [
+			{ value: "Main Programme", colour: "#45D108" },
+			{ value: "Sector Event", colour: "#E0B942" },
+			{ value: "VIP Reception", colour: "#F4ACCD" },
+			{ value: "Unknown", colour: "#e6e4e5" }
+		];
+		var total = 0;
+		for(let i = 0; i < operational_d.event_type.length; i++){
+			let typ = (operational_d.event_type[i]['Event type'] in ticket_types) ? ticket_types[operational_d.event_type[i]['Event type']] : "Other";
+			if(!(typ in tickets_by_event_type[0])) tickets_by_event_type[0][typ] = 0;
+			if(typeof operational_d.event_type[i]['Number of tickets sold']==="number"){
+				tickets_by_event_type[0][typ] += operational_d.event_type[i]['Number of tickets sold'];
+				total += operational_d.event_type[i]['Number of tickets sold'];
+			}
+		}
+		for(let typ in tickets_by_event_type[0]){
+			tickets_by_event_type[0][typ] *= 100/total;
+		}
+		for(let i = 0; i < ticket_series.length; i++){
+			ticket_series[i].tooltip = ticket_series[i].value+": <strong>{{ "+ticket_series[i].value+" | toFixed(1) }}%</strong>";
+			ticket_series[i].points = {'marker':'circle'};
+		}
+	}}
+
+	{{ comp.oi.chart.waffle({
+		config: {
+			data: tickets_by_event_type,
+			series: ticket_series,
+			size: [20, 12],
+			total: 100,
+			legend: { show: true, position: 'bottom' },
+			rounding: ceil
+		}
+	}) }}
+
+{{ /comp }}

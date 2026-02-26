@@ -1,0 +1,22 @@
+---
+block: block-17
+---
+
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
+	<h3>Total emissions</h3>
+
+	{{>
+		const { calculations } = search.data("themes/sustainability");
+	}}
+	{{ comp.BigNumber({
+		number: calculations.summary.total_tCO2e,
+		suffix: ' tCO<sub>2</sub>e',
+		classes: 'big',
+		animate: true,
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	<p>Tonnes of carbon dioxide equivalent (tCO<sub>2</sub>e).</p>
+
+{{ /comp }}
