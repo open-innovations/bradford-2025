@@ -24,12 +24,16 @@ block: block-17
 						v /= 1000;
 						obj.unit = 'tonnes';
 					}
-					if(v >= 1e7) return {'number':(v/1e6).toFixed(0),'unit':'million '+obj.unit,'dp':0};
+					if(v >= 1e10) return {'number':(v/1e9).toFixed(0),'unit':'billion '+obj.unit,'dp':0};
+					else if(v >= 1e9) return {'number':(v/1e9).toFixed(1),'unit':'billion '+obj.unit,'dp':1};
+					else if(v >= 1e7) return {'number':(v/1e6).toFixed(0),'unit':'million '+obj.unit,'dp':0};
 					else if(v >= 1e6) return {'number':(v/1e6).toFixed(1),'unit':'million '+obj.unit,'dp':1};
 					else if(v > 100) return {'number':v.toFixed(0),'unit':obj.unit,'dp':0};
 					else return {'number':v.toFixed(1),'unit':obj.unit,'dp':1};
 				}
-				if(v > 1e7) return {'number':(v/1e6).toFixed(0),'unit':'million '+obj.unit,'dp':0};
+				if(v > 1e10) return {'number':(v/1e9).toFixed(0),'unit':'billion '+obj.unit,'dp':0};
+				else if(v > 1e9) return {'number':(v/1e9).toFixed(1),'unit':'billion '+obj.unit,'dp':1};
+				else if(v > 1e7) return {'number':(v/1e6).toFixed(0),'unit':'million '+obj.unit,'dp':0};
 				else if(v >= 1e6) return {'number':(v/1e6).toFixed(1),'unit':'million '+obj.unit,'dp':1};
 				else if(v >= 100) return {'number':v.toFixed(0),'unit':obj.unit,'dp':0};
 				else return {'number':v.toFixed(1),'unit':obj.unit,'dp':1};
