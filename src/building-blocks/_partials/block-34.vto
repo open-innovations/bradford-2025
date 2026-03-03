@@ -2,7 +2,7 @@
 block: block-34
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', width: '600px' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', width: '600px', 'notes': 'The tooltips get very large because of the number of different Project titles. If we wanted to group by "showcase events" then we need to know which "showcase event" an event counts as because there isn\'t a consistency in Project names and some events look as though they could be counted towards multiple showcase events e.g. "Our Patch - (Beacon) Cool Runnings".' } }}
 
 	<h3>Event locations</h3>
 
@@ -28,24 +28,26 @@ block: block-34
 		}
 		function buildEventList(events){
 			const by_project = events.reduce((accumulator, currentValue) => {
-				// Check if the Project already exists in the accumulator object
 				if(!accumulator[currentValue.Project]) accumulator[currentValue.Project] = 0;
 				accumulator[currentValue.Project]++;
 				return accumulator;
-			}, {}); // Start the accumulator as an empty object
+			}, {});
 			let p, by_project_d = [];
 			for(p in by_project) by_project_d.push({'Project':p,'count':by_project[p]});
 			by_project_d.sort((a, b) => b.count - a.count );
-			let str = '<ul>';
-			for(let i = 0; i < by_project_d.length; i++){
-				str += '<li>'+by_project_d[i].Project+': '+by_project_d[i].count+'</li>'
+			let str = '';
+			if(by_project_d.length > 0){
+				str += ' These are broken down into the following projects: <ul>';
+				for(let i = 0; i < by_project_d.length; i++){
+					str += '<li>'+by_project_d[i].Project+': '+by_project_d[i].count+'</li>'
+				}
+				str += '</ul>';
 			}
-			str += '</ul>';
 			return str;
 		}
 		const ward_data = Object.keys(by_ward).map(key => ({
 			...by_ward[key],
-			tooltip: buildEventList(by_ward[key].events)
+			breakdown: buildEventList(by_ward[key].events)
 		}));
 	}}
 
@@ -72,7 +74,7 @@ block: block-34
 							{'value':0,'label':'0'}
 						]
 					},
-					tooltip: '{{ name }}\nThere were <strong>{{ count }}</strong> events. By project: <br />{{ tooltip }}',
+					tooltip: '{{ name }}\nThere were <strong>{{ count }}</strong> events.{{ breakdown }}',
 					tools: {
 						filter: {
 							label: 'n',
