@@ -3,7 +3,7 @@ block: block-17
 ---
 
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', width: '800px' } }}
 
 	<h3>Total emissions</h3>
 
@@ -104,7 +104,7 @@ block: block-17
 	}}
 	{{ comp.BigNumber({
 		number: calculations.summary.total_tCO2e,
-		suffix: ' tCO<sub>2</sub>e',
+		suffix: 'tCO<sub>2</sub>e',
 		classes: 'big',
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 }
