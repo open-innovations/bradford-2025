@@ -44,7 +44,7 @@
 			removeOverflowing: true,
 			maxSize: 5,
 			minSize: 0.8,
-			nWords: 12
+			nWords: parseInt(el.getAttribute('data-maxWords'))||12
 		};
 		
 		options = {...default_options, ...(options||{})};

@@ -13,7 +13,7 @@ block: block-39
 			words.push({'word':word_count[r].Word,'weight':word_count[r].Count,'colour':colours[Math.floor(Math.random()*colours.length)]});
 		}
 	}}
-	{{ comp WordCloud { words } }}
+	{{ comp WordCloud { words, maxWords: 20 } }}
 	{{ /comp }}
 
 {{ /comp }}

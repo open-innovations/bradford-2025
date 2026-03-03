@@ -1,7 +1,7 @@
 ---
 ---
 
-<div data-comp="wordCloud" style="margin-top:1rem;width:100%;height:350px;font-family:var(--fontstack-main);background:white;padding:1rem;" data-dependencies="/assets/js/word-cloud.js">
+<div data-comp="wordCloud" style="margin-top:1rem;width:100%;height:350px;font-family:var(--fontstack-main);background:white;padding:1rem;" data-dependencies="/assets/js/word-cloud.js"{{ if maxWords }} data-maxWords="{{ maxWords }}"{{ /if }}>
 	<table class="input">
 	<thead>
 		<tr><td>Word</td><td>Count</td></tr>
