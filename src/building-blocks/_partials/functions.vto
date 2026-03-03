@@ -1,0 +1,73 @@
+{{ export async function buildResponses(data,col,colval) }}
+{{>
+	let colours = {
+		"1. Strongly agree":"#437e2a",
+		"2. Agree":"#45D108",
+		"3. Neither agree nor disagree":"#EAD79F",
+		"4. Disagree":"#F4ACCD",
+		"5. Strongly disagree":"#e1699f",
+		"Don't know": "#717171",
+		"Don't know/Not applicable": "#aaaaaa"
+	};
+	let series = [];
+	let by_response = [{'Category':''}];
+	for(let i = 0; i < data.length; i++){
+		by_response[0][data[i][col]] = data[i][colval];
+		let score = data[i][col];
+		let scoretrimmed = score.replace(/^[0-9]\. /,"")
+		series.push({
+			"title": scoretrimmed,
+			"value": score,
+			"colour": colours[score],
+			"tooltip": "" + scoretrimmed + ": <strong>{{ " + score + "_percent | toFixed(1) }}%</strong>"
+		});
+	}
+}}
+{{
+	comp.oi.chart.bar({
+		config: {
+			category: "Category",
+			data: by_response,
+			legend: { show: true, position: "top" },
+			height: 200,
+			series: series,
+			stacked: true,
+			percent: true,
+			axis: {
+				"x": {
+					"min": 0,
+					"max": 100,
+					"ticks": [{
+						"value": 0,
+						"label": "0%"
+					},{
+						"value": 20,
+						"label": "20%"
+					},{
+						"value": 40,
+						"label": "40%"
+					},{
+						"value": 60,
+						"label": "60%"
+					},{
+						"value": 80,
+						"label": "80%"
+					},{
+						"value": 100,
+						"label": "100%"
+					}],
+					"grid": {
+						"stroke": "black"
+					}
+				},
+				"y":{
+					"grid": {
+						"stroke-width": 0,
+						"stroke": "transparent"
+					}
+				}
+			}
+		}
+	})
+}}
+{{ /export }}

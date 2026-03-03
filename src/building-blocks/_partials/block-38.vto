@@ -1,13 +1,13 @@
 ---
-block: block-36
+block: block-38
 ---
 
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
 
-	<h3>Made me feel proud of my local area</h3>
+	<h3>Made me feel connected to to people in the community</h3>
 
 	{{ import { buildResponses } from "./functions.vto" }}
-	{{ await buildResponses(proud,"The event/activity makes me feel proud of my local area","Percentage") }}
+	{{ await buildResponses(feel_connected,"It helped me to feel connected to people in the community","Percentage") }}
 
 	<p>The audience were asked to rank how much they agreed with the question on a five point scale. Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 

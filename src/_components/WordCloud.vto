@@ -1,0 +1,15 @@
+---
+---
+
+<div data-comp="wordCloud" style="margin-top:1rem;width:100%;height:350px;font-family:var(--fontstack-main);background:white;padding:1rem;" data-dependencies="/assets/js/word-cloud.js">
+	<table class="input">
+	<thead>
+		<tr><td>Word</td><td>Count</td></tr>
+	</thead>
+	<tbody>
+	{{ for row of words }}
+		<tr><td{{ if row.colour }} style="color:{{ row.colour }}"{{ /if }}>{{ row.word }}</td><td>{{ row.weight }}</tr>
+	{{ /for }}
+	</tbody>
+	</table>
+</div>

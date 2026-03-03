@@ -243,6 +243,7 @@ site.copy("/assets/js/popover.js");
 site.copy("/assets/js/flashes.js");
 site.copy("/assets/js/table-filter.js");
 site.copy("/assets/js/save-table.js");
+site.copy("/assets/js/word-cloud.js");
 site.copy("/assets/js/oi/");
 
 // Map over the data quality report files

@@ -1,0 +1,19 @@
+---
+block: block-39
+---
+
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
+	<h3>Survey word cloud</h3>
+	{{>
+		let words = [];
+		let colours = ["#437e2a","#45D108","#E0B942","#F4ACCD","#e1699f"];
+		for(let r = 0; r < word_count.length; r++){
+			words.push({'word':word_count[r].Word,'weight':word_count[r].Count,'colour':colours[Math.floor(Math.random()*colours.length)]});
+		}
+	}}
+	{{ comp WordCloud { words } }}
+	{{ /comp }}
+
+{{ /comp }}
