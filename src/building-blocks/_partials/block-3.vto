@@ -5,6 +5,7 @@ block: block-3
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants' } }}
 
 	<h3>Participants</h3>
+
 	{{>
 		const participants = calculated.participants.all.value;
 		const graph = calculated.participants.monthly.all;

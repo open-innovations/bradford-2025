@@ -1,15 +1,18 @@
 ---
 block: block-2
 ---
-{{>
-	const event_type = 'open'; // Could be 'open', although that's missing data;
-	const events = calculated.programme.events[event_type].value;
-	const graph = calculated.programme.events.monthly[event_type];
 
-	//const difference = events - graph.filter((r) => r.Date.match(/^2025-/) ).reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
-}}
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events' } }}
+
 	<h3>Events</h3>
+
+	{{>
+		const event_type = 'open'; // Could be 'open', although that's missing data;
+		const events = calculated.programme.events[event_type].value;
+		const graph = calculated.programme.events.monthly[event_type];
+
+		//const difference = events - graph.filter((r) => r.Date.match(/^2025-/) ).reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
+	}}
 	{{ comp.BigNumber({
 		number: events || 0,
 		classes: 'big',

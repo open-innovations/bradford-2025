@@ -1,12 +1,16 @@
 ---
 block: block-4
 ---
-{{>
-	const audience = calculated.programme.audience.categories.nonDigital.value;
-	const graph = calculated.programme.audience.monthly.categories.nonDigital.filter((r) => r.Date.match(/^2025-/) );
-}}
+
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
 	<h3>In-person audience</h3>
+
+	{{>
+		const audience = calculated.programme.audience.categories.nonDigital.value;
+		const graph = calculated.programme.audience.monthly.categories.nonDigital.filter((r) => r.Date.match(/^2025-/) );
+	}}
+
 	{{ comp.BigNumber({
 		number: audience,
 		classes: 'big',
