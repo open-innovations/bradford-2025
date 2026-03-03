@@ -18,18 +18,18 @@
 
 		let options = {};
 		let cloud_namespace = el.getAttribute('id') || Math.floor((Math.random()*1000000)).toString(36);
+
+		// Get words from the table
+		let word_array = [];
 		let input = el.querySelector('table.input');
 		input.style.display = "none";
 		let tr = input.querySelectorAll('tbody tr');
-
-		let word_array = [];
 		for(let r = 0; r < tr.length; r++){
 			let td = tr[r].querySelectorAll('td');
 			if(td[0].innerText && td.length == 2){
 				word_array.push({'word':td[0].innerText,'weight':parseInt(td[1].innerText),'color':td[0].style.color});
 			}
 		}
-		console.log(input,tr,word_array);
 
 		// Default options value
 		let default_options = {
@@ -40,7 +40,6 @@
 				y: ((options && options.height) ? options.height : el.offsetHeight) / 2.0
 			},
 			shape: false, // It defaults to elliptic shape
-			encodeURI: true,
 			removeOverflowing: true,
 			maxSize: 5,
 			minSize: 0.8,
@@ -50,26 +49,17 @@
 		options = {...default_options, ...(options||{})};
 
 		el.classList.add('wordCloud');
-		el.style.width = options.width;
-		el.style.height = options.height;
 		el.style.position = "relative";
 		el.style['font-weight'] = "bold";
 		let already_placed_words = [], step, aspect_ratio;
 
 		this.draw = function(){
-			console.log('draw',word_array);
-			// Make sure every weight is a number before sorting
-			for(let i = 0; i < word_array.length; i++){
-				word_array[i].weight = parseFloat(word_array[i].weight, 10);
-			}
 			
 			// Sort word_array from the word with the highest weight to the one with the lowest
 			word_array.sort(function(a, b) { if (a.weight < b.weight) {return 1;} else if (a.weight > b.weight) {return -1;} else {return 0;} });
 
 			// Only keep top words
 			word_array = word_array.slice(0,options.nWords);
-
-			console.log('draw',word_array);
 
 			step = (options.shape === "rectangular") ? 18.0 : 2.0;
 			already_placed_words = [];
@@ -93,7 +83,6 @@
 
 		// Function to draw a word, by moving it in spiral until it finds a suitable empty place. This will be iterated on each word.
 		this.drawOneWord = function(index, word){
-			console.log('drawOneWord',word_array);
 			// Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
 			let word_id = cloud_namespace + "_word_" + index,
 				word_selector = "#" + word_id,
@@ -176,8 +165,27 @@
 
 			return this;
 
-		}
+		};
+		
+		this.resize = function(){
+			// Remove any words
+			var words = el.querySelectorAll('span');
+			for(let w = 0; w < words.length; w++){
+				words[w].remove();
+			}
+			options.width = el.offsetWidth;
+			options.height = el.offsetHeight;
+			options.center = {
+				x: (options.width) / 2.0,
+				y: (options.height) / 2.0
+			};
+			this.draw();
+			return;
+		};
 
+		window.addEventListener('resize',function(){
+			_obj.resize();
+		});
 		return this;
 	}
 
