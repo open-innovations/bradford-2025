@@ -1,0 +1,149 @@
+---
+block: block-34
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', width: '600px' } }}
+
+	<h3>Event locations</h3>
+
+	{{>
+
+		const by_ward = {}; //geographic_location_of_events
+		const ward = wards.find((el) => el.name == "Baildon");
+		const unknown = "UNKNOWN";
+		// Make a lookup for ward codes
+		const ward_lookup = {};
+		for(let r = 0; r < wards.length; r++){
+			ward_lookup[wards[r].name] = wards[r];
+			by_ward[wards[r].code] = {'count':0,'events':[],'geography_code':wards[r].code,'name':wards[r].name,'short':wards[r].short_code };
+		}
+		// Loop over the events
+		for(let r = 0; r < geographic_location_of_events.length; r++){
+			// Add the ward code to this row
+			let ward = ward_lookup[geographic_location_of_events[r].Ward]||{};
+			let code = ward.code||unknown;
+			if(code==unknown && !(code in by_ward)) by_ward[code] = {'count':0,'name':unknown,'events':[]};
+			by_ward[code].count++;
+			by_ward[code].events.push(geographic_location_of_events[r]);
+		}
+		function buildEventList(events){
+			const by_project = events.reduce((accumulator, currentValue) => {
+				// Check if the Project already exists in the accumulator object
+				if(!accumulator[currentValue.Project]) accumulator[currentValue.Project] = 0;
+				accumulator[currentValue.Project]++;
+				return accumulator;
+			}, {}); // Start the accumulator as an empty object
+			let p, by_project_d = [];
+			for(p in by_project) by_project_d.push({'Project':p,'count':by_project[p]});
+			by_project_d.sort((a, b) => b.count - a.count );
+			let str = '<ul>';
+			for(let i = 0; i < by_project_d.length; i++){
+				str += '<li>'+by_project_d[i].Project+': '+by_project_d[i].count+'</li>'
+			}
+			str += '</ul>';
+			return str;
+		}
+		const ward_data = Object.keys(by_ward).map(key => ({
+			...by_ward[key],
+			tooltip: buildEventList(by_ward[key].events)
+		}));
+	}}
+
+	{{ comp Tab.Set { classes: 'big'} }}
+
+		<p>The number of events by ward.{{ if by_ward["Unknown"] > 0 }} There are <em>{{ by_ward["Unknown"].count }}</em> events without a ward assigned.{{ /if }}</p>
+
+		{{ comp Tab.Panel { id: 'event-location-hex', label: 'Cartogram' } }}
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_2024,
+					data: ward_data,
+					matchKey: 'geography_code',
+					value: 'count',
+					min: 0,
+					scale: scales.yellowdark,
+					label: '{{ n | slice(0,3) }}',
+					width: 500,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [
+							{'value':600,'label':'>600'},
+							{'value':0,'label':'0'}
+						]
+					},
+					tooltip: '{{ name }}\nThere were <strong>{{ count }}</strong> events. By project: <br />{{ tooltip }}',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 2,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+			<p>This {{ comp glossary.Ref { slug: 'cartogram' } }}cartogram{{ /comp }} displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+		{{ /comp }}
+
+		{{ comp Tab.Panel { id: 'event-location-map', label: 'Map' } }}
+			{{ comp.oi.map.svg({
+				config: {
+					geojson: {
+						key: 'WD24CD',
+						data: geojson.bd_wards
+					},
+					data: ward_data,
+					columns: [{
+						name: "filterLabel",
+						template: "{{ geojson.properties.WD24NM }}"
+					}],
+					key: 'geography_code',
+					value: 'count',
+					min: 0,
+					scale: scales.yellowdark,
+					width: 500,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [
+							{'value':600,'label':'>600'},
+							{'value':0,'label':'0'}
+						]
+					},
+					tooltip: '{{ name }}\nThere were <strong>{{ count }}</strong> events. By project: <br />{{ tooltip }}',
+					tools: {
+						filter: {
+							label: 'filterLabel',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 3,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+		{{ /comp }}
+
+
+		{{ comp Tab.Panel { id: 'event-location-table', label: 'Table' } }}
+			{{ comp.dashboard.InfoBoxTable({
+				head: {
+					class: 'c-yellow',
+				},
+				columns: [
+					{ name: 'name', label: 'Ward' },
+					{ name: 'counter', value: 'count', template: '{{ count }}', label: 'Events', class: 'right', scale: scales.yellowdark, min: 0 },
+				],
+				data: ward_data,
+				width: "100%",
+				sort: "name"
+			}) }}
+		{{ /comp }}
+
+	{{ /comp }}
+
+{{ /comp }}
