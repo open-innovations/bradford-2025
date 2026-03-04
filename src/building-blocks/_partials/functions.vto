@@ -77,17 +77,27 @@
 {{>
 	if(typeof colours !== "object") colours = ["#be9006","#e0b942","#437e2a","#45d108","#e1699f","#f4accd"];
 	let series = [];
-	let by_response = [{'Category':''}];
-	for(let i = 0; i < data.length; i++){
-		by_response[0][data[i][col]] = data[i][colval];
-		let column = data[i][col];
-		let title = column.replace(/^[0-9]\. /,"")
-		series.push({
-			"title": title,
-			"value": column,
-			"colour": (i < colours.length ? colours[i] : '#efefef'),
-			"tooltip": "" + title + ": <strong>{{ " + column + "_percent | toFixed(1) }}%</strong>"
-		});
+	if(typeof colval==="string") colval = [colval];
+
+	let by_response = [];
+	for(let c = 0; c < colval.length; c++){
+		let cat = {'Category':colval[c]};
+	
+		for(let i = 0; i < data.length; i++){
+			cat[data[i][col]] = data[i][colval[c]];
+			let column = data[i][col];
+			let title = column;
+			if(title) title = title.replace(/^[0-9]\. /,"");
+			if(c==0){
+				series.push({
+					"title": title,
+					"value": column,
+					"colour": (i < colours.length ? colours[i] : '#efefef'),
+					"tooltip": "" + title + ": <strong>{{ " + column + "_percent | toFixed(1) }}%</strong>"
+				});
+			}
+		}
+		by_response.push(cat);
 	}
 }}
 {{

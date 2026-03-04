@@ -2,12 +2,12 @@
 block: block-45
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Audience Survey / <a href="https://www.ons.gov.uk/explore-local-statistics/areas/E08000032-bradford">ONS Census</a> (2021)' } }}
 
 	<h3>Survey demographics: residence</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
-	{{ await buildBreakdown(survey_residence,"Where is your primary residence?","Number") }}
+	{{ await buildBreakdown(survey_residence,"Where is your primary residence?",["Number"]) }}
 
 	<p>Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 

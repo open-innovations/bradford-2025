@@ -2,12 +2,12 @@
 block: block-41
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Audience Survey / <a href="https://www.nomisweb.co.uk/query/construct/summary.asp?mode=construct&version=0&dataset=2027">ONS</a> (2021)' } }}
 
 	<h3>Survey demographics: age</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
-	{{ await buildBreakdown(survey_age,"Age range","Percentage",["#717171","#9e9e9e","#d5d3d0","#be9006","#CFA524","#e0b942","#E5C871","#437e2a","#44A21B","#45d108","#80DE57","#e1699f","#EB8BB6","#ffffff"]) }}
+	{{ await buildBreakdown(survey_age,"Age range",["Survey","Bradford"],["#717171","#9e9e9e","#d5d3d0","#be9006","#CFA524","#e0b942","#E5C871","#437e2a","#44A21B","#45d108","#80DE57","#e1699f","#EB8BB6","#ffffff"]) }}
 
 	<p>Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 
