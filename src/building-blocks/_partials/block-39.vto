@@ -3,7 +3,7 @@ block: block-39
 ---
 
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', notes: 'As in most word clouds, the colours are arbitrary. We\'ve used the brand colours.' } }}
 
 	<h3>Survey word cloud</h3>
 	{{>
@@ -13,7 +13,8 @@ block: block-39
 			words.push({'word':word_count[r].Word,'weight':word_count[r].Count,'colour':("Colour" in word_count[r] ? word_count[r].Colour : colours[Math.floor(Math.random()*colours.length)])});
 		}
 	}}
-	{{ comp WordCloud { words, maxWords: 20 } }}
+	{{ comp WordCloud { words, maxWords: 30 } }}
 	{{ /comp }}
+	<p>The most popular words given in the audience survey. Common English words have been removed.</p>
 
 {{ /comp }}

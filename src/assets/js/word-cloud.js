@@ -1,10 +1,12 @@
 /*!
- * WordCloud adapted from jQCloud v1.0.4 
- *  Date: 2026-03-03
- *
- * jQCloud copyright 2011, Luca Ongaro
- *  Licensed under the MIT license.
- *  Date: 2013-05-09
+ * WordCloud v1.1
+ * by Stuart Lowe
+ * Updated: 2026-03-04
+ * 
+ * Adapted and simplified from jQCloud v1.0.4
+ * Copyright 2011, Luca Ongaro
+ * Licensed under the MIT license
+ * Date: 2013-05-09
 */
 (function(root){
 
@@ -27,7 +29,7 @@
 		for(let r = 0; r < tr.length; r++){
 			let td = tr[r].querySelectorAll('td');
 			if(td[0].innerText && td.length == 2){
-				word_array.push({'word':td[0].innerText,'weight':parseInt(td[1].innerText),'color':td[0].style.color});
+				word_array.push({'word':td[0].innerText,'number':parseInt(td[1].innerText),'color':td[0].style.color});
 			}
 		}
 
@@ -35,93 +37,105 @@
 		let default_options = {
 			width: el.offsetWidth,
 			height: el.offsetHeight,
-			center: {
-				x: ((options && options.width) ? options.width : el.offsetWidth) / 2.0,
-				y: ((options && options.height) ? options.height : el.offsetHeight) / 2.0
-			},
 			shape: false, // It defaults to elliptic shape
-			removeOverflowing: true,
-			maxSize: 5,
-			minSize: 0.8,
+			removeOverflowing: false,
+			maxSize: 72,
+			minSize: 12,
+			padding: 5,
 			nWords: parseInt(el.getAttribute('data-maxWords'))||12
 		};
 		
 		options = {...default_options, ...(options||{})};
+		options.center = {x: options.width/2,y:options.height/2};
 
 		el.classList.add('wordCloud');
-		el.style.position = "relative";
 		el.style['font-weight'] = "bold";
-		let already_placed_words = [], step, aspect_ratio;
+		let svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+		svg.setAttribute('xmlns','http://www.w3.org/2000/svg');
+		svg.setAttribute('preserveAspectRatio','xMidYMin meet');
+		el.appendChild(svg);
+		let words = [], already_placed_words = [], step, aspect_ratio;
+
+		// Sort word_array from the word with the highest weight to the one with the lowest
+		word_array.sort(function(a, b) { if (a.number < b.number) {return 1;} else if (a.number > b.number) {return -1;} else {return 0;} });
+
+		// Only keep top words
+		word_array = word_array.slice(0,options.nWords);
+		
+		this.init = function(){
+			options.width = el.offsetWidth;
+			options.height = el.offsetHeight;
+			options.center = {x:options.width/2,y:options.height/2};
+			svg.setAttribute('viewBox','0 0 '+options.width+' '+options.height);
+			for(let i = 0; i < word_array.length; i++){
+				let word = clone(word_array[i]);
+				// Check if min(weight) > max(weight) otherwise use default
+				if(word_array[0].number > word_array[word_array.length - 1].number){
+					// Linearly map the original weight to a discrete scale from minSize to maxSize
+					word.weight = Math.round((word.number - word_array[word_array.length - 1].number) / (word_array[0].number - word_array[word_array.length - 1].number) * (options.maxSize-options.minSize)) + options.minSize;
+				}else{
+					word.weight = options.minSize;
+				}
+				word.id = cloud_namespace + "_word_" + i;
+				word.selector = "#" + word.id;
+				word.span = document.createElementNS('http://www.w3.org/2000/svg','text');
+				word.span.setAttribute('id',word.id);
+				word.span.setAttribute('dominant-baseline','middle');
+				word.span.setAttribute('alignment-baseline','baseline');
+				word.span.setAttribute('text-anchor','middle');
+				word.span.innerHTML = word.word;
+				word.span.setAttribute('title',word.word+': '+word.number);
+				word.span.setAttribute('x',options.center.x);
+				word.span.setAttribute('y',options.center.y);
+				if(word.color) word.span.setAttribute('fill',word.color);
+				svg.append(word.span);
+				words.push(word);
+				if(OI && OI.Tooltips) OI.Tooltips.add(word.span,{});
+			}
+			let scale = 1;
+			this.sizeWords(scale);
+			while(words[0].span.__bbox.width > options.width*0.55){
+				scale*= 0.9;
+				this.sizeWords(scale);
+			}
+			this.draw();
+			return this;
+		};
 
 		this.draw = function(){
-			
-			// Sort word_array from the word with the highest weight to the one with the lowest
-			word_array.sort(function(a, b) { if (a.weight < b.weight) {return 1;} else if (a.weight > b.weight) {return -1;} else {return 0;} });
-
-			// Only keep top words
-			word_array = word_array.slice(0,options.nWords);
-
 			step = (options.shape === "rectangular") ? 18.0 : 2.0;
 			already_placed_words = [];
 			aspect_ratio = options.width / options.height;
-
-			// Iterate drawOneWord on every word. The way the iteration is done depends on the drawing mode
-			if(word_array.length > 50) this.drawOneWordDelayed();
-			else{
-				for(let i = 0; i < word_array.length; i++) this.drawOneWord(i,word_array[i]);
-			}
-
+			for(let i = 0; i < words.length; i++) this.drawWord(i,words[i]);
+			return this;
 		};
 
-		// Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
-		let _obj = this;
-		setTimeout(function(){ _obj.draw(); }, 10);
-
-		this.drawOneWordDelayed = function(){
-			console.log('drawOneWordDelayed');
+		this.sizeWords = function(scale){
+			for(let i = 0; i < words.length; i++){
+				words[i].span.setAttribute('font-size',(words[i].weight*scale)+'px');
+				this.addBBoxMetrics(words[i].span);
+			}
+			return this;
 		};
 
 		// Function to draw a word, by moving it in spiral until it finds a suitable empty place. This will be iterated on each word.
-		this.drawOneWord = function(index, word){
-			// Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
-			let word_id = cloud_namespace + "_word_" + index,
-				word_selector = "#" + word_id,
-				angle = 6.28 * Math.random(),
+		this.drawWord = function(index){
+			let word = words[index];
+			// Define the ID attribute of the <text> that will wrap the word, and the associated selector string
+			let angle = 6.28 * Math.random(),
 				radius = 0.0,
 				// Only used if option.shape == 'rectangular'
 				steps_in_direction = 0.0,
-				quarter_turns = 0.0,
-				weight = 5,
-				custom_class = "",
-				inner_html = "",
-				word_span;
+				quarter_turns = 0.0;
 
-			// Check if min(weight) > max(weight) otherwise use default
-			if (word_array[0].weight > word_array[word_array.length - 1].weight) {
-				// Linearly map the original weight to a discrete scale from 1 to 10
-				weight = Math.round((word.weight - word_array[word_array.length - 1].weight) / (word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
-			}
-			word_span = document.createElement('span');
-			word_span.setAttribute('id',word_id);
-			word_span.style['font-size'] = Math.max(options.minSize,(weight*options.maxSize/10))+'em';
-			word_span.style['line-height'] = "100%";
-			if(word.color) word_span.style.color = word.color;
-			word_span.innerHTML = word.word;
+			let x = options.center.x + (index==0 ? word.span.__bbox.width*0.2 : 0);
+			let y = options.center.y;
+			this.updateBBox(word.span,x,y);
+			
+			let width = word.span.__bbox.width;
+			let height = word.span.__bbox.height;
 
-			el.append(word_span);
-			let width = word_span.offsetWidth,
-				height = word_span.offsetHeight,
-				left = options.center.x - width / 2.0,
-				top = options.center.y - height / 2.0;
-
-			// Save a reference to the style property, for better performance
-			let word_style = word_span.style;
-			word_style.position = "absolute";
-			word_style.left = left + "px";
-			word_style.top = top + "px";
-
-
-			while(hitTest(word_span, already_placed_words)){
+			while(hitTest(word.span, already_placed_words, options.padding) || word.span.__bbox.left < options.padding || word.span.__bbox.right > options.width-options.padding || word.span.__bbox.top < options.padding || word.span.__bbox.bottom > options.height-options.padding){
 				// option shape is 'rectangular' so move the word in a rectangular spiral
 				if(options.shape === "rectangular"){
 					steps_in_direction++;
@@ -131,78 +145,102 @@
 					}
 					switch(quarter_turns % 4) {
 						case 1:
-							left += step * aspect_ratio + Math.random() * 2.0;
+							x += step * aspect_ratio + Math.random() * 2.0;
 							break;
 						case 2:
-							top -= step + Math.random() * 2.0;
+							y -= step + Math.random() * 2.0;
 							break;
 						case 3:
-							left -= step * aspect_ratio + Math.random() * 2.0;
+							x -= step * aspect_ratio + Math.random() * 2.0;
 							break;
 						case 0:
-							top += step + Math.random() * 2.0;
+							y += step + Math.random() * 2.0;
 							break;
 					}
 				}else{ // Default settings: elliptic spiral shape
 					radius += step;
 					angle += (index % 2 === 0 ? 1 : -1)*step;
-					left = options.center.x - (width / 2.0) + (radius*Math.cos(angle)) * aspect_ratio;
-					top = options.center.y + radius*Math.sin(angle) - (height / 2.0);
+					x = options.center.x - (width / 2.0) + (radius*Math.cos(angle)) * aspect_ratio;
+					y = options.center.y + radius*Math.sin(angle) - (height / 2.0);
 				}
-				word_style.left = left + "px";
-				word_style.top = top + "px";
+				// Update the bounding box
+				this.updateBBox(word.span,x,y);
 			}
-			
-			
-			// Don't render word if part of it would be outside the container
-			if (options.removeOverflowing && (left < 0 || top < 0 || (left + width) > options.width || (top + height) > options.height)) {
-				word_span.remove();
-				return this;
-			}
-			
-			
-			already_placed_words.push(word_span);
+
+			already_placed_words.push(word.span);
 
 			return this;
 
 		};
-		
-		this.resize = function(){
-			// Remove any words
-			var words = el.querySelectorAll('span');
-			for(let w = 0; w < words.length; w++){
-				words[w].remove();
-			}
-			options.width = el.offsetWidth;
-			options.height = el.offsetHeight;
-			options.center = {
-				x: (options.width) / 2.0,
-				y: (options.height) / 2.0
+
+		this.addBBoxMetrics = function(span){
+			const txt = span.innerHTML;
+			const l = txt.length;
+			const canvas = document.createElement("canvas");
+			canvas.width = el.offsetWidth;
+			canvas.height = el.offsetHeight;
+			const ctx = canvas.getContext("2d");
+			const sty = window.getComputedStyle(span);
+			ctx.font = sty['font-weight']+" "+span.getAttribute('font-size')+" "+sty['font-family'];
+			const x = parseFloat(span.getAttribute('x'));
+			const y = parseFloat(span.getAttribute('y'));
+			const metric = ctx.measureText(txt);
+			const h = metric.actualBoundingBoxAscent + metric.actualBoundingBoxDescent;
+			let bbox = {
+				'left':x - metric.width/2,
+				'right':x + metric.width/2,
+				'top':y - h/2,
+				'bottom':y + h/2,
+				'width':metric.width,
+				'height':h
 			};
-			this.draw();
-			return;
+			span.__bbox = bbox;
+			return bbox;
 		};
 
-		window.addEventListener('resize',function(){
-			_obj.resize();
-		});
+		this.updateBBox = function(span,x,y){
+			const xo = parseFloat(span.getAttribute('x'));
+			const yo = parseFloat(span.getAttribute('y'));
+			span.setAttribute('x',x);
+			span.setAttribute('y',y);
+			let dx = x-xo;
+			let dy = y-yo;
+			span.__bbox.left += dx;
+			span.__bbox.right += dx;
+			span.__bbox.top += dy;
+			span.__bbox.bottom += dy;
+			return span.__bbox;
+		}
+
+		// Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
+		let _obj = this;
+		setTimeout(function(){ _obj.init(); }, 10);
+
 		return this;
 	}
 
-	function overlapping(a, b){
-		if(Math.abs(2.0*a.offsetLeft + a.offsetWidth - 2.0*b.offsetLeft - b.offsetWidth) < a.offsetWidth + b.offsetWidth){
-			if(Math.abs(2.0*a.offsetTop + a.offsetHeight - 2.0*b.offsetTop - b.offsetHeight) < a.offsetHeight + b.offsetHeight) return true;
+	function clone(a){
+		return JSON.parse(JSON.stringify(a));
+	}
+	function overlapping(a, b, padding){
+		let RectA = clone(a.__bbox);
+		let RectB = clone(b.__bbox);
+		if(padding > 0){
+			RectA.left -= padding;
+			RectA.right += padding;
+			RectA.top -= padding;
+			RectA.bottom += padding;
 		}
-		return false;
+		return (RectA.left < RectB.right && RectA.right > RectB.left && RectA.top < RectB.bottom && RectA.bottom > RectB.top);
 	}
 	
 	// Helper function to test if an element overlaps others
-	function hitTest(elem, other_elems){
+	function hitTest(elem, other_elems, padding){
 		// Pairwise overlap detection
 		var i = 0;
 		// Check elements for overlap one by one, stop and return false as soon as an overlap is found
 		for(i = 0; i < other_elems.length; i++){
-			if(overlapping(elem, other_elems[i])) return true;
+			if(overlapping(elem, other_elems[i],padding)) return true;
 		}
 		return false;
 	}

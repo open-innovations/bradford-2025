@@ -1,8 +1,4 @@
----
----
-
-<div data-comp="wordCloud" style="margin-top:1rem;height:350px;font-family:var(--fontstack-main);background:white;padding:1rem;" data-dependencies="/assets/js/word-cloud.js"{{ if maxWords }} data-maxWords="{{ maxWords }}"{{ /if }}>
-	<table class="input">
+<div data-comp="wordCloud" style="margin-top:1rem;aspect-ratio:4/3;font-family:var(--fontstack-main);background:white;" data-dependencies="/assets/js/tooltip.js,/assets/js/word-cloud.js"{{ if maxWords }} data-maxWords="{{ maxWords }}"{{ /if }}><table class="input">
 	<thead>
 		<tr><td>Word</td><td>Count</td></tr>
 	</thead>
@@ -11,5 +7,4 @@
 		<tr><td{{ if row.colour }} style="color:{{ row.colour }}"{{ /if }}>{{ row.word }}</td><td>{{ row.weight }}</tr>
 	{{ /for }}
 	</tbody>
-	</table>
-</div>
+</table></div>

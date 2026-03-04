@@ -1,0 +1,35 @@
+---
+block: block-40
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
+	<h3>Rated an event as excellent or good?</h3>
+
+	{{> 
+		const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+		for(let i = 0; i < event_excellent_or_good.length; i++){
+			let idx = months.indexOf(event_excellent_or_good[i].Month)+1;
+			if(idx < 0){
+				console.error("Invalid month for row "+i,event_excellent_or_good[i]);
+			}else{
+				event_excellent_or_good[i].Date = event_excellent_or_good[i].Year + "-" + (idx < 10 ? '0':'') + idx;
+				event_excellent_or_good[i].excellent_or_good = event_excellent_or_good[i]['Excellent or Good %'];
+				event_excellent_or_good[i].postunit = "%";
+			}
+		}
+	}}
+	{{ comp.graph.monthly({
+		data: event_excellent_or_good,
+		series: [{
+			title: "Rated an event as excellent or good",
+			x: "Date",
+			y: "excellent_or_good",
+			colour: "green",
+			tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ excellent_or_good | toFixed(1) }}%</strong>'
+		}]
+	}) }}
+
+	<p>Last updated {{ comp.Date({start:event_excellent_or_good[event_excellent_or_good.length-1].Date,dateFormat:'LLLL y'}) }}.</p>
+
+{{ /comp }}
