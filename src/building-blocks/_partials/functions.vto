@@ -81,7 +81,7 @@
 
 	let by_response = [];
 	for(let c = 0; c < colval.length; c++){
-		let cat = {'Category':colval[c]};
+		let cat = {'Category':(colval.length > 1 ? colval[c]:'')};
 	
 		for(let i = 0; i < data.length; i++){
 			cat[data[i][col]] = data[i][colval[c]];
@@ -93,7 +93,7 @@
 					"title": title,
 					"value": column,
 					"colour": (i < colours.length ? colours[i] : '#efefef'),
-					"tooltip": "" + title + ": <strong>{{ " + column + "_percent | toFixed(1) }}%</strong>"
+					"tooltip": (colval.length > 1 ? "{{ Category }}<br />" : "") + title + ": <strong>{{ " + column + "_percent | toFixed(1) }}%</strong>"
 				});
 			}
 		}
