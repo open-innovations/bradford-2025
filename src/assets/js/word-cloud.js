@@ -41,7 +41,8 @@
 			removeOverflowing: false,
 			maxSize: 72,
 			minSize: 12,
-			padding: 5,
+			padding: 16,
+			wordpadding: 4,
 			nWords: parseInt(el.getAttribute('data-maxWords'))||12
 		};
 		
@@ -135,7 +136,7 @@
 			let width = word.span.__bbox.width;
 			let height = word.span.__bbox.height;
 
-			while(hitTest(word.span, already_placed_words, options.padding) || word.span.__bbox.left < options.padding || word.span.__bbox.right > options.width-options.padding || word.span.__bbox.top < options.padding || word.span.__bbox.bottom > options.height-options.padding){
+			while(hitTest(word.span, already_placed_words, options.wordpadding) || word.span.__bbox.left < options.padding || word.span.__bbox.right > options.width-options.padding || word.span.__bbox.top < options.padding || word.span.__bbox.bottom > options.height-options.padding){
 				// option shape is 'rectangular' so move the word in a rectangular spiral
 				if(options.shape === "rectangular"){
 					steps_in_direction++;
