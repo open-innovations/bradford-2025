@@ -1,0 +1,14 @@
+---
+block: block-43
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences' } }}
+
+	<h3>Survey demographics: ethnicity</h3>
+
+	{{ import { buildBreakdown } from "./functions.vto" }}
+	{{ await buildBreakdown(survey_ethnicity,"Ethnicity","Percentage") }}
+
+	<p>Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
+
+{{ /comp }}

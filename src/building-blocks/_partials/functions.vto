@@ -71,3 +71,70 @@
 	})
 }}
 {{ /export }}
+
+
+{{ export async function buildBreakdown(data,col,colval,colours) }}
+{{>
+	if(typeof colours !== "object") colours = ["#be9006","#e0b942","#437e2a","#45d108","#e1699f","#f4accd"];
+	let series = [];
+	let by_response = [{'Category':''}];
+	for(let i = 0; i < data.length; i++){
+		by_response[0][data[i][col]] = data[i][colval];
+		let column = data[i][col];
+		let title = column.replace(/^[0-9]\. /,"")
+		series.push({
+			"title": title,
+			"value": column,
+			"colour": (i < colours.length ? colours[i] : '#efefef'),
+			"tooltip": "" + title + ": <strong>{{ " + column + "_percent | toFixed(1) }}%</strong>"
+		});
+	}
+}}
+{{
+	comp.oi.chart.bar({
+		config: {
+			category: "Category",
+			data: by_response,
+			legend: { show: true, position: "top" },
+			height: 200,
+			series: series,
+			stacked: true,
+			percent: true,
+			axis: {
+				"x": {
+					"min": 0,
+					"max": 100,
+					"ticks": [{
+						"value": 0,
+						"label": "0%"
+					},{
+						"value": 20,
+						"label": "20%"
+					},{
+						"value": 40,
+						"label": "40%"
+					},{
+						"value": 60,
+						"label": "60%"
+					},{
+						"value": 80,
+						"label": "80%"
+					},{
+						"value": 100,
+						"label": "100%"
+					}],
+					"grid": {
+						"stroke": "black"
+					}
+				},
+				"y":{
+					"grid": {
+						"stroke-width": 0,
+						"stroke": "transparent"
+					}
+				}
+			}
+		}
+	})
+}}
+{{ /export }}
