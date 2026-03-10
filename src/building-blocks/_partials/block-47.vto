@@ -1,6 +1,9 @@
 ---
 block: block-47
 id: dotmap
+pink: 'hsl(333, 50%, 95%) 0%, #e961a3 100%'
+orange: 'hsl(25, 91%, 95%) 0%, #f57921 100%'
+grey: 'hsl(80, 11%, 95%) 0%, #2b2e25 100%'
 ---
 <style>
 {{ for row of beacon_dots }}
@@ -65,15 +68,15 @@ id: dotmap
 					matchKey: 'geography_code',
 					value: 'dots',
 					min: 0,
-					max: 150,
-					scale: scales.green,
+					max: 120,
+					scale: pink,
 					label: 'short',
 					width: 500,
 					height: 660,
 					legend: {
 						continuous: true,
 						position: 'top right',
-						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
+						items: [{'value':120,'label':'>120'},{'value':60,'label':'60'},{'value':0,'label':'0'}]
 					},
 					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> dots ({{ percent | toFixed(1) }}%)',
 					tools: {
@@ -98,15 +101,15 @@ id: dotmap
 					matchKey: 'geography_code',
 					value: 'dots',
 					min: 0,
-					max: 150,
-					scale: scales.green,
+					max: 100,
+					scale: orange,
 					label: 'short',
 					width: 500,
 					height: 660,
 					legend: {
 						continuous: true,
 						position: 'top right',
-						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
+						items: [{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
 					},
 					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> dots ({{ percent | toFixed(1) }}%)',
 					tools: {
@@ -131,15 +134,15 @@ id: dotmap
 					matchKey: 'geography_code',
 					value: 'dots',
 					min: 0,
-					max: 150,
-					scale: scales.green,
+					max: 80,
+					scale: grey,
 					label: 'short',
 					width: 500,
 					height: 660,
 					legend: {
 						continuous: true,
 						position: 'top right',
-						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
+						items: [{'value':80,'label':'80'},{'value':40,'label':'40'},{'value':0,'label':'0'}]
 					},
 					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> dots ({{ percent | toFixed(1) }}%)',
 					tools: {
