@@ -18,12 +18,13 @@ id: dotmap
 		for(const item of beacon_dots){
 			pcd_data_d[item.Beacon] = [];
 			for(const [key, value] of Object.entries(item)){
-				pcd_data_d[item.Beacon].push({"name": key, "geography_code": (key in areas ? areas[key] : key), "dots": value, "percent": 100*value/item.Total});
+				pcd_data_d[item.Beacon].push({"name": key, "short": item.short, "geography_code": (key in areas ? areas[key] : key), "total": item.Total, "dots": value, "percent": 100*value/item.Total});
 			}
 		}
 	}}
 	{{ comp Tab.Set { classes: 'big'} }}
 		{{ comp Tab.Panel { id: 'dotmap-total', label: 'Total' } }}
+		<p>All: {{ pcd_data_d['Total'][0].total | toLocaleString }} visitors</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_pcd,
@@ -33,7 +34,7 @@ id: dotmap
 					min: 0,
 					max: 150,
 					scale: scales.green,
-					label: '{{ n | slice(0,4) }}',
+					label: 'short',
 					width: 500,
 					height: 660,
 					legend: {
@@ -56,7 +57,7 @@ id: dotmap
 			}) }}
 		{{ /comp }}
 		{{ comp Tab.Panel { id: 'dotmap-beacon-2', label: 'Beacon 2' } }}
-			<p>Bowling Park (BD4)</p>
+			<p>Bowling Park (BD4): {{ pcd_data_d['Beacon 2'][0].total | toLocaleString }} visitors</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_pcd,
@@ -66,7 +67,7 @@ id: dotmap
 					min: 0,
 					max: 150,
 					scale: scales.green,
-					label: '{{ n | slice(0,4) }}',
+					label: 'short',
 					width: 500,
 					height: 660,
 					legend: {
@@ -89,7 +90,7 @@ id: dotmap
 			}) }}
 		{{ /comp }}
 		{{ comp Tab.Panel { id: 'dotmap-beacon-3', label: 'Beacon 3' } }}
-			<p>Cliffe Castle (BD20)</p>
+			<p>Cliffe Castle (BD20): {{ pcd_data_d['Beacon 3'][0].total | toLocaleString }} visitors</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_pcd,
@@ -99,7 +100,7 @@ id: dotmap
 					min: 0,
 					max: 150,
 					scale: scales.green,
-					label: '{{ n | slice(0,4) }}',
+					label: 'short',
 					width: 500,
 					height: 660,
 					legend: {
@@ -122,7 +123,7 @@ id: dotmap
 			}) }}
 		{{ /comp }}
 		{{ comp Tab.Panel { id: 'dotmap-beacon-4', label: 'Beacon 4' } }}
-			<p>Lister Park (BD9)</p>
+			<p>Lister Park (BD9): {{ pcd_data_d['Beacon 4'][0].total | toLocaleString }} visitors</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_pcd,
@@ -132,7 +133,7 @@ id: dotmap
 					min: 0,
 					max: 150,
 					scale: scales.green,
-					label: '{{ n | slice(0,4) }}',
+					label: 'short',
 					width: 500,
 					height: 660,
 					legend: {
