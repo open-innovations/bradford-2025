@@ -1,0 +1,161 @@
+---
+block: block-47
+id: dotmap
+---
+<style>
+{{ for row of beacon_dots }}
+{{ if row.Postcode }}#{{ id }} .hex[data-id="{{ row.Postcode }}"] path { stroke: black; stroke-width: 3; } {{ /if }}
+{{ /for }}
+
+</style>
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Audience Survey' } }}
+
+	<h3>Beacon visitors</h3>
+
+	{{>
+		let pcd_data_d = {};
+		let areas = {'Calderdale':'E080000033','Kirklees':'E080000034','Leeds':'E080000035','Wakefield':'E080000036','Somewhere Else':'Other'};
+		for(const item of beacon_dots){
+			pcd_data_d[item.Beacon] = [];
+			for(const [key, value] of Object.entries(item)){
+				pcd_data_d[item.Beacon].push({"name": key, "geography_code": (key in areas ? areas[key] : key), "dots": value, "percent": 100*value/item.Total});
+			}
+		}
+	}}
+	{{ comp Tab.Set { classes: 'big'} }}
+		{{ comp Tab.Panel { id: 'dotmap-total', label: 'Total' } }}
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_pcd,
+					data: pcd_data_d['Total'],
+					matchKey: 'geography_code',
+					value: 'dots',
+					min: 0,
+					max: 150,
+					scale: scales.green,
+					label: '{{ n | slice(0,4) }}',
+					width: 500,
+					height: 660,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
+					},
+					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> visitors ({{ percent | toFixed(1) }}%)',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 2,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'dotmap-beacon-2', label: 'Beacon 2' } }}
+			<p>Bowling Park (BD4)</p>
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_pcd,
+					data: pcd_data_d['Beacon 2'],
+					matchKey: 'geography_code',
+					value: 'dots',
+					min: 0,
+					max: 150,
+					scale: scales.green,
+					label: '{{ n | slice(0,4) }}',
+					width: 500,
+					height: 660,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
+					},
+					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> visitors ({{ percent | toFixed(1) }}%)',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 2,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'dotmap-beacon-3', label: 'Beacon 3' } }}
+			<p>Cliffe Castle (BD20)</p>
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_pcd,
+					data: pcd_data_d['Beacon 3'],
+					matchKey: 'geography_code',
+					value: 'dots',
+					min: 0,
+					max: 150,
+					scale: scales.green,
+					label: '{{ n | slice(0,4) }}',
+					width: 500,
+					height: 660,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
+					},
+					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> visitors ({{ percent | toFixed(1) }}%)',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 2,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'dotmap-beacon-4', label: 'Beacon 4' } }}
+			<p>Lister Park (BD9)</p>
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_pcd,
+					data: pcd_data_d['Beacon 4'],
+					matchKey: 'geography_code',
+					value: 'dots',
+					min: 0,
+					max: 150,
+					scale: scales.green,
+					label: '{{ n | slice(0,4) }}',
+					width: 500,
+					height: 660,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
+					},
+					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> visitors ({{ percent | toFixed(1) }}%)',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 2,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+		{{ /comp }}
+
+		<p>Visitors used sticky dots to locate where they had come from by postcode area. Note that some postcode areas may be partially within Bradford and partially within other local authorities. In those cases, and for those from beyond Bradford, the visitor chose where to assign their dot.</p>
+	{{ /comp }}
+
+{{ /comp }}
