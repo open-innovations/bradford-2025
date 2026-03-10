@@ -24,7 +24,7 @@ id: dotmap
 	}}
 	{{ comp Tab.Set { classes: 'big'} }}
 		{{ comp Tab.Panel { id: 'dotmap-total', label: 'Total' } }}
-		<p>All: {{ pcd_data_d['Total'][0].total | toLocaleString }} visitors</p>
+		<p>All: {{ pcd_data_d['Total'][0].total | toLocaleString }} dots</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_pcd,
@@ -42,7 +42,7 @@ id: dotmap
 						position: 'top right',
 						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
 					},
-					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> visitors ({{ percent | toFixed(1) }}%)',
+					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> dots ({{ percent | toFixed(1) }}%)',
 					tools: {
 						filter: {
 							label: 'n',
@@ -57,7 +57,7 @@ id: dotmap
 			}) }}
 		{{ /comp }}
 		{{ comp Tab.Panel { id: 'dotmap-beacon-2', label: 'Beacon 2' } }}
-			<p>Bowling Park (BD4): {{ pcd_data_d['Beacon 2'][0].total | toLocaleString }} visitors</p>
+			<p>Bowling Park (BD4): {{ pcd_data_d['Beacon 2'][0].total | toLocaleString }} dots</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_pcd,
@@ -75,7 +75,7 @@ id: dotmap
 						position: 'top right',
 						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
 					},
-					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> visitors ({{ percent | toFixed(1) }}%)',
+					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> dots ({{ percent | toFixed(1) }}%)',
 					tools: {
 						filter: {
 							label: 'n',
@@ -90,7 +90,7 @@ id: dotmap
 			}) }}
 		{{ /comp }}
 		{{ comp Tab.Panel { id: 'dotmap-beacon-3', label: 'Beacon 3' } }}
-			<p>Cliffe Castle (BD20): {{ pcd_data_d['Beacon 3'][0].total | toLocaleString }} visitors</p>
+			<p>Cliffe Castle (BD20): {{ pcd_data_d['Beacon 3'][0].total | toLocaleString }} dots</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_pcd,
@@ -108,7 +108,7 @@ id: dotmap
 						position: 'top right',
 						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
 					},
-					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> visitors ({{ percent | toFixed(1) }}%)',
+					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> dots ({{ percent | toFixed(1) }}%)',
 					tools: {
 						filter: {
 							label: 'n',
@@ -123,7 +123,7 @@ id: dotmap
 			}) }}
 		{{ /comp }}
 		{{ comp Tab.Panel { id: 'dotmap-beacon-4', label: 'Beacon 4' } }}
-			<p>Lister Park (BD9): {{ pcd_data_d['Beacon 4'][0].total | toLocaleString }} visitors</p>
+			<p>Lister Park (BD9): {{ pcd_data_d['Beacon 4'][0].total | toLocaleString }} dots</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_pcd,
@@ -141,7 +141,7 @@ id: dotmap
 						position: 'top right',
 						items: [{'value':150,'label':'>150'},{'value':100,'label':'100'},{'value':50,'label':'50'},{'value':0,'label':'0'}]
 					},
-					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> visitors ({{ percent | toFixed(1) }}%)',
+					tooltip: '{{ name }}\n<strong>{{ dots | toLocaleString }}</strong> dots ({{ percent | toFixed(1) }}%)',
 					tools: {
 						filter: {
 							label: 'n',
