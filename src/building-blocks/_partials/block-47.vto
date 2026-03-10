@@ -11,9 +11,9 @@ grey: 'hsl(80, 11%, 95%) 0%, #2b2e25 100%'
 {{ /for }}
 
 </style>
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Audience Survey', notes: 'The sticky dot map was only created after the first Beacon in Wibsey Park' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Evaluation Team', notes: 'The sticky dot map was only created after the first Beacon in Wibsey Park' } }}
 
-	<h3>Beacon visitors</h3>
+	<h3>Where Beacon visitors came from</h3>
 
 	{{>
 		let pcd_data_d = {};
@@ -159,7 +159,7 @@ grey: 'hsl(80, 11%, 95%) 0%, #2b2e25 100%'
 			}) }}
 		{{ /comp }}
 
-		<p>Visitors to <a href="https://bradford2025.co.uk/programme/the-beacon/">the Beacon</a> were asked to use sticky dots to locate their postcode area. Note that some postcode areas may be partially within Bradford and partially within other local authorities. In those cases, and for those from beyond Bradford, the visitor chose where to assign their dot.</p>
+		<p>Visitors to <a href="https://bradford2025.co.uk/programme/the-beacon/">the Beacon</a>, attending non-ticketed events, were asked to use sticky dots to locate where they lived on a map. Visitors from postcode areas partially within Bradford and partially within other local authorities chose where to assign their dots.</p>
 		<p>This {{ comp glossary.Ref { slug: 'cartogram' } }}cartogram{{ /comp }} displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
 		<p class="source">Hex layout: Open Innovations</p>
 
