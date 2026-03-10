@@ -1,0 +1,106 @@
+---
+block: block-49
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants', source: 'Bradford 2025' } }}
+
+	<h3>Volunteers by ward</h3>
+
+	{{>
+		const {
+			people: people,
+		} = search.data("themes/volunteers");
+
+		const wardSignUps = wards
+		.map(ward => ({ ...ward, count: 0, ...people.by_geo_osward.find(w => w.code == ward.code) }))
+		.map(d => ({
+			...d,
+			count: d.count <= 5 && d.count > 0 ? 5 : d.count,
+			countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
+		}) )
+		/*
+	const postcodeSignUps = geojson.postcodes.features.map(x => x.properties.name)
+		.map(code => ({ code, count: 0, ...people.by_geo_postcode_area.find(w => w.code == code) }))
+		.map(d => ({
+			...d,
+			count: d.count <= 5 && d.count > 0 ? 5 : d.count,
+			countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
+		}) )
+	const unknown_address = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count*/
+	}}
+
+	{{ comp Tab.Set { classes: 'big'} }}
+		{{ comp Tab.Panel { id: 'volunteers-hex', label: 'Cartogram' } }}
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_2024,
+					data: wardSignUps,
+					matchKey: 'code',
+					value: 'count',
+					min: 0,
+					max: 400,
+					scale: scales.pink,
+					label: 'short_code',
+					width: 500,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [{'value':400,'label':'>400'},{'value':200,'label':'200'},{'value':0,'label':'0'}]
+					},
+					tooltip: '{{ name }}\n<strong>{{ count | toLocaleString }}</strong>',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 2,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+			<p>This {{ comp glossary.Ref { slug: 'cartogram' } }}cartogram{{ /comp }} displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+			<p class="source">Hex layout: Open Innovations</p>
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'volunteers-map', label: 'Map' } }}
+			{{ comp.oi.map.svg({
+				config: {
+					geojson: {
+						key: 'WD24CD',
+						data: geojson.bd_wards
+					},
+					data: wardSignUps,
+					columns: [{
+						name: "filterLabel",
+						template: "{{ geojson.properties.WD24NM }}"
+					}],
+					key: 'code',
+					value: 'count',
+					min: 0,
+					max: 400,
+					scale: scales.pink,
+					label: 'short_code',
+					width: 500,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [{'value':400,'label':'>400'},{'value':200,'label':'200'},{'value':0,'label':'0'}]
+					},
+					tooltip: '{{ filterLabel }}\n<strong>{{ count | toLocaleString }}</strong>',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 2,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+		{{ /comp }}
+	{{ /comp }}
+
+{{ /comp }}
