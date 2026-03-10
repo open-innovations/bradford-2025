@@ -1,0 +1,53 @@
+---
+block: block-48
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants', source: 'Bradford 2025' } }}
+
+	<h3>Participant types</h3>
+
+	{{>
+		const {
+			participants: participants_d,
+			timestamp: timestamp_d,
+			otherFigures: otherFigures_d,
+		} = search.data("insights/dashboard");
+		const dat = [{
+			'Community': participants_d.by_type.community_participants.count,
+			'Cultural learning': participants_d.by_type.cultural_learning_participants.count,
+			'Training and skills': participants_d.by_type.training_and_skills_development_participants.count,
+			'Volunteers': participants_d.volunteers.total,
+			'Total': participants_d.total
+		}];
+	}}
+
+	{{ comp.oi.chart.waffle({
+		config: {
+			data: dat,
+			columns: [{
+				"name": "Community tooltip",
+				"template": "Community: <strong>{{ Community | toLocaleString() }}</strong> ({{ Community | multiply(100 / Total) | toFixed(1) | parseFloat }}%)"
+			},{
+				"name": "Cultural learning tooltip",
+				"template": "Cultural learning: <strong>{{ Cultural learning | toLocaleString() }}</strong> ({{ Cultural learning | multiply(100 / Total) | toFixed(1) | parseFloat }}%)"
+			},{
+				"name": "Training and skills tooltip",
+				"template": "Training and skills: <strong>{{ Training and skills | toLocaleString() }}</strong> ({{ Training and skills | multiply(100 / Total) | toFixed(1) | parseFloat }}%)"
+			},{
+				"name": "Volunteers tooltip",
+				"template": "Volunteers: <strong>{{ Volunteers | toLocaleString() }}</strong> ({{ Volunteers | multiply(100 / Total) | toFixed(1) | parseFloat }}%)"
+			}],
+			series: [
+				{ value: "Community", colour: "#45D108", points: {'marker':'circle'}, tooltip: "Community tooltip" },
+				{ value: "Cultural learning", colour: "#E0B942", points: {'marker':'circle'}, tooltip: "Cultural learning tooltip" },
+				{ value: "Training and skills", colour: "#F4ACCD", points: {'marker':'circle'}, tooltip: "Training and skills tooltip" },
+				{ value: "Volunteers", colour: "#e1699f", points: {'marker':'circle'}, tooltip: "Volunteers tooltip" }
+			],
+			size: [20, 12],
+			total: "Total",
+			legend: { show: true, position: 'bottom' },
+			rounding: ceil
+		}
+	}) }}
+
+{{ /comp }}
