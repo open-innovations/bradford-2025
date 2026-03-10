@@ -20,7 +20,8 @@
 	progresstarget: targets.audiences_split_bradford,
 } }}
 	{{ comp.BigNumber({
-		number: bradfordAudiences.toLocaleString(undefined, { maximumFractionDigits: 0 }),
+		number: bradfordAudiences,
+		roundingOptions: { maximumFractionDigits: 0 },
 	}) }}
         {{ comp.dashboard.Footer({
 		upTo: metrics.audiences_split_bradford.upTo
@@ -36,7 +37,7 @@
 
 			{{# TODO Turn this into a table, perhaps? #}}
 			<p>
-				{{ audienceSplit.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' }) }} of ticket were bought by residents of Bradford.
+				{{ audienceSplit.toLocaleString("en-GB", { maximumFractionDigits: 1, style: 'percent' }) }} of ticket were bought by residents of Bradford.
 			</p>
 		{{ /comp }}
 	{{ /comp }}

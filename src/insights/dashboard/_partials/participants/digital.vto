@@ -9,13 +9,19 @@
         .filter(x => x.category === 'Digital')
 
     const digitalProjectsParticipants = digitalProjects.reduce((a, c) => a + c.count, 0);
+	let target = null;
+	let progress = null;
+	if(typeof targets.participants_digital==="number"){
+		target = targets.participants_digital;
+		progress = 100 * digitalProjectsParticipants / target;
+	}
 }}
 {{ comp dashboard.Cell {
 	title: metrics[id].title,
 	flash: flash[id],
 	classes: 'participants',
-	progress: 100 * digitalProjectsParticipants / targets.participants_digital,
-	progresstarget: targets.participants_digital,
+	progress: progress,
+	progresstarget: target,
 } }}
 	{{ comp.BigNumber({
 		number: digitalProjectsParticipants || '&mdash;',

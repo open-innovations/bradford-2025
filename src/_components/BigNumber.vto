@@ -32,36 +32,40 @@ js: |
     );
     document.querySelectorAll('[data-comp=big-number]').forEach(numberBlock => {
         const numericEl = numberBlock.querySelector('span.numeric');
-        const target = parseFloat(numberBlock.dataset?.number||0);
-        const roundingOptions = JSON.parse(numberBlock.dataset?.roundingOptions || '{}');
-        const setValue = (n,opt) => {
-            numericEl.innerHTML = n.toLocaleString(undefined, opt);
-        };
-        if(numberBlock.hasAttribute('data-animate')){
-            // Set the duration in seconds
-            const duration = (numberBlock.dataset && numberBlock.dataset.duration ? parseFloat(numberBlock.dataset?.duration) : 1);
-            function animate() {
-                let start = new Date();
-                let t,value;
-                const updateNumber = () => {
-                    t = (new Date() - start)/1000;
-                    value = target*(t/duration);
-                    if(isNaN(value)){
-                        clearInterval(timer);
-                    }else{
-                    	setValue(value,roundingOptions);
-                    	if (Math.abs(value) >= Math.abs(target)) {
-                    		clearInterval(timer);
-                    		setValue(target,roundingOptions);
-                    	}
-                    }
-                }
-                let timer = setInterval(updateNumber, 40);
-            }
-            numericEl.animate = animate;
-            observer.observe(numericEl);
+        const target = parseFloat(numberBlock.dataset?.number);
+        if(isNaN(target)){
+            numericEl.innerHTML = numberBlock.dataset?.number;
         }else{
-            setValue(target,roundingOptions);
+            const roundingOptions = JSON.parse(numberBlock.dataset?.roundingOptions || '{}');
+            const setValue = (n,opt) => {
+                numericEl.innerHTML = n.toLocaleString(undefined, opt);
+            };
+            if(numberBlock.hasAttribute('data-animate')){
+                // Set the duration in seconds
+                const duration = (numberBlock.dataset && numberBlock.dataset.duration ? parseFloat(numberBlock.dataset?.duration) : 1);
+                function animate() {
+                    let start = new Date();
+                    let t,value;
+                    const updateNumber = () => {
+                        t = (new Date() - start)/1000;
+                        value = target*(t/duration);
+                        if(isNaN(value)){
+                            clearInterval(timer);
+                        }else{
+                            setValue(value,roundingOptions);
+                            if (Math.abs(value) >= Math.abs(target)) {
+                                clearInterval(timer);
+                                setValue(target,roundingOptions);
+                            }
+                        }
+                    }
+                    let timer = setInterval(updateNumber, 40);
+                }
+                numericEl.animate = animate;
+                observer.observe(numericEl);
+            }else{
+                setValue(target,roundingOptions);
+            }
         }
     })
 ---
