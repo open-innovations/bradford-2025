@@ -16,7 +16,8 @@ block: block-51
 		.map(d => ({
 			...d,
 			count: d.count <= 5 && d.count > 0 ? 5 : d.count,
-			countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
+			countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString(),
+			code_sortable: d.code.replace(/([A-Z]+)([0-9]+)/,function(m,p1,p2){ return p1+(p2.length==1 ? "  ":" ")+p2; })
 		}) )
 
 		const unknown_address = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count;
@@ -94,6 +95,20 @@ block: block-51
 						}
 					}
 				}
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'volunteers-pcd-table', label: 'Table' } }}
+			{{ comp.dashboard.InfoBoxTable({
+				head: {
+					class: 'c-pink',
+				},
+				columns: [
+					{ name: 'code', value: 'code_sortable', label: 'Postcode district' },
+					{ name: 'counter', value: 'count', template: '{{ count }}', label: 'Volunteers', class: 'right', scale: scales.pink, min: 0 },
+				],
+				data: postcodeSignUps,
+				width: "100%",
+				sort: "code"
 			}) }}
 		{{ /comp }}
 	{{ /comp }}

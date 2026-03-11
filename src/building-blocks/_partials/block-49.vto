@@ -89,7 +89,7 @@ block: block-49
 						position: 'top right',
 						items: [{'value':400,'label':'>400'},{'value':200,'label':'200'},{'value':0,'label':'0'}]
 					},
-					tooltip: '{{ filterLabel }}\n<strong>{{ count | toLocaleString }}</strong>',
+					tooltip: '{{ filterLabel }}\n<strong>{{ count | toLocaleString }}</strong> volunteers',
 					tools: {
 						filter: {
 							label: 'filterLabel',
@@ -101,6 +101,20 @@ block: block-49
 						}
 					}
 				}
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'volunteers-ward-table', label: 'Table' } }}
+			{{ comp.dashboard.InfoBoxTable({
+				head: {
+					class: 'c-pink',
+				},
+				columns: [
+					{ name: 'name', label: 'Ward' },
+					{ name: 'counter', value: 'count', template: '{{ count }}', label: 'Volunteers', class: 'right', scale: scales.pink, min: 0 },
+				],
+				data: wardSignUps,
+				width: "100%",
+				sort: "name"
 			}) }}
 		{{ /comp }}
 	{{ /comp }}
