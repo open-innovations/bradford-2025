@@ -8,6 +8,8 @@ block: block-29
 	
 	{{>
 		const { people: people_d, keyMap: keyMap_d, summary: summary_d } = search.data("themes/volunteers");
+		if(!start) start = people_d.checkpoints_weekly_updates[0]['Week ending (Sunday)'].toISOString().substr(0,10);
+		if(!end) end = people_d.checkpoints_weekly_updates[people_d.checkpoints_weekly_updates.length-1]['Week ending (Sunday)'].toISOString().substr(0,10);
 	}}
 	{{ comp.graph.monthly({
 		data: people_d.checkpoints_weekly_updates,
@@ -20,6 +22,8 @@ block: block-29
 			name: 'decimal_year',
 			template: '{{ Week ending (Sunday) | strptime(\"%Y-%m-%d\") | decimalYear() }}'
 		}],
-		legend: { show: true, position: 'bottom' }
+		legend: { show: true, position: 'bottom' },
+		start: start,
+		end: end
 	}) }}
 {{ /comp }}
