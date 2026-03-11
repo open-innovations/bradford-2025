@@ -24,7 +24,7 @@ h2, h3 { line-height: 1.2em; }
 .oi-viz { margin-top: 1rem; }
 .oi-viz + * { margin-top: 1rem; }
 .updated { margin-block: 0; }
-.dashboard .block p a { text-decoration: underline; }
+.dashboard .block p a, .internal a { text-decoration: underline; }
 .dashboard :is(.oi-viz .axis-grid-x) g[data] text { dominant-baseline: unset; }
 .oi-viz > a:focus { padding: 0.5rem; background: black; color: white; margin: 0!important; }
 .oi-viz tspan { font-size: 16px; }
@@ -86,6 +86,7 @@ tabbed.big table tr th:last-child { text-align: right; }
 	[aria-selected="true"]:is(tabbed.big [role="tab"]){ border-bottom: 0; }
 	.wide-only { display: none; }
 	.dashboard li > .block { padding: 1rem; }
+	.dashboard [data-comp="grid-Block"] .block .block-inner { padding: 1rem; }
 }
 .oi-map-svg .area path { stroke-width: 0.5; }
 .oi-viz .tooltip .inner { border-radius: 3rem; padding-inline: 2rem; }
