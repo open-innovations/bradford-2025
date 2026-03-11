@@ -18,15 +18,17 @@ block: block-49
 			count: d.count <= 5 && d.count > 0 ? 5 : d.count,
 			countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
 		}) )
-		/*
-	const postcodeSignUps = geojson.postcodes.features.map(x => x.properties.name)
+		/*const postcodeSignUps = geojson.postcodes.features.map(x => x.properties.name)
 		.map(code => ({ code, count: 0, ...people.by_geo_postcode_area.find(w => w.code == code) }))
 		.map(d => ({
 			...d,
 			count: d.count <= 5 && d.count > 0 ? 5 : d.count,
 			countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
-		}) )
-	const unknown_address = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count*/
+		}) )*/
+
+		const unknown_address = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count;
+		const total_volunteers = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count;
+		const known_address = total_volunteers - unknown_address;
 	}}
 
 	{{ comp Tab.Set { classes: 'big'} }}
@@ -102,5 +104,6 @@ block: block-49
 			}) }}
 		{{ /comp }}
 	{{ /comp }}
+	<p>We have verified address details for {{ Math.round(100 * known_address / total_volunteers) }}% of our volunteers.</p>
 
 {{ /comp }}
