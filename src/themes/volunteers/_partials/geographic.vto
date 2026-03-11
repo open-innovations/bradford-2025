@@ -1,106 +1,50 @@
-{{>
-    const wardSignUps = wards
-        .map(ward => ({ ...ward, count: 0, ...people.by_geo_osward.find(w => w.code == ward.code) }))
-        .map(d => ({
-            ...d,
-            count: d.count <= 5 && d.count > 0 ? 5 : d.count,
-            countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
-        }) )
-    const postcodeSignUps = geojson.postcodes.features.map(x => x.properties.name)
-        .map(code => ({ code, count: 0, ...people.by_geo_postcode_area.find(w => w.code == code) }))
-        .map(d => ({
-            ...d,
-            count: d.count <= 5 && d.count > 0 ? 5 : d.count,
-            countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
-        }) )
-    const unknown_address = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count
-}}
-{{ set total_volunteers = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count }}
-{{ set known_address = total_volunteers - unknown_address }}
-
-{{ comp InfoCard { id:"geographic", classes: "grid regular" } }}
+{{ comp InfoCard { id:"geographic", classes: "regular" } }}
 
 	<h2 class="full-width">Geographic distribution of volunteers</h2>
 	<div class="full-width">
 	{{ include 'cms/block/volunteering-geography.md' |> md }}
 	</div>
 
-	<div>
-		<h3>Local Authorities</h3>
-		<p>
-			The table below shows the volunteer counts by local authority where the count is above 5.
-		</p>
-		
-		<div class="block">
-		<table style="margin-inline:auto;">
-		<thead>
-			<tr>
-				<th>Local Authority</th>
-				<th>Count of volunteers</th>
-			</tr>
-		</thead>
-		<tbody>
-		{{ for la of people.by_geo_oslaua.filter(x => x.type === 'oslaua' && x.count > 5).sort((a, b) => b.count - a.count) }}
-			<tr><td>{{ codes.la[la.code]?.name || la.code }}</td><td>{{ la.count }}</td></tr>
-		{{ /for }}
-		</tbody>
-		</table>
-		</div>
-		<p>
-			The subsequent maps show the geographic distribution of volunteers with validated addresses
-			across Bradford, either by ward or by postcode district.
-		</p>
-		{{# TODO Comments from Comms
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+	
+		{{ comp grid.Block { internal, draft, tag: 'li', classes: 'participants' } }}
 
-		I would like to spend a bit more time looking at the ward breakdown to see if there are any
-		issues regarding areas with little sign up and add some narrative
-		#}}
-		{{# TODO Discuss ward targetting approaches with Volunteering team
-		#}}
-	</div>
+			<h3>Local Authorities</h3>
+			<p>
+				The table below shows the volunteer counts by local authority where the count is above 5.
+			</p>
+			
+			<div class="block">
+			<table style="margin-inline:auto;">
+			<thead>
+				<tr>
+					<th>Local Authority</th>
+					<th>Count of volunteers</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{ for la of people.by_geo_oslaua.filter(x => x.type === 'oslaua' && x.count > 5).sort((a, b) => b.count - a.count) }}
+				<tr><td>{{ codes.la[la.code]?.name || la.code }}</td><td>{{ la.count }}</td></tr>
+			{{ /for }}
+			</tbody>
+			</table>
+			</div>
+			<p>
+				The subsequent maps show the geographic distribution of volunteers with validated addresses
+				across Bradford, either by ward or by postcode district.
+			</p>
+			{{# TODO Comments from Comms
 
-	<div class="block">
-		<h3>Volunteers by ward</h3>
+			I would like to spend a bit more time looking at the ward breakdown to see if there are any
+			issues regarding areas with little sign up and add some narrative
+			#}}
+			{{# TODO Discuss ward targetting approaches with Volunteering team
+			#}}
+		{{ /comp }}
 
-		{{ comp.MapSelector({
-			type: 'ward',
-			data: wardSignUps,
-			scale: scales.pinkdark,
-			value: 'count',
-			hex: {
-				caption: 'The "hexmap" shows the number of volunteers living in each Bradford ward.',
-				matchKey:'code',
-				label: 'short_code',
-				tooltip: '<b>{{ n }} ({{ short_code }})</b>:\n{{ countLabel }} volunteers',
-			},
-			geo: {
-				caption: 'This map shows the volunteers by Bradford ward in a geographic layout.',
-				min: 0,
-				key: 'code',
-				tooltip: '<b>{{ name }} ({{ short_code }})</b>:\n{{ countLabel }} volunteers',
-			}
-		}) }}
-	</div>
 
-	<div class="block">
-		<h3>Volunteers by postcode district</h3>
-		
-		{{ comp.MapSelector({
-			type: 'postcode',
-			data: postcodeSignUps,
-			scale: scales.pinkdark,
-			value: 'count',
-			min: 0,
-			tooltip: '<b>{{ code }}</b>\n{{ countLabel }} volunteers',
-			caption: 'The number of volunteers by Bradford postcode district.',
-			hex: {
-				matchKey:'code',
-				label: 'n',
-			},
-			geo: {
-				key: 'code',
-			}
-		}) }}
+		{{ include "../../../building-blocks/_partials/block-49.vto" }}
+		{{ include "../../../building-blocks/_partials/block-51.vto" }}
 
-	</div>
+	{{ /comp }}
 {{ /comp }}

@@ -35,7 +35,7 @@ css: |
     {{ if id }} id="{{ id }}"{{ /if }}
 >
 <div class="block">
-{{ if internal || draft }}
+{{ if (internal || draft) && block }}
 <a href="/building-blocks/#{{ block }}" class="block-id"><span id="{{ block }}">{{ block }}</span> (this bar won't appear on a live public page)</a>
 {{ /if }}
 	<div class="block-inner">

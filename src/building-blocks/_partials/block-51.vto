@@ -1,30 +1,23 @@
 ---
-block: block-49
+block: block-51
 ---
 
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants', source: 'Bradford 2025' } }}
 
-	<h3>Volunteers by ward</h3>
+	<h3>Volunteers by postcode district</h3>
 
 	{{>
 		const {
 			people: people,
 		} = search.data("themes/volunteers");
 
-		const wardSignUps = wards
-		.map(ward => ({ ...ward, count: 0, ...people.by_geo_osward.find(w => w.code == ward.code) }))
-		.map(d => ({
-			...d,
-			count: d.count <= 5 && d.count > 0 ? 5 : d.count,
-			countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
-		}) )
-		/*const postcodeSignUps = geojson.postcodes.features.map(x => x.properties.name)
+		const postcodeSignUps = geojson.postcodes.features.map(x => x.properties.name)
 		.map(code => ({ code, count: 0, ...people.by_geo_postcode_area.find(w => w.code == code) }))
 		.map(d => ({
 			...d,
 			count: d.count <= 5 && d.count > 0 ? 5 : d.count,
 			countLabel: d.count <= 5 && d.count > 0 ? '5 or fewer' : d.count.toString()
-		}) )*/
+		}) )
 
 		const unknown_address = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'UNKNOWN').count;
 		const total_volunteers = people.by_geo_TOTAL.find(x => x.type === 'TOTAL' && x.code === 'TOTAL').count;
@@ -32,24 +25,24 @@ block: block-49
 	}}
 
 	{{ comp Tab.Set { classes: 'big'} }}
-		{{ comp Tab.Panel { id: 'volunteers-ward-hex', label: 'Cartogram' } }}
+		{{ comp Tab.Panel { id: 'volunteers-pcd-hex', label: 'Cartogram' } }}
 			{{ comp.oi.map.hex_cartogram({
 				config: {
-					hexjson: hexes.bd_2024,
-					data: wardSignUps,
+					hexjson: hexes.bd_pcd_simple,
+					data: postcodeSignUps,
 					matchKey: 'code',
 					value: 'count',
 					min: 0,
 					max: 400,
 					scale: scales.pink,
-					label: 'short_code',
+					label: 'code',
 					width: 500,
 					legend: {
 						continuous: true,
 						position: 'top right',
 						items: [{'value':400,'label':'>400'},{'value':200,'label':'200'},{'value':0,'label':'0'}]
 					},
-					tooltip: '{{ name }}\n<strong>{{ count | toLocaleString }}</strong> volunteers',
+					tooltip: '{{ code }}\n<strong>{{ count | toLocaleString }}</strong> volunteers',
 					tools: {
 						filter: {
 							label: 'n',
@@ -62,20 +55,20 @@ block: block-49
 					}
 				}
 			}) }}
-			<p>This {{ comp glossary.Ref { slug: 'cartogram' } }}cartogram{{ /comp }} displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+			<p>This {{ comp glossary.Ref { slug: 'cartogram' } }}cartogram{{ /comp }} displays postcode districts as equal-sized hexagons. This allows us to more easily compare postcode districts rather than have the impression skewed by the physical area.</p>
 			<p class="source">Hex layout: Open Innovations</p>
 		{{ /comp }}
-		{{ comp Tab.Panel { id: 'volunteers-ward-map', label: 'Map' } }}
+		{{ comp Tab.Panel { id: 'volunteers-pcd-map', label: 'Map' } }}
 			{{ comp.oi.map.svg({
 				config: {
 					geojson: {
-						key: 'WD24CD',
-						data: geojson.bd_wards
+						key: 'name',
+						data: geojson.postcodes
 					},
-					data: wardSignUps,
+					data: postcodeSignUps,
 					columns: [{
 						name: "filterLabel",
-						template: "{{ geojson.properties.WD24NM }}"
+						template: "{{ geojson.properties.name }}"
 					}],
 					key: 'code',
 					value: 'count',
@@ -89,7 +82,7 @@ block: block-49
 						position: 'top right',
 						items: [{'value':400,'label':'>400'},{'value':200,'label':'200'},{'value':0,'label':'0'}]
 					},
-					tooltip: '{{ filterLabel }}\n<strong>{{ count | toLocaleString }}</strong>',
+					tooltip: '{{ filterLabel }}\n<strong>{{ count | toLocaleString }}</strong> volunteers',
 					tools: {
 						filter: {
 							label: 'filterLabel',
