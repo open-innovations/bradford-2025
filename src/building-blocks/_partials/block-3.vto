@@ -27,8 +27,8 @@ block: block-3
 			y: 'value',
 			colour: 'deeppink'
 		}],
-		start: '2023-01',
-		end: '2026-02'
+		start: start||'2023-01',
+		end: calculated.participants.dates.latest
 	}) }}
 
 	<p>People taking part in or contributing to the programme going beyond being an audience member. This includes data from {{ comp.Date({start:calculated.participants.dates.earliest,end:calculated.participants.dates.latest}) }}.</p>

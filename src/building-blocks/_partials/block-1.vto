@@ -28,8 +28,8 @@ block: block-1
 			y: 'value',
 			colour: 'green'
 		}],
-		start: '2023-01',
-		end: '2026-02'
+		start: start||'2023-01',
+		end: calculated.programme.audience.dates.latest
 	}) }}
 
 	<p>Includes in-person &amp; digital events. This includes data from {{ comp.Date({start:calculated.programme.audience.dates.earliest,end:calculated.programme.audience.dates.latest}) }}.</p>

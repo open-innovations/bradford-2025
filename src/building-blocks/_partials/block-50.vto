@@ -1,13 +1,13 @@
 ---
-block: block-2
+block: block-50
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', source: 'Bradford 2025', notes: 'Similar to block-50 but just showing open events' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', source: 'Bradford 2025', notes: 'Very similar to block-2 but for all events' } }}
 
-	<h3>Events</h3>
+	<h3>All events</h3>
 
 	{{>
-		const event_type = 'open'; // Could be 'all'
+		const event_type = 'all'; // Could be 'open', although that's missing data;
 		const events = calculated.programme.events[event_type].value;
 		const graph = calculated.programme.events.monthly[event_type];
 
@@ -28,10 +28,9 @@ block: block-2
 			y: 'value',
 			colour: 'yellow'
 		}],
-		start: '2023-01',
+		start: calculated.programme.events.dates.earliest,
 		end: calculated.programme.events.dates.latest
 	}) }}
 
-	<p>An instance with a defined start and end for a public audience. This includes data from {{ comp.Date({start:calculated.programme.events.dates.earliest,end:calculated.programme.events.dates.latest}) }}.</p>
-	{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View event breakdown{{ /comp }}</a></p>{{ /if }}
+	<p>Includes open and closed events recorded in the <em>Bradford 2025 Project hub</em> from {{ comp.Date({start:calculated.programme.events.dates.earliest,end:calculated.programme.events.dates.latest}) }}.</p>
 {{ /comp }}
