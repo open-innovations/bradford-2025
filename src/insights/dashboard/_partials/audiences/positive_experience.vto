@@ -1,7 +1,7 @@
 {{>
 	let label = "";
 	let target = targets.audiences_positive_experience;
-	let val = otherFigures.rating_excellent_or_good_pct;
+	let val = calculated.survey.rated_good_or_excellent.dashboards[dashboard];	// otherFigures.rating_excellent_or_good_pct
 	if(typeof target==="number"){
 		if(val > target) label = "Better than the ";
 		else if(val == target) label = "Meets the ";
@@ -20,9 +20,9 @@
 	progresstarget: target,
 	progresslabel: label,
 } }}
-	{{# TODO get this from data #}}
+	{{# previously using otherFigures.rating_excellent_or_good_pct #}}
 	{{ comp.BigNumber({
-		number: otherFigures.rating_excellent_or_good_pct || '&mdash;',
+		number: parseFloat(calculated.survey.rated_good_or_excellent.dashboards[dashboard].toFixed(1)) || '&mdash;',
 		suffix: '%',
 	}) }}
         {{ comp.dashboard.Footer({
