@@ -7,7 +7,7 @@ block: block-43
 	<h3>Audience demographics: ethnicity</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
-	{{ await buildBreakdown(survey_ethnicity,"Ethnicity",["Survey","Bradford"]) }}
+	{{ await buildBreakdown(survey_ethnicity,"Ethnicity",["Survey","Bradford population"]) }}
 
 	<p>Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 
