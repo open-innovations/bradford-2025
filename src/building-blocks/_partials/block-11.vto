@@ -29,7 +29,8 @@ block: block-11
 			name: 'decimal_year',
 			template: '{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}'
 		}],
-		legend: { show: true, position: 'bottom' }
+		legend: { show: true, position: 'bottom' },
+		end: followers_d.by_date[followers_d.by_date.length - 1].Date
 	}) }}
 
 	<p>The total number of followers across various {{ comp glossary.Ref { slug: 'social-media' } }}media{{ /comp }}. Updated {{ followers_d.latest["Total Audience"].updated |> date('BD25_LONG_DATE') }}.</p>
