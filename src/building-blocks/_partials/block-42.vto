@@ -4,7 +4,7 @@ block: block-42
 
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Audience Survey / <a href="https://www.nomisweb.co.uk/query/select/getdatasetbytheme.asp?theme=28">ONS Annual Labour Force Survey</a> (2025)', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/survey_employment.csv">a static CSV file</a> provided by the Evaluation Team. The audience survey splits unemployed into two different groups but the ALFS does not.' } }}
 
-	<h3>Audience demographics: employment</h3>
+	<h3>Audience survey demographics: employment</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
 	{{ await buildBreakdown(survey_employment,"Which of the following applies to you?",["Survey","Bradford population"],["#be9006","#9e9e9e","#437e2a","#e1699f","#E98EB7","#F0B4CF","#e0b942","#ffffff"]) }}

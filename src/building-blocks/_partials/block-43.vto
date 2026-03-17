@@ -4,7 +4,7 @@ block: block-43
 
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Audience Survey / <a href="https://www.ons.gov.uk/explore-local-statistics/areas/E08000032-bradford">ONS Census</a> (2021)', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/survey_ethnicity.csv">a static CSV file</a> provided by the Evaluation Team.' } }}
 
-	<h3>Audience demographics: ethnicity</h3>
+	<h3>Audience survey demographics: ethnicity</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
 	{{ await buildBreakdown(survey_ethnicity,"Ethnicity",["Survey","Bradford population"]) }}
