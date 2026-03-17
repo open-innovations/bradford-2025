@@ -17,18 +17,20 @@ block: block-14
 			response_percent: x.surveys_prop.toLocaleString(undefined, { maximumFractionDigits: 1, style: 'percent' } ),
 		}))
 	}}
-
-	{{ comp.BigNumber({
+	{{> let total = ward_data_d.reduce( function(a, b){
+			return a + b.surveys;
+		}, 0) }}
+	{{# comp.BigNumber({
 		number: ward_data_d.reduce( function(a, b){
 			return a + b.surveys;
 		}, 0) || 0,
 		classes: 'big',
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 }
-	}) }}				
+	}) #}}				
 	{{ comp Tab.Set { classes: 'big'} }}
 
-		<p>The proportion of all survey responses in Bradford that we've been able to match to a ward.</p>
+		<p>The proportion of all survey responses from Bradford that we've been able to match to a ward ({{ total }} in total).</p>
 
 		{{ comp Tab.Panel { id: 'survey-responses-hex', label: 'Cartogram' } }}
 			{{ comp.oi.map.hex_cartogram({
