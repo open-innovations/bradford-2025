@@ -4,11 +4,11 @@ block: block-36
 
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Audience Survey', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/proud.csv">a static CSV file</a> provided by the Evaluation Team.' } }}
 
-	<h3>Made me feel proud of my local area</h3>
+	<h3>"This event made me feel proud of my local area"</h3>
 
 	{{ import { buildResponses } from "./functions.vto" }}
 	{{ await buildResponses(proud,"The event/activity makes me feel proud of my local area","Percentage") }}
 
-	<p>The audience were asked to rank how much they agreed with the question on a five point scale. Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
+	<p>The audience were asked to rank how much they agreed with the statement on a five point scale. Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 
 {{ /comp }}

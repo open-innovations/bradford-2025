@@ -4,11 +4,11 @@ block: block-37
 
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Audience Survey', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/positive_impact.csv">a static CSV file</a> provided by the Evaluation Team.' } }}
 
-	<h3>Had a positive impact on my wellbeing</h3>
+	<h3>"This event had a positive impact on my wellbeing"</h3>
 
 	{{ import { buildResponses } from "./functions.vto" }}
 	{{ await buildResponses(positive_impact,"It had a positive impact on my mental wellbeing","Percentage") }}
 
-	<p>The audience were asked to rank how much they agreed with the question on a five point scale. Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
+	<p>The audience were asked to rank how much they agreed with the statement on a five point scale. Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 
 {{ /comp }}

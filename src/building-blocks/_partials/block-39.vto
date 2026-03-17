@@ -5,7 +5,7 @@ block: block-39
 
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Audience Survey', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/word_count.csv">a static CSV file</a> provided by the Evaluation Team. As in most word clouds, the colours are arbitrary. We\'ve used the brand colours.' } }}
 
-	<h3>Survey word cloud</h3>
+	<h3>Audience survey word cloud</h3>
 	{{>
 		let words = [];
 		let colours = ["#437e2a","#45D108","#E0B942","#F4ACCD","#e1699f"];
@@ -13,8 +13,8 @@ block: block-39
 			words.push({'word':word_count[r].Word,'weight':word_count[r].Count,'colour':("Colour" in word_count[r] ? word_count[r].Colour : colours[Math.floor(Math.random()*colours.length)])});
 		}
 	}}
-	{{ comp WordCloud { words, maxWords: 30 } }}
+	{{ comp WordCloud { words, maxWords: 32 } }}
 	{{ /comp }}
-	<p>Respondents were asked to describe an event in up to three words. Common English words have been removed.</p>
+	<p>Respondents were asked to describe an event in up to three words.</p>
 
 {{ /comp }}
