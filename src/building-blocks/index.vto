@@ -24,6 +24,7 @@ layout: templates/dashboard.vto
 </section>
 
 <section>
+	<h2>List of building blocks</h2>
 {{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 	{{ include "./_partials/block-1.vto" }}
 	{{ include "./_partials/block-2.vto" }}
@@ -124,9 +125,11 @@ layout: templates/dashboard.vto
 		// Make a label
 		let lbl = document.createElement('label');
 		lbl.innerHTML = "Filter the building blocks:";
+		lbl.setAttribute('for','filter');
 		// Make an input text box
 		let inp = document.createElement('input');
 		inp.setAttribute('type','text');
+		inp.setAttribute('id','filter');
 		inp.classList.add('filter');
 		// Add them to the top
 		el.prepend(inp);

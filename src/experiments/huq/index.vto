@@ -12,7 +12,12 @@ huqAreas:
     - lister_park_bd9_4
     - wibsey_park_bd6_3
 draft: true
+layout: templates/dashboard.vto
 ---
+
+<style>
+.oi-calendar-chart .year[role="row"] { fill: #000000; }
+</style>
 
 <section>
 <h2>About the data</h2>
@@ -22,39 +27,80 @@ draft: true
 </section>
 
 <section>
-<h2>Footfall</h2>
 
 {{ for huqArea of huqAreas }}
-<h3>{{ huqArea }}</h3>
+
+	<h2>Footfall: {{ footfall[huqArea][0].centre_name }}</h2>
+	{{ set max = footfall[huqArea].reduce((a, c) => Math.max(a, c.value), 0) }}
+
+	{{>
+		let full = footfall[huqArea].filter(x => x.datestamp >= new Date('2022-01-01'));
+		let by_month = {};
+		for(let i = 0; i < full.length; i++){
+			let stamp = full[i].datestamp.toISOString().substr(0,7);
+			let year = stamp.substr(0,4);
+			let month = stamp.substr(5,2);
+			if(!(month in by_month)) by_month[month] = {'Date':'2025-'+month+'-15'};
+			if(!(year in by_month[month])) by_month[month][year] = 0;
+			by_month[month][year] += full[i].value;
+		}
+		let monthly = [];
+		for(let i = 1; i <= 12; i++){
+			monthly.push(by_month[(i < 10 ? "0":"")+i]);
+		}
+	}}
 
 
-{{ set max = footfall[huqArea].reduce((a, c) => Math.max(a, c.value), 0) }}
-
-Maximum: {{ max }}
-{{
-    comp.oi.chart.calendar({
-        config: {
-            data: footfall[huqArea].filter(x => x.datestamp >= new Date('2024-01-01')).map(add_date),
-            value: 'value',
-            key: 'date',
-            min: 0,
-            max: max,
-            legend: {
-                show: true,
-                position: 'top',
-                items: [
-                    { value: 0, label: '0' },
-                    { value: max / 4, label: (max / 4).toLocaleString() },
-                    { value: max / 2, label: (max / 2).toLocaleString() },
-                    { value: max * 3 / 4, label: (max * 3 / 4).toLocaleString() },
-                    { value: max, label: max.toLocaleString() },
-                ]
-            },
-            //startofweek: 1,
-            tooltip: '{{ date | strftime("%e %B %Y") }} <br />Footfall {{ value }}',
-        }
-    })
-}}
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ comp grid.Block { tag: 'li', classes: 'audiences', source: 'Huq' } }}
+			<h3>Yearly comparison</h3>
+			{{
+				comp.graph.monthly({
+					data: monthly,
+					columns: [{
+						name: 'decimal_year',
+						template: '{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}'
+					}],
+					series: [
+						{ title: '2023', x: 'decimal_year', y: '2023', colour: 'lightgreen', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: '2024', x: 'decimal_year', y: '2024', colour: 'green', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: '2025', x: 'decimal_year', y: '2025', colour: 'darkgreen', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
+						
+					],
+					legend: { show: true, position: 'bottom' },
+					start: '2025-01-02',
+					end: '2025-12-31'
+				})
+			}}
+		{{ /comp }}
+		{{ comp grid.Block { tag: 'li', classes: 'audiences', source: 'Huq' } }}
+			<h3>Calendar chart</h3>
+			{{
+				comp.oi.chart.calendar({
+					config: {
+						data: footfall[huqArea].filter(x => x.datestamp >= new Date('2024-01-01')).map(add_date),
+						value: 'value',
+						key: 'date',
+						min: 0,
+						max: max,
+						legend: {
+							show: true,
+							position: 'top',
+							items: [
+								{ value: 0, label: '0' },
+								{ value: max / 4, label: (max / 4).toLocaleString() },
+								{ value: max / 2, label: (max / 2).toLocaleString() },
+								{ value: max * 3 / 4, label: (max * 3 / 4).toLocaleString() },
+								{ value: max, label: max.toLocaleString() },
+							]
+						},
+						//startofweek: 1,
+						tooltip: '{{ date | strftime("%e %B %Y") }} <br />Footfall {{ value }}',
+					}
+				})
+			}}
+		{{ /comp }}
+	{{ /comp }}
 {{ /for }}
 </section>
 
