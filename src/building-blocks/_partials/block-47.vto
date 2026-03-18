@@ -6,10 +6,9 @@ orange: 'hsl(25, 91%, 95%) 0%, #f57921 100%'
 grey: 'hsl(80, 11%, 95%) 0%, #2b2e25 100%'
 ---
 <style>
-{{ for row of beacon_dots }}
-{{ if row.Postcode }}#{{ id }} .hex[data-id="{{ row.Postcode }}"] path { stroke: black; stroke-width: 3; } {{ /if }}
-{{ /for }}
-
+.bd4 .hex[data-id="BD4"] path,
+.bd9 .hex[data-id="BD9"] path,
+.bd20 .hex[data-id="BD20"] path { stroke: black; stroke-width: 4; }
 </style>
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Evaluation Team', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/beacon_dots.csv">a static CSV file</a> adapted from a sheet provided by the Evaluation Team. The sticky dot map was only created after the first Beacon in Wibsey Park' } }}
 
@@ -26,7 +25,7 @@ grey: 'hsl(80, 11%, 95%) 0%, #2b2e25 100%'
 		}
 	}}
 	{{ comp Tab.Set { classes: 'big'} }}
-		{{ comp Tab.Panel { id: 'dotmap-total', label: 'All' } }}
+		{{ comp Tab.Panel { id: 'dotmap-total', classes: 'bd4 bd9 bd20', label: 'All' } }}
 		<p>All: {{ pcd_data_d['Total'][0].total | toLocaleString }} dots</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
@@ -59,7 +58,7 @@ grey: 'hsl(80, 11%, 95%) 0%, #2b2e25 100%'
 				}
 			}) }}
 		{{ /comp }}
-		{{ comp Tab.Panel { id: 'dotmap-beacon-2', label: 'Bowling Park' } }}
+		{{ comp Tab.Panel { id: 'dotmap-beacon-2', classes: 'bd4', label: 'Bowling Park' } }}
 			<p>Bowling Park (BD4): {{ pcd_data_d['Beacon 2'][0].total | toLocaleString }} dots</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
@@ -92,7 +91,7 @@ grey: 'hsl(80, 11%, 95%) 0%, #2b2e25 100%'
 				}
 			}) }}
 		{{ /comp }}
-		{{ comp Tab.Panel { id: 'dotmap-beacon-3', label: 'Cliffe Castle Park' } }}
+		{{ comp Tab.Panel { id: 'dotmap-beacon-3', classes: 'bd20', label: 'Cliffe Castle Park' } }}
 			<p>Cliffe Castle (BD20): {{ pcd_data_d['Beacon 3'][0].total | toLocaleString }} dots</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
@@ -125,7 +124,7 @@ grey: 'hsl(80, 11%, 95%) 0%, #2b2e25 100%'
 				}
 			}) }}
 		{{ /comp }}
-		{{ comp Tab.Panel { id: 'dotmap-beacon-4', label: 'Lister Park' } }}
+		{{ comp Tab.Panel { id: 'dotmap-beacon-4', classes: 'bd9', label: 'Lister Park' } }}
 			<p>Lister Park (BD9): {{ pcd_data_d['Beacon 4'][0].total | toLocaleString }} dots</p>
 			{{ comp.oi.map.hex_cartogram({
 				config: {
