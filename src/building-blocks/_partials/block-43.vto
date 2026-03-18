@@ -7,7 +7,16 @@ block: block-43
 	<h3>Audience survey demographics: ethnicity</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
-	{{ await buildBreakdown(survey_ethnicity,"Ethnicity",["Survey","Bradford population"]) }}
+	{{ await buildBreakdown(survey_ethnicity,"Ethnicity",["Survey","Bradford population"],{
+		"White / White British":"#be9006",
+		"Asian / Asian British":"#e0b942",
+		"Mixed/multiple ethnic group":"#437e2a",
+		"Black / Black British":"#45d108",
+		"Any other ethnic group":"#e1699f",
+		"None of the above":"#bbbbbb",
+		"Prefer not to say":"#ffffff",
+		"Prefer to self describe":"#efefef"
+	}) }}
 
 	<p>Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 
