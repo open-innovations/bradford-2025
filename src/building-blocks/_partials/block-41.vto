@@ -6,7 +6,22 @@ block: block-41
 	<h3>Audience survey demographics: age</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
-	{{ await buildBreakdown(survey_age,"Age range",["Survey","Bradford population"],["#EB8BB6","#e1699f","#80DE57","#45d108","#44A21B","#437e2a","#E5C871","#e0b942","#CFA524","#be9006","#d5d3d0","#9e9e9e","#717171","#ffffff"]) }}
+	{{ await buildBreakdown(survey_age,"Age range",["Survey","Bradford population"],{
+		"16-19":"#EB8BB6",
+		"20-24":"#e1699f",
+		"25-29":"#80DE57",
+		"30-34":"#45d108",
+		"35-39":"#44A21B",
+		"40-44":"#437e2a",
+		"45-49":"#E5C871",
+		"50-54":"#e0b942",
+		"55-59":"#CFA524",
+		"60-64":"#be9006",
+		"65-69":"#d5d3d0",
+		"70-74":"#9e9e9e",
+		"75+":"#717171",
+		"Prefer not to say":"#ffffff"
+	}) }}
 
 	<p>Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 

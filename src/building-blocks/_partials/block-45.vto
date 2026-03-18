@@ -7,7 +7,14 @@ block: block-45
 	<h3>Audience survey demographics: residence</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
-	{{ await buildBreakdown(survey_residence,"Where is your primary residence?",["Number"]) }}
+	{{ await buildBreakdown(survey_residence,"Where is your primary residence?",["Number"],{
+		"Bradford":"#be9006",
+		"Rest of West Yorkshire":"#cfa524",
+		"Rest of Yorkshire and the Humber":"#e0b942",
+		"Elsewhere in the UK":"#437e2a",
+		"Overseas":"#45d108",
+		"Prefer not to say":"#dddddd"
+	}) }}
 
 	<p>Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 

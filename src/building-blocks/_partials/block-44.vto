@@ -7,7 +7,14 @@ block: block-44
 	<h3>Audience survey demographics: gender</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
-	{{ await buildBreakdown(survey_gender,"Sex",["Survey","Bradford population"],["#45d108","#e1699f","#dddddd","#bbbbbb","#be9006","#e0b942"]) }}
+	{{ await buildBreakdown(survey_gender,"Sex",["Survey","Bradford population"],{
+		"Woman (including trans woman)":"#45d108",
+		"Man (including trans man)":"#e1699f",
+		"Non-binary/Gender Queer":"#be9006",
+		"None of the above":"#bbbbbb",
+		"Prefer not to say":"#dddddd",
+		"Prefer to self describe":"#efefef"
+	}) }}
 
 	<p>Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 

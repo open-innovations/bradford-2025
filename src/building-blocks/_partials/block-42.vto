@@ -7,7 +7,16 @@ block: block-42
 	<h3>Audience survey demographics: employment</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
-	{{ await buildBreakdown(survey_employment,"Which of the following applies to you?",["Survey","Bradford population"],["#be9006","#9e9e9e","#437e2a","#e1699f","#E98EB7","#F0B4CF","#e0b942","#ffffff"]) }}
+	{{ await buildBreakdown(survey_employment,"Which of the following applies to you?",["Survey","Bradford population"],{
+		"Currently in paid employment":"#be9006",
+		"Retired from paid work":"#9e9e9e",
+		"Full-time student":"#437e2a",
+		"Unemployed":"#e1699f",
+		"Not currently employed but have been employed within last 12 months":"#E98EB7",
+		"Not been in paid employment for last 12 months":"#F0B4CF",
+		"Prefer not to say":"#dddddd",
+		"Never worked":"#ffffff"
+	}) }}
 
 	<p>Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 

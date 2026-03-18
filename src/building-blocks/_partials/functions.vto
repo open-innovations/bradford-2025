@@ -7,7 +7,8 @@
 		"4. Disagree":"#F4ACCD",
 		"5. Strongly disagree":"#e1699f",
 		"Don't know": "#717171",
-		"Don't know/Not applicable": "#aaaaaa"
+		"Don't know/Not applicable": "#aaaaaa",
+		"Prefer not to say": "#dddddd"
 	};
 	let series = [];
 	let by_response = [{'Category':''}];
@@ -92,7 +93,7 @@
 				series.push({
 					"title": title,
 					"value": column,
-					"colour": (i < colours.length ? colours[i] : '#efefef'),
+					"colour": (colours.length ? (i < colours.length ? colours[i] : '#efefef') : (title in colours ? colours[title] : '#efefef')),
 					"tooltip": (colval.length > 1 ? "{{ Category }}<br />" : "") + title + ": <strong>{{ " + column + "_percent | toFixed(1) }}%</strong>"
 				});
 			}

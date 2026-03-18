@@ -7,7 +7,11 @@ block: block-46
 	<h3>Audience survey demographics: sexuality</h3>
 
 	{{ import { buildBreakdown } from "./functions.vto" }}
-	{{ await buildBreakdown(survey_sexuality,"Sexual orientation",["Survey","Bradford population"],["#e1699f","#be9006","#437e2a"]) }}
+	{{ await buildBreakdown(survey_sexuality,"Sexual orientation",["Survey","Bradford population"],{
+		"Heterosexual/straight":"#e1699f",
+		"LGBTQIA+":"#be9006",
+		"Prefer not to say":"#dddddd"
+	}) }}
 
 	<p>Bradford values are from the 2021 Census. Last updated {{ comp.Date({start:'2026-02',dateFormat:'LLLL y'}) }}.</p>
 
