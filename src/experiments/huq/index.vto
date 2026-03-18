@@ -32,25 +32,34 @@ layout: templates/dashboard.vto
 
 	<h2>Footfall: {{ footfall[huqArea][0].centre_name }}</h2>
 	{{>
-		let start = '2019-01-01';
-		let max = footfall[huqArea].filter(x => x.datestamp >= new Date(start)).reduce((a, c) => Math.max(a, c.value), 0);
-		let full = footfall[huqArea].filter(x => x.datestamp >= new Date(start));
+		let start = new Date('2019-01-01');
+		let full = footfall[huqArea].filter(x => x.datestamp >= start);
+		let max = full.reduce((a, c) => Math.max(a, c.value), 0);
+		let end = full[full.length - 1].datestamp;
 		let by_month = {};
 		for(let i = 0; i < full.length; i++){
 			let stamp = full[i].datestamp.toISOString().substr(0,7);
 			let year = stamp.substr(0,4);
 			let month = stamp.substr(5,2);
-			if(!(month in by_month)) by_month[month] = {'Date':'2025-'+month+'-15'};
-			if(!(year in by_month[month])) by_month[month][year] = 0;
+			if(!(month in by_month)){
+				by_month[month] = {'Date':'2025-'+month+'-15'};
+				for(let y = start.getFullYear(); y <= end.getFullYear(); y++) by_month[month][y] = null;
+			}
+			if(typeof by_month[month][year]!=="number") by_month[month][year] = 0;
 			by_month[month][year] += full[i].value;
 		}
 		let monthly = [];
 		for(let i = 1; i <= 12; i++){
 			monthly.push(by_month[(i < 10 ? "0":"")+i]);
 		}
+		let series = [];
+		let colours = {'2026':'black','2025':'#113402','2024':'#236904','2023':'#349D06','2022':'#45D108','2021':'#5FD72B','2020':'#79DD4D','2019':'#92E270'};
+		for(let y = start.getFullYear(); y <= end.getFullYear(); y++){
+			series.push({ title: y, x: 'decimal_year', y: y, colour: (colours[y]||'green'), tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' });
+		}
 	}}
 
-	<p>Maximum: {{ max }}
+	<p>Maximum: {{ max }}</p>
 
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ comp grid.Block { tag: 'li', classes: 'audiences', source: 'Huq' } }}
@@ -62,12 +71,7 @@ layout: templates/dashboard.vto
 						name: 'decimal_year',
 						template: '{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}'
 					}],
-					series: [
-						{ title: '2023', x: 'decimal_year', y: '2023', colour: 'green', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: '2024', x: 'decimal_year', y: '2024', colour: 'darkgreen', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: '2025', x: 'decimal_year', y: '2025', colour: 'darkgrey', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
-						
-					],
+					series: series,
 					legend: { show: true, position: 'bottom' },
 					start: '2025-01-02',
 					end: '2025-12-31'
