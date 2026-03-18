@@ -62,9 +62,9 @@ layout: templates/dashboard.vto
 						template: '{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}'
 					}],
 					series: [
-						{ title: '2023', x: 'decimal_year', y: '2023', colour: 'lightgreen', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: '2024', x: 'decimal_year', y: '2024', colour: 'green', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
-						{ title: '2025', x: 'decimal_year', y: '2025', colour: 'darkgreen', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: '2023', x: 'decimal_year', y: '2023', colour: 'green', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: '2024', x: 'decimal_year', y: '2024', colour: 'darkgreen', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
+						{ title: '2025', x: 'decimal_year', y: '2025', colour: 'darkgrey', tooltip: '{{ Date | strptime(\"%Y-%m-%d\") | strftime("%B") }} {{ _title }}<br />Footfall <strong>{{ _y | toLocaleString() }}</strong>' },
 						
 					],
 					legend: { show: true, position: 'bottom' },
