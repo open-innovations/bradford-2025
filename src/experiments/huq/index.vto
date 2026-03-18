@@ -31,10 +31,10 @@ layout: templates/dashboard.vto
 {{ for huqArea of huqAreas }}
 
 	<h2>Footfall: {{ footfall[huqArea][0].centre_name }}</h2>
-	{{ set max = footfall[huqArea].reduce((a, c) => Math.max(a, c.value), 0) }}
-
 	{{>
-		let full = footfall[huqArea].filter(x => x.datestamp >= new Date('2022-01-01'));
+		let start = '2019-01-01';
+		let max = footfall[huqArea].filter(x => x.datestamp >= new Date(start)).reduce((a, c) => Math.max(a, c.value), 0);
+		let full = footfall[huqArea].filter(x => x.datestamp >= new Date(start));
 		let by_month = {};
 		for(let i = 0; i < full.length; i++){
 			let stamp = full[i].datestamp.toISOString().substr(0,7);
@@ -50,6 +50,7 @@ layout: templates/dashboard.vto
 		}
 	}}
 
+	<p>Maximum: {{ max }}
 
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ comp grid.Block { tag: 'li', classes: 'audiences', source: 'Huq' } }}
@@ -78,7 +79,7 @@ layout: templates/dashboard.vto
 			{{
 				comp.oi.chart.calendar({
 					config: {
-						data: footfall[huqArea].filter(x => x.datestamp >= new Date('2024-01-01')).map(add_date),
+						data: footfall[huqArea].filter(x => x.datestamp >= new Date(start)).map(add_date),
 						value: 'value',
 						key: 'date',
 						min: 0,
@@ -86,16 +87,15 @@ layout: templates/dashboard.vto
 						legend: {
 							show: true,
 							position: 'top',
+							continuous: true,
+							direction: 'horizontal',
 							items: [
-								{ value: 0, label: '0' },
-								{ value: max / 4, label: (max / 4).toLocaleString() },
-								{ value: max / 2, label: (max / 2).toLocaleString() },
-								{ value: max * 3 / 4, label: (max * 3 / 4).toLocaleString() },
 								{ value: max, label: max.toLocaleString() },
+								{ value: 0, label: '0' },
 							]
 						},
 						//startofweek: 1,
-						tooltip: '{{ date | strftime("%e %B %Y") }} <br />Footfall {{ value }}',
+						tooltip: '{{ date | strftime("%e %B %Y") }} <br />Footfall {{ value | toLocaleString() }}',
 					}
 				})
 			}}
