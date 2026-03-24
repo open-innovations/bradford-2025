@@ -2,9 +2,188 @@
 block: block-52
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', source: 'Bradford 2025', notes: 'Awaiting data. To be built.' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025', 'notes': 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/digital_projects_breakdown.csv">a static CSV file</a> adapted from an XLSX file provided by Chris. BD on Foot is a combination of website and PDF downloads.' } }}
 
-	<h3>Top digital projects</h3>
-
-
+	<h3>Website: top digital projects</h3>
+	{{>
+		const start = digital_projects_breakdown[0].Date.toISOString().substr(0,10);
+		const end = digital_projects_breakdown[digital_projects_breakdown.length-1].Date.toISOString().substr(0,10);
+		const summary = [{
+			title: "BD on Foot",
+			views: 57761,
+			users: 40973
+		},{
+			title: "CHANNELS",
+			views: 5054,
+			users: 4228
+		},{
+			title: "Digital Map",
+			views: 2342,
+			users: 2022
+		},{
+			title: "DRAW!",
+			views: 69362,
+			users: 50423
+		},{
+			title: "Railway Children audio experience",
+			views: 4463,
+			users: 3645
+		},{
+			title: "Wild Uplands Digital",
+			views: 7234,
+			users: 2952
+		}];
+		let totals = [{'category':'Project'}];
+		for(let i = 0; i < summary.length; i++){
+			totals[0][summary[i].title+' views'] = summary[i].views;
+			totals[0][summary[i].title+' users'] = summary[i].users;
+		}
+	}}
+	{{ comp Tab.Set { classes: 'big'} }}
+		{{ comp Tab.Panel { id: 'website-digital-views', label: 'Views' } }}
+			{{ comp.oi.chart.bar({
+					config: {
+						category: "category",
+						data: totals,
+						height: 450,
+						series: [{
+							"title": "BD on Foot",
+							"value": "BD on Foot views",
+							"colour": "yellow",
+							"tooltip": "BD on Foot: <strong>{{ BD on Foot views | toLocaleString() }} views</strong>"
+						},{
+							"title": "CHANNELS",
+							"value": "CHANNELS views",
+							"colour": "lightyellow",
+							"tooltip": "CHANNELS: <strong>{{ CHANNELS views | toLocaleString() }} views</strong>"
+						},{
+							"title": "Digital Map",
+							"value": "Digital Map views",
+							"colour": "darkgreen",
+							"tooltip": "Digital Map: <strong>{{ Digital Map views | toLocaleString() }} views</strong>"
+						},{
+							"title": "DRAW!",
+							"value": "DRAW! views",
+							"colour": "green",
+							"tooltip": "DRAW!: <strong>{{ DRAW! views | toLocaleString() }} views</strong>"
+						},{
+							"title": "Railway Children audio experience",
+							"value": "Railway Children audio experience views",
+							"colour": "darkpink",
+							"tooltip": "Railway Children audio experience: <strong>{{ Railway Children audio experience views | toLocaleString() }} views</strong>"
+						},{
+							"title": "Wild Uplands Digital",
+							"value": "Wild Uplands Digital views",
+							"colour": "pink",
+							"tooltip": "Wild Uplands Digital: <strong>{{ Wild Uplands Digitale views | toLocaleString() }} views</strong>"
+						}],
+						"legend": {
+							"show": true,
+							"position": "bottom"
+						}
+					}
+				})
+			}}
+			<p>A breakdown by calendar month:</p>
+			{{ comp.graph.monthly({
+				data: digital_projects_breakdown,
+				series: [
+					{ title: 'BD on Foot', x: 'decimal_year', y: 'BD on Foot→Page views', colour: 'yellow', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'CHANNELS', x: 'decimal_year', y: 'CHANNELS→Page views', colour: 'lightyellow', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Digital Map', x: 'decimal_year', y: 'Digital Map→Page views', colour: 'darkgreen', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'DRAW!', x: 'decimal_year', y: 'DRAW→Page views', colour: 'green', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Railway Children audio experience', x: 'decimal_year', y: 'Railway Children audio experience→Page views', colour: 'darkpink', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Wild Uplands Digital', x: 'decimal_year', y: 'Wild Uplands Digital→Page views', colour: 'pink', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' }
+					
+				],
+				columns: [{
+					name: 'decimal_year',
+					template: '{{ Date | strptime(\"%Y-%m\") | decimalYear() }}'
+				}],
+				legend: { show: true, position: 'bottom' },
+				start: start,
+				end: end,
+				height: 300
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'website-digital-users', label: 'Unique users' } }}
+			{{# comp.oi.chart.bar({
+					config: {
+						category: "title",
+						data: summary,
+						height: 450,
+						series: [{
+							"title": "title",
+							"value": "users",
+							"colour": "green",
+							"tooltip": "{{ title }}: <strong>{{ users | toLocaleString() }} unique users</strong>"
+						}]
+					}
+				})
+			#}}
+			{{ comp.oi.chart.bar({
+					config: {
+						category: "category",
+						data: totals,
+						height: 450,
+						series: [{
+							"title": "BD on Foot",
+							"value": "BD on Foot users",
+							"colour": "yellow",
+							"tooltip": "BD on Foot: <strong>{{ BD on Foot users | toLocaleString() }} users</strong>"
+						},{
+							"title": "CHANNELS",
+							"value": "CHANNELS users",
+							"colour": "lightyellow",
+							"tooltip": "CHANNELS: <strong>{{ CHANNELS users | toLocaleString() }} users</strong>"
+						},{
+							"title": "Digital Map",
+							"value": "Digital Map users",
+							"colour": "darkgreen",
+							"tooltip": "Digital Map: <strong>{{ Digital Map users | toLocaleString() }} users</strong>"
+						},{
+							"title": "DRAW!",
+							"value": "DRAW! users",
+							"colour": "green",
+							"tooltip": "DRAW!: <strong>{{ DRAW! users | toLocaleString() }} users</strong>"
+						},{
+							"title": "Railway Children audio experience",
+							"value": "Railway Children audio experience users",
+							"colour": "darkpink",
+							"tooltip": "Railway Children audio experience: <strong>{{ Railway Children audio experience users | toLocaleString() }} users</strong>"
+						},{
+							"title": "Wild Uplands Digital",
+							"value": "Wild Uplands Digital users",
+							"colour": "pink",
+							"tooltip": "Wild Uplands Digital: <strong>{{ Wild Uplands Digitale users | toLocaleString() }} users</strong>"
+						}],
+						"legend": {
+							"show": true,
+							"position": "bottom"
+						}
+					}
+				})
+			}}
+			<p>A breakdown by calendar month:</p>{{ comp.graph.monthly({
+				data: digital_projects_breakdown,
+				series: [
+					{ title: 'DRAW!', x: 'decimal_year', y: 'DRAW→Unique users', colour: 'green', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Digital Map', x: 'decimal_year', y: 'Digital Map→Unique users', colour: 'darkgreen', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'BD on Foot', x: 'decimal_year', y: 'BD on Foot→Unique users', colour: 'yellow', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'CHANNELS', x: 'decimal_year', y: 'CHANNELS→Unique users', colour: 'lightyellow', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Wild Uplands Digital', x: 'decimal_year', y: 'Wild Uplands Digital→Unique users', colour: 'pink', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
+					{ title: 'Railway Children audio experience', x: 'decimal_year', y: 'Railway Children audio experience→Unique users', colour: 'darkpink', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' }
+				],
+				columns: [{
+					name: 'decimal_year',
+					template: '{{ Date | strptime(\"%Y-%m\") | decimalYear() }}'
+				}],
+				legend: { show: true, position: 'bottom' },
+				start: start,
+				end: end,
+				height: 300
+			}) }}
+		{{ /comp }}
+		<p><em>DRAW!</em> includes all pages with 'draw' in the URL (project landing page, monthly galleries, artist pages and 'how to' guides). <em>Digital Map</em> includes project landing page with map embedded and story article about the project. <em>CHANNELS</em> includes project landing page and three pages with audio embedded. <em>BD on Foot</em> includes project landing page, walks index pages, individual walks pages and PDFs. <em>Wild Uplands</em> includes all pageviews of wild uplands microsite. <em>Railway Children audio experience</em> includes pageviews of the page with audio file embedded.</p>
+	{{ /comp }}
 {{ /comp }}
