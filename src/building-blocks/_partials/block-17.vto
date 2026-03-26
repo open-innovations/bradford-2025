@@ -2,8 +2,14 @@
 block: block-17
 ---
 
+<style>
+.emissions.oi-dashboard .panel {
+	background: var(--color-darkgrey);
+	color: var(--color-offwhite);
+}
+</style>
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'c-darkgrey', width: '800px', source: 'SAIL / <a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2025">UK Government GHG Conversion Factors 2025</a> / Arbor' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'c-lightgrey', width: '800px', source: 'SAIL / <a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2025">UK Government GHG Conversion Factors 2025</a> / Arbor' } }}
 
 	<h3>Total emissions</h3>
 
@@ -111,7 +117,7 @@ block: block-17
 	}) }}
 	<p>Tonnes of carbon dioxide equivalent (tCO<sub>2</sub>e) equivalent to:</p>
 	
-	<div class="grid oi-dashboard">
+	<div class="grid oi-dashboard emissions">
 		{{ for comparison of comparisons }}
 		<div class="panel" style="text-align:left;">
 			{{> 

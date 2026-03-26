@@ -1,0 +1,197 @@
+---
+block: block-54
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'c-lightgrey', source: 'Bradford 2025 / SAIL / Power Saving Solutions' } }}
+
+	<h3>CO2 emissions: Beacon</h3>
+	{{ comp.BigNumber({
+		number: (100*(co2_reductions[co2_reductions.length-1]['All'] - co2_reductions[0]['All'])/(co2_reductions[co2_reductions.length-1]['All'])),
+		classes: 'big',
+		animate: true,
+		suffix: '% lower',
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	<p>Carbon emissions compared to using a diesel generator with no battery.</p>
+	{{> 
+	
+		// Function to return a yaxis object suitable for OI Lume Viz adjusted to the range of the data
+		function getAxis(data,keys,axis){
+			if(!axis) axis = {};
+			let min = Infinity,max = -Infinity,range,spacing,lo,hi,i,y,pre = "",post = "",f = 1;
+			if(!keys) keys = ["value"];
+			if(typeof keys==="string") keys = [keys];
+			// Calculate the min/max in the data and get the pre/post units
+			for(i = 0; i < data.length; i++){
+				for(k = 0; k < keys.length; k++){
+					if(!isNaN(data[i][keys[k]])){
+						min = Math.min(min,data[i][keys[k]]);
+						max = Math.max(max,data[i][keys[k]]);
+					}
+				}
+				if(i==0){ pre = data[i].preunit||""; post = data[i].postunit||""; }
+			}
+			// If the axis minimum is set we'll use that instead (this helps preserve some sensible zero scaling)
+			if(typeof axis.min==="number") min = axis.min;
+			if(typeof axis.max==="number") max = axis.max;
+			// Find the range
+			range = max - min;
+			// Work out a spacing and then a scale factor
+			if(range > 0){
+				spacing = Math.pow(10,Math.floor(Math.log10(range)));
+				if(range==spacing) spacing /= 2;
+				let n = range/spacing;
+				if(n > 3) f = 2;
+				if(n > 6) f = 5;
+			}else{
+				spacing = 1;
+				if(min==Infinity) min = 0;
+				if(max==-Infinity || (max==0 && min==0)) max = 1;
+			}
+			// Update the tick spacing
+			spacing = spacing*f;
+			if("tick" in axis && "spacing" in axis.tick && typeof axis.tick.spacing==="number") spacing = axis.tick.spacing;
+			// Find the new minimum/maximum to use for the axis
+			lo = 0;
+			hi = (Math.ceil(max/spacing)*spacing);
+			axis.min = lo;
+			axis.max = hi;
+			axis.title = { "label": "tCO2e" };
+			axis.grid = { "stroke": "black" };
+			axis.ticks = [];
+			// Create tick marks
+			for(y = lo; y < hi ; y += spacing){
+				axis.ticks.push({'value':y,'label':(pre+(y/1000).toLocaleString()+post),'grid':true});
+			}
+			return axis;
+		}
+	
+	}}
+	{{
+		comp.oi.chart.bar({
+			config: {
+				category: "Category",
+				data: co2_reductions,
+				height: 250,
+				width: 600,
+				legend: { show: true, position: 'bottom' },
+				series: [{
+					"title": "All Beacons",
+					"value": "All",
+					"colour": "black",
+					"tooltip": "{{ _title }}<br />{{ Category }}: <strong>{{ All | multiply(0.001) | toFixed(1) | toLocaleString() }} tCO2e</strong>"
+				},{
+					"title": "Bowling Park",
+					"value": "Bowling",
+					"colour": "#e961a4",
+					"tooltip": "{{ _title }}<br />{{ Category }}: <strong>{{ Bowling | multiply(0.001) | toFixed(1) | toLocaleString() }} tCO2e</strong>"
+				},{
+					"title": "Cliffe Castle Park",
+					"value": "Cliffe Castle",
+					"colour": "#f57921",
+					"tooltip": "{{ _title }}<br />{{ Category }}: <strong>{{ Cliffe Castle | multiply(0.001) | toFixed(1) | toLocaleString() }} tCO2e</strong>"
+				},{
+					"title": "Lister Park",
+					"value": "Lister",
+					"colour": "#717171",
+					"tooltip": "{{ _title }}<br />{{ Category }}: <strong>{{ Lister | multiply(0.001) | toFixed(1) | toLocaleString() }} tCO2e</strong>"
+				},{
+					"title": "Wibsey Park",
+					"value": "Wibsey",
+					"colour": "#43a54f",
+					"tooltip": "{{ _title }}<br />{{ Category }}: <strong>{{ Wibsey | multiply(0.001) | toFixed(1) | toLocaleString() }} tCO2e</strong>"
+				}],
+				axis: {
+					"x": getAxis(co2_reductions,'All'),
+					"y":{
+						"grid": {
+							"stroke-width": 0,
+							"stroke": "transparent"
+						}
+					}
+				}
+			}
+		})
+	}}
+	<p>At the Beacon events a Hydrotreated Vegetable Oil (HVO) generator and battery were used and fuel use continuously monitored. This was compared to how much diesel would have been used to produce the same discharge power rate. The actual fuel used and the fuel saved were converted to emissions using Greenhouse Gas Conversion factors from the <a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2025">Department for Energy Security and Net Zero for 2025</a>.</p>
+
+
+	{{# comp Tab.Set { classes: 'big'} }}
+		{{ comp Tab.Panel { id: 'co2-reduction-total', label: 'All' } }}
+			{{
+				comp.oi.chart.bar({
+					config: {
+						category: "Category",
+						data: co2_reductions,
+						height: 200,
+						width: 600,
+						legend: { show: true, position: 'bottom' },
+						series: [{
+							"title": "All",
+							"value": "All",
+							"colour": "#45D108",
+							"tooltip": "{{ _title }}<br />{{ Category }}: <strong>{{ All | multiply(0.001) | toFixed(1) | toLocaleString() }} tCO2e</strong>"
+						},{
+							"title": "Bowling Park",
+							"value": "Bowling",
+							"colour": "#e1699f",
+							"tooltip": "{{ _title }}<br />{{ Category }}: <strong>{{ Bowling | multiply(0.001) | toFixed(1) | toLocaleString() }} tCO2e</strong>"
+						},{
+							"title": "Lister Park",
+							"value": "Lister",
+							"colour": "#f57921",
+							"tooltip": "{{ _title }}<br />{{ Category }}: <strong>{{ Lister | multiply(0.001) | toFixed(1) | toLocaleString() }} tCO2e</strong>"
+						},{
+							"title": "Websey Park",
+							"value": "Websey",
+							"colour": "#2b2e25",
+							"tooltip": "{{ _title }}<br />{{ Category }}: <strong>{{ Websey | multiply(0.001) | toFixed(1) | toLocaleString() }} tCO2e</strong>"
+						}],
+						axis: {
+							"x": getAxis(co2_reductions,'All'),
+							"y":{
+								"grid": {
+									"stroke-width": 0,
+									"stroke": "transparent"
+								}
+							}
+						}
+					}
+				})
+			}}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'co2-reduction-beacon-2', label: 'Bowling Park' } }}
+			{{
+				comp.oi.chart.bar({
+					config: {
+						category: "Category",
+						data: co2_reductions,
+						height: 200,
+						width: 600,
+						series: [{
+							"title": "Bowling Park",
+							"value": "Bowling",
+							"colour": "pink",
+							"tooltip": "{{ Category }}: <strong>{{ Bowling | multiply(0.001) | toFixed(1) | toLocaleString() }} tCO2e</strong>"
+						}],
+						axis: {
+							"x": getAxis(co2_reductions,'Bowling'),
+							"y":{
+								"grid": {
+									"stroke-width": 0,
+									"stroke": "transparent"
+								}
+							}
+						}
+					}
+				})
+			}}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'co2-reduction-beacon-3', label: 'Cliffe Castle Park' } }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'co2-reduction-beacon-4', label: 'Lister Park' } }}
+		{{ /comp }}
+		
+	{{ /comp #}}
+
+{{ /comp }}

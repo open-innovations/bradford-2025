@@ -41,6 +41,7 @@ block: block-52
 	}}
 	{{ comp Tab.Set { classes: 'big'} }}
 		{{ comp Tab.Panel { id: 'website-digital-views', label: 'Views' } }}
+			<h4>Summary</h4>
 			{{ comp.oi.chart.bar({
 					config: {
 						category: "category",
@@ -84,7 +85,7 @@ block: block-52
 					}
 				})
 			}}
-			<p>A breakdown by calendar month:</p>
+			<h4>Monthly breakdown</h4>
 			{{ comp.graph.monthly({
 				data: digital_projects_breakdown,
 				series: [
@@ -121,6 +122,7 @@ block: block-52
 					}
 				})
 			#}}
+			<h4>Summary</h4>
 			{{ comp.oi.chart.bar({
 					config: {
 						category: "category",
@@ -164,7 +166,8 @@ block: block-52
 					}
 				})
 			}}
-			<p>A breakdown by calendar month:</p>{{ comp.graph.monthly({
+			<h4>Monthly breakdown</h4>
+			{{ comp.graph.monthly({
 				data: digital_projects_breakdown,
 				series: [
 					{ title: 'DRAW!', x: 'decimal_year', y: 'DRAW→Unique users', colour: 'green', tooltip: '{{ _title }}\n{{ Date | strptime("%Y-%m") | strftime("%B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
