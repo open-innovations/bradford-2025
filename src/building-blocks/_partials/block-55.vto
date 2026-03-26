@@ -1,0 +1,58 @@
+---
+block: block-55
+---
+
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'c-lightgrey', source: 'Bradford 2025 / SAIL', notes: 'Many of the rows in the data source currently have zero/missing values so this is not a realistic total.' } }}
+
+	<h3>Audience travel emissions</h3>
+
+	{{> 
+		let key,sum,r,m;
+		sum = {'emissions':0,'miles':0,'breakdown':{}};
+		function capitalizeFirstLetter(val){ return String(val).charAt(0).toUpperCase() + String(val).slice(1); }
+		for(r = 0; r < travel_co2.length; r++){
+			for(key in travel_co2[r]){
+				m = key.match(/Percentage of total miles by (.*)/);
+				if(m){
+					transport = m[1];
+					if(typeof sum.breakdown[transport]==="undefined") sum.breakdown[transport] = 0;
+					if(typeof travel_co2[r][key]==="number") sum.breakdown[transport] += (travel_co2[r][key]/100)*travel_co2[r]['TOTAL MILES BY ALL TRAVEL TYPES'];
+				}
+			}
+			if(typeof travel_co2[r]['TOTAL MILES BY ALL TRAVEL TYPES']==="number") sum.miles += travel_co2[r]['TOTAL MILES BY ALL TRAVEL TYPES'];
+			if(typeof travel_co2[r]['TOTAL CARBON FOOTPRINT (tCO2e)']==="number") sum.emissions += travel_co2[r]['TOTAL CARBON FOOTPRINT (tCO2e)'];
+		}
+		let modes = [];
+		let colours = {'Bicycle':'darkgreen','Bus':'green'};
+		for(key in sum.breakdown){
+			modes.push({'mode':capitalizeFirstLetter(key),'miles':sum.breakdown[key]});
+		}
+	}}
+	{{ comp.BigNumber({
+		number: sum.emissions,
+		classes: 'big',
+		animate: true,
+		suffix: ' tCO2e',
+		roundingOptions: { maximumFractionDigits: 0 }
+	}) }}
+	<p>Across all modes of transport. Below is a breakdown of the fraction of miles travelled by each mode of transport.</p>
+	{{ import { buildBreakdown } from "./functions.vto" }}
+	{{ await buildBreakdown(modes,"mode",["miles"],{
+		"Bicycle":"darkgreen",
+		"Bus":"green",
+		"Car (diesel)":"#A94F77",
+		"Car (electric)":"#F0B4CF",
+		"Car (hybrid)":"#E1699F",
+		"Car (other)":"#713550",
+		"Car (petrol)":"#381A28",
+		"Car (plug in hybrid)":"#E98EB7",
+		"Coach":"yellow",
+		"Ferry":"blue",
+		"Flying":"deepyellow",
+		"Motorbike":"#F8D9E7",
+		"Rail":"lightgreen",
+		"Taxi":"#000"
+	}) }}
+
+{{ /comp }}
