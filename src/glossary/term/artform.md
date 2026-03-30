@@ -1,6 +1,6 @@
 ---
 title: Artform
-description: How a project or event is defined based on its artform or additional category. Some projects will incorporate multiple categories.
+description: How a project or event is defined based on its artform (such as theatre, music). Some projects will incorporate multiple categories.
 ---
 
 May also be referred to as 'programme category'.
