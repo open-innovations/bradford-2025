@@ -1,6 +1,6 @@
 ---
 title: Audience
-description: The people attending an event including live, streaming, digital, and broadcast.
+description: The people attending or experiencing Bradford 2025 programme content including live, streaming and digital.
 ---
 
 Includes all/any of the below:
