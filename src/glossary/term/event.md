@@ -1,6 +1,6 @@
 ---
 title: Event 
-description: An instance with a defined start and end date and time.   
+description: An instance with a defined start and end date and time and created for a public audience.  
 ---
 
 Events can be sub-divided into public events or school/community events, performances, etc. 
