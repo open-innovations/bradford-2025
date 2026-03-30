@@ -1,6 +1,6 @@
 ---
 title: Associated Events 
-description: Work that is not funded by BD25 but forms part of our programme, either through partnership (e.g. BBC events) or for another strategic reason (e.g. Dance Consortium – international programme, audience development and profile raising) 
+description: Work that is not funded by Bradford 2025 but forms part of our programme, either through partnership (e.g. BBC events) or for another strategic reason (e.g. Dance Consortium – international programme, audience development and profile raising) 
 ---
 
 Examples:
