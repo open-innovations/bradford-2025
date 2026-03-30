@@ -1,6 +1,6 @@
 ---
 title: Collaborations (national or international) 
-description: Programme partnerships and co-productions with national and international companies/ organisations. 
+description: Programme partnerships and co-productions with national and international companies/organisations. 
 ---
 
 Examples:
