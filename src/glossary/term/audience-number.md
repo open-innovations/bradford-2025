@@ -1,6 +1,6 @@
 ---
 title: Audience number
-description: The size of the audience at an event.
+description: The size of the audience at an event or total number of people who attended or experienced the BD25 programme content.
 ---
 
 This could be an expected, actual or estimated audience number.
