@@ -1,6 +1,6 @@
 ---
 title: Major Events
-description: Major in some/all of scale, investment, visibility, and impact 
+description: Major in some/all of scale, investment, visibility, and impact.
 ---
 
 Key performance indicator of 15x for major events proposed as:
