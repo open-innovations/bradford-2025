@@ -18,7 +18,7 @@ block: block-30
 		const tabledata = Object.entries(participants_d.by_type.cultural_learning_participants.by_project)
 		.filter(p => p[1].participants > 0)
 		.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
-		.map(([k, v]) => ({ title: k, value: v.participants, instances: v.participants_instances, category: v.category }))
+		.map(([k, v]) => ({ title: k, value: v.participants, instances: v.participant_instances, category: v.category }))
 	}}
 
 	{{ comp.BigNumber({
