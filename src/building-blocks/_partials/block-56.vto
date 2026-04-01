@@ -22,7 +22,6 @@ block: block-56
 				ed_settings_by_ward[r].breakdown = ed_settings_by_ward[r]["Project (from Schedule Entry) (from Junction-Attendees-Org & Schedule item) (from Venues & Organisations)"].replace(/,([^\s])/g,function(m,p1){ return ", "+p1; });
 				ed_settings_by_ward[r].count = ed_settings_by_ward[r]["Total number of engaged schools from ward"];
 				by_ward.push(ed_settings_by_ward[r]);
-				console.log(ed_settings_by_ward[r]);
 			}
 		}
 	}}
