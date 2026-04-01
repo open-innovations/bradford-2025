@@ -15,7 +15,6 @@ block: block-56
 		}
 		// Loop over the events
 		for(let r = 0; r < ed_settings_by_ward.length; r++){
-		console.log(r,ed_settings_by_ward[r]);
 			if(ed_settings_by_ward[r]["Name"] in ward_lookup){
 				let ward = ward_lookup[ed_settings_by_ward[r]["Name"]];
 				ed_settings_by_ward[r].short_code = ward.short_code;

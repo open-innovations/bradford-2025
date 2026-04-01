@@ -1,0 +1,101 @@
+---
+block: block-57
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', width: '600px', source: 'Bradford 2025', 'notes': 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/fully_inducted_volunteers.csv">a static CSV file</a> provided by the Evaluation Team.' } }}
+
+	<h3>Inducted volunteers</h3>
+
+	{{ comp Tab.Set { classes: 'big'} }}
+
+		<p>Total number of inducted volunteers by postcode area.</p>
+		{{ comp Tab.Panel { id: 'inducted-volunteers-location-hex', label: 'Cartogram' } }}
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_pcd,
+					data: fully_inducted_volunteers,
+					matchKey: 'Postcode',
+					value: 'Inducted Volunteers',
+					min: 0,
+					max: 200,
+					scale: scales.yellow,
+					label: 'n',
+					width: 500,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [
+							{'value':200,'label':'200'},
+							{'value':0,'label':'0'}
+						]
+					},
+					tooltip: '{{ Postcode }}\nThere were <strong>{{ Inducted Volunteers }}</strong> fully inducted volunteers.',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						}
+					}
+				}
+			}) }}
+			<p>This {{ comp glossary.Ref { slug: 'cartogram' } }}cartogram{{ /comp }} displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+			<p class="source">Hex layout: Open Innovations</p>
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'inducted-volunteers-location-map', label: 'Map' } }}
+			{{ comp.oi.map.svg({
+				config: {
+					geojson: {
+						key: 'name',
+						data: geojson.bd_pcd
+					},
+					data: fully_inducted_volunteers,
+					columns: [{
+						name: "filterLabel",
+						template: "{{ geojson.properties.WD24NM }}"
+					}],
+					key: 'Postcode',
+					value: 'Inducted Volunteers',
+					min: 0,
+					max: 200,
+					scale: scales.yellow,
+					width: 500,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [
+							{'value':200,'label':'200'},
+							{'value':0,'label':'0'}
+						]
+					},
+					tooltip: '{{ Postcode }}\nThere were <strong>{{ Inducted Volunteers }}</strong> inducted volunteers.',
+					tools: {
+						filter: {
+							label: 'filterLabel',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 3,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'inducted-volunteers-location-table', label: 'Table' } }}
+			{{ comp.dashboard.InfoBoxTable({
+				head: {
+					class: 'c-yellow',
+				},
+				columns: [
+					{ name: 'Postcode', label: 'Postal area' },
+					{ name: 'Inducted Volunteers', label: 'Inducted volunteers', class: 'right', scale: scales.yellow, min: 0, max: 200 },
+				],
+				data: fully_inducted_volunteers,
+				width: "100%",
+				sort: "Postcode"
+			}) }}
+		{{ /comp }}
+
+	{{ /comp }}
+
+{{ /comp }}
