@@ -1,0 +1,130 @@
+---
+block: block-58
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', width: '600px', source: 'Bradford 2025', 'notes': 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/ed_settings_by_ward.csv">a static CSV file</a> provided by the Evaluation Team.' } }}
+
+	<h3>Cultural learning: participants</h3>
+
+	{{>
+		// Make a lookup for ward codes
+		const ward_lookup = {};
+		let by_ward = [];
+		for(let r = 0; r < wards.length; r++){
+			ward_lookup[wards[r].name] = wards[r];
+		}
+		// Loop over the events
+		for(let r = 0; r < ed_settings_by_ward.length; r++){
+			if(ed_settings_by_ward[r]["Name"] in ward_lookup){
+				let ward = ward_lookup[ed_settings_by_ward[r]["Name"]];
+				ed_settings_by_ward[r].short_code = ward.short_code;
+				ed_settings_by_ward[r].geography_code = ward_lookup[ed_settings_by_ward[r]["Name"]].code;
+				ed_settings_by_ward[r].breakdown = ed_settings_by_ward[r]["Project (from Schedule Entry) (from Junction-Attendees-Org & Schedule item) (from Venues & Organisations)"].replace(/,([^\s])/g,function(m,p1){ return ", "+p1; });
+				ed_settings_by_ward[r].count = ed_settings_by_ward[r]["Total number of CL participants engaged from ward"];
+				by_ward.push(ed_settings_by_ward[r]);
+				console.log(ed_settings_by_ward[r]);
+			}
+		}
+	}}
+
+	{{ comp Tab.Set { classes: 'big'} }}
+
+		<p>Total number of cultural learning participants by ward.</p>
+
+		{{ comp Tab.Panel { id: 'cultural-learning-participants-hex', label: 'Cartogram' } }}
+			{{ comp.oi.map.hex_cartogram({
+				config: {
+					hexjson: hexes.bd_2024,
+					data: by_ward,
+					matchKey: 'geography_code',
+					value: 'count',
+					min: 0,
+					max: 2500,
+					scale: scales.yellow,
+					label: '{{ n | slice(0,3) }}',
+					width: 500,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [
+							{'value':2500,'label':'>2500'},
+							{'value':0,'label':'0'}
+						]
+					},
+					tooltip: '{{ Name }}\nThere were <strong>{{ count }}</strong> schools engaged with.',
+					tools: {
+						filter: {
+							label: 'n',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 2,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+			<p>This {{ comp glossary.Ref { slug: 'cartogram' } }}cartogram{{ /comp }} displays wards as equal-sized hexagons. This allows us to more easily compare wards rather than have the impression skewed by the physical area.</p>
+			<p class="source">Hex layout: Open Innovations</p>
+		{{ /comp }}
+
+		{{ comp Tab.Panel { id: 'cultural-learning-participants-map', label: 'Map' } }}
+			{{ comp.oi.map.svg({
+				config: {
+					geojson: {
+						key: 'WD24CD',
+						data: geojson.bd_wards
+					},
+					data: by_ward,
+					columns: [{
+						name: "filterLabel",
+						template: "{{ geojson.properties.WD24NM }}"
+					}],
+					key: 'geography_code',
+					value: 'count',
+					min: 0,
+					max: 2500,
+					scale: scales.yellow,
+					width: 500,
+					legend: {
+						continuous: true,
+						position: 'top right',
+						items: [
+							{'value':2500,'label':'>2500'},
+							{'value':0,'label':'0'}
+						]
+					},
+					tooltip: '{{ Name }}\nThere were <strong>{{ count }}</strong> schools engaged with.',
+					tools: {
+						filter: {
+							label: 'filterLabel',
+							position: 'top left'
+						},
+						panzoom: {
+							maxZoom: 3,
+							scrollWheelZoom: false
+						}
+					}
+				}
+			}) }}
+		{{ /comp }}
+
+
+		{{ comp Tab.Panel { id: 'cultural-learning-participants-table', label: 'Table' } }}
+			{{ comp.dashboard.InfoBoxTable({
+				head: {
+					class: 'c-yellow',
+				},
+				columns: [
+					{ name: 'Name', label: 'Ward' },
+					{ name: 'count', label: 'Participants', class: 'right', scale: scales.yellow, min: 0 },
+				],
+				data: by_ward,
+				width: "100%",
+				sort: "Name"
+			}) }}
+		{{ /comp }}
+
+	{{ /comp }}
+
+{{ /comp }}
