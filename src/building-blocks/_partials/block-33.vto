@@ -2,7 +2,7 @@
 block: block-33
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants', source: 'Bradford 2025' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants', source: 'Bradford 2025', 'notes': 'This uses data from <code>by_type.training_and_skills_development_participants.count</code> (total) and <code>by_type.training_and_skills_development_participants.by_project</code> (table) in <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/insights/dashboard/_data/participants.json">participants.json</a>.' } }}
 
 	<h3>Training and skills participants</h3>
 
@@ -16,7 +16,7 @@ block: block-33
 		const scalepink = "#ffffff 0%, #e1699f 100%";
 	}}
 	{{ comp.BigNumber({
-		number: (otherFigures_d.training_and_skills_development_participants || '&mdash;'),
+		number: (participants_d.by_type.training_and_skills_development_participants.count || '&mdash;'),
 		classes: 'big',
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 }
