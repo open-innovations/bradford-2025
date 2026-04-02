@@ -9,6 +9,21 @@ oldUrl:
 front: true
 ---
 
+<style>
+	ul[data-comp="grid-Auto"].dashboard { gap: 1rem; }
+	[data-comp="grid-Block"] { flex-basis: 30%; }
+	[data-comp="grid-Block"] .block { padding: 0; }
+	[data-comp="grid-Block"] .block-inner { padding: 2rem; }
+	[data-comp="grid-Block"] .oi-chart-line .oi-chart-main { max-height: 80vh; }
+	code { background: var(--color-grey); color: var(--color-black); padding: 0.25em; }
+	@media (max-width: 1000px) {
+		[data-comp="grid-Block"] { flex-basis: 45%; }
+	}
+	@media (max-width: 600px) {
+		[data-comp="grid-Block"] { flex-basis: 100%; }
+	}
+</style>
+
 {{>
 	const { timestamp } = search.data("insights/dashboard");
 }}
@@ -21,12 +36,72 @@ front: true
 
 <section>
 {{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
-	{{ include "../building-blocks/_partials/block-1.vto" { id: 'audience', more: '/audiences/' } }}
-	{{ include "../building-blocks/_partials/block-2.vto" { id: 'events', more: '/events/' } }}
-	{{ include "../building-blocks/_partials/block-3.vto" { id: 'participants', more: '/participants/' } }}
+	{{ include "../building-blocks/_partials/block-1.vto" { id: 'audience', more: '#audience-section' } }}
+	{{ include "../building-blocks/_partials/block-2.vto" { id: 'events', more: '#events-section' } }}
+	{{ include "../building-blocks/_partials/block-3.vto" { id: 'participants', more: '#participants-section' } }}
 {{ /comp }}
 </section>
 
-<p>You can find out more about Bradford 2025’s evaluation and research activities and outputs and what we hope to achieve in our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf" class="c-green">Evaluation strategy</a>, <a href="/strategy/" class="c-green">Open Data Strategy</a> and <a href="https://bradford2025.co.uk/about/our-story-of-change/">Story of Change</a>.</p>
-<p>The <a href="/glossary/">glossary of terms</a> gives a breakdown of what we are describing and what is being evaluated.</p>
-<p>For any feedback, please email the Evaluation team at <a href="mailto:evaluation@bradford2025.co.uk">evaluation@bradford2025.co.uk</a></p>
+<section class="river">
+	<p>Where data is presented in a table, click on the column heading to sort the data (e.g. alphabetically or in size order).</p>
+	<p>You can find out more about Bradford 2025’s evaluation and research activities and outputs and what we hope to achieve in our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf" class="c-green">Evaluation strategy</a>, <a href="/strategy/" class="c-green">Open Data Strategy</a> and <a href="https://bradford2025.co.uk/about/our-story-of-change/">Story of Change</a>.</p>
+	<p>The <a href="/glossary/">glossary of terms</a> gives a breakdown of what we are describing and what is being evaluated.</p>
+	<p>For any feedback, please email the Evaluation team at <a href="mailto:evaluation@bradford2025.co.uk">evaluation@bradford2025.co.uk</a></p>
+</section>
+
+<hr>
+
+{{ comp InfoCard { id:"audience-section" } }}
+
+	<h2>Audience</h2>
+	
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ include "../building-blocks/_partials/block-6.vto" }}
+		{{ include "../building-blocks/_partials/block-9.vto" }}
+		{{ include "../building-blocks/_partials/block-55.vto" }}
+		{{ include "../building-blocks/_partials/block-41.vto" }}
+		{{ include "../building-blocks/_partials/block-43.vto" }}
+		{{ include "../building-blocks/_partials/block-45.vto" }}
+		{{ include "../building-blocks/_partials/block-5.vto" }}
+		{{ include "../building-blocks/_partials/block-52.vto" }}
+		{{ include "../building-blocks/_partials/block-10.vto" }}
+		{{ include "../building-blocks/_partials/block-11.vto" }}
+	{{ /comp }}
+
+	<h3>Audience experience</h3>
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ include "../building-blocks/_partials/block-12.vto" }}
+		{{ include "../building-blocks/_partials/block-36.vto" }}
+	{{ /comp }}
+
+{{ /comp }}
+
+<hr>
+
+{{ comp InfoCard { id:"events-section" } }}
+
+	<h2>Events</h2>
+	
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ include "../building-blocks/_partials/block-16.vto" }}
+		{{ include "../building-blocks/_partials/block-34.vto" }}
+		{{ include "../building-blocks/_partials/block-17.vto" }}
+		{{ include "../building-blocks/_partials/block-54.vto" }}
+	{{ /comp }}
+
+{{ /comp }}
+
+
+{{ comp InfoCard { id:"participants-section" } }}
+
+	<h2>Participants</h2>
+	
+	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
+		{{ include "../building-blocks/_partials/block-32.vto" }}
+		{{ include "../building-blocks/_partials/block-47.vto" }}
+		{{ include "../building-blocks/_partials/block-33.vto" }}
+		{{ include "../building-blocks/_partials/block-28.vto" }}
+		{{ include "../building-blocks/_partials/block-51.vto" }}
+	{{ /comp }}
+
+{{ /comp }}

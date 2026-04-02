@@ -6,8 +6,8 @@ block: block-55
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'c-lightgrey', source: 'Bradford 2025 / SAIL', notes: 'Many of the rows in the data source currently have zero/missing values so this is not a realistic total.' } }}
 
 	<h3>Audience travel emissions</h3>
-
 	{{> 
+		const { travel_co2: travel_co2 } = search.data("building-blocks");
 		let key,sum,r,m;
 		sum = {'emissions':0,'miles':0,'breakdown':{}};
 		function capitalizeFirstLetter(val){ return String(val).charAt(0).toUpperCase() + String(val).slice(1); }

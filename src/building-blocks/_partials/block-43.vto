@@ -6,6 +6,9 @@ block: block-43
 
 	<h3>Audience survey demographics: ethnicity</h3>
 
+	{{> 
+		const { survey_ethnicity } = search.data("building-blocks");
+	}}
 	{{ import { buildBreakdown } from "./functions.vto" }}
 	{{ await buildBreakdown(survey_ethnicity,"Ethnicity",["Survey","Bradford population"],{
 		"White / White British":"#be9006",

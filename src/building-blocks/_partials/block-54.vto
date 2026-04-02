@@ -5,6 +5,10 @@ block: block-54
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'c-lightgrey', source: 'Bradford 2025 / SAIL / Power Saving Solutions' } }}
 
 	<h3>CO2 emissions: Beacon</h3>
+	
+	{{> 
+		const { co2_reductions } = search.data("building-blocks");
+	}}
 	{{ comp.BigNumber({
 		number: (100*(co2_reductions[co2_reductions.length-1]['All'] - co2_reductions[0]['All'])/(co2_reductions[co2_reductions.length-1]['All'])),
 		classes: 'big',

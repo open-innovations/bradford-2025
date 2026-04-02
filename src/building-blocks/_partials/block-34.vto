@@ -7,6 +7,7 @@ block: block-34
 	<h3>Event locations</h3>
 
 	{{>
+		const { geographic_location_of_events } = search.data("building-blocks");
 		const by_ward = {}; //geographic_location_of_events
 		const unknown = "UNKNOWN";
 		// Make a lookup for ward codes

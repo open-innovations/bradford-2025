@@ -5,6 +5,9 @@ block: block-52
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025', 'notes': 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/digital_projects_breakdown.csv">a static CSV file</a> adapted from an XLSX file provided by Chris. BD on Foot is a combination of website and PDF downloads.' } }}
 
 	<h3>Website: top digital projects</h3>
+	{{> 
+		const { digital_projects_breakdown } = search.data("building-blocks");
+	}}
 	{{>
 		const start = digital_projects_breakdown[0].Date.toISOString().substr(0,10);
 		const end = digital_projects_breakdown[digital_projects_breakdown.length-1].Date.toISOString().substr(0,10);

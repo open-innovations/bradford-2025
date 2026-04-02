@@ -10,11 +10,12 @@ grey: 'hsl(80, 11%, 95%) 0%, #2b2e25 100%'
 .bd9 .hex[data-id="BD9"] path,
 .bd20 .hex[data-id="BD20"] path { stroke: black; stroke-width: 4; }
 </style>
+
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025 Evaluation Team', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/beacon_dots.csv">a static CSV file</a> adapted from a sheet provided by the Evaluation Team. The sticky dot map was only created after the first Beacon in Wibsey Park' } }}
 
 	<h3>Where Beacon visitors came from</h3>
-
 	{{>
+		const { beacon_dots } = search.data("building-blocks");
 		let pcd_data_d = {};
 		let areas = {'Calderdale':'E080000033','Kirklees':'E080000034','Leeds':'E080000035','Wakefield':'E080000036','Somewhere Else':'Other'};
 		for(const item of beacon_dots){
