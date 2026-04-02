@@ -5,7 +5,80 @@ block: block-57
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', width: '600px', source: 'Bradford 2025', 'notes': 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/fully_inducted_volunteers.csv">a static CSV file</a> provided by the Evaluation Team.' } }}
 
 	<h3>Inducted volunteers</h3>
-
+	
+	{{>
+		// Aggregate individual postcodes
+		let volunteers = [];
+		const mapping = {
+			"BD40":"Other",
+			"BD49":"Other",
+			"HD1":"E080000034",
+			"HD2":"E080000034",
+			"HD3":"E080000034",
+			"HD4":"E080000034",
+			"HD5":"E080000034",
+			"HD6":"E080000034",
+			"HD9":"E080000034",
+			"HD21":"E080000034",
+			"HD58":"E080000034",
+			"HG2":"Other",
+			"HX1":"E080000033",
+			"HX3":"E080000033",
+			"HX7":"E080000033",
+			"HX35":"E080000033",
+			"LE4":"Other",
+			"LS1":"E080000035",
+			"LS2":"E080000035",
+			"LS3":"E080000035",
+			"LS4":"E080000035",
+			"LS5":"E080000035",
+			"LS6":"E080000035",
+			"LS8":"E080000035",
+			"LS10":"E080000035",
+			"LS11":"E080000035",
+			"LS13":"E080000035",
+			"LS15":"E080000035",
+			"LS14":"E080000035",
+			"LS16":"E080000035",
+			"LS18":"E080000035",
+			"LS27":"E080000035",
+			"LS28":"E080000035",
+			"LS62":"Other",
+			"OL12":"Other",
+			"OL14":"Other",
+			"S10":"Other",
+			"SK9":"Other",
+			"SO53":"Other",
+			"UB6":"Other",
+			"WF1":"E080000036",
+			"WF2":"E080000036",
+			"WF12":"E080000036",
+			"WF13":"E080000036",
+			"WF14":"E080000036",
+			"WF15":"E080000036",
+			"WF16":"E080000036",
+			"WF17":"E080000036",
+			"WF3":"E080000036",
+			"YO16":"Other"
+		}
+		let extra = {},key,pcd;
+		// Calculate extra areas using the mapping
+		for(let i = 0; i < fully_inducted_volunteers.length; i++){
+			pcd = fully_inducted_volunteers[i]['Postcode'];
+			if(pcd == "" || pcd in mapping){
+				if(pcd == "") key = "Other";
+				else key = mapping[pcd];
+				if(!extra[key]) extra[key] = 0;
+				extra[key] += fully_inducted_volunteers[i]['Inducted Volunteers'];
+			}else{
+				volunteers.push(fully_inducted_volunteers[i]);
+			}
+		}
+		// Add the extra areas
+		for(pcd in extra){
+			volunteers.push({"Postcode":pcd,"Inducted Volunteers":extra[pcd],"Constituency Group":"Outside Bradford"});
+		}
+	}}
 	{{ comp Tab.Set { classes: 'big'} }}
 
 		<p>Total number of inducted volunteers by postcode area.</p>
@@ -13,7 +86,7 @@ block: block-57
 			{{ comp.oi.map.hex_cartogram({
 				config: {
 					hexjson: hexes.bd_pcd,
-					data: fully_inducted_volunteers,
+					data: volunteers,
 					matchKey: 'Postcode',
 					value: 'Inducted Volunteers',
 					min: 0,
