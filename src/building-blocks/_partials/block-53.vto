@@ -2,9 +2,93 @@
 block: block-53
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025', notes: 'Awaiting data. To be built.' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/top_social_media_posts.csv">a static CSV file</a> adapted from an XLSX file provided by Chris.' } }}
 
 	<h3>Top social media posts</h3>
 
+	{{>
+		const scale = '#ffffff 0%, #45d108 100%';
+		let topposts = {};
 
+		function getColour(channel){
+			if(channel == "TikTok") return '#ff0257';
+			if(channel == "LinkedIn") return '#005c69';
+			if(channel == "Instagram") return '#833AB4';
+			if(channel == "Facebook") return '#1877F2';
+			if(channel == "X") return '#000000';
+			return '';
+		}
+		
+		function makeBarChart(key,column,typ){
+			top_social_media_posts.sort(function(a,b){ return b[column] - a[column]; });
+			topposts[key] = {'data':[{'category':'Post'}],'series':[]};
+			for(let i = 1; i <= 10; i++){
+				topposts[key].data[0]['Value '+i] = top_social_media_posts[i-1][column];
+				topposts[key].data[0]['Title '+i] = top_social_media_posts[i-1]['Channel'];
+				topposts[key].data[0]['URL '+i] = top_social_media_posts[i-1]['Post URL'];
+				topposts[key].data[0]['Colour '+i] = getColour(top_social_media_posts[i-1]['Channel']);
+				topposts[key].data[0]['Tooltip '+i] = "<a href=\"" + top_social_media_posts[i-1]['Post URL'] + "\">" + top_social_media_posts[i-1]['Channel'] + " post</a>: <strong>" + top_social_media_posts[i-1][column].toLocaleString() + typ + "</strong>";
+				topposts[key].series.push({
+					"title": "Title "+i,
+					"value": "Value "+i,
+					"colour": "Colour "+i,
+					"tooltip": "Tooltip "+i,
+				});
+			}
+		}
+
+		makeBarChart('views','Impressions/views',' impressions/views');
+		makeBarChart('engagements','Engagements',' engagements');
+		makeBarChart('engagementrate','Engagement rate (%)','% engagement rate');
+
+	}}
+	{{ comp Tab.Set { classes: 'big'} }}
+		{{ comp Tab.Panel { id: 'social-media-impressions', label: 'Impressions' } }}
+			{{ comp.oi.chart.bar({
+				config: {
+					category: "category",
+					data: topposts.views.data,
+					height: 450,
+					series: topposts.views.series
+				}
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'social-media-engagements', label: 'Engagements' } }}
+			{{ comp.oi.chart.bar({
+				config: {
+					category: "category",
+					data: topposts.engagements.data,
+					height: 450,
+					series: topposts.engagements.series
+				}
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'social-media-engagement-rate', label: 'Engagement rate' } }}
+			{{ comp.oi.chart.bar({
+				config: {
+					category: "category",
+					data: topposts.engagementrate.data,
+					height: 450,
+					series: topposts.engagementrate.series
+				}
+			}) }}
+		{{ /comp }}
+		{{ comp Tab.Panel { id: 'social-media-table', label: 'Table' } }}
+			{{ comp.dashboard.InfoBoxTable({
+				head: {
+					class: 'head',
+				},
+				columns: [
+					{ name: 'channel', template: '<a href="{{ Post URL }}">{{ Channel }} post</a>', label: 'Post' },
+					{ name: 'views', value: 'Impressions/views', template: '{{ Impressions/views | toLocaleString() }}', label: 'Impressions/views', class: 'right', scale: scale, min: 0 },
+					{ name: 'engagements', value: 'Engagements', template: '{{ Engagements | toLocaleString() }}', label: 'Engagements', class: 'right', scale: scale, min: 0 },
+					{ name: 'engagementrate', value: 'Engagement rate (%)', template: '{{ Engagement rate (%) | toLocaleString() }}%', label: 'Engagement rate', class: 'right', scale: scale, min: 0 },
+				],
+				data: top_social_media_posts,
+				width: "100%",
+				sort: "views",
+				reverse: true
+			}) }}
+		{{ /comp }}
+	{{ /comp }}
 {{ /comp }}
