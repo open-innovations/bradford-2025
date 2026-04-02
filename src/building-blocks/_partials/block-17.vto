@@ -46,7 +46,7 @@ block: block-17
 			}
 		}
 	}}
-	{{ set comparisons = [{
+	{{ set comparisons = [/*{
 			'type': 'tree',
 			'perkilo': 17,
 			'unit': 'days',
@@ -79,34 +79,34 @@ block: block-17
 			'label': 'flown on a long-haul flight',
 			'assumption': 'Assumes the average passenger and includes direct and indirect affects.',
 			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
-		},{
+		},*/{
 			'type':'flight',
 			'perkilo': (1/0.15282)*(1/40075.017),
 			'unit': '',
 			'label': 'flights around the world',
 			'source': 'UK Government GHG Conversion Factors for Company Reporting 2025'
-		},{
+		},/*{
 			'type': 'cans',
 			'perkilo': 959,
 			'unit': '',
 			'label': 'cans of aluminum recycled',
 			'assumption': 'Assuming aluminum cans weighing 14.9 grams/can are treated via recycling',
 			'source': 'Figures from https://www.arbor.eco/carbon-equivalent-calculator'
-		},{
+		},*/{
 			'type': 'phone',
 			'perkilo': 232,
 			'unit': '',
 			'label': 'charges of the average smartphone',
 			'assumption': 'Assuming a smartphone charges on the WECC California grid at 0.019 kWh/charge.',
 			'source': 'Figures from https://www.arbor.eco/carbon-equivalent-calculator'
-		},{
+		}/*,{
 			'type': 'waste',
 			'perkilo': 0.39,
 			'unit': 'kg',
 			'label': 'of plastic waste incinerated',
 			'assumption': 'Assuming generic mixed plastic waste treated via incineration.',
 			'source': 'Figures from https://www.arbor.eco/carbon-equivalent-calculator'
-		}]
+		}*/]
 	}}
 	{{ comp.BigNumber({
 		number: calculations.summary.total_tCO2e,
