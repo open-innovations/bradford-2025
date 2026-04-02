@@ -2,7 +2,7 @@
 block: block-32
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants', source: 'Bradford 2025' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants', source: 'Bradford 2025', 'notes': 'This uses data from <code>community_participants.count</code> (total) and <code>participants_d.by_type.community_participants.by_project</code> (table) in <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/insights/dashboard/_data/participants.json">participants.json</a>.' } }}
 
 	<h3>Community participants</h3>
 
@@ -11,7 +11,6 @@ block: block-32
 			metrics: metrics_d,
 			participants: participants_d,
 			timestamp: timestamp_d,
-			otherFigures: otherFigures_d,
 		} = search.data("insights/dashboard");
 		const scalepink = "#ffffff 0%, #e1699f 100%";
 		const tablecommunity = Object.entries(participants_d.by_type.community_participants.by_project)
