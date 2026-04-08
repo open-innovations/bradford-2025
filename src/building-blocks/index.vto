@@ -20,7 +20,7 @@ layout: templates/dashboard.vto
 </style>
 
 <section class="river">
-	<p>This is a page of visualisation building blocks that can be re-used elsewhere on the site. On internal pages (and draft pages) each block will get a dark header bar that identifies it. There can also be a warning note at the bottom of a block that only appears on internal/draft pages.</p>
+	<p>This is a page of visualisation building blocks that can be re-used elsewhere on the site. On internal pages (and draft pages) each block will get a dark header bar that identifies it. There can also be a warning note at the bottom of a block that only appears on internal/draft pages. Note that this page has responsive styling so the relative positions and widths of the blocks will change on different screens.</p>
 </section>
 
 <section>
@@ -106,7 +106,7 @@ layout: templates/dashboard.vto
 	};
 
 	var styles = document.createElement('style');
-	styles.innerHTML = '.filterable label { margin-right: 0.5rem; } .filterable input { height: 2em; line-height: 2em; font-size: 1em; }';
+	styles.innerHTML = '.filters { display: flex; align-items: center; gap: 0.5rem; } .filterable label { margin-right: 0.5rem; } .filterable input { height: 2em; line-height: 2em; font-size: 1em; margin-right: 1.5rem; } .no-labels [data-comp="grid-Block"] .block-id, .no-labels [data-comp="grid-Block"] .internal { display: none; }';
 	document.head.prepend(styles);
 
 	function filterList(v,ul){
@@ -125,6 +125,11 @@ layout: templates/dashboard.vto
 
 	function addFilter(ul){
 		let el = ul.parentNode;
+		let div = document.createElement('div');
+		div.classList.add('filters');
+		el.prepend(div);
+
+		
 		// Add a class to this
 		el.classList.add('filterable');
 		// Make a label
@@ -137,8 +142,26 @@ layout: templates/dashboard.vto
 		inp.setAttribute('id','filter');
 		inp.classList.add('filter');
 		// Add them to the top
-		el.prepend(inp);
-		el.prepend(lbl);
+		div.append(lbl);
+		div.append(inp);
+
+		let lbl2 = document.createElement('label');
+		lbl2.innerHTML = "Show internal notes:";
+		lbl2.setAttribute('for','warnings');
+		let btn = document.createElement('input');
+		btn.setAttribute('type','checkbox');
+		btn.setAttribute('checked','checked');
+		div.append(lbl2);
+		div.append(btn);
+		btn.addEventListener('change',function(e){
+		console.log(el,e.originalTarget.checked);
+			if(e.originalTarget.checked){
+				el.classList.remove('no-labels');
+			}else{
+				el.classList.add('no-labels');
+			}
+		});
+		
 
 		// Add events
 		inp.addEventListener('keyup',function(e){
