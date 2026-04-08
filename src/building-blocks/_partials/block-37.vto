@@ -6,6 +6,7 @@ block: block-37
 
 	<h3>"This event had a positive impact on my wellbeing"</h3>
 
+	{{> const { positive_impact } = search.data("building-blocks"); }}
 	{{ import { buildResponses } from "./functions.vto" }}
 	{{ await buildResponses(positive_impact,"It had a positive impact on my mental wellbeing","Percentage") }}
 

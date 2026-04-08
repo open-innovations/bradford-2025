@@ -5,9 +5,7 @@ block: block-41
 
 	<h3>Audience survey demographics: age</h3>
 
-	{{> 
-		const { survey_age } = search.data("building-blocks");
-	}}
+	{{>  const { survey_age } = search.data("building-blocks"); }}
 	{{ import { buildBreakdown } from "./functions.vto" }}
 	{{ await buildBreakdown(survey_age,"Age range",["Survey","Bradford population"],{
 		"16-19":"#EB8BB6",

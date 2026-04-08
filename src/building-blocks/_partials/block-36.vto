@@ -6,9 +6,7 @@ block: block-36
 
 	<h3>"This event made me feel proud of my local area"</h3>
 
-	{{> 
-		const { proud } = search.data("building-blocks");
-	}}
+	{{> const { proud } = search.data("building-blocks"); }}
 	{{ import { buildResponses } from "./functions.vto" }}
 	{{ await buildResponses(proud,"The event/activity makes me feel proud of my local area","Percentage") }}
 

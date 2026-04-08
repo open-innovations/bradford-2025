@@ -6,6 +6,7 @@ block: block-38
 
 	<h3>"This event made me feel connected to people in the community"</h3>
 
+	{{> const { feel_connected } = search.data("building-blocks"); }}
 	{{ import { buildResponses } from "./functions.vto" }}
 	{{ await buildResponses(feel_connected,"It helped me to feel connected to people in the community","Percentage") }}
 
