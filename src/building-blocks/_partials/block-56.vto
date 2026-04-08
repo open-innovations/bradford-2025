@@ -39,7 +39,7 @@ block: block-56
 					value: 'count',
 					min: 0,
 					max: 12,
-					scale: scales.yellow,
+					scale: scales.pink,
 					label: '{{ n | slice(0,3) }}',
 					width: 500,
 					legend: {
@@ -83,7 +83,7 @@ block: block-56
 					value: 'count',
 					min: 0,
 					max: 12,
-					scale: scales.yellow,
+					scale: scales.pink,
 					width: 500,
 					legend: {
 						continuous: true,
@@ -112,11 +112,11 @@ block: block-56
 		{{ comp Tab.Panel { id: 'engaged-schools-location-table', label: 'Table' } }}
 			{{ comp.dashboard.InfoBoxTable({
 				head: {
-					class: 'c-yellow',
+					class: 'c-pink',
 				},
 				columns: [
 					{ name: 'Name', label: 'Ward' },
-					{ name: 'count', label: 'Schools', class: 'right', scale: scales.yellow, min: 0 },
+					{ name: 'count', label: 'Schools', class: 'right', scale: scales.pink, min: 0 },
 				],
 				data: by_ward,
 				width: "100%",

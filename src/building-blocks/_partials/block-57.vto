@@ -88,7 +88,7 @@ block: block-57
 					value: 'Inducted Volunteers',
 					min: 0,
 					max: 200,
-					scale: scales.yellow,
+					scale: scales.pink,
 					label: 'n',
 					width: 500,
 					legend: {
@@ -127,7 +127,7 @@ block: block-57
 					value: 'Inducted Volunteers',
 					min: 0,
 					max: 200,
-					scale: scales.yellow,
+					scale: scales.pink,
 					width: 500,
 					legend: {
 						continuous: true,
@@ -154,11 +154,11 @@ block: block-57
 		{{ comp Tab.Panel { id: 'inducted-volunteers-location-table', label: 'Table' } }}
 			{{ comp.dashboard.InfoBoxTable({
 				head: {
-					class: 'c-yellow',
+					class: 'c-pink',
 				},
 				columns: [
 					{ name: 'Postcode', label: 'Postal area' },
-					{ name: 'Inducted Volunteers', label: 'Inducted volunteers', class: 'right', scale: scales.yellow, min: 0, max: 200 },
+					{ name: 'Inducted Volunteers', label: 'Inducted volunteers', class: 'right', scale: scales.pink, min: 0, max: 200 },
 				],
 				data: fully_inducted_volunteers,
 				width: "100%",
