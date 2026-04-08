@@ -1,8 +1,7 @@
 ---
 css: |
     .comp-site-footer {
-        padding-block: 1rem;
-        padding-inline: var(--site-padding);
+        padding: var(--site-padding);
         color: var(--color-offwhite);
         background: var(--color-black);
 
@@ -40,13 +39,40 @@ css: |
     .feedback > *:first-child { margin-top: 0; }
     .feedback > *:last-child { margin-bottom: 0; }
     .feedback:hover, .feedback:focus { background:var(--color-lightyellow); color: var(--color-black); }
+    .story-block.block { font-size: 1rem; padding: 0; box-sizing: border-box; background: var(--block-bg,var(--color-offblack)); color: var(--block-fg,var(--color-white))!important; }
+    .story-block > * { display: flex; }
+    .story-block .story-left { padding: var(--site-padding); flex-grow: 1; }
+    .story-block .story-right { width: 630px; line-height: 0; }
+    .story-block .story-right img { max-width: 100%; height: auto; }
+    .story-block h2 { font-size: 3.75rem; font-weight: 700; letter-spacing: -.02em; max-width: 17ch; line-height: 1; text-wrap: balance; margin-top: 0; }
+    .story-block .subtitle { font-size: 1.2rem; letter-spacing: -.01em; max-width: 35ch; }
+    .story-block + hr { margin-top: 0; }
 ---
 
+<section class="story-block block c-yellow-light">
+	<a href="https://bradfordculture.co.uk/the-story-of-bradford-2025/">
+	<div class="story-left">
+		<h2>The story of Bradford 2025</h2>
+		<p class="subtitle">Take a journey through Bradford 2025 UK City of Culture, month by month.</p>
+		<p>{{ comp Pill {arrow:true} }}Relive our year{{ /comp }}</p>
+	</div>
+	<picture class="story-right"><source 
+		type="image/webp" srcset="https://i0.wp.com/bradfordculture.co.uk/wp-content/uploads/2025/11/11707_Scott-M-Salt_Big-Blue-Whale.jpg?w=1600&amp;ssl=1 1600w, https://i0.wp.com/bradfordculture.co.uk/wp-content/uploads/2025/11/11707_Scott-M-Salt_Big-Blue-Whale.jpg?resize=600%2C400&amp;ssl=1 600w, https://i0.wp.com/bradfordculture.co.uk/wp-content/uploads/2025/11/11707_Scott-M-Salt_Big-Blue-Whale.jpg?resize=1024%2C683&amp;ssl=1 1024w" sizes="(min-width: 1200px) 100vw,
+		  (min-width: 601px) 100vw,
+		  (max-width: 600px) 100vw"><source
+	  type="image/jpg?fit=600%2C400&amp;ssl=1" srcset="https://i0.wp.com/bradfordculture.co.uk/wp-content/uploads/2025/11/11707_Scott-M-Salt_Big-Blue-Whale.jpg?w=1600&amp;ssl=1 1600w, https://i0.wp.com/bradfordculture.co.uk/wp-content/uploads/2025/11/11707_Scott-M-Salt_Big-Blue-Whale.jpg?resize=600%2C400&amp;ssl=1 600w, https://i0.wp.com/bradfordculture.co.uk/wp-content/uploads/2025/11/11707_Scott-M-Salt_Big-Blue-Whale.jpg?resize=1024%2C683&amp;ssl=1 1024w" sizes="(min-width: 1200px) 100vw, (min-width: 601px) 100vw, (max-width: 600px) 100vw"><img
+	  src="https://i0.wp.com/bradfordculture.co.uk/wp-content/uploads/2025/11/11707_Scott-M-Salt_Big-Blue-Whale.jpg?fit=600%2C400&amp;ssl=1" width="1600" height="1067" alt="A crowd of people all dancing with their arms in the air, at the barriers of a music event" class="related__media" decoding="async" loading="lazy" fetchpriority="auto"></picture>
+	  </a>
+</section>
+
 <hr class="horizontal">
+
 {{ comp.DataReferences({ datasets, search }) }}
 {{ if build.live == false && internal }}
 <a href="https://app.sli.do/event/7AWeia2eVhmdHy9Dkm2q27/live/questions" class="feedback"><h2>Feedback</h2><p>We are open to feedback or suggestions for improvement to this website. Please send us your feedback via Slido. Just make sure to include a link to this page in your feedback so we know what you are referring to.</p></a>
 {{ /if }}
+
+
 <footer class="comp-site-footer">
     <nav class="primary">
         <ul>
