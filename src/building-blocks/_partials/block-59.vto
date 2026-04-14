@@ -1,0 +1,69 @@
+---
+block: block-59
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants', source: 'Bradford 2025', 'notes': 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/training_and_skills.csv">a static CSV file</a> provided by the Evaluation Team.' } }}
+
+	<h3>Training & skills participants</h3>
+
+	{{>
+		const cat_titles = {
+			'BD25 talent development or other training participants':'BD25 talent development or other training',
+			'03 - Creative Health':'Creative Health',
+			'04 - Mental Health Engagement':'Mental Health Engagement',
+			'06 - Youth Skills and Training':'Youth Skills and Training'
+		};
+		// Make a lookup for ward codes
+		const by_cat = training_and_skills.reduce((accumulator, currentValue) => {
+			let cat = currentValue['CP Activity Category'];
+			if(!accumulator[cat]) accumulator[cat] = { 'participants': 0, 'people': 0, 'projects':'' };
+			accumulator[cat].participants += currentValue['CP - Unique Participants to date'];
+			accumulator[cat].people += currentValue['Total UNIQUE People Receiving Training'];
+			accumulator[cat].projects += '<br />' + currentValue['Project Name (fx)'] + ' (' + currentValue['Total UNIQUE People Receiving Training'] + ' people, ' + currentValue['CP - Unique Participants to date'] + ' participants)';
+			accumulator[cat].category = cat_titles[cat]||cat;
+			return accumulator;
+		}, {});
+		let by_category = [], series = [];
+		Object.entries(by_cat).map(entry => { by_category.push(entry[1]); });
+		series.push({
+			"title": "Unique participants to date",
+			"value": "participants",
+			"colour": "#e1699f",
+			"tooltip": "Unique participants: <strong>{{ participants | toLocaleString() }}</strong>{{ projects }}"
+		});
+		series.push({
+			"title": "Unique people receiving training",
+			"value": "people",
+			"colour": "#f4accd",
+			"tooltip": "Unique people: <strong>{{ people | toLocaleString() }}</strong>{{ projects }}"
+		});
+	}}
+
+	{{
+		comp.oi.chart.bar({
+			config: {
+				category: "category",
+				data: by_category,
+				legend: { show: true, position: "bottom" },
+				height: 200,
+				width: 800,
+				series: series,
+				axis: {
+					x: {
+						tick: { spacing: 1000 },
+						grid: {
+							stroke: "black",
+							"stroke-width": 1,
+						}
+					},
+					y:{
+						grid: {
+							"stroke-width": 0,
+							"stroke": "transparent"
+						}
+					}
+				}
+			}
+		})
+	}}
+{{ /comp }}
