@@ -25,5 +25,5 @@ block: block-5
 			colour: 'green'
 		}]
 	}) }}
-	<p>The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for digital events.</p>
+	<p>The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for digital events. The overall total includes data from {{ comp.Date({start:calculated.programme.audience.dates.earliest, end:calculated.programme.audience.dates.latest}) }}.</p>
 {{ /comp }}

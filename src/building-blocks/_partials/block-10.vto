@@ -27,6 +27,5 @@ block: block-10
 		}],
 		end: website_d.total_users[website_d.total_users.length - 1].month
 	}) }}
-	<p>Total users recorded by Google Analytics.</p>
-
+	<p>Total users recorded by Google Analytics. The overall total includes data from {{ comp.Date({start:website_d.total_users[0].month.substr(0,8), end:website_d.total_users[website_d.total_users.length-1].month.substr(0,8) }) }}.</p>
 {{ /comp }}

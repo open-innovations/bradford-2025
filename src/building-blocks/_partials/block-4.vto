@@ -28,5 +28,5 @@ block: block-4
 		}]
 	}) }}
 
-	<p>The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for face-to-face events.</p>
+	<p>The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for face-to-face events. The overall total includes data from {{ comp.Date({start:calculated.programme.audience.dates.earliest, end:calculated.programme.audience.dates.latest}) }}.</p>
 {{ /comp }}

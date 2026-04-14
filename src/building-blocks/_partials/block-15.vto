@@ -49,5 +49,7 @@ block: block-15
 			rounding: ceil
 		}
 	}) }}
+	
+	<p>This includes data from {{ comp.Date({start:operational_d.event_type_by_week[0].week_ending,end:operational_d.event_type_by_week[operational_d.event_type_by_week.length-1].week_ending}) }}.</p>
 
 {{ /comp }}

@@ -7,7 +7,6 @@ block: block-8
 	<h3>Tickets sold across the UK</h3>
 
 	{{>
-		const { timestamp: timestamp_d } = search.data("insights/dashboard");
 		const scale = {'green': '#ffffff 0%, #45d108 100%'};
 		const { operational: operational_d } = search.data("../themes/ticketing");
 	}}
@@ -128,4 +127,5 @@ block: block-8
 			}) }}
 		{{ /comp }}
 	{{ /comp }}
+	<p>This includes data from {{ comp.Date({start:operational_d.weekly_tickets[0].week_ending,end:operational_d.weekly_tickets[operational_d.weekly_tickets.length-1].week_ending}) }}.</p>
 {{ /comp }}

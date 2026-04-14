@@ -7,10 +7,8 @@ block: block-9
 	<h3>Tickets sold across Bradford</h3>
 
 	{{>
-		const { timestamp: timestamp_d } = search.data("insights/dashboard");
 		const scale = {'green': '#ffffff 0%, #45d108 100%'};
 		const { operational: operational_d } = search.data("../themes/ticketing");
-
 		const { by_ward: by_ward_d } = search.data("insights/reach");
 		const ward_data_d = by_ward_d.map(x => ({
 			...x,

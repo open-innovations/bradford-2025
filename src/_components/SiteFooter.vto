@@ -41,13 +41,14 @@ css: |
     .feedback:hover, .feedback:focus { background:var(--color-lightyellow); color: var(--color-black); }
     .story-block.block { font-size: 1rem; padding: 0; box-sizing: border-box; background: var(--block-bg,var(--color-offblack)); color: var(--block-fg,var(--color-white))!important; }
     .story-block > * { display: flex; }
-    .story-block .story-left { padding: var(--site-padding); flex-grow: 1; }
+    .story-block .story-left { padding: var(--site-padding); flex-grow: 1; position: relative; }
     .story-block .story-left > *:last-child { margin-bottom: 0; }
     .story-block .story-right { width: 630px; line-height: 0; }
     .story-block .story-right img { max-width: 100%; height: auto; }
     .story-block h2 { font-size: 3.75rem; font-weight: 700; letter-spacing: -.02em; max-width: 17ch; line-height: 1; text-wrap: balance; margin-top: 0; }
     .story-block .subtitle { font-size: 1.2rem; letter-spacing: -.01em; max-width: 35ch; }
     .story-block + hr { margin-top: 0; }
+    .story-block [data-comp="pill"] { position: absolute; bottom: var(--site-padding); right: var(--site-padding); }
     @media only screen and (max-width: 900px) {
         .story-block > * { flex-direction: column; }
         .story-block h2 { font-size: 2rem; max-width: 100%; }

@@ -56,5 +56,7 @@ block: block-7
 			rounding: ceil
 		}
 	}) }}
+	
+	<p>This includes data from {{ comp.Date({start:operational_d.weekly_tickets[0].week_ending,end:operational_d.weekly_tickets[operational_d.weekly_tickets.length-1].week_ending}) }}.</p>
 
 {{ /comp }}

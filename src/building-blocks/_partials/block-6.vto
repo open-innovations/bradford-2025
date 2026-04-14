@@ -31,5 +31,5 @@ block: block-6
 			template: '{{ week_ending | strptime(\"%Y-%m-%d\") | decimalYear() }}'
 		}]
 	}) }}
-	<p>Weekly tickets sold.</p>
+	<p>Weekly tickets sold. The overall total includes data from {{ comp.Date({start:operational_d.weekly_tickets[0].week_ending,end:operational_d.weekly_tickets[operational_d.weekly_tickets.length-1].week_ending}) }}.</p>
 {{ /comp }}
