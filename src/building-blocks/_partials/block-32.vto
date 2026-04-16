@@ -32,7 +32,6 @@ block: block-32
 	}) }}
 	<p>The total number of individual community participants.</p>
 	<p>Below is a breakdown of community engagement into {{ comp glossary.Ref { slug: 'participants' } }}participants{{ /comp }} and {{ comp glossary.Ref { slug: 'instances-of-participation' } }}instances of participation{{ /comp }}.</p>
-	<p>Click on the column headers to sort in ascending or descending order.</p>
 	{{ comp.dashboard.InfoBoxTable({
 		"cms": metrics_d.participants_community_engagement,
 		"columns": [
@@ -48,5 +47,5 @@ block: block-32
 		"width": "100%",
 		"data": tablecommunity
 	}) |> md |> vto(page.data) }}
-
+	<p> This includes data from {{ comp.Date({start:timestamp_d.start,end:timestamp_d.end}) }}.</p>
 {{ /comp }}

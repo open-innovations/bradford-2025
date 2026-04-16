@@ -21,8 +21,7 @@ block: block-33
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 }
 	}) }}
-	<p>Number of participants in training and CPD activities (e.g. skills or talent development) provided or commissioned by Bradford 2025 - including a breakdown by type to distinguish between training/skills event participants, work placements, apprenticeships, etc. This does not yet include Bradford 2025 apprenticeships, traineeships and placements, or participants in sector-facing talent development events (e.g. the Elevate Heritage Skills project).</p>
-	<p>Click on the column headers to sort in ascending or descending order.</p>
+	<p>Number of participants in {{ comp glossary.Ref { slug: 'training-and-cpd' } }}training and CPD{{ /comp }} activities (e.g. skills or talent development) provided or commissioned by Bradford 2025 - including a breakdown by type to distinguish between training/skills event participants, work placements, apprenticeships, etc. This does not yet include Bradford 2025 apprenticeships, traineeships and placements, or participants in sector-facing talent development events (e.g. the Elevate Heritage Skills project).</p>
 	{{ comp.dashboard.InfoBoxTable({
 		"cms": metrics_d.participants_training_and_skills,
 		"columns": [
@@ -38,4 +37,5 @@ block: block-33
 			.sort((a, b) => a[0].localeCompare(b[0], 'en', {ignorePunctuation: true}))
 			.map(([k, v]) => ({ title: k, value: v.count, category: v.category }))
 	}) |> md |> vto(page.data) }}
+	<p>This includes data from {{ comp.Date({start:timestamp_d.start,end:timestamp_d.end}) }}.</p>
 {{ /comp }}
