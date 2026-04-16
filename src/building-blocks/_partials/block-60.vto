@@ -1,0 +1,120 @@
+---
+block: block-60
+---
+
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'participants', source: 'Bradford 2025', 'notes': 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/participant_types.csv">a static CSV file</a> provided by the Evaluation Team.' } }}
+
+	<h3>Participant types</h3>
+	{{>
+		const bars = [],participants = [{'category':'Type'}],series = [];
+
+		// Bar 1 : Volunteers
+		// SUM of Total UNIQUE People Receiving Training, filtered by CP Activity Category = Inducted Volunteers & Corporate Volunteers
+		bars.push({title:'Volunteers', colour: '#e1699f', value:participant_types.reduce((accumulator, currentValue) => {
+			if(currentValue['CP Activity Category'] == 'Inducted Volunteers & Corporate Volunteers') accumulator += currentValue['Total UNIQUE People Receiving Training'];
+			return accumulator
+		}, 0)||0});
+
+		// Bar 2 : General Community participants
+		// SUM of CP Unique participants up to date, filtered by CP Activity Category = 01 - General CP activity
+		bars.push({title:'General Community participants', colour: '#45d108', value:participant_types.reduce((accumulator, currentValue) => {
+			if(currentValue['CP Activity Category'] == '01 - General CP activity') accumulator += currentValue['CP - Unique Participants to date'];
+			return accumulator
+		}, 0)||0});
+
+		// Bar 3 : Training
+		// SUM of Total UNIQUE People Receiving Training.
+		bars.push({title:'Training', colour: '#f4accd', value:participant_types.reduce((accumulator, currentValue) => {
+			accumulator += currentValue['Total UNIQUE People Receiving Training'];
+			return accumulator
+		}, 0)||0});
+
+		// Bar 4 : Awards
+		// SUM of CP - Unique Participants to date, filtered by CP Activity Category = 02 - Community Award.
+		bars.push({title:'Awards', colour: '#be9006', value:participant_types.reduce((accumulator, currentValue) => {
+			if(currentValue['CP Activity Category'] == '02 - Community Award') accumulator += currentValue['CP - Unique Participants to date'];
+			return accumulator
+		}, 0)||0});
+
+		// Bar 5 : Creative Health
+		// SUM of CP - Unique Participants to date, filtered by CP Activity Category = 03 - Creative Health.
+		bars.push({title:'Creative Health', colour: '#437e2a', value:participant_types.reduce((accumulator, currentValue) => {
+			if(currentValue['CP Activity Category'] == '03 - Creative Health') accumulator += currentValue['CP - Unique Participants to date'];
+			return accumulator
+		}, 0)||0});
+
+		// Bar 6 : Mental Health
+		// SUM of CP - Unique Participants to date, filtered by CP Activity Category = 04 - Mental Health Engagement.
+		bars.push({title:'Mental Health', colour: '#a94f77', value:participant_types.reduce((accumulator, currentValue) => {
+			if(currentValue['CP Activity Category'] == '04 - Mental Health Engagement') accumulator += currentValue['CP - Unique Participants to date'];
+			return accumulator
+		}, 0)||0});
+
+		// Bar 7 : Our Patch
+		// SUM of CP - Unique Participants to date, filtered by CP Activity Category = 05 - Our Patch.
+		bars.push({title:'Our Patch', colour:'#ace892', value:participant_types.reduce((accumulator, currentValue) => {
+			if(currentValue['CP Activity Category'] == '05 - Our Patch') accumulator += currentValue['CP - Unique Participants to date'];
+			return accumulator
+		}, 0)||0});
+
+		// Bar 8 : Cultural Learning
+		// SUM of CL - Unique Participants to date.
+		bars.push({title:'Cultural Learning', colour: '#e0b942', value:participant_types.reduce((accumulator, currentValue) => {
+			accumulator += currentValue['CL - Unique Participants to date'];
+			return accumulator
+		}, 0)||0});
+
+		for(let b = 0; b < bars.length; b++){
+			participants[0][bars[b].title] = bars[b].value;
+			series.push({
+				"title": bars[b].title,
+				"value": bars[b].title,
+				"colour": bars[b].colour||"#e1699f",
+				"tooltip": bars[b].title + ": <strong>{{ " + bars[b].title + " | toLocaleString() }}</strong>"
+			});
+		}
+	}}
+
+	{{
+		comp.oi.chart.bar({
+			config: {
+				category: "category",
+				data: participants,
+				legend: { show: true, position: "bottom" },
+				height: 200,
+				width: 800,
+				series: series,
+				axis: {
+					x: {
+						ticks: [{
+							"value": 0,
+							"label": "0"
+						},{
+							"value": 10000,
+							"label": "10,000"
+						},{
+							"value": 20000,
+							"label": "20,000"
+						},{
+							"value": 30000,
+							"label": "30,000"
+						},{
+							"value": 40000,
+							"label": "40,000"
+						}],
+						grid: {
+							stroke: "black",
+							"stroke-width": 1,
+						}
+					},
+					y:{
+						grid: {
+							"stroke-width": 0,
+							"stroke": "transparent"
+						}
+					}
+				}
+			}
+		})
+	}}
+{{ /comp }}
