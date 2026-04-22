@@ -42,7 +42,7 @@ css: |
 	{{ content }}
 	{{ if source }}<p class="source">Source: {{ source }}</p>{{ /if }}
 	</div>
-	{{ if notes }}
+	{{ if (internal || draft) &&  notes }}
 	<div class="block c-yellow centred internal">
 	{{ notes }}
 	</div>

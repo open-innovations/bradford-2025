@@ -26,6 +26,9 @@ block: block-6
 			colour: 'green',
 			tooltip: 'Tickets\n{{ week_ending | strptime("%Y-%m-%d") | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>'
 		}],
+		axis: {
+			'x': { max: operational_d.weekly_tickets[operational_d.weekly_tickets.length-1].week_ending }
+		},
 		columns: [{
 			name: 'decimal_year',
 			template: '{{ week_ending | strptime(\"%Y-%m-%d\") | decimalYear() }}'
