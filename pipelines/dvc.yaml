@@ -146,8 +146,9 @@ stages:
       - digital.ipynb
       - ${PROCESSED}/combined/programme.parquet
       - ${PROCESSED}/digital/
-    outs:
-      - ${ROOT}/src/insights/digital/_data/followers/by_date.json:
-          cache: false
-      - ${ROOT}/src/insights/digital/_data/followers/latest.json:
-          cache: false
+    # DEPRECATED 2026-04-22 by Stuart Lowe
+    # outs:
+    #  - ${ROOT}/src/insights/digital/_data/followers/by_date.json:
+    #      cache: false
+    #  - ${ROOT}/src/insights/digital/_data/followers/latest.json:
+    #      cache: false
