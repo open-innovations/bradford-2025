@@ -6,6 +6,7 @@ block: block-60
 
 	<h3>Participant types</h3>
 	{{>
+		const { participant_types } = search.data("building-blocks");
 		const bars = [],participants = [{'category':'Type'}],series = [];
 
 		// Bar 1 : Volunteers
