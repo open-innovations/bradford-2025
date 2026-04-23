@@ -2,7 +2,7 @@
 block: block-18
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', source: 'Bradford 2025', notes: 'This comes from the pipeline' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', source: 'Bradford 2025', notes: 'This comes from the pipeline. It includes OPEN events but excludes "Exhibition", "Festival" and "Digital" events.' } }}
 
 	{{>
 		// Suffixing these with _d to make it easier to remove them when replacing with open data
@@ -10,7 +10,6 @@ block: block-18
 	}}
 
 	<h3>{{ metrics_d.events_in_person.title }}</h3>
-
 	{{ comp.BigNumber({
 		number: Object.entries(calculated.programme.events.categories.open).filter(c => ![ 'Exhibition', 'Festival', 'Digital' ].includes(c[0])).reduce((a, c) => a + c[1], 0) || '&mdash;',
 		classes: 'big',
@@ -18,6 +17,6 @@ block: block-18
 		roundingOptions: { maximumFractionDigits: 0 },
 		suffix: '',
 	}) }}
-	<p>Count of in-person {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}). This includes data from {{ comp.Date({start:calculated.programme.events.dates.earliest,end:calculated.programme.events.dates.latest}) }}.</p>
+	<p>Count of in-person {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}). This includes data from {{ comp.Date({start:calculated.programme.events.datesopen.earliest,end:calculated.programme.events.datesopen.latest}) }}.</p>
 
 {{ /comp }}

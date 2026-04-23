@@ -10,25 +10,10 @@
  */
 import { cleanGraphData, loadCsv, minMaxDates, expandToRange } from "lib/data-helpers.js";
 
-// Load total figures
-const totals = await loadCsv("src/_data/published/programme/total.csv");
+const smonth = "2023-07";
+const emonth = "2026-03-31";
 
-// WIP on reshaping data in javascript
-// Processing / class inspired by PETL
-/*
-import { DataTable } from "lib/data-table.js";
-
-const flipped = await (
-  new DataTable(
-    totals.filter((f) => f.aggregation == "BY_EVENT_TYPE"),
-  )
-)
-  .recast()
-  .then((x) => x.cut("event_type", "events", "audience"));
-
-console.log(flipped);
-*/
-
+/*DEPRECATED 2026-04-23
 const allAudience = totals.find((r) =>
   r.event_type == "ALL" && r.variable == "audience"
 );
@@ -42,30 +27,53 @@ const nonDigitalAudience = totals.filter((r) =>
   r.evaluation_category != "Digital" &&
   r.variable == "audience"
 ).reduce((a, c) => ({ value: a.value + c.value }), { value: 0 });
+*/
 
 // MONTHLY DATA
 const byMonth = await loadCsv("src/_data/published/programme/by_month.csv");
 
+const allAudience = {
+	value: byMonth.filter((r) =>
+		r.aggregation == "BY_MONTH" &&
+		r.variable == "audience" &&
+		r.month >= smonth &&
+		r.month <= emonth
+	).map(cleanGraphData).reduce((acc,cur) => { if(typeof cur.value==="number"){ acc += cur.value; } return acc; },0)
+};
 const allAudienceByMonth = byMonth.filter((r) =>
-  r.aggregation == "BY_MONTH" &&
-  r.variable == "audience"
+	r.aggregation == "BY_MONTH" &&
+	r.variable == "audience" &&
+	r.month >= smonth &&
+	r.month <= emonth
 ).map(cleanGraphData);
+
 
 // CATEGORY DATA
-
-const digitalAudienceByMonth = byMonth.filter((r) =>
-  r.aggregation == "BY_MONTH_BY_EVAL_CAT" &&
-  r.evaluation_category == "Digital" &&
-  r.variable == "audience"
-).map(cleanGraphData);
-
-const nonDigitalAudienceByMonth = allAudienceByMonth.map(
-  ({ Date, value }) => ({
-    Date,
-    value: value -
-      (digitalAudienceByMonth.find((r) => r.Date === Date)?.value || 0),
-  }),
+const digitalMonthly = byMonth.filter((r) =>
+	r.aggregation == "BY_MONTH_BY_EVAL_CAT" &&
+	r.evaluation_category == "Digital" &&
+	r.variable == "audience" &&
+	r.month >= smonth &&
+	r.month <= emonth
 );
+const digitalAudience = { value: digitalMonthly.reduce((acc,cur) => { if(typeof cur.value==="number"){ acc += cur.value; } return acc; },0) };
+const digitalAudienceByMonth = digitalMonthly.map(cleanGraphData);
+
+const nonDigitalMonthly = byMonth.filter((r) =>
+	r.aggregation == "BY_MONTH_BY_EVAL_CAT" &&
+	r.evaluation_category != "Digital" &&
+	r.variable == "audience" &&
+	r.month >= smonth &&
+	r.month <= emonth
+).reduce((acc,cur) => {
+	if(!(cur.month in acc)) acc[cur.month] = {'value':0};
+	acc[cur.month].value += cur.value;
+	return acc;
+},{});
+const nonDigitalMonthly2 = [];
+for(let m in nonDigitalMonthly) nonDigitalMonthly2.push({'month':m,'value':nonDigitalMonthly[m].value});
+const nonDigitalAudience = { value: nonDigitalMonthly2.reduce((acc,cur) => { if(typeof cur.value==="number"){ acc += cur.value; } return acc; },0) };
+const nonDigitalAudienceByMonth = nonDigitalMonthly2.map(cleanGraphData);
 
 const dates = minMaxDates(allAudienceByMonth,'Date');
 
@@ -81,7 +89,7 @@ export default {
 		all: expandToRange(allAudienceByMonth,dates),
 		categories: {
 			digital: digitalAudienceByMonth,
-			nonDigital: nonDigitalAudienceByMonth,
+			nonDigital: nonDigitalAudienceByMonth
 		}
 	},
 	dates: dates,

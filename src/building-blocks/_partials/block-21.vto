@@ -6,13 +6,7 @@ block: block-21
 
 	{{> 
 		// Suffixing these with _d to make it easier to remove them when replacing with open data
-		const { events: events_d, metrics: metrics_d, timestamp: timestamp_d } = search.data("insights/dashboard");
-		const festivals = [];
-		for(e in events_d.by_project){
-			if(events_d.by_project[e].category === 'Festival'){
-				festivals.push({"title":e,"value":events_d.by_project[e].count});
-			}
-		}
+		const { metrics: metrics_d } = search.data("insights/dashboard");
 	}}
 	<h3>{{ metrics_d.events_festival_events.title }}</h3>
 	{{ comp.BigNumber({
@@ -22,5 +16,5 @@ block: block-21
 		roundingOptions: { maximumFractionDigits: 0 },
 		suffix: '',
 	}) }}
-	<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}Festival events{{ /comp }}. This includes data from {{ comp.Date({start:timestamp_d.start,end:timestamp_d.end}) }}.</p>
+	<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}Festival events{{ /comp }}. This includes data from {{ comp.Date({start:calculated.programme.events.datesopen.earliest,end:calculated.programme.events.datesopen.latest}) }}.</p>
 {{ /comp }}

@@ -33,5 +33,6 @@ block: block-11
 		end: followers_d.by_date[followers_d.by_date.length - 1].Date
 	}) }}
 
-	<p>The total number of followers across various {{ comp glossary.Ref { slug: 'social-media' } }}media{{ /comp }}. Updated {{ followers_d.latest["Total Audience"].updated |> date('BD25_LONG_DATE') }}.</p>
+	<p>The total number of followers across various {{ comp glossary.Ref { slug: 'social-media' } }}media{{ /comp }}.</p>
+	<p>Last updated {{ followers_d.latest["Total Audience"].updated |> date('BD25_LONG_DATE') }}.</p>
 {{ /comp }}

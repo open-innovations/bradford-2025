@@ -16,5 +16,5 @@ block: block-19
 		roundingOptions: { maximumFractionDigits: 0 },
 		suffix: '',
 	}) }}
-	<p>Count of online {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}). This includes data from {{ comp.Date({start:calculated.programme.events.dates.earliest,end:calculated.programme.events.dates.latest}) }}.</p>
+	<p>Count of online {{ comp glossary.Ref { term: 'Event' } }}events{{ /comp }} (including {{ comp glossary.Ref { term: 'Performance' } }}performances{{ /comp }}). This includes data from {{ comp.Date({start:calculated.programme.events.datesopen.earliest,end:calculated.programme.events.datesopen.latest}) }}.</p>
 {{ /comp }}

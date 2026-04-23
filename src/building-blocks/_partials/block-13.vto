@@ -30,6 +30,7 @@ block: block-13
 			}
 		}
 	}) }}
-	<p>The {{ comp glossary.Ref { slug: 'net-promoter-score' } }}net promoter score{{ /comp }} (on a scale of <em>0</em> to <em>10</em>) from audience surveys. Last updated {{ comp.Date({start:calculated.survey.nps.monthly.all[calculated.survey.nps.monthly.all.length-1].Date+'-01',dateFormat:'LLLL y'}) }}.</p>
+	<p>The {{ comp glossary.Ref { slug: 'net-promoter-score' } }}net promoter score{{ /comp }} (on a scale of <em>0</em> to <em>10</em>) from audience surveys.</p>
+	<p>Last updated {{ comp.Date({start:calculated.survey.nps.monthly.all[calculated.survey.nps.monthly.all.length-1].Date+'-01',dateFormat:'LLLL y'}) }}.</p>
 
 {{ /comp }}

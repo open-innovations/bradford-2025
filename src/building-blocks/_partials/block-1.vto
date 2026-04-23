@@ -2,7 +2,7 @@
 block: block-1
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025', full, 'notes': 'This shows ALL audience from <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/_data/published/programme/total.csv">total.csv</a> and <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/_data/published/programme/by_month.csv">by_month.csv</a>.' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025', full, 'notes': 'This shows ALL audience from <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/_data/published/programme/by_month.csv">by_month.csv</a>.' } }}
 
 	<h3>Audience</h3>
 
@@ -13,6 +13,7 @@ block: block-1
 
 		const difference = audience - graph.filter((r) => r.Date.match(/^2025-/) ).reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 	}}
+
 	{{ comp.BigNumber({
 		number: audience || 0,
 		classes: 'big',
@@ -28,11 +29,11 @@ block: block-1
 			y: 'value',
 			colour: 'green'
 		}],
-		start: start||'2023-01',
+		start: calculated.programme.audience.dates.earliest,
 		end: calculated.programme.audience.dates.latest
 	}) }}
 
 	<p>Includes in-person &amp; digital events. This includes data from {{ comp.Date({start:calculated.programme.audience.dates.earliest,end:calculated.programme.audience.dates.latest}) }}.</p>
-	{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View audience breakdown{{ /comp }}</a></p>{{ /if }}
+	{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View more audience information{{ /comp }}</a></p>{{ /if }}
 
 {{ /comp }}
