@@ -2,22 +2,34 @@
 block: block-11
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/digital_followers.csv">a static CSV file</a>. The graph doesn\'t include Threads, WhatsApp, X, or YouTube but the total does.' } }}
 	<h3>Digital followers</h3>
 
 	{{>
-		const { followers: followers_d } = search.data("insights/digital");
+		const { digital_followers } = search.data("building-blocks");
+		let followers = {}, i, d, v, latest = "2023-01-01";
+		for(i = 0; i < digital_followers.length; i++){
+			d = digital_followers[i].Date.toISOString().substr(0,10);
+			if(d && !(d in followers)) followers[d] = {'Date':d};
+			followers[d][digital_followers[i].variable] = digital_followers[i].value;
+		}
+		let followers_d = [];
+		for(d in followers){
+			followers_d.push(followers[d]);
+			if(d > latest) latest = d;
+		}
+		let total = followers[latest]['Total Audience'];
 	}}
 
 	{{ comp.BigNumber({
-		number: followers_d.latest["Total Audience"].count || 0,
+		number: total || 0,
 		classes: 'big',
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 }
 	}) }}
 
 	{{ comp.graph.monthly({
-		data: followers_d.by_date,
+		data: followers_d,
 		series: [
 			{ title: 'Email', x: 'Date', y: 'Email Subscribers', colour: 'green', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
 			{ title: 'Facebook', x: 'Date', y: 'Facebook Followers', colour: '#1877F2', tooltip: '{{ _title }}\n{{ Date | strftime("%e %B %Y") }}: <strong>{{ _y | toLocaleString() }}</strong>' },
@@ -30,9 +42,9 @@ block: block-11
 			template: '{{ Date | strptime(\"%Y-%m-%d\") | decimalYear() }}'
 		}],
 		legend: { show: true, position: 'bottom' },
-		end: followers_d.by_date[followers_d.by_date.length - 1].Date
+		end: latest
 	}) }}
 
 	<p>The total number of followers across {{ comp glossary.Ref { slug: 'social-media' } }}social media{{ /comp }} and email.</p>
-	<p>Last updated {{ followers_d.latest["Total Audience"].updated |> date('BD25_LONG_DATE') }}.</p>
+	<p>Last updated {{ latest |> date('BD25_LONG_DATE') }}.</p>
 {{ /comp }}
