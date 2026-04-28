@@ -2,19 +2,21 @@
 block: block-24
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', source: 'Bradford 2025', notes: 'This comes from the pipeline output created for the main dashboard' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', source: 'Bradford 2025', notes: 'This comes from a <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/events.csv">manual file</a>.' } }}
 
 	{{> 
 		// Suffixing these with _d to make it easier to remove them when replacing with open data
-		const { events: events_d, metrics: metrics_d, timestamp: timestamp_d } = search.data("insights/dashboard");
+		const { metrics: metrics_d } = search.data("insights/dashboard");
+		const { events } = search.data("building-blocks");
+		const event = events.find((element) => element.Type == "Community-led arts events");
 	}}
 	<h3>{{ metrics_d.events_community_led.title }}</h3>
 	{{ comp.BigNumber({
-		number: (events_d.by_project['Our Patch']?.count || 0) + (events_d.by_category["Community-led arts event"] || 0),
+		number: event.Value || 0,
 		classes: 'big',
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 },
 		suffix: '',
 	}) }}
-	<p>Count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}. This includes data from {{ comp.Date({start:timestamp_d.start,end:timestamp_d.end}) }}.</p>
+	<p>Count of {{ comp glossary.Ref { slug: 'community-led-arts-projects' } }}community-led arts projects{{ /comp }}. This includes data from {{ comp.Date({start:event.Start,end:event.End}) }}.</p>
 {{ /comp }}

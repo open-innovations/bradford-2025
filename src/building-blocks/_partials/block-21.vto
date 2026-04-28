@@ -2,19 +2,21 @@
 block: block-21
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', source: 'Bradford 2025', notes: 'This comes from the pipeline. It only includes OPEN festivals' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', source: 'Bradford 2025', notes: 'This comes from a <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/events.csv">manual file</a>. It only includes OPEN festivals' } }}
 
 	{{> 
 		// Suffixing these with _d to make it easier to remove them when replacing with open data
 		const { metrics: metrics_d } = search.data("insights/dashboard");
+		const { events } = search.data("building-blocks");
+		const event = events.find((element) => element.Type == "Festival events");
 	}}
 	<h3>{{ metrics_d.events_festival_events.title }}</h3>
 	{{ comp.BigNumber({
-		number: calculated.programme.events.categories.open.Festival || 0,
+		number: event.Value || 0,
 		classes: 'big',
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 },
 		suffix: '',
 	}) }}
-	<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}Festival events{{ /comp }}. This includes data from {{ comp.Date({start:calculated.programme.events.datesopen.earliest,end:calculated.programme.events.datesopen.latest}) }}.</p>
+	<p>Count of {{ comp glossary.Ref { slug: 'festival' } }}Festival events{{ /comp }}. This includes data from {{ comp.Date({start:event.Start,end:event.End}) }}.</p>
 {{ /comp }}
