@@ -32,7 +32,7 @@ const dates = minMaxDates(allByMonth,'Date');
 export default {
     all,
 	monthly: {
-		all: expandToRange(allByMonth,dates),
+		all: allByMonth,//CHANGED 2026-04-28 expandToRange(allByMonth,dates),
 	},
 	dates: dates,
 }

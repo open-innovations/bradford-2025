@@ -8,10 +8,14 @@ block: block-6
 
 	{{>
 		const { operational: operational_d } = search.data("../themes/ticketing");
+		let total = 0;
+		for(let i = 0; i < operational_d.weekly_tickets.length; i++){
+			total += operational_d.weekly_tickets[i].weekly;
+		}
 	}}
 
 	{{ comp.BigNumber({
-		number: operational_d.summary.tickets || 0,
+		number: total,
 		classes: 'big',
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 }
@@ -32,7 +36,9 @@ block: block-6
 		columns: [{
 			name: 'decimal_year',
 			template: '{{ week_ending | strptime(\"%Y-%m-%d\") | decimalYear() }}'
-		}]
+		}],
+		start: operational_d.weekly_tickets[0].week_ending.toISOString().substr(0,10),
+		end: operational_d.weekly_tickets[operational_d.weekly_tickets.length - 1].week_ending.toISOString().substr(0,10)
 	}) }}
 	<p>Weekly tickets sold. The overall total includes data from {{ comp.Date({start:operational_d.weekly_tickets[0].week_ending,end:operational_d.weekly_tickets[operational_d.weekly_tickets.length-1].week_ending}) }}.</p>
 {{ /comp }}

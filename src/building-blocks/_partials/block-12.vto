@@ -30,7 +30,7 @@ block: block-12
 			}
 		}
 	}) }}
-	<p>The average percentage of {{ comp glossary.Ref { slug: 'audience-survey' } }}audience surveys{{ /comp }} which rated overall experience as <em>good</em> or <em>excellent</em>. Based on over 13,000 survey responses, including over 6000 'mini' surveys and over 6000 'long' surveys. This large response sample means we can be at least 95% confident that the true percentage will be no more than 3% higher or lower than this figure.</p>
+	<p>The average percentage of {{ comp glossary.Ref { slug: 'audience-survey' } }}audience surveys{{ /comp }} which rated overall experience as <em>good</em> or <em>excellent</em>. Based on over 13,000 survey responses, including over 6000 'mini' surveys and over 6000 'long' surveys. This large response sample means we can be at least 95% confident that the true percentage will be no more than 3% higher or lower than this figure. Note: respondents are aged 16+.</p>
 	<p>Last updated {{ comp.Date({start:calculated.survey.rated_good_or_excellent.monthly.all[calculated.survey.rated_good_or_excellent.monthly.all.length-1].Date+'-01',dateFormat:'LLLL y'}) }}.</p>
 
 {{ /comp }}

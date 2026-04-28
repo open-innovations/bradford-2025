@@ -33,7 +33,7 @@ block: block-1
 		end: calculated.programme.audience.dates.latest
 	}) }}
 
-	<p>Includes in-person &amp; digital events. This includes data from {{ comp.Date({start:calculated.programme.audience.dates.earliest,end:calculated.programme.audience.dates.latest}) }}.</p>
+	<p>Includes in-person &amp; digital events from {{ comp.Date({start:calculated.programme.audience.dates.earliest,end:calculated.programme.audience.dates.latest}) }}. The spike in {{ comp.Date({start:'2024-09'}) }} is due to an estimated audience total of over 700,000 for 'A Portrait of Us' outdoor exhibition.</p>
 	{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View more audience information{{ /comp }}</a></p>{{ /if }}
 
 {{ /comp }}

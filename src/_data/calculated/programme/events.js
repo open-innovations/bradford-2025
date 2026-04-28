@@ -76,7 +76,7 @@ export default {
 	open: openEvents,
 	monthly: {
 		all: allEventsByMonth,
-		open: expandToRange(openEventsByMonth,dates),
+		open: openEventsByMonth,//CHANGED 2026-04-28 expandToRange(openEventsByMonth,dates),
 	},
 	categories: {
 		all: all_by_category,

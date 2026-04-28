@@ -86,7 +86,7 @@ export default {
 		nonDigital: nonDigitalAudience,
 	},
 	monthly: {
-		all: expandToRange(allAudienceByMonth,dates),
+		all: allAudienceByMonth,//CHANGED 2026-04-28 expandToRange(allAudienceByMonth,dates),
 		categories: {
 			digital: digitalAudienceByMonth,
 			nonDigital: nonDigitalAudienceByMonth

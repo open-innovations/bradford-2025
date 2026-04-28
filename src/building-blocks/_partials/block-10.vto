@@ -8,24 +8,35 @@ block: block-10
 
 	{{>
 		const { website: website_d } = search.data("insights/digital");
+		const start = "2025-01-01";
+		const end = "2025-12-01";
+		let website = [];
+		for(let i = 0; i < website_d.total_users.length; i++){
+			if(website_d.total_users[i].month >= start && website_d.total_users[i].month <= end){
+				website.push({'month':website_d.total_users[i].month,'count':website_d.total_users[i].count});
+			}
+		}
+		//const total = website_d.total_users[website_d.total_users.length - 1].cumulative || 0;
+		const total = website.reduce((a, c) => a + c.count, 0);
 	}}
 
 	{{ comp.BigNumber({
-		number: website_d.total_users[website_d.total_users.length - 1].cumulative || 0,
+		number: total,
 		classes: 'big',
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 }
 	}) }}
 	
 	{{ comp.graph.monthly({
-		data: website_d.total_users,
+		data: website,
 		series: [{
 			title: 'Website users',
 			x: 'month',
 			y: 'count',
 			colour: 'green'
 		}],
-		end: website_d.total_users[website_d.total_users.length - 1].month
+		start,
+		end
 	}) }}
-	<p>Total users recorded by Google Analytics. The overall total includes data from {{ comp.Date({start:website_d.total_users[0].month.substr(0,8), end:website_d.total_users[website_d.total_users.length-1].month.substr(0,8) }) }}.</p>
+	<p>Total users recorded by Google Analytics. The overall total includes data from {{ comp.Date({start:website[0].month.substr(0,8), end:website[website.length-1].month.substr(0,8) }) }}.</p>
 {{ /comp }}

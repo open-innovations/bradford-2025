@@ -3,7 +3,7 @@ block: block-11
 ---
 
 {{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'audiences', source: 'Bradford 2025' } }}
-	<h3>Followers</h3>
+	<h3>Digital followers</h3>
 
 	{{>
 		const { followers: followers_d } = search.data("insights/digital");
@@ -33,6 +33,6 @@ block: block-11
 		end: followers_d.by_date[followers_d.by_date.length - 1].Date
 	}) }}
 
-	<p>The total number of followers across various {{ comp glossary.Ref { slug: 'social-media' } }}media{{ /comp }}.</p>
+	<p>The total number of followers across {{ comp glossary.Ref { slug: 'social-media' } }}social media{{ /comp }} and email.</p>
 	<p>Last updated {{ followers_d.latest["Total Audience"].updated |> date('BD25_LONG_DATE') }}.</p>
 {{ /comp }}

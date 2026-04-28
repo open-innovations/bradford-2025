@@ -2,9 +2,9 @@
 block: block-54
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'co2', source: 'Bradford 2025 / SAIL / Power Saving Solutions', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/co2_reductions.csv">a static CSV file</a> adapted from an XLSX file provided by Jamie on 23 March 2026.' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', source: 'Bradford 2025 / SAIL / Power Saving Solutions', notes: 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/co2_reductions.csv">a static CSV file</a> adapted from an XLSX file provided by Jamie on 23 March 2026.' } }}
 
-	<h3>CO2 emissions: Beacon</h3>
+	<h3>CO2 emissions: The Beacon</h3>
 	
 	{{> 
 		const { co2_reductions } = search.data("building-blocks");
@@ -117,7 +117,7 @@ block: block-54
 			}
 		})
 	}}
-	<p>At the Beacon events a Hydrotreated Vegetable Oil (HVO) generator and battery were used and fuel use continuously monitored. This was compared to three counterfactual situations based on the same pattern of use: 1) a HVO generator without a battery; 2) a diesel generator with a battery; 3) a diesel generator without a battery. The fuel used in each scenario was converted to emissions using Greenhouse Gas Conversion factors from the <a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2025">Department for Energy Security and Net Zero for 2025</a>.</p>
+	<p>At The Beacon events a Hydrotreated Vegetable Oil (HVO) generator and battery were used and fuel use continuously monitored. This was compared to three counterfactual situations based on the same pattern of use: 1) a HVO generator without a battery; 2) a diesel generator with a battery; 3) a diesel generator without a battery. The fuel used in each scenario was converted to emissions using Greenhouse Gas Conversion factors from the <a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2025">Department for Energy Security and Net Zero for 2025</a>.</p>
 	<p>tCO2e = Tonnes of carbon dioxide equivalent (a standard unit used to measure and compare emissions of all greenhouse gases over time and between different businesses or sectors)</p>
 
 	{{# comp Tab.Set { classes: 'big'} }}
