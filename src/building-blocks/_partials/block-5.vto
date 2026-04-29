@@ -7,11 +7,16 @@ block: block-5
 	<h3>Digital audience</h3>
 
 	{{>
-		const audience = calculated.programme.audience.categories.digital.value;
-		const graph = calculated.programme.audience.monthly.categories.digital.filter((r) => r.Date.match(/^2025-/) );
+		//const audience = calculated.programme.audience.categories.digital.value;
+		// Limit to 2025/26
+		const start = '2025-01';
+		const end = '2026-03';
+		const graph = calculated.programme.audience.monthly.categories.digital.filter((r) => (r.Date >= start && r.Date <= end) );
+		const total = graph.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0);
 	}}
+
 	{{ comp.BigNumber({
-		number: audience || 0,
+		number: total,
 		classes: 'big',
 		animate: true,
 		roundingOptions: { maximumFractionDigits: 0 }
@@ -22,8 +27,10 @@ block: block-5
 			title: 'Digital',
 			x: 'Date',
 			y: 'value',
-			colour: 'green'
-		}]
+			colour: 'green',
+		}],
+		start,
+		end
 	}) }}
-	<p>The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for digital events. The overall total includes data from {{ comp.Date({start:calculated.programme.audience.dates.earliest, end:calculated.programme.audience.dates.latest}) }}.</p>
+	<p>The size of the {{ comp glossary.Ref { slug: 'audience' } }}audience{{ /comp }} for digital events. The data covers the range from {{ comp.Date({start, end}) }}.</p>
 {{ /comp }}
