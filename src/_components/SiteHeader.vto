@@ -62,11 +62,13 @@ css: |
 		{{ if draft }}<div class="block c-yellow centred draft"><strong>DRAFT: not yet public{{ if message }}. {{ message }}{{ /if }}</strong></div>{{ /if }}
 	{{ /if }}
 	<header class="comp-site-header{{ if internal }} internal-header{{ else }} public{{ /if }}">
+		{{ if !front }}
 		{{# To match Brand Guidelines, the logo must contain "Bradford 2025" and "UK City of Culture" #}}
 		<a href="https://bradford2025.co.uk/">
 			<img src="/assets/images/logo.svg" alt="Bradford 2025 logo" inline>
 			<p class="logo-title"><span class="logo-main">{{ metas.brand }}</span><span class="logo-sub">{{ metas.sub_brand }}</span></p>
 		</a>
+		{{ /if }}
 		{{ if !front }}<a href="/" class="sub-title">{{ metas.site_title }}</a>{{ /if }}
 		<h1>{{ title }}</h1>
 	</header>
