@@ -2,7 +2,7 @@
 block: block-34
 ---
 
-{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', width: '600px', source: 'Bradford 2025', 'notes': 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/geographic_location_of_events.csv">a static CSV file</a> provided by the Evaluation Team. The tooltips get very large because of the number of different Project titles. If we wanted to group by "showcase events" then we need to know which "showcase event" an event counts as because there isn\'t a consistency in Project names and some events look as though they could be counted towards multiple showcase events e.g. "Our Patch - (Beacon) Cool Runnings".' } }}
+{{ comp grid.Block { block, internal, draft, id, tag: 'li', classes: 'events', width: '600px', source: 'Bradford 2025', 'notes': 'This uses <a href="https://github.com/open-innovations/bradford-2025/blob/main/src/building-blocks/_data/geographic_location_of_events.csv">a static CSV file</a> provided by the Evaluation Team.' } }}
 
 	<h3>Event locations</h3>
 
@@ -48,6 +48,8 @@ block: block-34
 			...by_ward[key],
 			breakdown: buildEventList(by_ward[key].events)
 		}));
+		const max = 1500;
+		const maxlabel = ">1,500";
 	}}
 
 	{{ comp Tab.Set { classes: 'big'} }}
@@ -62,7 +64,7 @@ block: block-34
 					matchKey: 'geography_code',
 					value: 'count',
 					min: 0,
-					max: 1400,
+					max,
 					scale: scales.yellow,
 					label: '{{ n | slice(0,3) }}',
 					width: 500,
@@ -70,7 +72,7 @@ block: block-34
 						continuous: true,
 						position: 'top right',
 						items: [
-							{'value':1400,'label':'1400'},
+							{'value':max,'label':maxlabel},
 							{'value':0,'label':'0'}
 						]
 					},
@@ -106,14 +108,14 @@ block: block-34
 					key: 'geography_code',
 					value: 'count',
 					min: 0,
-					max: 1400,
+					max: max,
 					scale: scales.yellow,
 					width: 500,
 					legend: {
 						continuous: true,
 						position: 'top right',
 						items: [
-							{'value':1400,'label':'1400'},
+							{'value':max,'label':maxlabel},
 							{'value':0,'label':'0'}
 						]
 					},
@@ -140,7 +142,7 @@ block: block-34
 				},
 				columns: [
 					{ name: 'name', label: 'Ward' },
-					{ name: 'counter', value: 'count', template: '{{ count }}', label: 'Events', class: 'right', scale: scales.yellow, min: 0 },
+					{ name: 'counter', value: 'count', template: '{{ count }}', label: 'Events', class: 'right', scale: scales.yellow, min: 0, max },
 				],
 				data: ward_data,
 				width: "100%",
@@ -150,6 +152,6 @@ block: block-34
 
 	{{ /comp }}
 	
-	<p>This dataset does not include partner events. Data as of 2nd April 2026.</p>
+	<p>This dataset does not include partner events. Data as of {{ comp.Date({start:'2026-04-29'}) }}.</p>
 
 {{ /comp }}
