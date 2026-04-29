@@ -1,15 +1,16 @@
 ---
-draft: true
+draft: false
 internal: false
+front: true
+breadcrumbs: []
 title: Data dashboards
 layout: templates/dashboard.vto
-# Have had to indent this with spaces - tabs were not being accepted
 oldUrl: 
     - /dashboard/public/
     - /landing/v3/
     - /landing/v4/
     - /headlines-v2/
-front: true
+    - /headlines/
 ---
 
 <style>
@@ -33,8 +34,7 @@ front: true
 
 
 <section class="river">
-	<p>Welcome to the data dashboard for <a href="https://bradford2025.co.uk/">Bradford 2025 UK City of Culture</a>. Behind the scenes we are developing a wide range of dashboards to help people understand what our data tells us about events, audiences, participants and much more.</p>
-	<p>This is a live work-in-progress and does not present the full and complete picture of all events, activity and engagement.</p>
+	<p>Welcome to the data dashboard for <a href="https://bradford2025.co.uk/">Bradford 2025 UK City of Culture</a>. These dashboards are to help people understand what our data tells us about events, audiences, participants and much more. This is a work-in-progress and does not present the full and complete picture of all events, activity and engagement.</p>
 </section>
 
 <section>
@@ -46,8 +46,7 @@ front: true
 </section>
 
 <section class="river">
-	<p>Where data is presented in a table, click on the column heading to sort the data (e.g. alphabetically or in size order).</p>
-	<p>You can find out more about Bradford 2025’s evaluation and research activities and outputs and what we hope to achieve in our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf" class="c-green">Evaluation strategy</a>, <a href="/strategy/" class="c-green">Open Data Strategy</a> and <a href="https://bradford2025.co.uk/about/our-story-of-change/">Story of Change</a>.</p>
+	<p>You can find out more about Bradford 2025's evaluation and research activities and outputs in our <a href="https://bradford2025.co.uk/wp-content/uploads/2024/11/Bradford-2025-Evaluation-Strategy.pdf">Evaluation strategy (PDF)</a>, <a href="/strategy/">Open Data Strategy</a> and <a href="https://bradford2025.co.uk/about/our-story-of-change/">Story of Change</a>.</p>
 	<p>The <a href="/glossary/">glossary of terms</a> gives a breakdown of what we are describing and what is being evaluated.</p>
 	<p>For any feedback, please email the Evaluation team at <a href="mailto:evaluation@bradfordculture.co.uk">evaluation@bradfordculture.co.uk</a></p>
 </section>
@@ -66,6 +65,7 @@ front: true
 		{{ include "../building-blocks/_partials/block-38.vto" }}
 	{{ /comp }}
 
+	<h3>Audience reach</h3>
 	{{ comp grid.Auto { tag: 'ul', classes: 'dashboard' } }}
 		{{ include "../building-blocks/_partials/block-6.vto" }}
 		{{ include "../building-blocks/_partials/block-9.vto" }}
