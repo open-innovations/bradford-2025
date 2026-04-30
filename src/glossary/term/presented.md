@@ -1,6 +1,6 @@
 ---
 title: Presented 
-description: Work and/or performances not produced or commissioned by Bradford but presented as part of the 2025 programme.
+description: Work and/or performances not produced or commissioned by Bradford 2025 but presented as part of the Bradford 2025 UK City of Culture programme.
 ---
 
 This includes: 
