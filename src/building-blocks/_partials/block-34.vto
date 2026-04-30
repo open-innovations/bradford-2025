@@ -16,12 +16,26 @@ block: block-34
 			ward_lookup[wards[r].name] = wards[r];
 			by_ward[wards[r].code] = {'count':0,'events':[],'geography_code':wards[r].code,'name':wards[r].name,'short':wards[r].short_code };
 		}
+		console.log(by_ward,ward_lookup);
+		let ward,code;
 		// Loop over the events
 		for(let r = 0; r < geographic_location_of_events.length; r++){
 			// Add the ward code to this row
-			let ward = ward_lookup[geographic_location_of_events[r].Ward]||{};
-			let code = ward.code||unknown;
-			if(code==unknown && !(code in by_ward)) by_ward[code] = {'count':0,'name':unknown,'events':[]};
+			if(typeof geographic_location_of_events[r].Ward==="undefined"){
+				ward = {};
+				code = unknown;
+				if(!(code in by_ward)) by_ward[code] = {'count':0,'name':unknown,'events':[]};
+			}else{
+				if(geographic_location_of_events[r].Ward in ward_lookup){
+					ward = ward_lookup[geographic_location_of_events[r].Ward];
+					code = ward.code;
+				}else{
+					ward = {};
+					code = geographic_location_of_events[r].Ward;
+					if(!(code in by_ward)) by_ward[code] = {'count':0,'name':geographic_location_of_events[r].Ward,'events':[]};
+				}
+			}
+			if(code==unknown && !(code in by_ward)) by_ward[code] = {'count':0,'name':geographic_location_of_events[r].Ward||unknown,'events':[]};
 			by_ward[code].count++;
 			by_ward[code].events.push(geographic_location_of_events[r]);
 		}
