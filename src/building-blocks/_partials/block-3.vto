@@ -31,6 +31,6 @@ block: block-3
 		end: calculated.participants.dates.latest
 	}) }}
 
-	<p>People taking part in or contributing to the project, going beyond being audience members. This might include taking part in a workshop, performing in a community show, joining a class or taking part in a digital activity. This includes data from {{ comp.Date({start:calculated.participants.dates.earliest,end:calculated.participants.dates.latest}) }}.</p>
+	<p>Participants are people taking part in or contributing to the programme. This might include taking part in a workshop, performing in a community show, joining a class or taking part in a digital activity. Does not include paid professionals or audience members. This includes data from {{ comp.Date({start:calculated.participants.dates.earliest,end:calculated.participants.dates.latest}) }}.</p>
 	{{ if more }}<p><a href="{{ more }}" class="more">{{ comp Pill {arrow:true} }}View more participant information{{ /comp }}</a></p>{{ /if }}
 {{ /comp }}
